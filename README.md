@@ -17,7 +17,9 @@ The game is free to play; every paid action is a Bitcoin Cash transaction that y
 [![Node](https://img.shields.io/badge/node-%E2%89%A5%2024-339933?logo=nodedotjs&logoColor=white)](#run-it-yourself)
 [![License](https://img.shields.io/badge/license-all%20rights%20reserved-B22222)](LICENSE)
 
-<img src="docs/images/landing.jpg" alt="The VaultBorn start page" width="100%">
+### [▶ Play now at vaultborn.parhamlilian.com](https://vaultborn.parhamlilian.com)
+
+<a href="https://vaultborn.parhamlilian.com"><img src="docs/images/landing.jpg" alt="The VaultBorn start page" width="100%"></a>
 
 </div>
 
@@ -62,7 +64,7 @@ The free game needs no wallet. Bitcoin Cash comes in only when you choose a paid
 
 ## How to play
 
-1. Open the game and choose **Play now** to found a new city, or **Connect wallet** to enter with your Bitcoin Cash wallet. A wallet that already has a kingdom opens it, from any browser.
+1. Open **[vaultborn.parhamlilian.com](https://vaultborn.parhamlilian.com)** and choose **Play now** to found a new city, or **Connect wallet** to enter with your Bitcoin Cash wallet. A wallet that already has a kingdom opens it, from any browser.
 2. Name your city and choose a faction. Everything is open from the first day: building, training, commanders, raids and the season. The in-game **Campaign guide** walks you through the first steps if you want it, and pays a reward at the end.
 3. Build and train in **My City**, assign a commander under **Commanders**, then go to **War**. You may raid any opponent who is not more than 20% weaker than you; stronger opponents are always open. Scout before you attack.
 4. Use **Politics** to set policy and sign treaties, **Alliance** to join forces, and **Rankings** to follow the season.
@@ -122,7 +124,7 @@ VaultBorn is entered in the BCH BLAZE 2026 hackathon:
 | **Build with XO** | A treaty and protectorate compensation escrow as an XO template, with an engine test and a Chipnet runner. | [xo/](xo/README.md) |
 | **Decentralized Identity** | A kingdom bound to both a BCH key and a Nostr key, published to and discovered from Nostr relays, and verifiable by anyone. | [docs/DECENTRALIZED_IDENTITY.md](docs/DECENTRALIZED_IDENTITY.md) |
 
-VaultBorn continues the earlier game *BCH Dominion*, which existed before the hackathon. The BLAZE banner on the game's home page lists the presentation, this repository and the earlier work, so that what is new can be seen.
+The game runs at **[vaultborn.parhamlilian.com](https://vaultborn.parhamlilian.com)** on Bitcoin Cash Mainnet. The BLAZE banner at the top of its home page links to the [presentation](https://docs.google.com/presentation/d/1CPrmv3eMdY-d4T-1jlzeaIJjqFChHq8enlrpVClCOv8/edit?usp=sharing) and to this repository, and shows the CashTokens address for EMBER2026 community-choice tokens. VaultBorn was first developed under the name *BCH Dominion*.
 
 ## How it is built
 
@@ -190,7 +192,7 @@ One server runs on one network, chosen by `VAULTBORN_NETWORK`: `chipnet` (defaul
 ## Tests and evidence
 
 ```sh
-npm test                  # 246 unit and integration tests: rules, ledger, contracts in the BCH virtual machine, identity, server set-up
+npm test                  # 247 unit and integration tests: rules, ledger, contracts in the BCH virtual machine, identity, server set-up
 npm run test:browser      # the game in a real browser: map, raids, politics, wallet proof, mobile layout
 npm run test:wallet:connect   # connecting a wallet with the official WizardConnect wallet SDK
 npm run test:xo           # the XO treaty escrow on a local chain
@@ -233,4 +235,4 @@ Security notes and how to report a problem: [SECURITY.md](SECURITY.md).
 
 Third-party components keep their own licenses: see [docs/THIRD_PARTY.md](docs/THIRD_PARTY.md).
 
-<div align="center"><sub>VaultBorn · formerly BCH Dominion · made for Bitcoin Cash</sub></div>
+<div align="center"><sub>VaultBorn · made for Bitcoin Cash · BCH BLAZE 2026</sub></div>

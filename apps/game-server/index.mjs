@@ -31,7 +31,7 @@ import { awayThreshold, dismissKingdomChronicle, readKingdomChronicle } from './
 import { ADDRESS_PREFIX, ATTESTOR_ADJECTIVE, ATTESTOR_NOTE, ATTESTOR_OPERATION, NETWORK_ID, NETWORK_LABEL, NETWORK_PROFILE, REAL_VALUE, assertNetworkEnvironment, browserNetwork, networkEnv, networkEnvName } from '../../config/network.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
-const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.png': 'image/png', '.json': 'application/json', '.woff2': 'font/woff2', '.mp3': 'audio/mpeg', '.wav': 'audio/wav' };
+const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.json': 'application/json', '.woff2': 'font/woff2', '.mp3': 'audio/mpeg', '.wav': 'audio/wav' };
 const hash = (token) => createHash('sha256').update(token).digest('hex');
 const canonicalize = (value) => Array.isArray(value) ? value.map(canonicalize) : value && typeof value === 'object'
   ? Object.fromEntries(Object.keys(value).sort().map(key => [key, canonicalize(value[key])])) : value;
@@ -271,6 +271,12 @@ export function createApp({ database = resolve(root, process.env.DOMINION_DB ?? 
   }
 
   const existingAccount=req=>currentSession(req)?.player;
+  // The address a page was requested at, for its link-preview tags. Only a plain host name (and port) is used; anything
+  // else leaves the tags relative.
+  const siteOrigin=req=>{
+    const host=String(req.headers.host??'').toLowerCase();
+    return /^[a-z0-9]([a-z0-9.-]{0,251}[a-z0-9])?(:\d{1,5})?$/.test(host) ? (isSecure(req)?'https':'http')+'://'+host : '';
+  };
   const isSecure=req=>process.env.DOMINION_HTTPS==='true' || req.socket.encrypted;
   function setCookie(req,res,name,secret,maxAge,path='/') {
     res.appendHeader('Set-Cookie',`${name}=${secret}; Path=${path}; HttpOnly; SameSite=Strict; Max-Age=${maxAge}${isSecure(req)?'; Secure':''}`);
@@ -733,11 +739,18 @@ export function createApp({ database = resolve(root, process.env.DOMINION_DB ?? 
     if (!file.startsWith(publicDir + sep) || !types[extname(file)] || !['GET', 'HEAD'].includes(req.method)) fail(404, 'File unavailable.');
     const info = await stat(file).catch(() => null);
     if (!info?.isFile()) fail(404, 'File unavailable.');
-    res.writeHead(200, { 'Content-Type': types[extname(file)], 'Content-Length': info.size,
+    // Pages carry their own address in their link-preview tags; it is the address this request came in on.
+    let page = null;
+    if (extname(file) === '.html') {
+      const text = await readFile(file, 'utf8');
+      page = Buffer.from(text.includes('__SITE__') ? text.replaceAll('__SITE__', siteOrigin(req)) : text);
+    }
+    res.writeHead(200, { 'Content-Type': types[extname(file)], 'Content-Length': page ? page.length : info.size,
       'Cache-Control': sessionRoute ? 'no-store' : asset ? 'public, max-age=3600' : 'no-cache',
       ...(sessionRoute && { Vary: 'Cookie' }) });
     if (req.method === 'HEAD') return res.end();
-    if (['.html', '.js', '.css'].includes(extname(file))) return res.end(await readFile(file));
+    if (page) return res.end(page);
+    if (['.js', '.css'].includes(extname(file))) return res.end(await readFile(file));
     await pipeline(createReadStream(file), res);
   }
 

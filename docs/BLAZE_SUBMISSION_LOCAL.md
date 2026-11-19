@@ -1,29 +1,32 @@
-# VAULTBORN at BCH BLAZE 2026
+# VaultBorn at BCH BLAZE 2026
 
-VAULTBORN is a browser strategy game in which players build a fortress, scout and battle rival cities, negotiate treaties, and allocate optional Bitcoin Cash charges to public treasuries. Chipnet combat records can be reproduced independently and linked to the payment and settlement.
+**Live game:** [vaultborn.parhamlilian.com](https://vaultborn.parhamlilian.com) · **Source code:** [github.com/plilian/vaultborn-bchblaze-2026](https://github.com/plilian/vaultborn-bchblaze-2026) · **Presentation:** [VaultBorn slides](https://docs.google.com/presentation/d/1CPrmv3eMdY-d4T-1jlzeaIJjqFChHq8enlrpVClCOv8/edit?usp=sharing) · **Hackathon:** [BCH BLAZE 2026 on DoraHacks](https://dorahacks.io/hackathon/bchblaze2026/detail)
 
-## Organizer sources
+VaultBorn is a browser strategy game on Bitcoin Cash. Players build a city, command an army, sign treaties and raid rivals. The game is free to play; every paid action is a Bitcoin Cash Mainnet transaction that the player approves in their own wallet through WizardConnect.
 
-- The BLAZE schedule lists registration closing November 13, the hacking deadline on November 22 at 14:00 UTC, and the live showcase November 28 at 14:00 UTC. [Official schedule](https://bchblaze.com/schedule/)
-- The organizer homepage links to DoraHacks and describes workshop preparation and the live showcase. [BLAZE 2026](https://bchblaze.com/)
-- DoraHacks returned HTTP 405 to the documentation lookup. Track-level requirements for originality, WizardConnect, Mainnet transaction functionality and demo access still need confirmation in the official listing or with an organizer. [Official event listing](https://dorahacks.io/hackathon/bchblaze2026)
+## What the Mainnet Track asks for, and where it is
 
-## Local demo
+| Requirement | In VaultBorn |
+| --- | --- |
+| A feature that sends BCH Mainnet transactions, usable by anyone | Paid services, War Chest deposits, matched-stake raids and season sponsorship are Mainnet transactions built by the game and signed in the player's wallet. The wallet proof at connection signs, but is never broadcast. |
+| A live demo judges can open with one click | [vaultborn.parhamlilian.com](https://vaultborn.parhamlilian.com) |
+| A banner at the top of the home page | Filled from [`config/blaze.json`](../config/blaze.json): the presentation link, the source code link and the CashTokens address for EMBER2026 tokens (the token-aware form of the developer wallet's address unless another one is given). |
+| WizardConnect or XO integration | WizardConnect for every wallet action; an XO template for treaty escrows in [`xo/`](../xo/README.md). |
 
-1. Open the campaign map and inspect a rival. Show the raid conditions and cooldown.
-2. Open City Hall and review the payment allocation. Open the Chain Explorer and inspect the confirmed output indexes.
-3. Replay a paid battle and open its verification page. Explain the deterministic outcome and settlement commitment.
-4. Show confirmed sponsorship and a funded reward claim. Open the Council to show the sponsor schedules and treasury voting.
-5. Return to the game and demonstrate mobile controls and combat audio settings.
+## A two-minute walkthrough
 
-Use confirmed receipts for recorded shots where block times would interrupt the walkthrough. Mainnet proof requires owner validation. The game and generated art were built for this project. The art manifest records provenance and attribution.
+1. Open the home page and press **Connect wallet**. Pair Selene (or another WizardConnect wallet) and approve the check in the wallet. The game opens your kingdom: a new one for a new wallet.
+2. In **My City**, look at the buildings; under **Commanders**, assign one.
+3. Go to **War** and launch a free raid against a stronger kingdom. Watch the battle replay.
+4. Open **Vault** to see the War Chest and the price of each paid action. Approve a payment in the wallet to see the outputs and the fee before anything is sent.
+5. Open **Rankings** to join the season and see the prize pool, and **Politics** for treaties and councils.
 
-## Owner actions
+## The public launch record
 
-Confirm registration, track eligibility and attendance evidence in DoraHacks. Prepare production sign-in, a treasury and secure hosting before granting public access. Review contract security and applicable rules before enabling Mainnet PvP settlement. Arrange judge access, supply wallet-approved Mainnet proof, record the demonstration and submit through the official event page.
+The Mainnet launch was recorded in transaction [`7e5d53bb…a74db7cc`](https://blockchair.com/bitcoin-cash/transaction/7e5d53bbf8586c6474982f1e6c1e11a26d5444e607c0221c85a7cf1ea74db7cc) (block 978,040). Its data output is the SHA-256 hash of the launch manifest: the game key, the three attestor keys and their 2-of-3 threshold, the price book and the contract versions.
 
-The game can now be configured for either network: `VAULTBORN_NETWORK=chipnet` (default) or `mainnet`. Mainnet is prepared and guarded but has not been activated: see [MAINNET.md](MAINNET.md). The offline proof worksheet (`npm run preflight:mainnet`) still validates an owner-controlled Mainnet address without sending anything.
+## Stated plainly
 
-```sh
-npm run preflight:mainnet -- "bitcoincash:<your-receiving-address>" 1000
-```
+- The attestors are run by the game's owner and are therefore not independent; the game tells its players so.
+- A paid service that cannot be delivered becomes a credit in the game, not a BCH refund.
+- There has been no external audit of the contracts. See [MAINNET.md](MAINNET.md) for what has run on a public network.
