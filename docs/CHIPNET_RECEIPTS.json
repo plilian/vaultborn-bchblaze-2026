@@ -1,0 +1,480 @@
+{
+  "network": "chipnet",
+  "minimumConfirmations": 2,
+  "playerFixture": "bchtest:qp3w6c2x3syvjpfn3tf5muffvlnggpfzuy7s6zr6z6",
+  "badgeFixture": "bchtest:qzygq4xr0d0hq0lcku5xwj2dc6w9vvxqjqfla9ra3n",
+  "treasuryPublicKey": "022b265e4a85a3e96fb5dc326d39362891337b696d95e1cc7c25766d8984500a8c",
+  "startedAt": "2026-11-16T07:55:33.424Z",
+  "finishedAt": "2026-11-16T10:52:43.796Z",
+  "founderBadge": {
+    "txid": "a00fd941c606f24d4dd8b282d5cadcc895dc97340138a8e53d861dd6ec878959",
+    "vout": 0,
+    "satoshis": 2150,
+    "height": 333639,
+    "address": "bchtest:qzygq4xr0d0hq0lcku5xwj2dc6w9vvxqjqfla9ra3n",
+    "network": "chipnet",
+    "confirmations": 2,
+    "explorerUrl": "https://chipnet.imaginary.cash/tx/a00fd941c606f24d4dd8b282d5cadcc895dc97340138a8e53d861dd6ec878959",
+    "category": "e80083d71ed1330c8f27089a8181b521447307e0c7ddb6390af7920e3791e993",
+    "amount": "0",
+    "capability": "none",
+    "commitment": "42434820446f6d696e696f6e20466f756e646572",
+    "tokenAwareAddress": "bchtest:zzygq4xr0d0hq0lcku5xwj2dc6w9vvxqjqw4wmdmwq",
+    "actualNetworkFeeSatoshis": 350,
+    "genesisInput": {
+      "txid": "e80083d71ed1330c8f27089a8181b521447307e0c7ddb6390af7920e3791e993",
+      "feeSatoshis": 255,
+      "address": "bchtest:qzygq4xr0d0hq0lcku5xwj2dc6w9vvxqjqfla9ra3n",
+      "satoshis": 2500,
+      "vout": 0
+    }
+  },
+  "normalRecruitment": {
+    "before": 14,
+    "after": 28,
+    "protectoratePriorRatio": 1.597,
+    "resultingRatio": 1.88
+  },
+  "defender": {
+    "status": "active",
+    "defender": "p4",
+    "termsEnd": 1794989731375,
+    "tribute": 0.08
+  },
+  "rebellion": {
+    "status": "preparing",
+    "stage": "covert preparation"
+  },
+  "duplicateClaimTest": {
+    "txid": "951e744101e17aa9371157579946a749f747f1a07c3aa9da224b58562cf5130f",
+    "result": "No eligible payout; exactly one claim in the journal."
+  },
+  "rows": [
+    {
+      "action": "premium",
+      "title": "City Hall premium upgrade",
+      "id": "4d7b0eb5e3ac9ab47c40410c1c0202d9",
+      "network": "chipnet",
+      "address": "bchtest:pp2wuts66lqspnda8ghfuws756w8r8rq6ucsgh63uw",
+      "satoshis": 1500,
+      "txid": "11c8f05f395717bbdc975726385c437a19e91a9f976816bf5165523ea2252cf0",
+      "actualNetworkFeeSatoshis": 255,
+      "completedAt": "2026-11-16T07:59:10.384Z",
+      "phases": [
+        {
+          "state": "seen_in_mempool",
+          "confirmations": 0
+        },
+        {
+          "state": "confirming",
+          "confirmations": 1
+        },
+        {
+          "state": "credited",
+          "confirmations": 3
+        }
+      ],
+      "receipt": {
+        "txid": "11c8f05f395717bbdc975726385c437a19e91a9f976816bf5165523ea2252cf0",
+        "network": "chipnet",
+        "confirmations": 3,
+        "height": 333628,
+        "blockHash": "00000000265032835440f3a9a2eea8663db12307c4c1d2b693d4c5889ac4ab54",
+        "blockTime": 1794815866000,
+        "vout": 0,
+        "satoshis": 1500,
+        "address": "bchtest:pp2wuts66lqspnda8ghfuws756w8r8rq6ucsgh63uw",
+        "script": "a91454ee2e1ad7c100cdbd3a2e9e3a1ea69c719c60d787",
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/11c8f05f395717bbdc975726385c437a19e91a9f976816bf5165523ea2252cf0",
+        "feeSatoshis": 255
+      },
+      "effect": "Founders banner and civic preset applied"
+    },
+    {
+      "action": "attack-paid",
+      "title": "Paid raid at Ironhaven",
+      "id": "effce8f5aed0473dd47998a6dce68fe4",
+      "network": "chipnet",
+      "address": "bchtest:pzp4aqhrpkffumwjvxu0va68mxetesfmwv0lyrtl9a",
+      "satoshis": 1200,
+      "txid": "b883706eaf5c68a22c7318277e47da855b24ea79823f5f3e2bf247d86a88aafa",
+      "actualNetworkFeeSatoshis": 255,
+      "completedAt": "2026-11-16T08:02:40.808Z",
+      "phases": [
+        {
+          "state": "seen_in_mempool",
+          "confirmations": 0
+        },
+        {
+          "state": "uncertain",
+          "confirmations": 0
+        },
+        {
+          "state": "confirming",
+          "confirmations": 1
+        },
+        {
+          "state": "uncertain",
+          "confirmations": 1
+        },
+        {
+          "state": "credited",
+          "confirmations": 2
+        }
+      ],
+      "receipt": {
+        "txid": "b883706eaf5c68a22c7318277e47da855b24ea79823f5f3e2bf247d86a88aafa",
+        "network": "chipnet",
+        "confirmations": 2,
+        "height": 333631,
+        "blockHash": "000000000000a10476efcfaf7b4750d1c483fef718b1359b50d996bd787f690c",
+        "blockTime": 1794816010000,
+        "vout": 0,
+        "satoshis": 1200,
+        "address": "bchtest:pzp4aqhrpkffumwjvxu0va68mxetesfmwv0lyrtl9a",
+        "script": "a914835e82e30d929e6dd261b8f67747d9b2bcc13b7387",
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/b883706eaf5c68a22c7318277e47da855b24ea79823f5f3e2bf247d86a88aafa",
+        "feeSatoshis": 255
+      },
+      "effect": "Authoritative combat and remaining attack budget verified",
+      "battle": {
+        "id": "b4",
+        "hash": "0ff575b1987bb4bddb5a2b1f55b81ae9725f5bf311e88c4ec0007d660f9b4f21",
+        "commitment": "bc9b040450f0ae16f56c50b6b55359d4e762f5e89742b8cb187b829aaa112a8a",
+        "eventCount": 9,
+        "winner": "attacker",
+        "loot": {
+          "wood": 37,
+          "stone": 37,
+          "iron": 37,
+          "food": 37,
+          "crystal": 9
+        },
+        "losses": {
+          "attacker": {
+            "infantry": 8,
+            "shield": 6,
+            "archer": 8,
+            "cavalry": 1,
+            "siege": 1,
+            "mage": 0
+          },
+          "defender": {
+            "infantry": 13,
+            "shield": 4,
+            "archer": 9,
+            "cavalry": 1,
+            "siege": 0,
+            "mage": 1
+          }
+        }
+      }
+    },
+    {
+      "action": "premium",
+      "title": "Scout Tower premium upgrade",
+      "id": "8b7eb6322ce248c862d37744a18310a9",
+      "network": "chipnet",
+      "address": "bchtest:prlvjcuw2s2s9e25gxzx8xypv7w8zdtuy5n9gxfm6x",
+      "satoshis": 1500,
+      "txid": "9951f7eea45c4a6557ab40241ce7a071f6f8dab28a049ff8535a8bf0e7af8866",
+      "actualNetworkFeeSatoshis": 255,
+      "completedAt": "2026-11-16T08:06:13.146Z",
+      "phases": [
+        {
+          "state": "seen_in_mempool",
+          "confirmations": 0
+        },
+        {
+          "state": "confirming",
+          "confirmations": 1
+        },
+        {
+          "state": "credited",
+          "confirmations": 2
+        }
+      ],
+      "receipt": {
+        "txid": "9951f7eea45c4a6557ab40241ce7a071f6f8dab28a049ff8535a8bf0e7af8866",
+        "network": "chipnet",
+        "confirmations": 2,
+        "height": 333633,
+        "blockHash": "00000000000039dacee41b6f7d2ede64168eb18bcaf53ba7bb1795e71216088b",
+        "blockTime": 1794816219000,
+        "vout": 0,
+        "satoshis": 1500,
+        "address": "bchtest:prlvjcuw2s2s9e25gxzx8xypv7w8zdtuy5n9gxfm6x",
+        "script": "a914fec9638e541502e5544184639881679c71357c2587",
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/9951f7eea45c4a6557ab40241ce7a071f6f8dab28a049ff8535a8bf0e7af8866",
+        "feeSatoshis": 255
+      },
+      "effect": "Private intel archive and insignia perk applied"
+    },
+    {
+      "action": "premium",
+      "title": "Vault Treasury premium upgrade",
+      "id": "85b863ff66a83fbb37b2ba9ed192cf30",
+      "network": "chipnet",
+      "address": "bchtest:pplxk80ttpvnd2snyugg54dtyduvhhqfwu38drmwwf",
+      "satoshis": 1500,
+      "txid": "c4bd2bfca6ac85097fc3c9c61aad7609f9509f37d37ee06b8458398a1c03bdd5",
+      "actualNetworkFeeSatoshis": 255,
+      "completedAt": "2026-11-16T08:08:29.903Z",
+      "phases": [
+        {
+          "state": "seen_in_mempool",
+          "confirmations": 0
+        },
+        {
+          "state": "uncertain",
+          "confirmations": 0
+        },
+        {
+          "state": "confirming",
+          "confirmations": 1
+        },
+        {
+          "state": "credited",
+          "confirmations": 2
+        }
+      ],
+      "receipt": {
+        "txid": "c4bd2bfca6ac85097fc3c9c61aad7609f9509f37d37ee06b8458398a1c03bdd5",
+        "network": "chipnet",
+        "confirmations": 2,
+        "height": 333635,
+        "blockHash": "000000000030d1d2996966dda809f17ccbe0073fa0de686392a6cf5c7926f3cc",
+        "blockTime": 1794816461000,
+        "vout": 0,
+        "satoshis": 1500,
+        "address": "bchtest:pplxk80ttpvnd2snyugg54dtyduvhhqfwu38drmwwf",
+        "script": "a9147e6b1deb585936aa1327108a55ab2378cbdc097787",
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/c4bd2bfca6ac85097fc3c9c61aad7609f9509f37d37ee06b8458398a1c03bdd5",
+        "feeSatoshis": 255
+      },
+      "effect": "Gold-trimmed treasury crest applied"
+    },
+    {
+      "action": "protectorate",
+      "title": "Protectorate proposal",
+      "id": "23d52f12b725d6801ac7e4058d871eec",
+      "network": "chipnet",
+      "address": "bchtest:pz0m6p4nmuthdcpd09t62jchzgdcjnnss54ksxdqup",
+      "satoshis": 24000,
+      "txid": "7a7057d751c997f8b373156942cd37c9a280db9ac975b577f04def3b717d8f73",
+      "actualNetworkFeeSatoshis": 255,
+      "completedAt": "2026-11-16T08:15:12.548Z",
+      "phases": [
+        {
+          "state": "seen_in_mempool",
+          "confirmations": 0
+        },
+        {
+          "state": "confirming",
+          "confirmations": 1
+        },
+        {
+          "state": "credited",
+          "confirmations": 2
+        }
+      ],
+      "receipt": {
+        "txid": "7a7057d751c997f8b373156942cd37c9a280db9ac975b577f04def3b717d8f73",
+        "network": "chipnet",
+        "confirmations": 2,
+        "height": 333642,
+        "blockHash": "00000000811446cf810c76ce3138964e2609ef473bdaf6d323b63465f5e624c2",
+        "blockTime": 1794816861000,
+        "vout": 0,
+        "satoshis": 24000,
+        "address": "bchtest:pz0m6p4nmuthdcpd09t62jchzgdcjnnss54ksxdqup",
+        "script": "a9149fbd06b3df1776e02d7957a54b17121b894e708587",
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/7a7057d751c997f8b373156942cd37c9a280db9ac975b577f04def3b717d8f73",
+        "feeSatoshis": 255
+      },
+      "effect": "20× fee and defender response window opened"
+    },
+    {
+      "action": "vault-deposit",
+      "title": "Personal vault deposit",
+      "id": "505f71b89808ab08f3b25eebd49f729f",
+      "network": "chipnet",
+      "address": "bchtest:pzvusffv7sqlym484ccp9s4zdndgjc2y0c6z4p4292",
+      "satoshis": 8000,
+      "txid": "890a6e22cb3ccffe5dd5f8f867301b846964a556a43b0af63be5aa214f7e8d1f",
+      "actualNetworkFeeSatoshis": 255,
+      "completedAt": "2026-11-16T08:15:27.571Z",
+      "phases": [
+        {
+          "state": "credited",
+          "confirmations": 2
+        }
+      ],
+      "receipt": {
+        "txid": "890a6e22cb3ccffe5dd5f8f867301b846964a556a43b0af63be5aa214f7e8d1f",
+        "network": "chipnet",
+        "confirmations": 2,
+        "height": 333642,
+        "blockHash": "00000000811446cf810c76ce3138964e2609ef473bdaf6d323b63465f5e624c2",
+        "blockTime": 1794816861000,
+        "vout": 0,
+        "satoshis": 8000,
+        "address": "bchtest:pzvusffv7sqlym484ccp9s4zdndgjc2y0c6z4p4292",
+        "script": "a91499c8252cf401f26ea7ae3012c2a26cda8961447e87",
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/890a6e22cb3ccffe5dd5f8f867301b846964a556a43b0af63be5aa214f7e8d1f",
+        "feeSatoshis": 255
+      },
+      "effect": "Confirmed balance credited with zero PvP exposure"
+    },
+    {
+      "action": "sponsor-fund",
+      "title": "Season sponsor funding",
+      "id": "8f748e98e1f0ab1243feb3ad50d9ab20",
+      "network": "chipnet",
+      "address": "bchtest:pz53fd80em860cqewau0kl22nn3nk5qj2u8kyn2hku",
+      "satoshis": 18000,
+      "txid": "01d5ac3c0486f2a0e4c41cd0ab5ce443e557e88350e07e2ec4d0dc24a12e3b15",
+      "actualNetworkFeeSatoshis": 255,
+      "completedAt": "2026-11-16T08:15:47.197Z",
+      "phases": [
+        {
+          "state": "credited",
+          "confirmations": 2
+        }
+      ],
+      "receipt": {
+        "txid": "01d5ac3c0486f2a0e4c41cd0ab5ce443e557e88350e07e2ec4d0dc24a12e3b15",
+        "network": "chipnet",
+        "confirmations": 2,
+        "height": 333642,
+        "blockHash": "00000000811446cf810c76ce3138964e2609ef473bdaf6d323b63465f5e624c2",
+        "blockTime": 1794816861000,
+        "vout": 0,
+        "satoshis": 18000,
+        "address": "bchtest:pz53fd80em860cqewau0kl22nn3nk5qj2u8kyn2hku",
+        "script": "a914a914b4efcecfa7e0197778fb7d4a9ce33b50125787",
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/01d5ac3c0486f2a0e4c41cd0ab5ce443e557e88350e07e2ec4d0dc24a12e3b15",
+        "feeSatoshis": 255
+      },
+      "effect": "Confirmed funds counted in the separate prize pool"
+    },
+    {
+      "action": "withdraw",
+      "title": "Personal vault withdrawal",
+      "id": "6fe27f5b6305b5dedd88d4a0817223ef",
+      "network": "chipnet",
+      "address": "bchtest:qp3w6c2x3syvjpfn3tf5muffvlnggpfzuy7s6zr6z6",
+      "satoshis": 2000,
+      "txid": "c902b93619fa364bb7d24e9ade1e471f8bbde4d0fb594eecfcd6421a8c6cdd50",
+      "actualNetworkFeeSatoshis": 300,
+      "completedAt": "2026-11-16T10:15:56.395Z",
+      "phases": [
+        {
+          "state": "confirming",
+          "confirmations": 1
+        },
+        {
+          "state": "credited",
+          "confirmations": 114
+        }
+      ],
+      "receipt": {
+        "txid": "c902b93619fa364bb7d24e9ade1e471f8bbde4d0fb594eecfcd6421a8c6cdd50",
+        "network": "chipnet",
+        "confirmations": 114,
+        "height": 333644,
+        "blockHash": "00000000003d7de66f95e43eba9fa669424d86ada85cb3b46b0b9eefde3e8c06",
+        "blockTime": 1794816992000,
+        "vout": 0,
+        "satoshis": 2000,
+        "address": "bchtest:qp3w6c2x3syvjpfn3tf5muffvlnggpfzuy7s6zr6z6",
+        "script": "76a91462ed61468c08c905338ad34df12967e6840522e188ac",
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/c902b93619fa364bb7d24e9ade1e471f8bbde4d0fb594eecfcd6421a8c6cdd50",
+        "feeSatoshis": 300,
+        "change": {
+          "address": "bchtest:pzn030a205gpu39d2lyf45g3u4yhyvn09q329zxwsf",
+          "script": "a914a6f8bfaa7d101e44ad57c89ad111e54972326f2887",
+          "vout": 1,
+          "satoshis": 5700,
+          "txid": "c902b93619fa364bb7d24e9ade1e471f8bbde4d0fb594eecfcd6421a8c6cdd50"
+        }
+      },
+      "effect": "Reserved inputs paid the approved address and returned change"
+    },
+    {
+      "action": "claim",
+      "title": "Season reward claim",
+      "id": "01eb96be8ca5a2139b0979e00d4c04cb",
+      "network": "chipnet",
+      "address": "bchtest:qp3w6c2x3syvjpfn3tf5muffvlnggpfzuy7s6zr6z6",
+      "satoshis": 6120,
+      "txid": "951e744101e17aa9371157579946a749f747f1a07c3aa9da224b58562cf5130f",
+      "actualNetworkFeeSatoshis": 300,
+      "completedAt": "2026-11-16T10:18:26.034Z",
+      "phases": [
+        {
+          "state": "submitted"
+        },
+        {
+          "state": "seen_in_mempool",
+          "confirmations": 0
+        },
+        {
+          "state": "confirming",
+          "confirmations": 1
+        },
+        {
+          "state": "credited",
+          "confirmations": 2
+        }
+      ],
+      "receipt": {
+        "txid": "951e744101e17aa9371157579946a749f747f1a07c3aa9da224b58562cf5130f",
+        "network": "chipnet",
+        "confirmations": 2,
+        "height": 333758,
+        "blockHash": "000000005fc36dbe9bf4c5c4f1c1fd1b1b779e34308054dfffa33a21eaa2347f",
+        "blockTime": 1794824252000,
+        "vout": 0,
+        "satoshis": 6120,
+        "address": "bchtest:qp3w6c2x3syvjpfn3tf5muffvlnggpfzuy7s6zr6z6",
+        "script": "76a91462ed61468c08c905338ad34df12967e6840522e188ac",
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/951e744101e17aa9371157579946a749f747f1a07c3aa9da224b58562cf5130f",
+        "feeSatoshis": 300,
+        "change": {
+          "address": "bchtest:pz9l8pn4aljhr3seepplxvkw8wagwhtmhvd5uwrrs6",
+          "script": "a9148bf38675efe571c619c843f332ce3bba875d7bbb87",
+          "vout": 1,
+          "satoshis": 11580,
+          "txid": "951e744101e17aa9371157579946a749f747f1a07c3aa9da224b58562cf5130f"
+        }
+      },
+      "effect": "Eligibility and one-time claim verified with sponsor-funded payout"
+    },
+    {
+      "action": "rush",
+      "title": "Paid City Hall rush",
+      "id": "4e1e0891428f24d3b077cfa0f786edcb",
+      "network": "chipnet",
+      "address": "bchtest:pqpvks2mp4mkysay4za4w8vvvranww9ggc2zpu8n3a",
+      "satoshis": 1000,
+      "txid": "f1522466a48ef3dbf5ebed0b4a50289ade1c9e1370076e522436d0a14a575910",
+      "actualNetworkFeeSatoshis": 255,
+      "receipt": {
+        "txid": "f1522466a48ef3dbf5ebed0b4a50289ade1c9e1370076e522436d0a14a575910",
+        "network": "chipnet",
+        "confirmations": 2,
+        "height": 333636,
+        "blockHash": "000000000000187f801b1ba1e3bdc8311edffdf3effd010163371d1377e701ce",
+        "blockTime": 1794816475000,
+        "vout": 0,
+        "satoshis": 1000,
+        "address": "bchtest:pqpvks2mp4mkysay4za4w8vvvranww9ggc2zpu8n3a",
+        "script": "a91402cb415b0d776243a4a8bb571d8c60fb3738a84687",
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/f1522466a48ef3dbf5ebed0b4a50289ade1c9e1370076e522436d0a14a575910",
+        "feeSatoshis": 255
+      },
+      "effect": "Rush applied by game server"
+    }
+  ]
+}

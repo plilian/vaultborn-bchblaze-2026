@@ -1,0 +1,21 @@
+{
+  "network": "none",
+  "type": "offline planner validation; no transaction funded or broadcast",
+  "cases": [
+    {
+      "deltaSatoshis": -1,
+      "status": "FAIL",
+      "supportedRefundError": "The funding output or commitment does not match this escrow."
+    },
+    {
+      "deltaSatoshis": 1,
+      "status": "FAIL",
+      "supportedRefundError": "The funding output or commitment does not match this escrow."
+    },
+    {
+      "deltaSatoshis": 120,
+      "status": "FAIL",
+      "supportedRefundError": "The funding output or commitment does not match this escrow."
+    }
+  ]
+}

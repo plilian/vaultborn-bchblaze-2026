@@ -1,0 +1,34 @@
+{
+  "scope": "CashTokens, political recovery, seasonal rewards; audit only",
+  "findings": [
+    {
+      "id": "TR-01",
+      "severity": "Medium",
+      "status": "FAIL",
+      "title": "Independent political returns are not recognized without the operator signer",
+      "locations": ["apps/game-server/politics-protocol.mjs:113", "apps/game-server/ledger.mjs:538"],
+      "impact": "Read-only deployments leave matured escrow/treaty records and locked balance stale despite a payer's independent confirmed refund; BCH itself can still be recovered.",
+      "reproduction": "Run node var/audit-blockchain/tokens-audit.mjs. With payoutsEnabled:false, reconcile never calls the available refund observer and retains funded status.",
+      "evidence": ["docs/audit/blockchain/evidence/tokens-gap-results.json"],
+      "cause": "A private-signer guard precedes read-only confirmed-spend observation.",
+      "recommendation": "Separate observation/reconciliation from signing availability and add a read-only restart integration test."
+    },
+    {
+      "id": "TR-02",
+      "severity": "Low",
+      "status": "FAIL",
+      "title": "Valid NFT ownership becomes unresolved at traversal and address-history bounds",
+      "locations": ["packages/chain-observer/territory-token.mjs:198", "packages/chain-observer/territory-token.mjs:205", "packages/chain-observer/territory-token.mjs:230"],
+      "impact": "Current-holder queries can stop resolving valid transferable proof collectibles; token spendability and off-chain game control are unaffected.",
+      "reproduction": "Run node var/audit-blockchain/tokens-audit.mjs. Fifteen valid synthetic transfers resolve; sixteen return traversal-limit. A spender after 256 unrelated history entries is not reached.",
+      "evidence": ["docs/audit/blockchain/evidence/tokens-gap-results.json"],
+      "cause": "Fixed traversal/history bounds without continuation or a persisted verified head.",
+      "recommendation": "Use bounded continuation/pagination with a verified outpoint checkpoint; retain uncertainty when unverified."
+    }
+  ],
+  "reusedEvidence": ["docs/TERRITORY_CHIPNET_ASSETS.json", "docs/TERRITORY_NATIVE_CASHTOKENS.json", "docs/POLITICS_CHIPNET_ESCROW.json", "docs/POLITICS_REGTEST_RECEIPTS.json", "docs/VAULTBORN_CHIPNET_RECEIPTS.json"],
+  "newReadOnlyChainEvidence": "docs/audit/blockchain/evidence/tokens-current-ownership.json",
+  "supplementalPoliticalAuthorityEvidence": "docs/audit/blockchain/evidence/tokens-political-authority.json",
+  "newSyntheticOnlyEvidence": "docs/audit/blockchain/evidence/tokens-gap-results.json",
+  "liveMintTransferOrRefundBroadcastsByThisReview": 0
+}

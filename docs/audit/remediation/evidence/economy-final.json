@@ -1,0 +1,2688 @@
+{
+  "generatedAt": "2026-11-19T09:05:41.392Z",
+  "note": "A model with fixed random seeds. Fees are measured contract sizes at 1 satoshi per byte; nothing here was broadcast.",
+  "prices": {
+    "services": {
+      "rush": 20000,
+      "espionage-paid": 20000,
+      "premium": 22000,
+      "protectorate": 24000,
+      "political-operation": 20000
+    },
+    "stakes": {
+      "territory-claim": {
+        "principal": 6000,
+        "reserve": 600
+      },
+      "territory-attack": {
+        "principal": 10000,
+        "reserve": 600
+      },
+      "territory-raffle": {
+        "principal": 6000,
+        "reserve": 600
+      }
+    },
+    "reserves": {
+      "prizeFeed": 300,
+      "record": 576
+    },
+    "warChest": {
+      "minimumDeposit": 10000,
+      "step": 1000,
+      "revision": 4
+    },
+    "raid": {
+      "matched": true,
+      "minimumStake": 10000,
+      "maximumStake": 250000,
+      "step": 1000,
+      "suggested": [
+        10000,
+        25000,
+        50000,
+        100000,
+        250000
+      ],
+      "maximumChestOutputs": 3,
+      "refundDays": 3
+    }
+  },
+  "split": {
+    "warChest": 50,
+    "prize": 20,
+    "development": 20,
+    "burn": 10
+  },
+  "playerMix": "casual 60% (1 service a week), regular 30% (3 a week, 20,000 deposited), heavy 10% (7 a week, 100,000 deposited); attacker and defender each win half of the raids",
+  "scenarios": [
+    {
+      "scenario": {
+        "players": 20,
+        "seasons": 4,
+        "attestors": "1 of 1",
+        "sponsorship": "none",
+        "adversaries": "5% of players start an exit whenever they lose a raid; attestors are unreachable for more than two days in 1% of settlements"
+      },
+      "measuredFees": {
+        "raidReserveLocked": 2880,
+        "raidWinOneOutput": 1207,
+        "raidWinThreeOutputs": 2327,
+        "raidLossOrVoid": 610,
+        "withdrawalOneOutput": 540,
+        "withdrawalThreeOutputs": 1528,
+        "servicePaymentWalletFee": 357,
+        "rewardShareReserve": 300
+      },
+      "totals": {
+        "services": 166,
+        "serviceSpend": 3448000,
+        "warChest": 1724000,
+        "prize": 689600,
+        "development": 689600,
+        "burn": 344800,
+        "sponsorship": 0,
+        "deposits": 8,
+        "depositSatoshis": 320000,
+        "networkFees": 189858,
+        "payerReserves": 198984,
+        "reserveReturnedToPools": 20918,
+        "reserveBackToAttackers": 81678,
+        "raidsAttempted": 74,
+        "raidsBlockedNoExposure": 26,
+        "raidsBlockedCooldown": 0,
+        "raidsFought": 48,
+        "attackerWins": 26,
+        "defenderWins": 22,
+        "raidsVoided": 0,
+        "stakeVolume": 982000,
+        "capturedSatoshis": 517000,
+        "forfeitedSatoshis": 465000,
+        "winFees": 43142,
+        "lossFees": 13420,
+        "exitsAfterFunding": 0,
+        "exitsThatEscaped": 0,
+        "withdrawals": 3,
+        "withdrawnSatoshis": 44404,
+        "withdrawalFees": 3596,
+        "chestOutputsSpentPerWin": 47
+      },
+      "ratios": {
+        "serviceSplitCheck": {
+          "warChest": 50,
+          "prize": 20,
+          "development": 20,
+          "burn": 10
+        },
+        "networkFeesPerServiceSpendPercent": 5.51,
+        "averageWinFee": 1659,
+        "averageStake": 20458,
+        "winFeePercentOfStake": 8.34,
+        "averageChestOutputsPerWin": 1.81,
+        "raidsBlockedForLackOfExposurePercent": 35.1,
+        "withdrawalFeePercent": 8.1,
+        "zeroSum": "every satoshi a raid moves comes from one player and reaches another; the only loss is the network fee"
+      },
+      "warChest": {
+        "playersWhoCanBeRaidedAtTheSmallestStake": 16,
+        "median": 30000,
+        "ninetiethPercentile": 42000,
+        "largest": 124000
+      },
+      "byPlayerKind": {
+        "casual": {
+          "players": 12,
+          "servicesBought": 72500,
+          "networkFeesPaid": 2904,
+          "raidNetResult": -719,
+          "warChestAtEnd": 16750
+        },
+        "regular": {
+          "players": 6,
+          "servicesBought": 235333,
+          "networkFeesPaid": 14793,
+          "raidNetResult": 33863,
+          "warChestAtEnd": 99167
+        },
+        "heavy": {
+          "players": 2,
+          "servicesBought": 583000,
+          "networkFeesPaid": 34907,
+          "raidNetResult": -125551,
+          "warChestAtEnd": 341500
+        }
+      },
+      "seasons": [
+        {
+          "season": 1,
+          "prizePoolAtClose": 177686,
+          "distributable": 151033,
+          "awards": [
+            60413,
+            37758,
+            22654,
+            15103,
+            15103
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 23215,
+          "eligiblePlayers": 14,
+          "services": 42,
+          "raidsFought": 8,
+          "developmentRevenue": 172400,
+          "burned": 86200
+        },
+        {
+          "season": 2,
+          "prizePoolAtClose": 227547,
+          "distributable": 193414,
+          "awards": [
+            77365,
+            48353,
+            29012,
+            19341,
+            19341
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 30695,
+          "eligiblePlayers": 15,
+          "services": 47,
+          "raidsFought": 11,
+          "developmentRevenue": 198400,
+          "burned": 99200
+        },
+        {
+          "season": 3,
+          "prizePoolAtClose": 188535,
+          "distributable": 160254,
+          "awards": [
+            64101,
+            40063,
+            24038,
+            16025,
+            16025
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 24843,
+          "eligiblePlayers": 18,
+          "services": 37,
+          "raidsFought": 13,
+          "developmentRevenue": 153200,
+          "burned": 76600
+        },
+        {
+          "season": 4,
+          "prizePoolAtClose": 195503,
+          "distributable": 166177,
+          "awards": [
+            66470,
+            41544,
+            24926,
+            16617,
+            16617
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 25889,
+          "eligiblePlayers": 17,
+          "services": 40,
+          "raidsFought": 16,
+          "developmentRevenue": 165600,
+          "burned": 82800
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "players": 20,
+        "seasons": 4,
+        "attestors": "1 of 1",
+        "sponsorship": "minimum",
+        "adversaries": "5% of players start an exit whenever they lose a raid; attestors are unreachable for more than two days in 1% of settlements"
+      },
+      "measuredFees": {
+        "raidReserveLocked": 2880,
+        "raidWinOneOutput": 1207,
+        "raidWinThreeOutputs": 2327,
+        "raidLossOrVoid": 610,
+        "withdrawalOneOutput": 540,
+        "withdrawalThreeOutputs": 1528,
+        "servicePaymentWalletFee": 357,
+        "rewardShareReserve": 300
+      },
+      "totals": {
+        "services": 182,
+        "serviceSpend": 3776000,
+        "warChest": 1888000,
+        "prize": 755200,
+        "development": 30755200,
+        "burn": 377600,
+        "sponsorship": 100000000,
+        "deposits": 8,
+        "depositSatoshis": 320000,
+        "networkFees": 218690,
+        "payerReserves": 231432,
+        "reserveReturnedToPools": 22942,
+        "reserveBackToAttackers": 92248,
+        "raidsAttempted": 79,
+        "raidsBlockedNoExposure": 21,
+        "raidsBlockedCooldown": 0,
+        "raidsFought": 58,
+        "attackerWins": 36,
+        "defenderWins": 22,
+        "raidsVoided": 0,
+        "stakeVolume": 1292000,
+        "capturedSatoshis": 842000,
+        "forfeitedSatoshis": 450000,
+        "winFees": 61372,
+        "lossFees": 13420,
+        "exitsAfterFunding": 2,
+        "exitsThatEscaped": 0,
+        "withdrawals": 3,
+        "withdrawnSatoshis": 41910,
+        "withdrawalFees": 4090,
+        "chestOutputsSpentPerWin": 68
+      },
+      "ratios": {
+        "serviceSplitCheck": {
+          "warChest": 50,
+          "prize": 20,
+          "development": 20,
+          "burn": 10
+        },
+        "networkFeesPerServiceSpendPercent": 5.79,
+        "averageWinFee": 1705,
+        "averageStake": 22276,
+        "winFeePercentOfStake": 7.29,
+        "averageChestOutputsPerWin": 1.89,
+        "raidsBlockedForLackOfExposurePercent": 26.6,
+        "withdrawalFeePercent": 9.76,
+        "zeroSum": "every satoshi a raid moves comes from one player and reaches another; the only loss is the network fee"
+      },
+      "warChest": {
+        "playersWhoCanBeRaidedAtTheSmallestStake": 18,
+        "median": 30000,
+        "ninetiethPercentile": 33000,
+        "largest": 73000
+      },
+      "byPlayerKind": {
+        "casual": {
+          "players": 12,
+          "servicesBought": 85167,
+          "networkFeesPaid": 3339,
+          "raidNetResult": -4636,
+          "warChestAtEnd": 20833
+        },
+        "regular": {
+          "players": 6,
+          "servicesBought": 266000,
+          "networkFeesPaid": 16318,
+          "raidNetResult": -42312,
+          "warChestAtEnd": 79333
+        },
+        "heavy": {
+          "players": 2,
+          "servicesBought": 579000,
+          "networkFeesPaid": 42902,
+          "raidNetResult": 117359,
+          "warChestAtEnd": 297000
+        }
+      },
+      "seasons": [
+        {
+          "season": 1,
+          "prizePoolAtClose": 17692452,
+          "distributable": 15038584,
+          "awards": [
+            6015433,
+            3759646,
+            2255787,
+            1503858,
+            1503858
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 2650430,
+          "eligiblePlayers": 18,
+          "services": 45,
+          "raidsFought": 12,
+          "developmentRevenue": 7686800,
+          "burned": 93400
+        },
+        {
+          "season": 2,
+          "prizePoolAtClose": 20339996,
+          "distributable": 17288996,
+          "awards": [
+            6915598,
+            4322249,
+            2593349,
+            1728899,
+            1728899
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 3047562,
+          "eligiblePlayers": 18,
+          "services": 44,
+          "raidsFought": 16,
+          "developmentRevenue": 7684000,
+          "burned": 92000
+        },
+        {
+          "season": 3,
+          "prizePoolAtClose": 20749494,
+          "distributable": 17637069,
+          "awards": [
+            7054827,
+            4409267,
+            2645560,
+            1763706,
+            1763706
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 3108988,
+          "eligiblePlayers": 17,
+          "services": 47,
+          "raidsFought": 15,
+          "developmentRevenue": 7696000,
+          "burned": 98000
+        },
+        {
+          "season": 4,
+          "prizePoolAtClose": 20803180,
+          "distributable": 17682703,
+          "awards": [
+            7073081,
+            4420675,
+            2652405,
+            1768270,
+            1768270
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 3117039,
+          "eligiblePlayers": 19,
+          "services": 46,
+          "raidsFought": 15,
+          "developmentRevenue": 7688400,
+          "burned": 94200
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "players": 20,
+        "seasons": 4,
+        "attestors": "2 of 3",
+        "sponsorship": "none",
+        "adversaries": "5% of players start an exit whenever they lose a raid; attestors are unreachable for more than two days in 1% of settlements"
+      },
+      "measuredFees": {
+        "raidReserveLocked": 3340,
+        "raidWinOneOutput": 1386,
+        "raidWinThreeOutputs": 2788,
+        "raidLossOrVoid": 650,
+        "withdrawalOneOutput": 614,
+        "withdrawalThreeOutputs": 1750,
+        "servicePaymentWalletFee": 357,
+        "rewardShareReserve": 300
+      },
+      "totals": {
+        "services": 189,
+        "serviceSpend": 3944000,
+        "warChest": 1972000,
+        "prize": 788800,
+        "development": 788800,
+        "burn": 394400,
+        "sponsorship": 0,
+        "deposits": 8,
+        "depositSatoshis": 320000,
+        "networkFees": 230692,
+        "payerReserves": 275876,
+        "reserveReturnedToPools": 23814,
+        "reserveBackToAttackers": 129979,
+        "raidsAttempted": 88,
+        "raidsBlockedNoExposure": 26,
+        "raidsBlockedCooldown": 0,
+        "raidsFought": 62,
+        "attackerWins": 30,
+        "defenderWins": 32,
+        "raidsVoided": 0,
+        "stakeVolume": 1221000,
+        "capturedSatoshis": 559000,
+        "forfeitedSatoshis": 662000,
+        "winFees": 56301,
+        "lossFees": 20800,
+        "exitsAfterFunding": 9,
+        "exitsThatEscaped": 0,
+        "withdrawals": 4,
+        "withdrawnSatoshis": 103568,
+        "withdrawalFees": 6432,
+        "chestOutputsSpentPerWin": 51
+      },
+      "ratios": {
+        "serviceSplitCheck": {
+          "warChest": 50,
+          "prize": 20,
+          "development": 20,
+          "burn": 10
+        },
+        "networkFeesPerServiceSpendPercent": 5.85,
+        "averageWinFee": 1877,
+        "averageStake": 19694,
+        "winFeePercentOfStake": 10.07,
+        "averageChestOutputsPerWin": 1.7,
+        "raidsBlockedForLackOfExposurePercent": 29.5,
+        "withdrawalFeePercent": 6.21,
+        "zeroSum": "every satoshi a raid moves comes from one player and reaches another; the only loss is the network fee"
+      },
+      "warChest": {
+        "playersWhoCanBeRaidedAtTheSmallestStake": 18,
+        "median": 30000,
+        "ninetiethPercentile": 74000,
+        "largest": 77000
+      },
+      "byPlayerKind": {
+        "casual": {
+          "players": 12,
+          "servicesBought": 93667,
+          "networkFeesPaid": 4528,
+          "raidNetResult": -1221,
+          "warChestAtEnd": 16583
+        },
+        "regular": {
+          "players": 6,
+          "servicesBought": 274333,
+          "networkFeesPaid": 18089,
+          "raidNetResult": 7025,
+          "warChestAtEnd": 124000
+        },
+        "heavy": {
+          "players": 2,
+          "servicesBought": 587000,
+          "networkFeesPaid": 35725,
+          "raidNetResult": -52299,
+          "warChestAtEnd": 340000
+        }
+      },
+      "seasons": [
+        {
+          "season": 1,
+          "prizePoolAtClose": 230004,
+          "distributable": 195503,
+          "awards": [
+            78201,
+            48875,
+            29325,
+            19550,
+            19550
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 31063,
+          "eligiblePlayers": 20,
+          "services": 54,
+          "raidsFought": 8,
+          "developmentRevenue": 223200,
+          "burned": 111600
+        },
+        {
+          "season": 2,
+          "prizePoolAtClose": 195043,
+          "distributable": 165786,
+          "awards": [
+            66314,
+            41446,
+            24867,
+            16578,
+            16578
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 25820,
+          "eligiblePlayers": 19,
+          "services": 38,
+          "raidsFought": 21,
+          "developmentRevenue": 159200,
+          "burned": 79600
+        },
+        {
+          "season": 3,
+          "prizePoolAtClose": 237978,
+          "distributable": 202281,
+          "awards": [
+            80912,
+            50570,
+            30342,
+            20228,
+            20228
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 32258,
+          "eligiblePlayers": 20,
+          "services": 49,
+          "raidsFought": 16,
+          "developmentRevenue": 206000,
+          "burned": 103000
+        },
+        {
+          "season": 4,
+          "prizePoolAtClose": 238730,
+          "distributable": 202920,
+          "awards": [
+            81168,
+            50730,
+            30438,
+            20292,
+            20292
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 32370,
+          "eligiblePlayers": 20,
+          "services": 48,
+          "raidsFought": 17,
+          "developmentRevenue": 200400,
+          "burned": 100200
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "players": 20,
+        "seasons": 4,
+        "attestors": "2 of 3",
+        "sponsorship": "minimum",
+        "adversaries": "5% of players start an exit whenever they lose a raid; attestors are unreachable for more than two days in 1% of settlements"
+      },
+      "measuredFees": {
+        "raidReserveLocked": 3340,
+        "raidWinOneOutput": 1386,
+        "raidWinThreeOutputs": 2788,
+        "raidLossOrVoid": 650,
+        "withdrawalOneOutput": 614,
+        "withdrawalThreeOutputs": 1750,
+        "servicePaymentWalletFee": 357,
+        "rewardShareReserve": 300
+      },
+      "totals": {
+        "services": 174,
+        "serviceSpend": 3598000,
+        "warChest": 1799000,
+        "prize": 719600,
+        "development": 30719600,
+        "burn": 359800,
+        "sponsorship": 100000000,
+        "deposits": 8,
+        "depositSatoshis": 320000,
+        "networkFees": 216087,
+        "payerReserves": 247420,
+        "reserveReturnedToPools": 21930,
+        "reserveBackToAttackers": 107679,
+        "raidsAttempted": 79,
+        "raidsBlockedNoExposure": 24,
+        "raidsBlockedCooldown": 0,
+        "raidsFought": 55,
+        "attackerWins": 29,
+        "defenderWins": 26,
+        "raidsVoided": 0,
+        "stakeVolume": 1193000,
+        "capturedSatoshis": 647000,
+        "forfeitedSatoshis": 546000,
+        "winFees": 59121,
+        "lossFees": 16900,
+        "exitsAfterFunding": 0,
+        "exitsThatEscaped": 0,
+        "withdrawals": 2,
+        "withdrawnSatoshis": 39500,
+        "withdrawalFees": 3500,
+        "chestOutputsSpentPerWin": 56
+      },
+      "ratios": {
+        "serviceSplitCheck": {
+          "warChest": 50,
+          "prize": 20,
+          "development": 20,
+          "burn": 10
+        },
+        "networkFeesPerServiceSpendPercent": 6.01,
+        "averageWinFee": 2039,
+        "averageStake": 21691,
+        "winFeePercentOfStake": 9.14,
+        "averageChestOutputsPerWin": 1.93,
+        "raidsBlockedForLackOfExposurePercent": 30.4,
+        "withdrawalFeePercent": 8.86,
+        "zeroSum": "every satoshi a raid moves comes from one player and reaches another; the only loss is the network fee"
+      },
+      "warChest": {
+        "playersWhoCanBeRaidedAtTheSmallestStake": 17,
+        "median": 30000,
+        "ninetiethPercentile": 74000,
+        "largest": 74000
+      },
+      "byPlayerKind": {
+        "casual": {
+          "players": 12,
+          "servicesBought": 76167,
+          "networkFeesPaid": 3221,
+          "raidNetResult": -1474,
+          "warChestAtEnd": 15000
+        },
+        "regular": {
+          "players": 6,
+          "servicesBought": 255000,
+          "networkFeesPaid": 16880,
+          "raidNetResult": -7521,
+          "warChestAtEnd": 95333
+        },
+        "heavy": {
+          "players": 2,
+          "servicesBought": 577000,
+          "networkFeesPaid": 40413,
+          "raidNetResult": -6605,
+          "warChestAtEnd": 338500
+        }
+      },
+      "seasons": [
+        {
+          "season": 1,
+          "prizePoolAtClose": 17721378,
+          "distributable": 15063171,
+          "awards": [
+            6025268,
+            3765792,
+            2259475,
+            1506317,
+            1506317
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 2654769,
+          "eligiblePlayers": 16,
+          "services": 52,
+          "raidsFought": 9,
+          "developmentRevenue": 7714800,
+          "burned": 107400
+        },
+        {
+          "season": 2,
+          "prizePoolAtClose": 20325029,
+          "distributable": 17276274,
+          "awards": [
+            6910509,
+            4319068,
+            2591441,
+            1727627,
+            1727627
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 3045317,
+          "eligiblePlayers": 17,
+          "services": 40,
+          "raidsFought": 16,
+          "developmentRevenue": 7665200,
+          "burned": 82600
+        },
+        {
+          "season": 3,
+          "prizePoolAtClose": 20720063,
+          "distributable": 17612053,
+          "awards": [
+            7044821,
+            4403013,
+            2641807,
+            1761205,
+            1761205
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 3104572,
+          "eligiblePlayers": 19,
+          "services": 41,
+          "raidsFought": 12,
+          "developmentRevenue": 7669600,
+          "burned": 84800
+        },
+        {
+          "season": 4,
+          "prizePoolAtClose": 20779718,
+          "distributable": 17662760,
+          "awards": [
+            7065104,
+            4415690,
+            2649414,
+            1766276,
+            1766276
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 3113518,
+          "eligiblePlayers": 19,
+          "services": 41,
+          "raidsFought": 18,
+          "developmentRevenue": 7670000,
+          "burned": 85000
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "players": 200,
+        "seasons": 4,
+        "attestors": "1 of 1",
+        "sponsorship": "none",
+        "adversaries": "5% of players start an exit whenever they lose a raid; attestors are unreachable for more than two days in 1% of settlements"
+      },
+      "measuredFees": {
+        "raidReserveLocked": 2880,
+        "raidWinOneOutput": 1207,
+        "raidWinThreeOutputs": 2327,
+        "raidLossOrVoid": 610,
+        "withdrawalOneOutput": 540,
+        "withdrawalThreeOutputs": 1528,
+        "servicePaymentWalletFee": 357,
+        "rewardShareReserve": 300
+      },
+      "totals": {
+        "services": 1782,
+        "serviceSpend": 37076000,
+        "warChest": 18538000,
+        "prize": 7415200,
+        "development": 7415200,
+        "burn": 3707600,
+        "sponsorship": 0,
+        "deposits": 80,
+        "depositSatoshis": 3200000,
+        "networkFees": 1990716,
+        "payerReserves": 2339208,
+        "reserveReturnedToPools": 225342,
+        "reserveBackToAttackers": 1021514,
+        "raidsAttempted": 854,
+        "raidsBlockedNoExposure": 260,
+        "raidsBlockedCooldown": 0,
+        "raidsFought": 594,
+        "attackerWins": 298,
+        "defenderWins": 296,
+        "raidsVoided": 0,
+        "stakeVolume": 13242000,
+        "capturedSatoshis": 6665000,
+        "forfeitedSatoshis": 6577000,
+        "winFees": 508646,
+        "lossFees": 180560,
+        "exitsAfterFunding": 12,
+        "exitsThatEscaped": 0,
+        "withdrawals": 34,
+        "withdrawnSatoshis": 638506,
+        "withdrawalFees": 48494,
+        "chestOutputsSpentPerWin": 564
+      },
+      "ratios": {
+        "serviceSplitCheck": {
+          "warChest": 50,
+          "prize": 20,
+          "development": 20,
+          "burn": 10
+        },
+        "networkFeesPerServiceSpendPercent": 5.37,
+        "averageWinFee": 1707,
+        "averageStake": 22293,
+        "winFeePercentOfStake": 7.63,
+        "averageChestOutputsPerWin": 1.89,
+        "raidsBlockedForLackOfExposurePercent": 30.4,
+        "withdrawalFeePercent": 7.59,
+        "zeroSum": "every satoshi a raid moves comes from one player and reaches another; the only loss is the network fee"
+      },
+      "warChest": {
+        "playersWhoCanBeRaidedAtTheSmallestStake": 165,
+        "median": 30000,
+        "ninetiethPercentile": 37000,
+        "largest": 123000
+      },
+      "byPlayerKind": {
+        "casual": {
+          "players": 120,
+          "servicesBought": 85650,
+          "networkFeesPaid": 3472,
+          "raidNetResult": -595,
+          "warChestAtEnd": 19867
+        },
+        "regular": {
+          "players": 60,
+          "servicesBought": 252267,
+          "networkFeesPaid": 16797,
+          "raidNetResult": 4492,
+          "warChestAtEnd": 93733
+        },
+        "heavy": {
+          "players": 20,
+          "servicesBought": 583100,
+          "networkFeesPaid": 36465,
+          "raidNetResult": -44363,
+          "warChestAtEnd": 318900
+        }
+      },
+      "seasons": [
+        {
+          "season": 1,
+          "prizePoolAtClose": 1864074,
+          "distributable": 1584462,
+          "awards": [
+            633784,
+            396115,
+            237669,
+            158446,
+            158446
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 276174,
+          "eligiblePlayers": 161,
+          "services": 434,
+          "raidsFought": 118,
+          "developmentRevenue": 1809200,
+          "burned": 904600
+        },
+        {
+          "season": 2,
+          "prizePoolAtClose": 2191366,
+          "distributable": 1862661,
+          "awards": [
+            745064,
+            465665,
+            279399,
+            186266,
+            186266
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 325266,
+          "eligiblePlayers": 177,
+          "services": 446,
+          "raidsFought": 160,
+          "developmentRevenue": 1858800,
+          "burned": 929400
+        },
+        {
+          "season": 3,
+          "prizePoolAtClose": 2252164,
+          "distributable": 1914339,
+          "awards": [
+            765735,
+            478584,
+            287150,
+            191433,
+            191433
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 334389,
+          "eligiblePlayers": 173,
+          "services": 450,
+          "raidsFought": 152,
+          "developmentRevenue": 1870000,
+          "burned": 935000
+        },
+        {
+          "season": 4,
+          "prizePoolAtClose": 2268767,
+          "distributable": 1928451,
+          "awards": [
+            771380,
+            482112,
+            289267,
+            192845,
+            192845
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 336878,
+          "eligiblePlayers": 188,
+          "services": 452,
+          "raidsFought": 164,
+          "developmentRevenue": 1877200,
+          "burned": 938600
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "players": 200,
+        "seasons": 4,
+        "attestors": "1 of 1",
+        "sponsorship": "minimum",
+        "adversaries": "5% of players start an exit whenever they lose a raid; attestors are unreachable for more than two days in 1% of settlements"
+      },
+      "measuredFees": {
+        "raidReserveLocked": 2880,
+        "raidWinOneOutput": 1207,
+        "raidWinThreeOutputs": 2327,
+        "raidLossOrVoid": 610,
+        "withdrawalOneOutput": 540,
+        "withdrawalThreeOutputs": 1528,
+        "servicePaymentWalletFee": 357,
+        "rewardShareReserve": 300
+      },
+      "totals": {
+        "services": 1769,
+        "serviceSpend": 36852000,
+        "warChest": 18426000,
+        "prize": 7370400,
+        "development": 37370400,
+        "burn": 3685200,
+        "sponsorship": 100000000,
+        "deposits": 80,
+        "depositSatoshis": 3200000,
+        "networkFees": 1967442,
+        "payerReserves": 2304204,
+        "reserveReturnedToPools": 223738,
+        "reserveBackToAttackers": 987417,
+        "raidsAttempted": 800,
+        "raidsBlockedNoExposure": 215,
+        "raidsBlockedCooldown": 0,
+        "raidsFought": 585,
+        "attackerWins": 289,
+        "defenderWins": 296,
+        "raidsVoided": 0,
+        "stakeVolume": 13452000,
+        "capturedSatoshis": 6769000,
+        "forfeitedSatoshis": 6683000,
+        "winFees": 516823,
+        "lossFees": 180560,
+        "exitsAfterFunding": 10,
+        "exitsThatEscaped": 0,
+        "withdrawals": 22,
+        "withdrawnSatoshis": 580866,
+        "withdrawalFees": 32134,
+        "chestOutputsSpentPerWin": 589
+      },
+      "ratios": {
+        "serviceSplitCheck": {
+          "warChest": 50,
+          "prize": 20,
+          "development": 20,
+          "burn": 10
+        },
+        "networkFeesPerServiceSpendPercent": 5.34,
+        "averageWinFee": 1788,
+        "averageStake": 22995,
+        "winFeePercentOfStake": 7.64,
+        "averageChestOutputsPerWin": 2.04,
+        "raidsBlockedForLackOfExposurePercent": 26.9,
+        "withdrawalFeePercent": 5.53,
+        "zeroSum": "every satoshi a raid moves comes from one player and reaches another; the only loss is the network fee"
+      },
+      "warChest": {
+        "playersWhoCanBeRaidedAtTheSmallestStake": 167,
+        "median": 30000,
+        "ninetiethPercentile": 41000,
+        "largest": 124000
+      },
+      "byPlayerKind": {
+        "casual": {
+          "players": 120,
+          "servicesBought": 83067,
+          "networkFeesPaid": 3289,
+          "raidNetResult": 630,
+          "warChestAtEnd": 20275
+        },
+        "regular": {
+          "players": 60,
+          "servicesBought": 253667,
+          "networkFeesPaid": 17012,
+          "raidNetResult": 639,
+          "warChestAtEnd": 95967
+        },
+        "heavy": {
+          "players": 20,
+          "servicesBought": 583200,
+          "networkFeesPaid": 36495,
+          "raidNetResult": -40567,
+          "warChestAtEnd": 302650
+        }
+      },
+      "seasons": [
+        {
+          "season": 1,
+          "prizePoolAtClose": 19389660,
+          "distributable": 16481211,
+          "awards": [
+            6592484,
+            4120302,
+            2472181,
+            1648121,
+            1648121
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 2905011,
+          "eligiblePlayers": 171,
+          "services": 440,
+          "raidsFought": 121,
+          "developmentRevenue": 9334000,
+          "burned": 917000
+        },
+        {
+          "season": 2,
+          "prizePoolAtClose": 22280251,
+          "distributable": 18938213,
+          "awards": [
+            7575285,
+            4734553,
+            2840731,
+            1893821,
+            1893821
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 3338600,
+          "eligiblePlayers": 178,
+          "services": 437,
+          "raidsFought": 146,
+          "developmentRevenue": 9320000,
+          "burned": 910000
+        },
+        {
+          "season": 3,
+          "prizePoolAtClose": 22781378,
+          "distributable": 19364171,
+          "awards": [
+            7745668,
+            4841042,
+            2904625,
+            1936417,
+            1936417
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 3413769,
+          "eligiblePlayers": 185,
+          "services": 452,
+          "raidsFought": 156,
+          "developmentRevenue": 9385600,
+          "burned": 942800
+        },
+        {
+          "season": 4,
+          "prizePoolAtClose": 22800229,
+          "distributable": 19380194,
+          "awards": [
+            7752077,
+            4845048,
+            2907029,
+            1938019,
+            1938019
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 3416597,
+          "eligiblePlayers": 182,
+          "services": 440,
+          "raidsFought": 162,
+          "developmentRevenue": 9330800,
+          "burned": 915400
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "players": 200,
+        "seasons": 4,
+        "attestors": "2 of 3",
+        "sponsorship": "none",
+        "adversaries": "5% of players start an exit whenever they lose a raid; attestors are unreachable for more than two days in 1% of settlements"
+      },
+      "measuredFees": {
+        "raidReserveLocked": 3340,
+        "raidWinOneOutput": 1386,
+        "raidWinThreeOutputs": 2788,
+        "raidLossOrVoid": 650,
+        "withdrawalOneOutput": 614,
+        "withdrawalThreeOutputs": 1750,
+        "servicePaymentWalletFee": 357,
+        "rewardShareReserve": 300
+      },
+      "totals": {
+        "services": 1768,
+        "serviceSpend": 36806000,
+        "warChest": 18403000,
+        "prize": 7361200,
+        "development": 7361200,
+        "burn": 3680600,
+        "sponsorship": 0,
+        "deposits": 80,
+        "depositSatoshis": 3200000,
+        "networkFees": 2149800,
+        "payerReserves": 2681848,
+        "reserveReturnedToPools": 223598,
+        "reserveBackToAttackers": 1210326,
+        "raidsAttempted": 869,
+        "raidsBlockedNoExposure": 259,
+        "raidsBlockedCooldown": 0,
+        "raidsFought": 610,
+        "attackerWins": 305,
+        "defenderWins": 305,
+        "raidsVoided": 0,
+        "stakeVolume": 13762000,
+        "capturedSatoshis": 7059000,
+        "forfeitedSatoshis": 6703000,
+        "winFees": 628824,
+        "lossFees": 198250,
+        "exitsAfterFunding": 5,
+        "exitsThatEscaped": 0,
+        "withdrawals": 32,
+        "withdrawnSatoshis": 669112,
+        "withdrawalFees": 50888,
+        "chestOutputsSpentPerWin": 599
+      },
+      "ratios": {
+        "serviceSplitCheck": {
+          "warChest": 50,
+          "prize": 20,
+          "development": 20,
+          "burn": 10
+        },
+        "networkFeesPerServiceSpendPercent": 5.84,
+        "averageWinFee": 2062,
+        "averageStake": 22561,
+        "winFeePercentOfStake": 8.91,
+        "averageChestOutputsPerWin": 1.96,
+        "raidsBlockedForLackOfExposurePercent": 29.8,
+        "withdrawalFeePercent": 7.61,
+        "zeroSum": "every satoshi a raid moves comes from one player and reaches another; the only loss is the network fee"
+      },
+      "warChest": {
+        "playersWhoCanBeRaidedAtTheSmallestStake": 167,
+        "median": 30000,
+        "ninetiethPercentile": 37000,
+        "largest": 124000
+      },
+      "byPlayerKind": {
+        "casual": {
+          "players": 120,
+          "servicesBought": 84433,
+          "networkFeesPaid": 3538,
+          "raidNetResult": -288,
+          "warChestAtEnd": 18550
+        },
+        "regular": {
+          "players": 60,
+          "servicesBought": 249900,
+          "networkFeesPaid": 17355,
+          "raidNetResult": -19861,
+          "warChestAtEnd": 88183
+        },
+        "heavy": {
+          "players": 20,
+          "servicesBought": 584000,
+          "networkFeesPaid": 42145,
+          "raidNetResult": 19956,
+          "warChestAtEnd": 315350
+        }
+      },
+      "seasons": [
+        {
+          "season": 1,
+          "prizePoolAtClose": 1913732,
+          "distributable": 1626672,
+          "awards": [
+            650668,
+            406668,
+            244000,
+            162667,
+            162667
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 283622,
+          "eligiblePlayers": 159,
+          "services": 447,
+          "raidsFought": 121,
+          "developmentRevenue": 1857200,
+          "burned": 928600
+        },
+        {
+          "season": 2,
+          "prizePoolAtClose": 2241966,
+          "distributable": 1905671,
+          "awards": [
+            762268,
+            476417,
+            285850,
+            190567,
+            190567
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 332857,
+          "eligiblePlayers": 176,
+          "services": 455,
+          "raidsFought": 158,
+          "developmentRevenue": 1900800,
+          "burned": 950400
+        },
+        {
+          "season": 3,
+          "prizePoolAtClose": 2125307,
+          "distributable": 1806510,
+          "awards": [
+            722604,
+            451627,
+            270976,
+            180651,
+            180651
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 315358,
+          "eligiblePlayers": 170,
+          "services": 418,
+          "raidsFought": 156,
+          "developmentRevenue": 1739600,
+          "burned": 869800
+        },
+        {
+          "season": 4,
+          "prizePoolAtClose": 2235630,
+          "distributable": 1900285,
+          "awards": [
+            760114,
+            475071,
+            285042,
+            190028,
+            190028
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 331907,
+          "eligiblePlayers": 184,
+          "services": 448,
+          "raidsFought": 175,
+          "developmentRevenue": 1863600,
+          "burned": 931800
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "players": 200,
+        "seasons": 4,
+        "attestors": "2 of 3",
+        "sponsorship": "minimum",
+        "adversaries": "5% of players start an exit whenever they lose a raid; attestors are unreachable for more than two days in 1% of settlements"
+      },
+      "measuredFees": {
+        "raidReserveLocked": 3340,
+        "raidWinOneOutput": 1386,
+        "raidWinThreeOutputs": 2788,
+        "raidLossOrVoid": 650,
+        "withdrawalOneOutput": 614,
+        "withdrawalThreeOutputs": 1750,
+        "servicePaymentWalletFee": 357,
+        "rewardShareReserve": 300
+      },
+      "totals": {
+        "services": 1732,
+        "serviceSpend": 35972000,
+        "warChest": 17986000,
+        "prize": 7194400,
+        "development": 37194400,
+        "burn": 3597200,
+        "sponsorship": 100000000,
+        "deposits": 80,
+        "depositSatoshis": 3200000,
+        "networkFees": 2076151,
+        "payerReserves": 2567044,
+        "reserveReturnedToPools": 218990,
+        "reserveBackToAttackers": 1153853,
+        "raidsAttempted": 806,
+        "raidsBlockedNoExposure": 223,
+        "raidsBlockedCooldown": 0,
+        "raidsFought": 583,
+        "attackerWins": 284,
+        "defenderWins": 299,
+        "raidsVoided": 0,
+        "stakeVolume": 13778000,
+        "capturedSatoshis": 6746000,
+        "forfeitedSatoshis": 7032000,
+        "winFees": 599017,
+        "lossFees": 194350,
+        "exitsAfterFunding": 15,
+        "exitsThatEscaped": 0,
+        "withdrawals": 32,
+        "withdrawnSatoshis": 705408,
+        "withdrawalFees": 52592,
+        "chestOutputsSpentPerWin": 577
+      },
+      "ratios": {
+        "serviceSplitCheck": {
+          "warChest": 50,
+          "prize": 20,
+          "development": 20,
+          "burn": 10
+        },
+        "networkFeesPerServiceSpendPercent": 5.77,
+        "averageWinFee": 2109,
+        "averageStake": 23633,
+        "winFeePercentOfStake": 8.88,
+        "averageChestOutputsPerWin": 2.03,
+        "raidsBlockedForLackOfExposurePercent": 27.7,
+        "withdrawalFeePercent": 7.46,
+        "zeroSum": "every satoshi a raid moves comes from one player and reaches another; the only loss is the network fee"
+      },
+      "warChest": {
+        "playersWhoCanBeRaidedAtTheSmallestStake": 177,
+        "median": 30000,
+        "ninetiethPercentile": 37000,
+        "largest": 99000
+      },
+      "byPlayerKind": {
+        "casual": {
+          "players": 120,
+          "servicesBought": 78250,
+          "networkFeesPaid": 3155,
+          "raidNetResult": 4658,
+          "warChestAtEnd": 20742
+        },
+        "regular": {
+          "players": 60,
+          "servicesBought": 249200,
+          "networkFeesPaid": 17061,
+          "raidNetResult": -15758,
+          "warChestAtEnd": 82750
+        },
+        "heavy": {
+          "players": 20,
+          "servicesBought": 581500,
+          "networkFeesPaid": 41329,
+          "raidNetResult": -20343,
+          "warChestAtEnd": 311400
+        }
+      },
+      "seasons": [
+        {
+          "season": 1,
+          "prizePoolAtClose": 19357014,
+          "distributable": 16453461,
+          "awards": [
+            6581384,
+            4113365,
+            2468019,
+            1645346,
+            1645346
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 2900114,
+          "eligiblePlayers": 164,
+          "services": 435,
+          "raidsFought": 125,
+          "developmentRevenue": 9302000,
+          "burned": 901000
+        },
+        {
+          "season": 2,
+          "prizePoolAtClose": 22245422,
+          "distributable": 18908608,
+          "awards": [
+            7563443,
+            4727152,
+            2836291,
+            1890860,
+            1890860
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 3333376,
+          "eligiblePlayers": 162,
+          "services": 431,
+          "raidsFought": 138,
+          "developmentRevenue": 9290800,
+          "burned": 895400
+        },
+        {
+          "season": 3,
+          "prizePoolAtClose": 22622086,
+          "distributable": 19228773,
+          "awards": [
+            7691509,
+            4807193,
+            2884315,
+            1922877,
+            1922877
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 3389875,
+          "eligiblePlayers": 180,
+          "services": 417,
+          "raidsFought": 161,
+          "developmentRevenue": 9236000,
+          "burned": 868000
+        },
+        {
+          "season": 4,
+          "prizePoolAtClose": 22812233,
+          "distributable": 19390398,
+          "awards": [
+            7756159,
+            4847599,
+            2908559,
+            1939039,
+            1939039
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 3418398,
+          "eligiblePlayers": 178,
+          "services": 449,
+          "raidsFought": 159,
+          "developmentRevenue": 9365600,
+          "burned": 932800
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "players": 2000,
+        "seasons": 4,
+        "attestors": "1 of 1",
+        "sponsorship": "none",
+        "adversaries": "5% of players start an exit whenever they lose a raid; attestors are unreachable for more than two days in 1% of settlements"
+      },
+      "measuredFees": {
+        "raidReserveLocked": 2880,
+        "raidWinOneOutput": 1207,
+        "raidWinThreeOutputs": 2327,
+        "raidLossOrVoid": 610,
+        "withdrawalOneOutput": 540,
+        "withdrawalThreeOutputs": 1528,
+        "servicePaymentWalletFee": 357,
+        "rewardShareReserve": 300
+      },
+      "totals": {
+        "services": 17504,
+        "serviceSpend": 364102000,
+        "warChest": 182051000,
+        "prize": 72820400,
+        "development": 72820400,
+        "burn": 36410200,
+        "sponsorship": 0,
+        "deposits": 800,
+        "depositSatoshis": 32000000,
+        "networkFees": 19799362,
+        "payerReserves": 23478144,
+        "reserveReturnedToPools": 2214148,
+        "reserveBackToAttackers": 10219326,
+        "raidsAttempted": 8336,
+        "raidsBlockedNoExposure": 2359,
+        "raidsBlockedCooldown": 0,
+        "raidsFought": 5977,
+        "attackerWins": 3002,
+        "defenderWins": 2974,
+        "raidsVoided": 1,
+        "stakeVolume": 136412000,
+        "capturedSatoshis": 68058000,
+        "forfeitedSatoshis": 68329000,
+        "winFees": 5177414,
+        "lossFees": 1814140,
+        "exitsAfterFunding": 185,
+        "exitsThatEscaped": 1,
+        "withdrawals": 343,
+        "withdrawnSatoshis": 6622344,
+        "withdrawalFees": 478656,
+        "chestOutputsSpentPerWin": 5777
+      },
+      "ratios": {
+        "serviceSplitCheck": {
+          "warChest": 50,
+          "prize": 20,
+          "development": 20,
+          "burn": 10
+        },
+        "networkFeesPerServiceSpendPercent": 5.44,
+        "averageWinFee": 1725,
+        "averageStake": 22823,
+        "winFeePercentOfStake": 7.61,
+        "averageChestOutputsPerWin": 1.92,
+        "raidsBlockedForLackOfExposurePercent": 28.3,
+        "withdrawalFeePercent": 7.23,
+        "zeroSum": "every satoshi a raid moves comes from one player and reaches another; the only loss is the network fee"
+      },
+      "warChest": {
+        "playersWhoCanBeRaidedAtTheSmallestStake": 1633,
+        "median": 30000,
+        "ninetiethPercentile": 40000,
+        "largest": 124000
+      },
+      "byPlayerKind": {
+        "casual": {
+          "players": 1200,
+          "servicesBought": 83572,
+          "networkFeesPaid": 3398,
+          "raidNetResult": -849,
+          "warChestAtEnd": 19473
+        },
+        "regular": {
+          "players": 600,
+          "servicesBought": 245583,
+          "networkFeesPaid": 16140,
+          "raidNetResult": -8039,
+          "warChestAtEnd": 86580
+        },
+        "heavy": {
+          "players": 200,
+          "servicesBought": 582330,
+          "networkFeesPaid": 38799,
+          "raidNetResult": -5749,
+          "warChestAtEnd": 317530
+        }
+      },
+      "seasons": [
+        {
+          "season": 1,
+          "prizePoolAtClose": 18575684,
+          "distributable": 15789331,
+          "awards": [
+            6315732,
+            3947332,
+            2368399,
+            1578933,
+            1578933
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 2782915,
+          "eligiblePlayers": 1624,
+          "services": 4333,
+          "raidsFought": 1155,
+          "developmentRevenue": 18027600,
+          "burned": 9013800
+        },
+        {
+          "season": 2,
+          "prizePoolAtClose": 21563071,
+          "distributable": 18328610,
+          "awards": [
+            7331444,
+            4582152,
+            2749291,
+            1832861,
+            1832861
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 3231022,
+          "eligiblePlayers": 1756,
+          "services": 4381,
+          "raidsFought": 1505,
+          "developmentRevenue": 18226000,
+          "burned": 9113000
+        },
+        {
+          "season": 3,
+          "prizePoolAtClose": 22008692,
+          "distributable": 18707388,
+          "awards": [
+            7482955,
+            4676847,
+            2806108,
+            1870738,
+            1870738
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 3297866,
+          "eligiblePlayers": 1800,
+          "services": 4380,
+          "raidsFought": 1631,
+          "developmentRevenue": 18223600,
+          "burned": 9111800
+        },
+        {
+          "season": 4,
+          "prizePoolAtClose": 22198904,
+          "distributable": 18869068,
+          "awards": [
+            7547627,
+            4717267,
+            2830360,
+            1886906,
+            1886906
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 3326398,
+          "eligiblePlayers": 1801,
+          "services": 4410,
+          "raidsFought": 1686,
+          "developmentRevenue": 18343200,
+          "burned": 9171600
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "players": 2000,
+        "seasons": 4,
+        "attestors": "1 of 1",
+        "sponsorship": "minimum",
+        "adversaries": "5% of players start an exit whenever they lose a raid; attestors are unreachable for more than two days in 1% of settlements"
+      },
+      "measuredFees": {
+        "raidReserveLocked": 2880,
+        "raidWinOneOutput": 1207,
+        "raidWinThreeOutputs": 2327,
+        "raidLossOrVoid": 610,
+        "withdrawalOneOutput": 540,
+        "withdrawalThreeOutputs": 1528,
+        "servicePaymentWalletFee": 357,
+        "rewardShareReserve": 300
+      },
+      "totals": {
+        "services": 17712,
+        "serviceSpend": 368610000,
+        "warChest": 184305000,
+        "prize": 73722000,
+        "development": 103722000,
+        "burn": 36861000,
+        "sponsorship": 100000000,
+        "deposits": 800,
+        "depositSatoshis": 32000000,
+        "networkFees": 19775080,
+        "payerReserves": 23403456,
+        "reserveReturnedToPools": 2240514,
+        "reserveBackToAttackers": 10183856,
+        "raidsAttempted": 8229,
+        "raidsBlockedNoExposure": 2294,
+        "raidsBlockedCooldown": 0,
+        "raidsFought": 5935,
+        "attackerWins": 2942,
+        "defenderWins": 2991,
+        "raidsVoided": 2,
+        "stakeVolume": 135805000,
+        "capturedSatoshis": 67211000,
+        "forfeitedSatoshis": 68542000,
+        "winFees": 5078674,
+        "lossFees": 1824510,
+        "exitsAfterFunding": 113,
+        "exitsThatEscaped": 2,
+        "withdrawals": 329,
+        "withdrawnSatoshis": 6451784,
+        "withdrawalFees": 461216,
+        "chestOutputsSpentPerWin": 5670
+      },
+      "ratios": {
+        "serviceSplitCheck": {
+          "warChest": 50,
+          "prize": 20,
+          "development": 20,
+          "burn": 10
+        },
+        "networkFeesPerServiceSpendPercent": 5.36,
+        "averageWinFee": 1726,
+        "averageStake": 22882,
+        "winFeePercentOfStake": 7.56,
+        "averageChestOutputsPerWin": 1.93,
+        "raidsBlockedForLackOfExposurePercent": 27.9,
+        "withdrawalFeePercent": 7.15,
+        "zeroSum": "every satoshi a raid moves comes from one player and reaches another; the only loss is the network fee"
+      },
+      "warChest": {
+        "playersWhoCanBeRaidedAtTheSmallestStake": 1685,
+        "median": 30000,
+        "ninetiethPercentile": 36000,
+        "largest": 124000
+      },
+      "byPlayerKind": {
+        "casual": {
+          "players": 1200,
+          "servicesBought": 84305,
+          "networkFeesPaid": 3427,
+          "raidNetResult": 508,
+          "warChestAtEnd": 20829
+        },
+        "regular": {
+          "players": 600,
+          "servicesBought": 251630,
+          "networkFeesPaid": 16385,
+          "raidNetResult": -3515,
+          "warChestAtEnd": 90213
+        },
+        "heavy": {
+          "players": 200,
+          "servicesBought": 582330,
+          "networkFeesPaid": 37990,
+          "raidNetResult": -27024,
+          "warChestAtEnd": 314980
+        }
+      },
+      "seasons": [
+        {
+          "season": 1,
+          "prizePoolAtClose": 36623650,
+          "distributable": 31130102,
+          "awards": [
+            12452040,
+            7782525,
+            4669515,
+            3113010,
+            3113010
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 5490110,
+          "eligiblePlayers": 1611,
+          "services": 4459,
+          "raidsFought": 1148,
+          "developmentRevenue": 26059600,
+          "burned": 9279800
+        },
+        {
+          "season": 2,
+          "prizePoolAtClose": 41858276,
+          "distributable": 35579534,
+          "awards": [
+            14231813,
+            8894883,
+            5336930,
+            3557953,
+            3557953
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 6275304,
+          "eligiblePlayers": 1755,
+          "services": 4403,
+          "raidsFought": 1499,
+          "developmentRevenue": 25811200,
+          "burned": 9155600
+        },
+        {
+          "season": 3,
+          "prizePoolAtClose": 42710448,
+          "distributable": 36303880,
+          "awards": [
+            14521552,
+            9075970,
+            5445582,
+            3630388,
+            3630388
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 6403128,
+          "eligiblePlayers": 1801,
+          "services": 4414,
+          "raidsFought": 1619,
+          "developmentRevenue": 25876800,
+          "burned": 9188400
+        },
+        {
+          "season": 4,
+          "prizePoolAtClose": 42938682,
+          "distributable": 36497879,
+          "awards": [
+            14599151,
+            9124469,
+            5474681,
+            3649787,
+            3649787
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 6437367,
+          "eligiblePlayers": 1802,
+          "services": 4436,
+          "raidsFought": 1669,
+          "developmentRevenue": 25974400,
+          "burned": 9237200
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "players": 2000,
+        "seasons": 4,
+        "attestors": "2 of 3",
+        "sponsorship": "none",
+        "adversaries": "5% of players start an exit whenever they lose a raid; attestors are unreachable for more than two days in 1% of settlements"
+      },
+      "measuredFees": {
+        "raidReserveLocked": 3340,
+        "raidWinOneOutput": 1386,
+        "raidWinThreeOutputs": 2788,
+        "raidLossOrVoid": 650,
+        "withdrawalOneOutput": 614,
+        "withdrawalThreeOutputs": 1750,
+        "servicePaymentWalletFee": 357,
+        "rewardShareReserve": 300
+      },
+      "totals": {
+        "services": 17638,
+        "serviceSpend": 366648000,
+        "warChest": 183324000,
+        "prize": 73329600,
+        "development": 73329600,
+        "burn": 36664800,
+        "sponsorship": 0,
+        "deposits": 800,
+        "depositSatoshis": 32000000,
+        "networkFees": 20709924,
+        "payerReserves": 25845764,
+        "reserveReturnedToPools": 2231126,
+        "reserveBackToAttackers": 11756814,
+        "raidsAttempted": 8209,
+        "raidsBlockedNoExposure": 2347,
+        "raidsBlockedCooldown": 1,
+        "raidsFought": 5861,
+        "attackerWins": 2918,
+        "defenderWins": 2941,
+        "raidsVoided": 2,
+        "stakeVolume": 132559000,
+        "capturedSatoshis": 65189000,
+        "forfeitedSatoshis": 67325000,
+        "winFees": 5900596,
+        "lossFees": 1911650,
+        "exitsAfterFunding": 128,
+        "exitsThatEscaped": 2,
+        "withdrawals": 352,
+        "withdrawnSatoshis": 6889848,
+        "withdrawalFees": 567152,
+        "chestOutputsSpentPerWin": 5566
+      },
+      "ratios": {
+        "serviceSplitCheck": {
+          "warChest": 50,
+          "prize": 20,
+          "development": 20,
+          "burn": 10
+        },
+        "networkFeesPerServiceSpendPercent": 5.65,
+        "averageWinFee": 2022,
+        "averageStake": 22617,
+        "winFeePercentOfStake": 9.05,
+        "averageChestOutputsPerWin": 1.91,
+        "raidsBlockedForLackOfExposurePercent": 28.6,
+        "withdrawalFeePercent": 8.23,
+        "zeroSum": "every satoshi a raid moves comes from one player and reaches another; the only loss is the network fee"
+      },
+      "warChest": {
+        "playersWhoCanBeRaidedAtTheSmallestStake": 1649,
+        "median": 30000,
+        "ninetiethPercentile": 40000,
+        "largest": 124000
+      },
+      "byPlayerKind": {
+        "casual": {
+          "players": 1200,
+          "servicesBought": 83257,
+          "networkFeesPaid": 3377,
+          "raidNetResult": -356,
+          "warChestAtEnd": 19782
+        },
+        "regular": {
+          "players": 600,
+          "servicesBought": 250707,
+          "networkFeesPaid": 17368,
+          "raidNetResult": -6946,
+          "warChestAtEnd": 90413
+        },
+        "heavy": {
+          "players": 200,
+          "servicesBought": 581580,
+          "networkFeesPaid": 39432,
+          "raidNetResult": -16091,
+          "warChestAtEnd": 323210
+        }
+      },
+      "seasons": [
+        {
+          "season": 1,
+          "prizePoolAtClose": 19020826,
+          "distributable": 16167702,
+          "awards": [
+            6467080,
+            4041925,
+            2425155,
+            1616770,
+            1616770
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 2849686,
+          "eligiblePlayers": 1628,
+          "services": 4443,
+          "raidsFought": 1183,
+          "developmentRevenue": 18458800,
+          "burned": 9229400
+        },
+        {
+          "season": 2,
+          "prizePoolAtClose": 21603076,
+          "distributable": 18362614,
+          "awards": [
+            7345045,
+            4590653,
+            2754392,
+            1836261,
+            1836261
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 3237024,
+          "eligiblePlayers": 1758,
+          "services": 4378,
+          "raidsFought": 1530,
+          "developmentRevenue": 18199600,
+          "burned": 9099800
+        },
+        {
+          "season": 3,
+          "prizePoolAtClose": 21989436,
+          "distributable": 18691020,
+          "awards": [
+            7476408,
+            4672755,
+            2803653,
+            1869102,
+            1869102
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 3294976,
+          "eligiblePlayers": 1776,
+          "services": 4367,
+          "raidsFought": 1537,
+          "developmentRevenue": 18200000,
+          "burned": 9100000
+        },
+        {
+          "season": 4,
+          "prizePoolAtClose": 22329074,
+          "distributable": 18979712,
+          "awards": [
+            7591884,
+            4744928,
+            2846956,
+            1897971,
+            1897971
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 3345924,
+          "eligiblePlayers": 1812,
+          "services": 4450,
+          "raidsFought": 1611,
+          "developmentRevenue": 18471200,
+          "burned": 9235600
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "players": 2000,
+        "seasons": 4,
+        "attestors": "2 of 3",
+        "sponsorship": "minimum",
+        "adversaries": "5% of players start an exit whenever they lose a raid; attestors are unreachable for more than two days in 1% of settlements"
+      },
+      "measuredFees": {
+        "raidReserveLocked": 3340,
+        "raidWinOneOutput": 1386,
+        "raidWinThreeOutputs": 2788,
+        "raidLossOrVoid": 650,
+        "withdrawalOneOutput": 614,
+        "withdrawalThreeOutputs": 1750,
+        "servicePaymentWalletFee": 357,
+        "rewardShareReserve": 300
+      },
+      "totals": {
+        "services": 17672,
+        "serviceSpend": 367840000,
+        "warChest": 183920000,
+        "prize": 73568000,
+        "development": 103568000,
+        "burn": 36784000,
+        "sponsorship": 100000000,
+        "deposits": 800,
+        "depositSatoshis": 32000000,
+        "networkFees": 20943389,
+        "payerReserves": 26132728,
+        "reserveReturnedToPools": 2235454,
+        "reserveBackToAttackers": 11804837,
+        "raidsAttempted": 8308,
+        "raidsBlockedNoExposure": 2370,
+        "raidsBlockedCooldown": 0,
+        "raidsFought": 5938,
+        "attackerWins": 2971,
+        "defenderWins": 2967,
+        "raidsVoided": 0,
+        "stakeVolume": 134527000,
+        "capturedSatoshis": 67289000,
+        "forfeitedSatoshis": 67238000,
+        "winFees": 6099533,
+        "lossFees": 1928550,
+        "exitsAfterFunding": 153,
+        "exitsThatEscaped": 0,
+        "withdrawals": 324,
+        "withdrawnSatoshis": 6252032,
+        "withdrawalFees": 524968,
+        "chestOutputsSpentPerWin": 5798
+      },
+      "ratios": {
+        "serviceSplitCheck": {
+          "warChest": 50,
+          "prize": 20,
+          "development": 20,
+          "burn": 10
+        },
+        "networkFeesPerServiceSpendPercent": 5.69,
+        "averageWinFee": 2053,
+        "averageStake": 22655,
+        "winFeePercentOfStake": 9.06,
+        "averageChestOutputsPerWin": 1.95,
+        "raidsBlockedForLackOfExposurePercent": 28.5,
+        "withdrawalFeePercent": 8.4,
+        "zeroSum": "every satoshi a raid moves comes from one player and reaches another; the only loss is the network fee"
+      },
+      "warChest": {
+        "playersWhoCanBeRaidedAtTheSmallestStake": 1637,
+        "median": 30000,
+        "ninetiethPercentile": 41000,
+        "largest": 124000
+      },
+      "byPlayerKind": {
+        "casual": {
+          "players": 1200,
+          "servicesBought": 84745,
+          "networkFeesPaid": 3505,
+          "raidNetResult": -400,
+          "warChestAtEnd": 19949
+        },
+        "regular": {
+          "players": 600,
+          "servicesBought": 249307,
+          "networkFeesPaid": 17289,
+          "raidNetResult": -8928,
+          "warChestAtEnd": 88028
+        },
+        "heavy": {
+          "players": 200,
+          "servicesBought": 582810,
+          "networkFeesPaid": 40304,
+          "raidNetResult": -10956,
+          "warChestAtEnd": 325490
+        }
+      },
+      "seasons": [
+        {
+          "season": 1,
+          "prizePoolAtClose": 36356600,
+          "distributable": 30903110,
+          "awards": [
+            12361244,
+            7725777,
+            4635466,
+            3090311,
+            3090311
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 5450051,
+          "eligiblePlayers": 1616,
+          "services": 4400,
+          "raidsFought": 1146,
+          "developmentRevenue": 25800000,
+          "burned": 9150000
+        },
+        {
+          "season": 2,
+          "prizePoolAtClose": 42141653,
+          "distributable": 35820405,
+          "awards": [
+            14328162,
+            8955101,
+            5373060,
+            3582040,
+            3582040
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 6317810,
+          "eligiblePlayers": 1761,
+          "services": 4468,
+          "raidsFought": 1497,
+          "developmentRevenue": 26126400,
+          "burned": 9313200
+        },
+        {
+          "season": 3,
+          "prizePoolAtClose": 42653224,
+          "distributable": 36255240,
+          "awards": [
+            14502096,
+            9063810,
+            5438286,
+            3625524,
+            3625524
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 6394544,
+          "eligiblePlayers": 1798,
+          "services": 4394,
+          "raidsFought": 1597,
+          "developmentRevenue": 25779600,
+          "burned": 9139800
+        },
+        {
+          "season": 4,
+          "prizePoolAtClose": 42814382,
+          "distributable": 36392224,
+          "awards": [
+            14556889,
+            9098056,
+            5458833,
+            3639222,
+            3639222
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 6418720,
+          "eligiblePlayers": 1799,
+          "services": 4410,
+          "raidsFought": 1698,
+          "developmentRevenue": 25862000,
+          "burned": 9181000
+        }
+      ]
+    },
+    {
+      "label": "frequent raids",
+      "scenario": {
+        "players": 200,
+        "seasons": 4,
+        "attestors": "2 of 3",
+        "sponsorship": "none",
+        "adversaries": "5% of players start an exit whenever they lose a raid; attestors are unreachable for more than two days in 1% of settlements"
+      },
+      "measuredFees": {
+        "raidReserveLocked": 3340,
+        "raidWinOneOutput": 1386,
+        "raidWinThreeOutputs": 2788,
+        "raidLossOrVoid": 650,
+        "withdrawalOneOutput": 614,
+        "withdrawalThreeOutputs": 1750,
+        "servicePaymentWalletFee": 357,
+        "rewardShareReserve": 300
+      },
+      "totals": {
+        "services": 1780,
+        "serviceSpend": 37034000,
+        "warChest": 18517000,
+        "prize": 7406800,
+        "development": 7406800,
+        "burn": 3703400,
+        "sponsorship": 0,
+        "deposits": 80,
+        "depositSatoshis": 3200000,
+        "networkFees": 2997445,
+        "payerReserves": 4685180,
+        "reserveReturnedToPools": 225062,
+        "reserveBackToAttackers": 2533891,
+        "raidsAttempted": 2003,
+        "raidsBlockedNoExposure": 785,
+        "raidsBlockedCooldown": 1,
+        "raidsFought": 1217,
+        "attackerWins": 629,
+        "defenderWins": 588,
+        "raidsVoided": 0,
+        "stakeVolume": 21144000,
+        "capturedSatoshis": 10642000,
+        "forfeitedSatoshis": 10502000,
+        "winFees": 1148689,
+        "lossFees": 382200,
+        "exitsAfterFunding": 21,
+        "exitsThatEscaped": 0,
+        "withdrawals": 28,
+        "withdrawnSatoshis": 464544,
+        "withdrawalFees": 44456,
+        "chestOutputsSpentPerWin": 1024
+      },
+      "ratios": {
+        "serviceSplitCheck": {
+          "warChest": 50,
+          "prize": 20,
+          "development": 20,
+          "burn": 10
+        },
+        "networkFeesPerServiceSpendPercent": 8.09,
+        "averageWinFee": 1826,
+        "averageStake": 17374,
+        "winFeePercentOfStake": 10.79,
+        "averageChestOutputsPerWin": 1.63,
+        "raidsBlockedForLackOfExposurePercent": 39.2,
+        "withdrawalFeePercent": 9.57,
+        "zeroSum": "every satoshi a raid moves comes from one player and reaches another; the only loss is the network fee"
+      },
+      "warChest": {
+        "playersWhoCanBeRaidedAtTheSmallestStake": 136,
+        "median": 15000,
+        "ninetiethPercentile": 34000,
+        "largest": 114000
+      },
+      "byPlayerKind": {
+        "casual": {
+          "players": 120,
+          "servicesBought": 87633,
+          "networkFeesPaid": 7652,
+          "raidNetResult": -33,
+          "warChestAtEnd": 11067
+        },
+        "regular": {
+          "players": 60,
+          "servicesBought": 247933,
+          "networkFeesPaid": 25076,
+          "raidNetResult": -30476,
+          "warChestAtEnd": 53467
+        },
+        "heavy": {
+          "players": 20,
+          "servicesBought": 582100,
+          "networkFeesPaid": 37074,
+          "raidNetResult": 15085,
+          "warChestAtEnd": 301500
+        }
+      },
+      "seasons": [
+        {
+          "season": 1,
+          "prizePoolAtClose": 1876440,
+          "distributable": 1594974,
+          "awards": [
+            637989,
+            398743,
+            239246,
+            159497,
+            159497
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 278028,
+          "eligiblePlayers": 177,
+          "services": 437,
+          "raidsFought": 230,
+          "developmentRevenue": 1821200,
+          "burned": 910600
+        },
+        {
+          "season": 2,
+          "prizePoolAtClose": 2337774,
+          "distributable": 1987107,
+          "awards": [
+            794842,
+            496776,
+            298066,
+            198710,
+            198710
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 347230,
+          "eligiblePlayers": 190,
+          "services": 482,
+          "raidsFought": 314,
+          "developmentRevenue": 1998800,
+          "burned": 999400
+        },
+        {
+          "season": 3,
+          "prizePoolAtClose": 2140080,
+          "distributable": 1819068,
+          "awards": [
+            727627,
+            454767,
+            272860,
+            181906,
+            181906
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 317574,
+          "eligiblePlayers": 194,
+          "services": 418,
+          "raidsFought": 357,
+          "developmentRevenue": 1740000,
+          "burned": 870000
+        },
+        {
+          "season": 4,
+          "prizePoolAtClose": 2220400,
+          "distributable": 1887340,
+          "awards": [
+            754936,
+            471835,
+            283101,
+            188734,
+            188734
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 329620,
+          "eligiblePlayers": 193,
+          "services": 443,
+          "raidsFought": 316,
+          "developmentRevenue": 1846800,
+          "burned": 923400
+        }
+      ]
+    },
+    {
+      "label": "no direct deposits at all",
+      "scenario": {
+        "players": 200,
+        "seasons": 4,
+        "attestors": "2 of 3",
+        "sponsorship": "none",
+        "adversaries": "5% of players start an exit whenever they lose a raid; attestors are unreachable for more than two days in 1% of settlements"
+      },
+      "measuredFees": {
+        "raidReserveLocked": 3340,
+        "raidWinOneOutput": 1386,
+        "raidWinThreeOutputs": 2788,
+        "raidLossOrVoid": 650,
+        "withdrawalOneOutput": 614,
+        "withdrawalThreeOutputs": 1750,
+        "servicePaymentWalletFee": 357,
+        "rewardShareReserve": 300
+      },
+      "totals": {
+        "services": 1740,
+        "serviceSpend": 36122000,
+        "warChest": 18061000,
+        "prize": 7224400,
+        "development": 7224400,
+        "burn": 3612200,
+        "sponsorship": 0,
+        "deposits": 0,
+        "depositSatoshis": 0,
+        "networkFees": 2087538,
+        "payerReserves": 2495504,
+        "reserveReturnedToPools": 220002,
+        "reserveBackToAttackers": 1034782,
+        "raidsAttempted": 822,
+        "raidsBlockedNoExposure": 262,
+        "raidsBlockedCooldown": 0,
+        "raidsFought": 560,
+        "attackerWins": 296,
+        "defenderWins": 264,
+        "raidsVoided": 0,
+        "stakeVolume": 11707000,
+        "capturedSatoshis": 6274000,
+        "forfeitedSatoshis": 5433000,
+        "winFees": 664018,
+        "lossFees": 171600,
+        "exitsAfterFunding": 18,
+        "exitsThatEscaped": 0,
+        "withdrawals": 27,
+        "withdrawnSatoshis": 407158,
+        "withdrawalFees": 43842,
+        "chestOutputsSpentPerWin": 658
+      },
+      "ratios": {
+        "serviceSplitCheck": {
+          "warChest": 50,
+          "prize": 20,
+          "development": 20,
+          "burn": 10
+        },
+        "networkFeesPerServiceSpendPercent": 5.78,
+        "averageWinFee": 2243,
+        "averageStake": 20905,
+        "winFeePercentOfStake": 10.58,
+        "averageChestOutputsPerWin": 2.22,
+        "raidsBlockedForLackOfExposurePercent": 31.9,
+        "withdrawalFeePercent": 10.77,
+        "zeroSum": "every satoshi a raid moves comes from one player and reaches another; the only loss is the network fee"
+      },
+      "warChest": {
+        "playersWhoCanBeRaidedAtTheSmallestStake": 172,
+        "median": 30000,
+        "ninetiethPercentile": 34000,
+        "largest": 37000
+      },
+      "byPlayerKind": {
+        "casual": {
+          "players": 120,
+          "servicesBought": 80233,
+          "networkFeesPaid": 3331,
+          "raidNetResult": -891,
+          "warChestAtEnd": 21058
+        },
+        "regular": {
+          "players": 60,
+          "servicesBought": 247833,
+          "networkFeesPaid": 17434,
+          "raidNetResult": 7060,
+          "warChestAtEnd": 76500
+        },
+        "heavy": {
+          "players": 20,
+          "servicesBought": 581200,
+          "networkFeesPaid": 40212,
+          "raidNetResult": -57617,
+          "warChestAtEnd": 210950
+        }
+      },
+      "seasons": [
+        {
+          "season": 1,
+          "prizePoolAtClose": 1835568,
+          "distributable": 1560232,
+          "awards": [
+            624092,
+            390058,
+            234034,
+            156023,
+            156023
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 271898,
+          "eligiblePlayers": 157,
+          "services": 430,
+          "raidsFought": 89,
+          "developmentRevenue": 1781200,
+          "burned": 890600
+        },
+        {
+          "season": 2,
+          "prizePoolAtClose": 2158324,
+          "distributable": 1834575,
+          "awards": [
+            733830,
+            458643,
+            275186,
+            183457,
+            183457
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 320311,
+          "eligiblePlayers": 171,
+          "services": 443,
+          "raidsFought": 151,
+          "developmentRevenue": 1830400,
+          "burned": 915200
+        },
+        {
+          "season": 3,
+          "prizePoolAtClose": 2132727,
+          "distributable": 1812817,
+          "awards": [
+            725126,
+            453204,
+            271922,
+            181281,
+            181281
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 316473,
+          "eligiblePlayers": 176,
+          "services": 421,
+          "raidsFought": 157,
+          "developmentRevenue": 1759200,
+          "burned": 879600
+        },
+        {
+          "season": 4,
+          "prizePoolAtClose": 2226465,
+          "distributable": 1892495,
+          "awards": [
+            756998,
+            473123,
+            283874,
+            189249,
+            189249
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 330532,
+          "eligiblePlayers": 176,
+          "services": 446,
+          "raidsFought": 163,
+          "developmentRevenue": 1853600,
+          "burned": 926800
+        }
+      ]
+    },
+    {
+      "label": "low activity, no deposits, no sponsor",
+      "scenario": {
+        "players": 20,
+        "seasons": 4,
+        "attestors": "1 of 1",
+        "sponsorship": "none",
+        "adversaries": "5% of players start an exit whenever they lose a raid; attestors are unreachable for more than two days in 1% of settlements"
+      },
+      "measuredFees": {
+        "raidReserveLocked": 2880,
+        "raidWinOneOutput": 1207,
+        "raidWinThreeOutputs": 2327,
+        "raidLossOrVoid": 610,
+        "withdrawalOneOutput": 540,
+        "withdrawalThreeOutputs": 1528,
+        "servicePaymentWalletFee": 357,
+        "rewardShareReserve": 300
+      },
+      "totals": {
+        "services": 57,
+        "serviceSpend": 1190000,
+        "warChest": 595000,
+        "prize": 238000,
+        "development": 238000,
+        "burn": 119000,
+        "sponsorship": 0,
+        "deposits": 0,
+        "depositSatoshis": 0,
+        "networkFees": 91254,
+        "payerReserves": 111564,
+        "reserveReturnedToPools": 7116,
+        "reserveBackToAttackers": 55889,
+        "raidsAttempted": 88,
+        "raidsBlockedNoExposure": 56,
+        "raidsBlockedCooldown": 0,
+        "raidsFought": 32,
+        "attackerWins": 13,
+        "defenderWins": 18,
+        "raidsVoided": 1,
+        "stakeVolume": 535000,
+        "capturedSatoshis": 234000,
+        "forfeitedSatoshis": 291000,
+        "winFees": 22411,
+        "lossFees": 10980,
+        "exitsAfterFunding": 3,
+        "exitsThatEscaped": 1,
+        "withdrawals": 1,
+        "withdrawnSatoshis": 14472,
+        "withdrawalFees": 1528,
+        "chestOutputsSpentPerWin": 25
+      },
+      "ratios": {
+        "serviceSplitCheck": {
+          "warChest": 50,
+          "prize": 20,
+          "development": 20,
+          "burn": 10
+        },
+        "networkFeesPerServiceSpendPercent": 7.67,
+        "averageWinFee": 1724,
+        "averageStake": 16719,
+        "winFeePercentOfStake": 9.58,
+        "averageChestOutputsPerWin": 1.92,
+        "raidsBlockedForLackOfExposurePercent": 63.6,
+        "withdrawalFeePercent": 10.56,
+        "zeroSum": "every satoshi a raid moves comes from one player and reaches another; the only loss is the network fee"
+      },
+      "warChest": {
+        "playersWhoCanBeRaidedAtTheSmallestStake": 15,
+        "median": 10000,
+        "ninetiethPercentile": 32000,
+        "largest": 34000
+      },
+      "byPlayerKind": {
+        "casual": {
+          "players": 12,
+          "servicesBought": 22500,
+          "networkFeesPaid": 940,
+          "raidNetResult": 5816,
+          "warChestAtEnd": 8667
+        },
+        "regular": {
+          "players": 6,
+          "servicesBought": 108000,
+          "networkFeesPaid": 8761,
+          "raidNetResult": -15000,
+          "warChestAtEnd": 25333
+        },
+        "heavy": {
+          "players": 2,
+          "servicesBought": 136000,
+          "networkFeesPaid": 9620,
+          "raidNetResult": -6895,
+          "warChestAtEnd": 39500
+        }
+      },
+      "seasons": [
+        {
+          "season": 1,
+          "prizePoolAtClose": 65884,
+          "distributable": 56001,
+          "awards": [
+            22400,
+            14000,
+            8400,
+            5600,
+            5600
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 6444,
+          "eligiblePlayers": 11,
+          "services": 15,
+          "raidsFought": 5,
+          "developmentRevenue": 64000,
+          "burned": 32000
+        },
+        {
+          "season": 2,
+          "prizePoolAtClose": 66188,
+          "distributable": 56259,
+          "awards": [
+            22503,
+            14064,
+            8438,
+            5625,
+            5625
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 6493,
+          "eligiblePlayers": 9,
+          "services": 14,
+          "raidsFought": 7,
+          "developmentRevenue": 58000,
+          "burned": 29000
+        },
+        {
+          "season": 3,
+          "prizePoolAtClose": 35765,
+          "distributable": 30400,
+          "awards": [
+            12160,
+            7600,
+            4560,
+            3040,
+            3040
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 1925,
+          "eligiblePlayers": 11,
+          "services": 7,
+          "raidsFought": 12,
+          "developmentRevenue": 28400,
+          "burned": 14200
+        },
+        {
+          "season": 4,
+          "prizePoolAtClose": 92141,
+          "distributable": 78319,
+          "awards": [
+            31327,
+            19579,
+            11747,
+            7831,
+            7831
+          ],
+          "awardNetworkFees": 3440,
+          "rolledToNextSeason": 10386,
+          "eligiblePlayers": 14,
+          "services": 21,
+          "raidsFought": 8,
+          "developmentRevenue": 87600,
+          "burned": 43800
+        }
+      ]
+    }
+  ]
+}

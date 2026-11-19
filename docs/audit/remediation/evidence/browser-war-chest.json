@@ -1,0 +1,18 @@
+{
+  "ranAt": "2026-11-19T10:30:53.302Z",
+  "browser": "Chromium 153.0.8010.12",
+  "network": "in-process fixture node (BCH VM), not Chipnet",
+  "wallet": "test keys in the test process; no wallet app or WizardConnect pairing",
+  "passed": [
+    "the server announces the 50/20/20/10 economy to the client",
+    "a raid on an empty War Chest: the paid raid is not offered and there is nothing to tick to force it",
+    "against a funded War Chest the raid screen shows the stake, the matched exposure, the fees and what reaches the wallet",
+    "preparing the paid raid shows the escrow and the same figures in the payment dialog",
+    "a service payment dialog lists the four exact outputs and the one reserve before the wallet signs",
+    "after one payment the War Chest screen shows the share in the chest and open to a raid at once, with no risk control and no second vault",
+    "the council treasury panel has no risk setting and explains matched stakes",
+    "prices shown in the client come from the price book",
+    "the old risk endpoint is closed"
+  ],
+  "pageErrors": []
+}

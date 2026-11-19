@@ -1,0 +1,10 @@
+# Runs the attestor every five minutes, so raids and prizes are signed without anyone acting.
+[Unit]
+Description=VaultBorn attestor schedule
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=5min
+
+[Install]
+WantedBy=timers.target

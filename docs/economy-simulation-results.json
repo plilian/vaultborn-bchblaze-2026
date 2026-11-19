@@ -1,0 +1,1559 @@
+{
+  "simulationVersion": "dominion-balance-1",
+  "combat": {
+    "runs": 12000,
+    "pairedCombatResolutions": 36000,
+    "groups": [
+      {
+        "ratio": 0.8,
+        "count": 2400,
+        "attackerWinPercent": 0,
+        "byTactic": {
+          "balanced": 0,
+          "assault": 0,
+          "flank": 0.2,
+          "siege": 0
+        }
+      },
+      {
+        "ratio": 0.9,
+        "count": 2400,
+        "attackerWinPercent": 5.4,
+        "byTactic": {
+          "balanced": 4.7,
+          "assault": 4.2,
+          "flank": 9.8,
+          "siege": 3
+        }
+      },
+      {
+        "ratio": 1,
+        "count": 2400,
+        "attackerWinPercent": 35.3,
+        "byTactic": {
+          "balanced": 36.7,
+          "assault": 27.3,
+          "flank": 44.3,
+          "siege": 32.7
+        }
+      },
+      {
+        "ratio": 1.1,
+        "count": 2400,
+        "attackerWinPercent": 72.9,
+        "byTactic": {
+          "balanced": 75,
+          "assault": 66.5,
+          "flank": 80.5,
+          "siege": 69.7
+        }
+      },
+      {
+        "ratio": 1.2,
+        "count": 2400,
+        "attackerWinPercent": 94.6,
+        "byTactic": {
+          "balanced": 95.2,
+          "assault": 90.2,
+          "flank": 98.3,
+          "siege": 94.7
+        }
+      }
+    ],
+    "overallByTactic": {
+      "balanced": 42.3,
+      "assault": 37.6,
+      "flank": 46.6,
+      "siege": 40
+    },
+    "terrainWinPercent": {
+      "plains": 47.5,
+      "river": 35.8
+    },
+    "premiumDivergence": 0,
+    "intelChanged": 548,
+    "intelWinLiftPP": 4.57,
+    "meanCasualties": 63.03
+  },
+  "seasonRuns": 1000,
+  "economy": [
+    {
+      "strategy": "casual",
+      "premium": false,
+      "runs": 125,
+      "horizons": [
+        {
+          "day": 1,
+          "stock": {
+            "p10": 10635,
+            "p50": 11122,
+            "p90": 11552
+          },
+          "army": {
+            "p10": 87,
+            "p50": 87,
+            "p90": 87
+          },
+          "levelSum": {
+            "p10": 21,
+            "p50": 21,
+            "p90": 21
+          },
+          "hall": {
+            "p10": 3,
+            "p50": 3,
+            "p90": 3
+          },
+          "hall3Hours": {
+            "p10": 2.63,
+            "p50": 3.65,
+            "p90": 4.55
+          },
+          "hall5Hours": null,
+          "recoveredHours": null,
+          "observedRecoveries": 0,
+          "meanAttacksPerDay": 0,
+          "blockedPercent": 0,
+          "attempted": 0,
+          "blocked": 0,
+          "blockReasons": {},
+          "chipnetSatoshis": {
+            "p10": 0,
+            "p50": 0,
+            "p90": 0
+          },
+          "seasonScore": {
+            "p10": 3,
+            "p50": 3,
+            "p90": 3
+          },
+          "avgTrades": 0
+        },
+        {
+          "day": 7,
+          "stock": {
+            "p10": 13087,
+            "p50": 15705,
+            "p90": 15705
+          },
+          "army": {
+            "p10": 87,
+            "p50": 87,
+            "p90": 87
+          },
+          "levelSum": {
+            "p10": 24,
+            "p50": 26,
+            "p90": 27
+          },
+          "hall": {
+            "p10": 4,
+            "p50": 4,
+            "p90": 4
+          },
+          "hall3Hours": {
+            "p10": 2.63,
+            "p50": 3.65,
+            "p90": 4.55
+          },
+          "hall5Hours": null,
+          "recoveredHours": null,
+          "observedRecoveries": 0,
+          "meanAttacksPerDay": 0,
+          "blockedPercent": 0,
+          "attempted": 0,
+          "blocked": 0,
+          "blockReasons": {},
+          "chipnetSatoshis": {
+            "p10": 0,
+            "p50": 0,
+            "p90": 0
+          },
+          "seasonScore": {
+            "p10": 12,
+            "p50": 18,
+            "p90": 21
+          },
+          "avgTrades": 0
+        },
+        {
+          "day": 30,
+          "stock": {
+            "p10": 20940,
+            "p50": 23557,
+            "p90": 26149
+          },
+          "army": {
+            "p10": 87,
+            "p50": 87,
+            "p90": 87
+          },
+          "levelSum": {
+            "p10": 40,
+            "p50": 44,
+            "p90": 47
+          },
+          "hall": {
+            "p10": 7,
+            "p50": 7,
+            "p90": 8
+          },
+          "hall3Hours": {
+            "p10": 2.63,
+            "p50": 3.65,
+            "p90": 4.55
+          },
+          "hall5Hours": {
+            "p10": 171.74,
+            "p50": 218.98,
+            "p90": 267.29
+          },
+          "recoveredHours": null,
+          "observedRecoveries": 0,
+          "meanAttacksPerDay": 0,
+          "blockedPercent": 0,
+          "attempted": 0,
+          "blocked": 0,
+          "blockReasons": {},
+          "chipnetSatoshis": {
+            "p10": 0,
+            "p50": 0,
+            "p90": 0
+          },
+          "seasonScore": {
+            "p10": 60,
+            "p50": 72,
+            "p90": 81
+          },
+          "avgTrades": 0
+        }
+      ]
+    },
+    {
+      "strategy": "casual",
+      "premium": true,
+      "runs": 125,
+      "horizons": [
+        {
+          "day": 1,
+          "stock": {
+            "p10": 10635,
+            "p50": 11122,
+            "p90": 11552
+          },
+          "army": {
+            "p10": 87,
+            "p50": 87,
+            "p90": 87
+          },
+          "levelSum": {
+            "p10": 21,
+            "p50": 21,
+            "p90": 21
+          },
+          "hall": {
+            "p10": 3,
+            "p50": 3,
+            "p90": 3
+          },
+          "hall3Hours": {
+            "p10": 2.61,
+            "p50": 3.63,
+            "p90": 4.53
+          },
+          "hall5Hours": null,
+          "recoveredHours": null,
+          "observedRecoveries": 0,
+          "meanAttacksPerDay": 0,
+          "blockedPercent": 0,
+          "attempted": 0,
+          "blocked": 0,
+          "blockReasons": {},
+          "chipnetSatoshis": {
+            "p10": 1000,
+            "p50": 1000,
+            "p90": 1000
+          },
+          "seasonScore": {
+            "p10": 3,
+            "p50": 3,
+            "p90": 3
+          },
+          "avgTrades": 0
+        },
+        {
+          "day": 7,
+          "stock": {
+            "p10": 13087,
+            "p50": 15705,
+            "p90": 15705
+          },
+          "army": {
+            "p10": 87,
+            "p50": 87,
+            "p90": 87
+          },
+          "levelSum": {
+            "p10": 24,
+            "p50": 26,
+            "p90": 27
+          },
+          "hall": {
+            "p10": 4,
+            "p50": 4,
+            "p90": 4
+          },
+          "hall3Hours": {
+            "p10": 2.61,
+            "p50": 3.63,
+            "p90": 4.53
+          },
+          "hall5Hours": null,
+          "recoveredHours": null,
+          "observedRecoveries": 0,
+          "meanAttacksPerDay": 0,
+          "blockedPercent": 0,
+          "attempted": 0,
+          "blocked": 0,
+          "blockReasons": {},
+          "chipnetSatoshis": {
+            "p10": 3000,
+            "p50": 4000,
+            "p90": 5000
+          },
+          "seasonScore": {
+            "p10": 12,
+            "p50": 18,
+            "p90": 21
+          },
+          "avgTrades": 0
+        },
+        {
+          "day": 30,
+          "stock": {
+            "p10": 20940,
+            "p50": 23557,
+            "p90": 26149
+          },
+          "army": {
+            "p10": 87,
+            "p50": 87,
+            "p90": 87
+          },
+          "levelSum": {
+            "p10": 40,
+            "p50": 44,
+            "p90": 47
+          },
+          "hall": {
+            "p10": 7,
+            "p50": 7,
+            "p90": 8
+          },
+          "hall3Hours": {
+            "p10": 2.61,
+            "p50": 3.63,
+            "p90": 4.53
+          },
+          "hall5Hours": {
+            "p10": 171.71,
+            "p50": 218.95,
+            "p90": 267.26
+          },
+          "recoveredHours": null,
+          "observedRecoveries": 0,
+          "meanAttacksPerDay": 0,
+          "blockedPercent": 0,
+          "attempted": 0,
+          "blocked": 0,
+          "blockReasons": {},
+          "chipnetSatoshis": {
+            "p10": 15000,
+            "p50": 17000,
+            "p90": 19000
+          },
+          "seasonScore": {
+            "p10": 60,
+            "p50": 72,
+            "p90": 81
+          },
+          "avgTrades": 0
+        }
+      ]
+    },
+    {
+      "strategy": "builder",
+      "premium": false,
+      "runs": 125,
+      "horizons": [
+        {
+          "day": 1,
+          "stock": {
+            "p10": 12502,
+            "p50": 12967,
+            "p90": 13797
+          },
+          "army": {
+            "p10": 87,
+            "p50": 90,
+            "p90": 90
+          },
+          "levelSum": {
+            "p10": 23,
+            "p50": 24,
+            "p90": 25
+          },
+          "hall": {
+            "p10": 3,
+            "p50": 3,
+            "p90": 3
+          },
+          "hall3Hours": {
+            "p10": 0.64,
+            "p50": 0.91,
+            "p90": 1.43
+          },
+          "hall5Hours": null,
+          "recoveredHours": {
+            "p10": 14.14,
+            "p50": 17.61,
+            "p90": 18.32
+          },
+          "observedRecoveries": 29,
+          "meanAttacksPerDay": 1,
+          "blockedPercent": 0,
+          "attempted": 125,
+          "blocked": 0,
+          "blockReasons": {},
+          "chipnetSatoshis": {
+            "p10": 0,
+            "p50": 0,
+            "p90": 0
+          },
+          "seasonScore": {
+            "p10": 11,
+            "p50": 24,
+            "p90": 33
+          },
+          "avgTrades": 0
+        },
+        {
+          "day": 7,
+          "stock": {
+            "p10": 18322,
+            "p50": 21207,
+            "p90": 23728
+          },
+          "army": {
+            "p10": 87,
+            "p50": 90,
+            "p90": 90
+          },
+          "levelSum": {
+            "p10": 38,
+            "p50": 45,
+            "p90": 53
+          },
+          "hall": {
+            "p10": 5,
+            "p50": 7,
+            "p90": 8
+          },
+          "hall3Hours": {
+            "p10": 0.64,
+            "p50": 0.91,
+            "p90": 1.43
+          },
+          "hall5Hours": {
+            "p10": 58.58,
+            "p50": 78.89,
+            "p90": 113.14
+          },
+          "recoveredHours": {
+            "p10": 12.26,
+            "p50": 17.85,
+            "p90": 24.15
+          },
+          "observedRecoveries": 72,
+          "meanAttacksPerDay": 0.25,
+          "blockedPercent": 37.5,
+          "attempted": 352,
+          "blocked": 132,
+          "blockReasons": {
+            "power_gap": 132
+          },
+          "chipnetSatoshis": {
+            "p10": 0,
+            "p50": 0,
+            "p90": 0
+          },
+          "seasonScore": {
+            "p10": 78,
+            "p50": 102,
+            "p90": 123
+          },
+          "avgTrades": 0
+        },
+        {
+          "day": 30,
+          "stock": {
+            "p10": 31410,
+            "p50": 31410,
+            "p90": 31410
+          },
+          "army": {
+            "p10": 88,
+            "p50": 90,
+            "p90": 90
+          },
+          "levelSum": {
+            "p10": 62,
+            "p50": 62,
+            "p90": 62
+          },
+          "hall": {
+            "p10": 9,
+            "p50": 9,
+            "p90": 9
+          },
+          "hall3Hours": {
+            "p10": 0.64,
+            "p50": 0.91,
+            "p90": 1.43
+          },
+          "hall5Hours": {
+            "p10": 58.58,
+            "p50": 78.89,
+            "p90": 113.14
+          },
+          "recoveredHours": {
+            "p10": 14.14,
+            "p50": 23.69,
+            "p90": 96.41
+          },
+          "observedRecoveries": 245,
+          "meanAttacksPerDay": 0.14,
+          "blockedPercent": 55.3,
+          "attempted": 1153,
+          "blocked": 638,
+          "blockReasons": {
+            "power_gap": 638
+          },
+          "chipnetSatoshis": {
+            "p10": 0,
+            "p50": 0,
+            "p90": 0
+          },
+          "seasonScore": {
+            "p10": 150,
+            "p50": 150,
+            "p90": 181
+          },
+          "avgTrades": 0
+        }
+      ]
+    },
+    {
+      "strategy": "builder",
+      "premium": true,
+      "runs": 125,
+      "horizons": [
+        {
+          "day": 1,
+          "stock": {
+            "p10": 12471,
+            "p50": 12956,
+            "p90": 13804
+          },
+          "army": {
+            "p10": 87,
+            "p50": 90,
+            "p90": 90
+          },
+          "levelSum": {
+            "p10": 23,
+            "p50": 24,
+            "p90": 25
+          },
+          "hall": {
+            "p10": 3,
+            "p50": 3,
+            "p90": 3
+          },
+          "hall3Hours": {
+            "p10": 0.62,
+            "p50": 0.9,
+            "p90": 1.41
+          },
+          "hall5Hours": null,
+          "recoveredHours": {
+            "p10": 14.25,
+            "p50": 17.65,
+            "p90": 18.26
+          },
+          "observedRecoveries": 32,
+          "meanAttacksPerDay": 1,
+          "blockedPercent": 0,
+          "attempted": 125,
+          "blocked": 0,
+          "blockReasons": {},
+          "chipnetSatoshis": {
+            "p10": 1000,
+            "p50": 1000,
+            "p90": 1000
+          },
+          "seasonScore": {
+            "p10": 11,
+            "p50": 24,
+            "p90": 33
+          },
+          "avgTrades": 0
+        },
+        {
+          "day": 7,
+          "stock": {
+            "p10": 18322,
+            "p50": 20978,
+            "p90": 23768
+          },
+          "army": {
+            "p10": 87,
+            "p50": 90,
+            "p90": 90
+          },
+          "levelSum": {
+            "p10": 38,
+            "p50": 45,
+            "p90": 53
+          },
+          "hall": {
+            "p10": 5,
+            "p50": 7,
+            "p90": 8
+          },
+          "hall3Hours": {
+            "p10": 0.62,
+            "p50": 0.9,
+            "p90": 1.41
+          },
+          "hall5Hours": {
+            "p10": 58.56,
+            "p50": 78.87,
+            "p90": 113.11
+          },
+          "recoveredHours": {
+            "p10": 14.17,
+            "p50": 18,
+            "p90": 24.37
+          },
+          "observedRecoveries": 71,
+          "meanAttacksPerDay": 0.25,
+          "blockedPercent": 36.9,
+          "attempted": 352,
+          "blocked": 130,
+          "blockReasons": {
+            "power_gap": 130
+          },
+          "chipnetSatoshis": {
+            "p10": 6000,
+            "p50": 6000,
+            "p90": 7000
+          },
+          "seasonScore": {
+            "p10": 78,
+            "p50": 102,
+            "p90": 123
+          },
+          "avgTrades": 0
+        },
+        {
+          "day": 30,
+          "stock": {
+            "p10": 31410,
+            "p50": 31410,
+            "p90": 31410
+          },
+          "army": {
+            "p10": 87,
+            "p50": 90,
+            "p90": 90
+          },
+          "levelSum": {
+            "p10": 62,
+            "p50": 62,
+            "p90": 62
+          },
+          "hall": {
+            "p10": 9,
+            "p50": 9,
+            "p90": 9
+          },
+          "hall3Hours": {
+            "p10": 0.62,
+            "p50": 0.9,
+            "p90": 1.41
+          },
+          "hall5Hours": {
+            "p10": 58.56,
+            "p50": 78.87,
+            "p90": 113.11
+          },
+          "recoveredHours": {
+            "p10": 14.28,
+            "p50": 23.67,
+            "p90": 158.54
+          },
+          "observedRecoveries": 231,
+          "meanAttacksPerDay": 0.14,
+          "blockedPercent": 55.3,
+          "attempted": 1153,
+          "blocked": 638,
+          "blockReasons": {
+            "power_gap": 638
+          },
+          "chipnetSatoshis": {
+            "p10": 9000,
+            "p50": 11000,
+            "p90": 14000
+          },
+          "seasonScore": {
+            "p10": 150,
+            "p50": 150,
+            "p90": 181
+          },
+          "avgTrades": 0
+        }
+      ]
+    },
+    {
+      "strategy": "hoarder",
+      "premium": false,
+      "runs": 125,
+      "horizons": [
+        {
+          "day": 1,
+          "stock": {
+            "p10": 13017,
+            "p50": 13024,
+            "p90": 13025
+          },
+          "army": {
+            "p10": 87,
+            "p50": 87,
+            "p90": 87
+          },
+          "levelSum": {
+            "p10": 21,
+            "p50": 21,
+            "p90": 21
+          },
+          "hall": {
+            "p10": 3,
+            "p50": 3,
+            "p90": 3
+          },
+          "hall3Hours": {
+            "p10": 1.37,
+            "p50": 1.81,
+            "p90": 2.32
+          },
+          "hall5Hours": null,
+          "recoveredHours": null,
+          "observedRecoveries": 0,
+          "meanAttacksPerDay": 0,
+          "blockedPercent": 0,
+          "attempted": 0,
+          "blocked": 0,
+          "blockReasons": {},
+          "chipnetSatoshis": {
+            "p10": 0,
+            "p50": 0,
+            "p90": 0
+          },
+          "seasonScore": {
+            "p10": 3,
+            "p50": 3,
+            "p90": 3
+          },
+          "avgTrades": 0
+        },
+        {
+          "day": 7,
+          "stock": {
+            "p10": 15705,
+            "p50": 18322,
+            "p90": 18322
+          },
+          "army": {
+            "p10": 87,
+            "p50": 87,
+            "p90": 87
+          },
+          "levelSum": {
+            "p10": 25,
+            "p50": 27,
+            "p90": 27
+          },
+          "hall": {
+            "p10": 4,
+            "p50": 4,
+            "p90": 4
+          },
+          "hall3Hours": {
+            "p10": 1.37,
+            "p50": 1.81,
+            "p90": 2.32
+          },
+          "hall5Hours": null,
+          "recoveredHours": null,
+          "observedRecoveries": 0,
+          "meanAttacksPerDay": 0,
+          "blockedPercent": 0,
+          "attempted": 0,
+          "blocked": 0,
+          "blockReasons": {},
+          "chipnetSatoshis": {
+            "p10": 0,
+            "p50": 0,
+            "p90": 0
+          },
+          "seasonScore": {
+            "p10": 15,
+            "p50": 21,
+            "p90": 21
+          },
+          "avgTrades": 0
+        },
+        {
+          "day": 30,
+          "stock": {
+            "p10": 27674,
+            "p50": 31018,
+            "p90": 31410
+          },
+          "army": {
+            "p10": 87,
+            "p50": 87,
+            "p90": 87
+          },
+          "levelSum": {
+            "p10": 46,
+            "p50": 48,
+            "p90": 48
+          },
+          "hall": {
+            "p10": 9,
+            "p50": 9,
+            "p90": 9
+          },
+          "hall3Hours": {
+            "p10": 1.37,
+            "p50": 1.81,
+            "p90": 2.32
+          },
+          "hall5Hours": {
+            "p10": 193.45,
+            "p50": 194.43,
+            "p90": 241.99
+          },
+          "recoveredHours": null,
+          "observedRecoveries": 0,
+          "meanAttacksPerDay": 0,
+          "blockedPercent": 0,
+          "attempted": 0,
+          "blocked": 0,
+          "blockReasons": {},
+          "chipnetSatoshis": {
+            "p10": 0,
+            "p50": 0,
+            "p90": 0
+          },
+          "seasonScore": {
+            "p10": 78,
+            "p50": 84,
+            "p90": 84
+          },
+          "avgTrades": 0
+        }
+      ]
+    },
+    {
+      "strategy": "hoarder",
+      "premium": true,
+      "runs": 125,
+      "horizons": [
+        {
+          "day": 1,
+          "stock": {
+            "p10": 13017,
+            "p50": 13024,
+            "p90": 13025
+          },
+          "army": {
+            "p10": 87,
+            "p50": 87,
+            "p90": 87
+          },
+          "levelSum": {
+            "p10": 21,
+            "p50": 21,
+            "p90": 21
+          },
+          "hall": {
+            "p10": 3,
+            "p50": 3,
+            "p90": 3
+          },
+          "hall3Hours": {
+            "p10": 1.35,
+            "p50": 1.79,
+            "p90": 2.3
+          },
+          "hall5Hours": null,
+          "recoveredHours": null,
+          "observedRecoveries": 0,
+          "meanAttacksPerDay": 0,
+          "blockedPercent": 0,
+          "attempted": 0,
+          "blocked": 0,
+          "blockReasons": {},
+          "chipnetSatoshis": {
+            "p10": 1000,
+            "p50": 1000,
+            "p90": 1000
+          },
+          "seasonScore": {
+            "p10": 3,
+            "p50": 3,
+            "p90": 3
+          },
+          "avgTrades": 0
+        },
+        {
+          "day": 7,
+          "stock": {
+            "p10": 15705,
+            "p50": 18322,
+            "p90": 18322
+          },
+          "army": {
+            "p10": 87,
+            "p50": 87,
+            "p90": 87
+          },
+          "levelSum": {
+            "p10": 25,
+            "p50": 27,
+            "p90": 27
+          },
+          "hall": {
+            "p10": 4,
+            "p50": 4,
+            "p90": 4
+          },
+          "hall3Hours": {
+            "p10": 1.35,
+            "p50": 1.79,
+            "p90": 2.3
+          },
+          "hall5Hours": null,
+          "recoveredHours": null,
+          "observedRecoveries": 0,
+          "meanAttacksPerDay": 0,
+          "blockedPercent": 0,
+          "attempted": 0,
+          "blocked": 0,
+          "blockReasons": {},
+          "chipnetSatoshis": {
+            "p10": 4000,
+            "p50": 4000,
+            "p90": 4000
+          },
+          "seasonScore": {
+            "p10": 15,
+            "p50": 21,
+            "p90": 21
+          },
+          "avgTrades": 0
+        },
+        {
+          "day": 30,
+          "stock": {
+            "p10": 27673,
+            "p50": 31015,
+            "p90": 31410
+          },
+          "army": {
+            "p10": 87,
+            "p50": 87,
+            "p90": 87
+          },
+          "levelSum": {
+            "p10": 46,
+            "p50": 48,
+            "p90": 48
+          },
+          "hall": {
+            "p10": 9,
+            "p50": 9,
+            "p90": 9
+          },
+          "hall3Hours": {
+            "p10": 1.35,
+            "p50": 1.79,
+            "p90": 2.3
+          },
+          "hall5Hours": {
+            "p10": 193.45,
+            "p50": 194.43,
+            "p90": 241.99
+          },
+          "recoveredHours": null,
+          "observedRecoveries": 0,
+          "meanAttacksPerDay": 0,
+          "blockedPercent": 0,
+          "attempted": 0,
+          "blocked": 0,
+          "blockReasons": {},
+          "chipnetSatoshis": {
+            "p10": 15000,
+            "p50": 15000,
+            "p90": 16000
+          },
+          "seasonScore": {
+            "p10": 78,
+            "p50": 84,
+            "p90": 84
+          },
+          "avgTrades": 0
+        }
+      ]
+    },
+    {
+      "strategy": "aggressive",
+      "premium": false,
+      "runs": 125,
+      "horizons": [
+        {
+          "day": 1,
+          "stock": {
+            "p10": 11501,
+            "p50": 12283,
+            "p90": 12635
+          },
+          "army": {
+            "p10": 87,
+            "p50": 90,
+            "p90": 90
+          },
+          "levelSum": {
+            "p10": 24,
+            "p50": 25,
+            "p90": 26
+          },
+          "hall": {
+            "p10": 3,
+            "p50": 3,
+            "p90": 3
+          },
+          "hall3Hours": {
+            "p10": 0.59,
+            "p50": 0.77,
+            "p90": 1.05
+          },
+          "hall5Hours": null,
+          "recoveredHours": {
+            "p10": 4.78,
+            "p50": 9.52,
+            "p90": 15.75
+          },
+          "observedRecoveries": 130,
+          "meanAttacksPerDay": 3,
+          "blockedPercent": 79.3,
+          "attempted": 1815,
+          "blocked": 1440,
+          "blockReasons": {
+            "protected": 458,
+            "power_gap": 565,
+            "attack_limit": 348,
+            "repeat_attack": 69
+          },
+          "chipnetSatoshis": {
+            "p10": 0,
+            "p50": 0,
+            "p90": 0
+          },
+          "seasonScore": {
+            "p10": 18,
+            "p50": 34,
+            "p90": 44
+          },
+          "avgTrades": 0
+        },
+        {
+          "day": 7,
+          "stock": {
+            "p10": 8013,
+            "p50": 11291,
+            "p90": 13062
+          },
+          "army": {
+            "p10": 59,
+            "p50": 86,
+            "p90": 90
+          },
+          "levelSum": {
+            "p10": 45,
+            "p50": 51,
+            "p90": 55
+          },
+          "hall": {
+            "p10": 7,
+            "p50": 8,
+            "p90": 8
+          },
+          "hall3Hours": {
+            "p10": 0.59,
+            "p50": 0.77,
+            "p90": 1.05
+          },
+          "hall5Hours": {
+            "p10": 48.68,
+            "p50": 63.19,
+            "p90": 78.84
+          },
+          "recoveredHours": {
+            "p10": 6.14,
+            "p50": 17.8,
+            "p90": 38.51
+          },
+          "observedRecoveries": 610,
+          "meanAttacksPerDay": 2.48,
+          "blockedPercent": 81.9,
+          "attempted": 12006,
+          "blocked": 9837,
+          "blockReasons": {
+            "protected": 2820,
+            "power_gap": 3996,
+            "attack_limit": 2655,
+            "repeat_attack": 366
+          },
+          "chipnetSatoshis": {
+            "p10": 0,
+            "p50": 0,
+            "p90": 0
+          },
+          "seasonScore": {
+            "p10": 138,
+            "p50": 169,
+            "p90": 201
+          },
+          "avgTrades": 0
+        },
+        {
+          "day": 30,
+          "stock": {
+            "p10": 13087,
+            "p50": 13087,
+            "p90": 13087
+          },
+          "army": {
+            "p10": 87,
+            "p50": 89,
+            "p90": 90
+          },
+          "levelSum": {
+            "p10": 57,
+            "p50": 58,
+            "p90": 59
+          },
+          "hall": {
+            "p10": 9,
+            "p50": 9,
+            "p90": 9
+          },
+          "hall3Hours": {
+            "p10": 0.59,
+            "p50": 0.77,
+            "p90": 1.05
+          },
+          "hall5Hours": {
+            "p10": 48.68,
+            "p50": 63.19,
+            "p90": 78.84
+          },
+          "recoveredHours": {
+            "p10": 6.32,
+            "p50": 18.46,
+            "p90": 47.87
+          },
+          "observedRecoveries": 656,
+          "meanAttacksPerDay": 0.65,
+          "blockedPercent": 95.2,
+          "attempted": 50418,
+          "blocked": 47978,
+          "blockReasons": {
+            "protected": 3104,
+            "power_gap": 41538,
+            "attack_limit": 2864,
+            "repeat_attack": 472
+          },
+          "chipnetSatoshis": {
+            "p10": 0,
+            "p50": 0,
+            "p90": 0
+          },
+          "seasonScore": {
+            "p10": 169,
+            "p50": 193,
+            "p90": 218
+          },
+          "avgTrades": 0
+        }
+      ]
+    },
+    {
+      "strategy": "aggressive",
+      "premium": true,
+      "runs": 125,
+      "horizons": [
+        {
+          "day": 1,
+          "stock": {
+            "p10": 11541,
+            "p50": 12283,
+            "p90": 12642
+          },
+          "army": {
+            "p10": 68,
+            "p50": 90,
+            "p90": 90
+          },
+          "levelSum": {
+            "p10": 24,
+            "p50": 25,
+            "p90": 26
+          },
+          "hall": {
+            "p10": 3,
+            "p50": 3,
+            "p90": 3
+          },
+          "hall3Hours": {
+            "p10": 0.57,
+            "p50": 0.76,
+            "p90": 1.03
+          },
+          "hall5Hours": null,
+          "recoveredHours": {
+            "p10": 5.51,
+            "p50": 9.6,
+            "p90": 18.41
+          },
+          "observedRecoveries": 130,
+          "meanAttacksPerDay": 3,
+          "blockedPercent": 79.3,
+          "attempted": 1815,
+          "blocked": 1440,
+          "blockReasons": {
+            "protected": 446,
+            "power_gap": 572,
+            "repeat_attack": 77,
+            "attack_limit": 345
+          },
+          "chipnetSatoshis": {
+            "p10": 1000,
+            "p50": 1000,
+            "p90": 1000
+          },
+          "seasonScore": {
+            "p10": 18,
+            "p50": 34,
+            "p90": 40
+          },
+          "avgTrades": 0
+        },
+        {
+          "day": 7,
+          "stock": {
+            "p10": 7936,
+            "p50": 11290,
+            "p90": 13073
+          },
+          "army": {
+            "p10": 58,
+            "p50": 86,
+            "p90": 90
+          },
+          "levelSum": {
+            "p10": 45,
+            "p50": 51,
+            "p90": 55
+          },
+          "hall": {
+            "p10": 7,
+            "p50": 8,
+            "p90": 8
+          },
+          "hall3Hours": {
+            "p10": 0.57,
+            "p50": 0.76,
+            "p90": 1.03
+          },
+          "hall5Hours": {
+            "p10": 48.68,
+            "p50": 63.19,
+            "p90": 78.81
+          },
+          "recoveredHours": {
+            "p10": 7.74,
+            "p50": 15.97,
+            "p90": 42.29
+          },
+          "observedRecoveries": 606,
+          "meanAttacksPerDay": 2.45,
+          "blockedPercent": 82.1,
+          "attempted": 12006,
+          "blocked": 9859,
+          "blockReasons": {
+            "protected": 2727,
+            "power_gap": 4063,
+            "attack_limit": 2704,
+            "repeat_attack": 365
+          },
+          "chipnetSatoshis": {
+            "p10": 6000,
+            "p50": 7000,
+            "p90": 7000
+          },
+          "seasonScore": {
+            "p10": 141,
+            "p50": 167,
+            "p90": 204
+          },
+          "avgTrades": 0
+        },
+        {
+          "day": 30,
+          "stock": {
+            "p10": 13087,
+            "p50": 13087,
+            "p90": 13087
+          },
+          "army": {
+            "p10": 87,
+            "p50": 90,
+            "p90": 90
+          },
+          "levelSum": {
+            "p10": 57,
+            "p50": 58,
+            "p90": 59
+          },
+          "hall": {
+            "p10": 9,
+            "p50": 9,
+            "p90": 9
+          },
+          "hall3Hours": {
+            "p10": 0.57,
+            "p50": 0.76,
+            "p90": 1.03
+          },
+          "hall5Hours": {
+            "p10": 48.68,
+            "p50": 63.19,
+            "p90": 78.81
+          },
+          "recoveredHours": {
+            "p10": 7.83,
+            "p50": 18.12,
+            "p90": 48.17
+          },
+          "observedRecoveries": 651,
+          "meanAttacksPerDay": 0.65,
+          "blockedPercent": 95.2,
+          "attempted": 50418,
+          "blocked": 47985,
+          "blockReasons": {
+            "protected": 3033,
+            "power_gap": 41548,
+            "attack_limit": 2928,
+            "repeat_attack": 476
+          },
+          "chipnetSatoshis": {
+            "p10": 8000,
+            "p50": 9000,
+            "p90": 10000
+          },
+          "seasonScore": {
+            "p10": 171,
+            "p50": 198,
+            "p90": 229
+          },
+          "avgTrades": 0
+        }
+      ]
+    }
+  ],
+  "earlierCombat": {
+    "runs": 12000,
+    "pairedCombatResolutions": 36000,
+    "groups": [
+      {
+        "ratio": 0.8,
+        "count": 2400,
+        "attackerWinPercent": 0,
+        "byTactic": {
+          "balanced": 0,
+          "assault": 0,
+          "flank": 0,
+          "siege": 0
+        }
+      },
+      {
+        "ratio": 0.9,
+        "count": 2400,
+        "attackerWinPercent": 1.8,
+        "byTactic": {
+          "balanced": 1.7,
+          "assault": 0.7,
+          "flank": 3.8,
+          "siege": 1.2
+        }
+      },
+      {
+        "ratio": 1,
+        "count": 2400,
+        "attackerWinPercent": 22.2,
+        "byTactic": {
+          "balanced": 22.8,
+          "assault": 16.5,
+          "flank": 26.7,
+          "siege": 22.7
+        }
+      },
+      {
+        "ratio": 1.1,
+        "count": 2400,
+        "attackerWinPercent": 60.3,
+        "byTactic": {
+          "balanced": 61.8,
+          "assault": 51.2,
+          "flank": 68.7,
+          "siege": 59.7
+        }
+      },
+      {
+        "ratio": 1.2,
+        "count": 2400,
+        "attackerWinPercent": 90,
+        "byTactic": {
+          "balanced": 89.3,
+          "assault": 84.5,
+          "flank": 93.5,
+          "siege": 92.8
+        }
+      }
+    ],
+    "overallByTactic": {
+      "balanced": 35.1,
+      "assault": 30.6,
+      "flank": 38.5,
+      "siege": 35.3
+    },
+    "terrainWinPercent": {
+      "plains": 46.4,
+      "river": 23.3
+    },
+    "premiumDivergence": 0,
+    "intelChanged": 604,
+    "intelWinLiftPP": 5.03,
+    "meanCasualties": 63.27
+  },
+  "scenarios": {
+    "starterProtected": "pvp_opt_out",
+    "weekOldBalance": "pvp_opt_out",
+    "impossibleRaid": "power_gap",
+    "missingBchAction": "payment_required",
+    "premiumWithoutVerification": "payment_required",
+    "protectorateQuote": 24000,
+    "coordinated": "alliance_repeat",
+    "altAccountsBlocked": 12,
+    "altAid": "aid_starter"
+  },
+  "diplomacy": {
+    "runs": 200,
+    "outcomes": {
+      "resisted": 49,
+      "rebellion-failed": 27,
+      "rebellion-liberated": 124
+    },
+    "duplicateOffersAccepted": 0,
+    "maximumAllianceTerritoryHHIWhenAllSixNodesClaimed": 0.5,
+    "theoreticalMaximumProtectoratesPerAlliance": 2
+  },
+  "market": {
+    "cities": 6,
+    "days": 30,
+    "seasonsFinalized": 4,
+    "scriptedVolume": 2630,
+    "marketLeaderVolumeShare": 47.2,
+    "stockHHI": 0.17,
+    "priceControl": false
+  },
+  "rewardLedgerModel": {
+    "entrants": 100,
+    "funded": 1000000,
+    "paid": [
+      340000,
+      212500,
+      127500,
+      85000,
+      85000
+    ],
+    "combinedPayout": 850000,
+    "unclaimedReserve": 148250,
+    "illustrativeFees": 1750,
+    "shareTop1Pct": 40,
+    "shareTop10Pct": 100,
+    "shareTop50Pct": 100
+  },
+  "payback": {
+    "farmLevel": 2,
+    "farmNextLevel": 3,
+    "cost": {
+      "wood": 211,
+      "stone": 133,
+      "iron": 86,
+      "food": 156,
+      "crystal": 13
+    },
+    "hourlyGain": {
+      "wood": 17,
+      "stone": 14,
+      "iron": 11,
+      "food": 21,
+      "crystal": 1
+    },
+    "singleResourceHours": {
+      "wood": 12.41,
+      "stone": 9.5,
+      "iron": 7.82,
+      "food": 7.43,
+      "crystal": 13
+    }
+  },
+  "fees": {
+    "attack": 1200,
+    "protectorate": 24000,
+    "premium": 1500,
+    "rush": 1000
+  },
+  "fairnessLimits": {
+    "window": 0.2,
+    "attackCap": 3,
+    "allianceCap": 10,
+    "repeatHours": 8
+  }
+}

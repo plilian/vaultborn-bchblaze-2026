@@ -1,0 +1,206 @@
+{
+  "modeledTrials": 24000,
+  "raid": 6000,
+  "estimatedWalletFee": 366,
+  "captureLimit": 0.2,
+  "feeSplit": {
+    "development": 1200,
+    "burn": 900,
+    "prize": 900,
+    "battle": 3000
+  },
+  "results": [
+    {
+      "winProbability": 0.25,
+      "exposure": 0,
+      "trials": 1000,
+      "wins": 243,
+      "attackerMeanNetSatoshis": -3366,
+      "defenderMeanNetSatoshis": 0
+    },
+    {
+      "winProbability": 0.25,
+      "exposure": 3000,
+      "trials": 1000,
+      "wins": 260,
+      "attackerMeanNetSatoshis": -5430,
+      "defenderMeanNetSatoshis": 2064
+    },
+    {
+      "winProbability": 0.25,
+      "exposure": 15000,
+      "trials": 1000,
+      "wins": 250,
+      "attackerMeanNetSatoshis": -4866,
+      "defenderMeanNetSatoshis": 1500
+    },
+    {
+      "winProbability": 0.25,
+      "exposure": 30000,
+      "trials": 1000,
+      "wins": 262,
+      "attackerMeanNetSatoshis": -4008,
+      "defenderMeanNetSatoshis": 642
+    },
+    {
+      "winProbability": 0.25,
+      "exposure": 60000,
+      "trials": 1000,
+      "wins": 256,
+      "attackerMeanNetSatoshis": -2526,
+      "defenderMeanNetSatoshis": -840
+    },
+    {
+      "winProbability": 0.25,
+      "exposure": 90000,
+      "trials": 1000,
+      "wins": 254,
+      "attackerMeanNetSatoshis": -1032,
+      "defenderMeanNetSatoshis": -2334
+    },
+    {
+      "winProbability": 0.353,
+      "exposure": 0,
+      "trials": 1000,
+      "wins": 377,
+      "attackerMeanNetSatoshis": -3366,
+      "defenderMeanNetSatoshis": 0
+    },
+    {
+      "winProbability": 0.353,
+      "exposure": 3000,
+      "trials": 1000,
+      "wins": 375,
+      "attackerMeanNetSatoshis": -5016,
+      "defenderMeanNetSatoshis": 1650
+    },
+    {
+      "winProbability": 0.353,
+      "exposure": 15000,
+      "trials": 1000,
+      "wins": 350,
+      "attackerMeanNetSatoshis": -4266,
+      "defenderMeanNetSatoshis": 900
+    },
+    {
+      "winProbability": 0.353,
+      "exposure": 30000,
+      "trials": 1000,
+      "wins": 321,
+      "attackerMeanNetSatoshis": -3477,
+      "defenderMeanNetSatoshis": 111
+    },
+    {
+      "winProbability": 0.353,
+      "exposure": 60000,
+      "trials": 1000,
+      "wins": 357,
+      "attackerMeanNetSatoshis": -1011,
+      "defenderMeanNetSatoshis": -2355
+    },
+    {
+      "winProbability": 0.353,
+      "exposure": 90000,
+      "trials": 1000,
+      "wins": 334,
+      "attackerMeanNetSatoshis": 648,
+      "defenderMeanNetSatoshis": -4014
+    },
+    {
+      "winProbability": 0.5,
+      "exposure": 0,
+      "trials": 1000,
+      "wins": 474,
+      "attackerMeanNetSatoshis": -3366,
+      "defenderMeanNetSatoshis": 0
+    },
+    {
+      "winProbability": 0.5,
+      "exposure": 3000,
+      "trials": 1000,
+      "wins": 497,
+      "attackerMeanNetSatoshis": -4576.8,
+      "defenderMeanNetSatoshis": 1210.8
+    },
+    {
+      "winProbability": 0.5,
+      "exposure": 15000,
+      "trials": 1000,
+      "wins": 480,
+      "attackerMeanNetSatoshis": -3486,
+      "defenderMeanNetSatoshis": 120
+    },
+    {
+      "winProbability": 0.5,
+      "exposure": 30000,
+      "trials": 1000,
+      "wins": 493,
+      "attackerMeanNetSatoshis": -1929,
+      "defenderMeanNetSatoshis": -1437
+    },
+    {
+      "winProbability": 0.5,
+      "exposure": 60000,
+      "trials": 1000,
+      "wins": 522,
+      "attackerMeanNetSatoshis": 1464,
+      "defenderMeanNetSatoshis": -4830
+    },
+    {
+      "winProbability": 0.5,
+      "exposure": 90000,
+      "trials": 1000,
+      "wins": 531,
+      "attackerMeanNetSatoshis": 4785,
+      "defenderMeanNetSatoshis": -8151
+    },
+    {
+      "winProbability": 0.6,
+      "exposure": 0,
+      "trials": 1000,
+      "wins": 593,
+      "attackerMeanNetSatoshis": -3366,
+      "defenderMeanNetSatoshis": 0
+    },
+    {
+      "winProbability": 0.6,
+      "exposure": 3000,
+      "trials": 1000,
+      "wins": 592,
+      "attackerMeanNetSatoshis": -4234.8,
+      "defenderMeanNetSatoshis": 868.8
+    },
+    {
+      "winProbability": 0.6,
+      "exposure": 15000,
+      "trials": 1000,
+      "wins": 586,
+      "attackerMeanNetSatoshis": -2850,
+      "defenderMeanNetSatoshis": -516
+    },
+    {
+      "winProbability": 0.6,
+      "exposure": 30000,
+      "trials": 1000,
+      "wins": 603,
+      "attackerMeanNetSatoshis": -939,
+      "defenderMeanNetSatoshis": -2427
+    },
+    {
+      "winProbability": 0.6,
+      "exposure": 60000,
+      "trials": 1000,
+      "wins": 576,
+      "attackerMeanNetSatoshis": 2274,
+      "defenderMeanNetSatoshis": -5640
+    },
+    {
+      "winProbability": 0.6,
+      "exposure": 90000,
+      "trials": 1000,
+      "wins": 553,
+      "attackerMeanNetSatoshis": 5247,
+      "defenderMeanNetSatoshis": -8613
+    }
+  ]
+}

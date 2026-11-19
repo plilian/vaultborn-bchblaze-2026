@@ -1,0 +1,37 @@
+.env
+.cache/
+.npm-cache/
+.local-chain/
+.qa-temp/
+output/
+node_modules/
+var/
+__pycache__/
+*.sqlite*
+*.key
+*.wif
+
+# Environment files of any network hold keys or key paths; only the templates are tracked.
+.env.*
+!.env.example
+
+# Secrets and working folders (added by Push to GitHub)
+*.pem
+
+# >>> Owner-only files: kept on the owner's computer, never in this repository (written by Push to GitHub) >>>
+/apps/launcher/
+/Launch VaultBorn Mainnet.cmd
+/Start VaultBorn.cmd
+/tests/launcher.test.mjs
+/tests/support/launcher-flow.mjs
+/tests/support/launcher-guards.mjs
+/tests/support/launcher-server.mjs
+/scripts/test-launcher-browser.mjs
+/docs/audit/remediation/evidence/launcher-wallet-sdk.json
+/Push to GitHub.cmd
+/scripts/push-to-github.mjs
+/scripts/test-push-to-github.mjs
+/docs/HACKATHON_CHECKLIST.md
+/xo/FEEDBACK_NOTES.md
+/progress.md
+# <<< Owner-only files <<<

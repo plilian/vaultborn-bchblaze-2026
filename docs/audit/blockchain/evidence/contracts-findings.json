@@ -1,0 +1,70 @@
+{
+  "scope": "Contracts and custody; audit only",
+  "counts": {
+    "Blocker": 0,
+    "Critical": 0,
+    "High": 1,
+    "Medium": 2,
+    "Low": 0
+  },
+  "findings": [
+    {
+      "id": "BC-CON-01",
+      "severity": "High",
+      "status": "FAIL",
+      "title": "Most current game treasuries and competitive escrows still require the operator key",
+      "component": "Active application custody and generic-covenant integration",
+      "impact": "Operator-key loss or refusal prevents ordinary kingdom/season/territory withdrawals; compromise of that key can spend its controlled outputs without enforcing application balances or battle/season results on-chain.",
+      "evidence": [
+        "packages/chain-observer/index.mjs:116",
+        "packages/chain-observer/index.mjs:172",
+        "packages/chain-observer/index.mjs:213",
+        "packages/chain-observer/index.mjs:219",
+        "docs/TREASURY_COVENANTS.md"
+      ],
+      "reproduction": "Inspect createIntent destinations, preparePayout sources, and signPayout. They use operator-derived scripts and treasuryPrivateKey. The current game routes do not instantiate the new battle/kingdom/territory/season-prize covenant descriptors. Starting without the settlement signer disables those checkout/payout paths.",
+      "cause": "The application continues its existing custodial ledger while the independently compiled covenant profiles remain owner-tool templates.",
+      "recommendation": "Before accepting real player funds under a covenant-custody promise, integrate funding descriptors, independent attestations, spend discovery, reservations, claim/recovery distribution, and migration of legacy liabilities. Keep the current custodial disclosure explicit until that work is independently audited.",
+      "scope": "Previously documented trust dependency, still applicable to current code; no demonstrated remote unauthenticated drain. Optional external/2-of-3 Development and the existing political escrow are exceptions. Configuring external Development currently blocks paid political proof and classic competitive operations needing the operator Development reserve."
+    },
+    {
+      "id": "BC-CON-02",
+      "severity": "Medium",
+      "status": "FAIL",
+      "title": "Small underfunding of a generic treasury covenant is irrecoverable",
+      "component": "Generic fixed-reserve covenant refund branch",
+      "impact": "A standard 576-satoshi P2SH32 payment below the fixed refund reserve becomes permanently unspendable under the available covenant branches, even after the timeout and with the correct owner key.",
+      "evidence": [
+        "packages/chain-observer/treasury-covenants.mjs:50",
+        "packages/chain-observer/treasury-covenants.mjs:105",
+        "packages/chain-observer/treasury-covenants.mjs:109",
+        "packages/chain-observer/treasury-covenants.mjs:111",
+        "packages/chain-observer/treasury-covenants.mjs:140",
+        "docs/audit/blockchain/evidence/generic-covenants-regtest.json:underfundedRecovery"
+      ],
+      "reproduction": "On reused BCHN Regtest, pay 576 sats to an already-tested expired battle-escrow P2SH32 descriptor with principal 20,000 and reserve 800. The node mines the funding output. Normal settlement requires exactly 20,800 sats; refund requires one output equal to 576-800=-224 sats and allows only one input. The planner refuses it; a properly signed non-dust refund candidate fails the BCH VM. The actual zero-output candidate is separately rejected by node dust policy. The funded outpoint remains unspent.",
+      "cause": "Refund value subtracts the full fixed reserve regardless of observed funding, while the covenant forbids an added fee-sponsor input and fixes the refund output count/destination.",
+      "recommendation": "Design and audit a recovery branch for every standard fundable amount, including additional fee sponsorship or an explicitly bounded alternative recovery transaction. Enforce exact payment in clients and observers, but do not rely on those checks to prevent unsolicited on-chain underpayments.",
+      "scope": "Confirmed Regtest funding loss in a not-yet-integrated generic template. Production game custody currently uses different scripts. The same fixed-fee design also needs policy/fee-raising review before deployment."
+    },
+    {
+      "id": "BC-CON-03",
+      "severity": "Medium",
+      "status": "FAIL",
+      "title": "Political escrow recovery tools reject mismatched funding amounts",
+      "component": "Existing political escrow payer-refund CLI/planner",
+      "impact": "An expired political escrow funded with an incorrect amount cannot be recovered through the supplied payer-refund tooling. Overpayment cannot be returned as extra principal by the existing fixed-principal script; a custom spend would send excess value to fees unless additional policy is designed.",
+      "evidence": [
+        "packages/chain-observer/political-escrow.mjs:28",
+        "packages/chain-observer/political-escrow.mjs:46",
+        "packages/chain-observer/political-escrow.mjs:55",
+        "scripts/political-escrow-refund.mjs:14",
+        "docs/audit/blockchain/evidence/political-misfunding-probe.json"
+      ],
+      "reproduction": "Issue a descriptor, then call the unchanged payer-refund planner with matching script/key but funding equal to the quoted value minus 1, plus 1, or plus 120 sats. Every call rejects with the exact-source error. The public CLI also filters the observed output by exact quoted value before constructing the refund.",
+      "cause": "The helper and CLI require exact principal+650 funding in both settlement and timeout recovery. The script itself has a fixed principal output and zero-value second output.",
+      "recommendation": "Specify supported recovery for under/overpayments and implement audited tooling for those cases, preserving actual funding proofs and avoiding accidental excess fees. Do not silently credit an invalid payment to the game.",
+      "scope": "Source review plus newly executed offline planner probes; no fresh political funding was created solely to repeat earlier valid refund tests. Correctly funded political refunds remain previously verified."
+    }
+  ]
+}

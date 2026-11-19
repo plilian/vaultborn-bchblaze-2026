@@ -1,0 +1,2030 @@
+{
+  "artifacts": [
+    {
+      "file": "docs/CHIPNET_RECEIPTS.json",
+      "network": "chipnet",
+      "sha256": "04ec607de191fc81723a0aa3c190509b0a182a3517ac14110898dd0fc7d6b8e7",
+      "bytes": 17147
+    },
+    {
+      "file": "docs/POLITICS_CHIPNET_ATTESTATION.json",
+      "network": "chipnet",
+      "sha256": "039c188a900930ed0eedf4f813ae9c270051ad2aa953d8eeb796f028f3144f32",
+      "bytes": 3594
+    },
+    {
+      "file": "docs/POLITICS_CHIPNET_AUTHORITY.json",
+      "network": "chipnet",
+      "sha256": "139f7a0d03e86901a7eecbccbb3231b5495108ad181c7d90bd4fdb9d690c1f4d",
+      "bytes": 405
+    },
+    {
+      "file": "docs/POLITICS_CHIPNET_ESCROW.json",
+      "network": "chipnet",
+      "sha256": "89c2a9fd06182f1f48f06368a51045316d4cd5c5458cc70caffc9f8a3b38f373",
+      "bytes": 3714
+    },
+    {
+      "file": "docs/POLITICS_REGTEST_RECEIPTS.json",
+      "network": "regtest",
+      "sha256": "c7c9487e85d3bdd6347adf34a1aa2bfae270f6a663be09c1ba9951904dcc3e27",
+      "bytes": 11889
+    },
+    {
+      "file": "docs/TERRITORY_CHIPNET_ASSETS.json",
+      "network": "chipnet",
+      "sha256": "4aa921d08d9a76c6aeb2ae97021276af03e20ab747ec473e7e53ec95218ec3eb",
+      "bytes": 18472
+    },
+    {
+      "file": "docs/TERRITORY_CHIPNET_RECEIPTS.json",
+      "network": "chipnet",
+      "sha256": "757564781a2869f02239e8474861f1c2167d62befaaae5cff6a5a4512ca21ad0",
+      "bytes": 14438
+    },
+    {
+      "file": "docs/TERRITORY_EAST_MEADOW_PROOF.json",
+      "network": "chipnet",
+      "sha256": "153acf51d8927f32408d27c68a94931b1c5e21e9de71f59917f2f9bc6fd7b99e",
+      "bytes": 39343
+    },
+    {
+      "file": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+      "network": "chipnet",
+      "sha256": "9ad74e557eb66749438293a3c7d3fe4e8a2a33df8ea4c5681ad4ef942e2d51a8",
+      "bytes": 22172
+    },
+    {
+      "file": "docs/TERRITORY_PREVIEW_AUTHORITY.json",
+      "network": "chipnet",
+      "sha256": "cd2b131e3c1ee70b871c7b176fa92000e39cde2175057f877643d8c0546a9e8a",
+      "bytes": 405
+    },
+    {
+      "file": "docs/TERRITORY_RARE_LEASE_PROOF.json",
+      "network": "chipnet",
+      "sha256": "d1b89365d07a4ebd467fd6efc365faaa8ab2b79aeb747e28ed5fc875b727bcfc",
+      "bytes": 14194
+    },
+    {
+      "file": "docs/TERRITORY_REGTEST_RECEIPTS.json",
+      "network": "regtest",
+      "sha256": "22a7b2e1821008392497a340c1e0ee2b5d0d2df8cf060c39df621708f6a6752f",
+      "bytes": 1643
+    },
+    {
+      "file": "docs/VAULTBORN_CHIPNET_RECEIPTS.json",
+      "network": "chipnet",
+      "sha256": "6835a962fc72fb338088cc90d5f514d5dec71cd7ae475b2cca7bc248012a2a3e",
+      "bytes": 14189
+    },
+    {
+      "file": "docs/VAULTBORN_VERIFIABLE_BATTLE.json",
+      "network": "chipnet",
+      "sha256": "8bebcb38cb302be6e8140b62f9d6aa5c742021a370e7bf50a0f1fe7e4b0f2560",
+      "bytes": 9403
+    },
+    {
+      "file": "docs/VAULTBORN_WIZARD_RECEIPT.json",
+      "network": "chipnet",
+      "sha256": "d9d6419b9c1cbbe44ce49a808de5cb24a6ce6022d1bf2ba75f9d93212fa890bc",
+      "bytes": 741
+    }
+  ],
+  "transactions": [
+    {
+      "network": "chipnet",
+      "txid": "a00fd941c606f24d4dd8b282d5cadcc895dc97340138a8e53d861dd6ec878959",
+      "references": [
+        {
+          "artifact": "docs/CHIPNET_RECEIPTS.json",
+          "path": "$.founderBadge.txid",
+          "height": 333639,
+          "blockHash": null,
+          "confirmations": 2,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "e80083d71ed1330c8f27089a8181b521447307e0c7ddb6390af7920e3791e993",
+      "references": [
+        {
+          "artifact": "docs/CHIPNET_RECEIPTS.json",
+          "path": "$.founderBadge.genesisInput.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": 255
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "951e744101e17aa9371157579946a749f747f1a07c3aa9da224b58562cf5130f",
+      "references": [
+        {
+          "artifact": "docs/CHIPNET_RECEIPTS.json",
+          "path": "$.duplicateClaimTest.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/CHIPNET_RECEIPTS.json",
+          "path": "$.rows[8].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/CHIPNET_RECEIPTS.json",
+          "path": "$.rows[8].receipt.txid",
+          "height": 333758,
+          "blockHash": "000000005fc36dbe9bf4c5c4f1c1fd1b1b779e34308054dfffa33a21eaa2347f",
+          "confirmations": 2,
+          "feeSatoshis": 300
+        },
+        {
+          "artifact": "docs/CHIPNET_RECEIPTS.json",
+          "path": "$.rows[8].receipt.change.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "11c8f05f395717bbdc975726385c437a19e91a9f976816bf5165523ea2252cf0",
+      "references": [
+        {
+          "artifact": "docs/CHIPNET_RECEIPTS.json",
+          "path": "$.rows[0].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/CHIPNET_RECEIPTS.json",
+          "path": "$.rows[0].receipt.txid",
+          "height": 333628,
+          "blockHash": "00000000265032835440f3a9a2eea8663db12307c4c1d2b693d4c5889ac4ab54",
+          "confirmations": 3,
+          "feeSatoshis": 255
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "b883706eaf5c68a22c7318277e47da855b24ea79823f5f3e2bf247d86a88aafa",
+      "references": [
+        {
+          "artifact": "docs/CHIPNET_RECEIPTS.json",
+          "path": "$.rows[1].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/CHIPNET_RECEIPTS.json",
+          "path": "$.rows[1].receipt.txid",
+          "height": 333631,
+          "blockHash": "000000000000a10476efcfaf7b4750d1c483fef718b1359b50d996bd787f690c",
+          "confirmations": 2,
+          "feeSatoshis": 255
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "9951f7eea45c4a6557ab40241ce7a071f6f8dab28a049ff8535a8bf0e7af8866",
+      "references": [
+        {
+          "artifact": "docs/CHIPNET_RECEIPTS.json",
+          "path": "$.rows[2].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/CHIPNET_RECEIPTS.json",
+          "path": "$.rows[2].receipt.txid",
+          "height": 333633,
+          "blockHash": "00000000000039dacee41b6f7d2ede64168eb18bcaf53ba7bb1795e71216088b",
+          "confirmations": 2,
+          "feeSatoshis": 255
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "c4bd2bfca6ac85097fc3c9c61aad7609f9509f37d37ee06b8458398a1c03bdd5",
+      "references": [
+        {
+          "artifact": "docs/CHIPNET_RECEIPTS.json",
+          "path": "$.rows[3].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/CHIPNET_RECEIPTS.json",
+          "path": "$.rows[3].receipt.txid",
+          "height": 333635,
+          "blockHash": "000000000030d1d2996966dda809f17ccbe0073fa0de686392a6cf5c7926f3cc",
+          "confirmations": 2,
+          "feeSatoshis": 255
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "7a7057d751c997f8b373156942cd37c9a280db9ac975b577f04def3b717d8f73",
+      "references": [
+        {
+          "artifact": "docs/CHIPNET_RECEIPTS.json",
+          "path": "$.rows[4].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/CHIPNET_RECEIPTS.json",
+          "path": "$.rows[4].receipt.txid",
+          "height": 333642,
+          "blockHash": "00000000811446cf810c76ce3138964e2609ef473bdaf6d323b63465f5e624c2",
+          "confirmations": 2,
+          "feeSatoshis": 255
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "890a6e22cb3ccffe5dd5f8f867301b846964a556a43b0af63be5aa214f7e8d1f",
+      "references": [
+        {
+          "artifact": "docs/CHIPNET_RECEIPTS.json",
+          "path": "$.rows[5].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/CHIPNET_RECEIPTS.json",
+          "path": "$.rows[5].receipt.txid",
+          "height": 333642,
+          "blockHash": "00000000811446cf810c76ce3138964e2609ef473bdaf6d323b63465f5e624c2",
+          "confirmations": 2,
+          "feeSatoshis": 255
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "01d5ac3c0486f2a0e4c41cd0ab5ce443e557e88350e07e2ec4d0dc24a12e3b15",
+      "references": [
+        {
+          "artifact": "docs/CHIPNET_RECEIPTS.json",
+          "path": "$.rows[6].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/CHIPNET_RECEIPTS.json",
+          "path": "$.rows[6].receipt.txid",
+          "height": 333642,
+          "blockHash": "00000000811446cf810c76ce3138964e2609ef473bdaf6d323b63465f5e624c2",
+          "confirmations": 2,
+          "feeSatoshis": 255
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "c902b93619fa364bb7d24e9ade1e471f8bbde4d0fb594eecfcd6421a8c6cdd50",
+      "references": [
+        {
+          "artifact": "docs/CHIPNET_RECEIPTS.json",
+          "path": "$.rows[7].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/CHIPNET_RECEIPTS.json",
+          "path": "$.rows[7].receipt.txid",
+          "height": 333644,
+          "blockHash": "00000000003d7de66f95e43eba9fa669424d86ada85cb3b46b0b9eefde3e8c06",
+          "confirmations": 114,
+          "feeSatoshis": 300
+        },
+        {
+          "artifact": "docs/CHIPNET_RECEIPTS.json",
+          "path": "$.rows[7].receipt.change.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "f1522466a48ef3dbf5ebed0b4a50289ade1c9e1370076e522436d0a14a575910",
+      "references": [
+        {
+          "artifact": "docs/CHIPNET_RECEIPTS.json",
+          "path": "$.rows[9].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/CHIPNET_RECEIPTS.json",
+          "path": "$.rows[9].receipt.txid",
+          "height": 333636,
+          "blockHash": "000000000000187f801b1ba1e3bdc8311edffdf3effd010163371d1377e701ce",
+          "confirmations": 2,
+          "feeSatoshis": 255
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "0c25c4544566cd90145685bc8826a127528defb4b65f855e6b6683e1711e6b0a",
+      "references": [
+        {
+          "artifact": "docs/POLITICS_CHIPNET_ATTESTATION.json",
+          "path": "$.records[0].anchored.txid",
+          "height": 335491,
+          "blockHash": "00000000adc8d4f3b5d28477a11b11b5319cd7db04728516dbc8221a18c9b317",
+          "confirmations": 2,
+          "feeSatoshis": 254
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "cdd875f3d1948317885deb0fb3e5824efa0a318a79baf544160e60d7e03a721e",
+      "references": [
+        {
+          "artifact": "docs/POLITICS_CHIPNET_ATTESTATION.json",
+          "path": "$.records[0].anchored.event.data.entryTxid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/POLITICS_CHIPNET_ATTESTATION.json",
+          "path": "$.records[0].payment.txid",
+          "height": 335487,
+          "blockHash": "000000004fa8b318b1f9f0bfe304c88a3d419e158d97b9794dbbcb3af3eff190",
+          "confirmations": 6,
+          "feeSatoshis": 366
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "416853525d78eacf96f255dbd3109066bebe3fc376f185ca3dfe4b808764da6d",
+      "references": [
+        {
+          "artifact": "docs/POLITICS_CHIPNET_ESCROW.json",
+          "path": "$.records[0].record.funding.txid",
+          "height": 335398,
+          "blockHash": "00000000dbb916d67595f5a71aedc41ba2bf4f81f93c0403c36c8dcf691e01a4",
+          "confirmations": 83,
+          "feeSatoshis": 302
+        },
+        {
+          "artifact": "docs/POLITICS_CHIPNET_ESCROW.json",
+          "path": "$.records[0].record.settlement.event.data.entryTxid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "cd391d982762952ee64e780506cfc0b15e5f96f4bbe1504c6f9a9f7b7ec65140",
+      "references": [
+        {
+          "artifact": "docs/POLITICS_CHIPNET_ESCROW.json",
+          "path": "$.records[0].record.settlement.txid",
+          "height": 335480,
+          "blockHash": "000000002f03cafc3ea0c1215e3516fb23ddcee501933e8da91efb3d8466c71b",
+          "confirmations": 2,
+          "feeSatoshis": 650
+        }
+      ]
+    },
+    {
+      "network": "regtest",
+      "txid": "efa8baecc9ba795960008dce18580812a2c48822ee9393207a94ec1364084e89",
+      "references": [
+        {
+          "artifact": "docs/POLITICS_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[0].txid",
+          "height": null,
+          "blockHash": "420d18e6ce16cba7722388f20164a85911b8925585e8bc8d97f489b6af68f71e",
+          "confirmations": 1,
+          "feeSatoshis": 500
+        }
+      ]
+    },
+    {
+      "network": "regtest",
+      "txid": "b7fb03376bb4f04e225550263e1ffbb8015577d926c2ee329670219a36b2d43f",
+      "references": [
+        {
+          "artifact": "docs/POLITICS_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[1].txid",
+          "height": null,
+          "blockHash": "2856b745802a353fbadb78a45374623d0d5432502597a10c4ae53792a84ba418",
+          "confirmations": 1,
+          "feeSatoshis": 800
+        }
+      ]
+    },
+    {
+      "network": "regtest",
+      "txid": "63f587ed18e29b30d03aa90d70e513516f8c8f65c10a41b81c1762543ce1fabb",
+      "references": [
+        {
+          "artifact": "docs/POLITICS_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[2].txid",
+          "height": null,
+          "blockHash": "4f670692647e033c5775c056451bb05ba1aefd3ac7ccca0f6d810bd3e1a578e4",
+          "confirmations": 1,
+          "feeSatoshis": 500
+        }
+      ]
+    },
+    {
+      "network": "regtest",
+      "txid": "bc71938a5b1ca6ed2aa89f675e06b9e19747ada6b99056046a130285fcc07f16",
+      "references": [
+        {
+          "artifact": "docs/POLITICS_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[3].txid",
+          "height": null,
+          "blockHash": "23a5cef5438fe6d9bc82564789fa2aa290ba334ef4fa6e5cf06ebc727832828b",
+          "confirmations": 1,
+          "feeSatoshis": 550
+        },
+        {
+          "artifact": "docs/POLITICS_REGTEST_RECEIPTS.json",
+          "path": "$.token.currentTxid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "regtest",
+      "txid": "54dea740c996cf2c0e699635198b73cd8328db50b6fd39d90a4fc54834aa94de",
+      "references": [
+        {
+          "artifact": "docs/POLITICS_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[4].txid",
+          "height": null,
+          "blockHash": "0b2ceefcea9ce47d241d56d54074d80a92d3f3325e45f633893e4778d85a70f0",
+          "confirmations": 1,
+          "feeSatoshis": 500
+        },
+        {
+          "artifact": "docs/POLITICS_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[7].fundingTxid",
+          "height": null,
+          "blockHash": "57dc7e923817aaba2028561a27c74544e147321f8dfbf158364a429896a00fd8",
+          "confirmations": 1,
+          "feeSatoshis": 650
+        },
+        {
+          "artifact": "docs/POLITICS_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[7].event.data.entryTxid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "regtest",
+      "txid": "023145e24234dd7ade7e36e27f4611584a8ce482b99b6d25b8ab6d993caac61d",
+      "references": [
+        {
+          "artifact": "docs/POLITICS_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[5].txid",
+          "height": null,
+          "blockHash": "1078bdc09b5ec22109040aeeddc768a30772242f032b9158a5cb2b54fac31a6c",
+          "confirmations": 1,
+          "feeSatoshis": 500
+        },
+        {
+          "artifact": "docs/POLITICS_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[8].fundingTxid",
+          "height": null,
+          "blockHash": "6bdf59804bb06ea781447ce566797423a9971ec128479733557952cb0c790d39",
+          "confirmations": 1,
+          "feeSatoshis": 650
+        },
+        {
+          "artifact": "docs/POLITICS_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[8].event.data.entryTxid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "regtest",
+      "txid": "da17fc8cca372c6ee99e83d7b0355b8835f47b842a96a4be799d7ed018fe20b8",
+      "references": [
+        {
+          "artifact": "docs/POLITICS_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[6].txid",
+          "height": null,
+          "blockHash": "4ac4dad3e08e50f3bb28acee69b101709ec7e41b54fbac735b41532517b874f7",
+          "confirmations": 1,
+          "feeSatoshis": 500
+        },
+        {
+          "artifact": "docs/POLITICS_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[9].fundingTxid",
+          "height": null,
+          "blockHash": "7a51d8944d05683273f3707df7a64ae426c9a0a0766227c5a1653b94af0ee755",
+          "confirmations": 1,
+          "feeSatoshis": 650
+        },
+        {
+          "artifact": "docs/POLITICS_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[9].event.data.entryTxid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "regtest",
+      "txid": "c001c38cbac224eea61efb320d69acc1c9e6084bd5c733ece3991d8bd39994f1",
+      "references": [
+        {
+          "artifact": "docs/POLITICS_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[7].txid",
+          "height": null,
+          "blockHash": "57dc7e923817aaba2028561a27c74544e147321f8dfbf158364a429896a00fd8",
+          "confirmations": 1,
+          "feeSatoshis": 650
+        }
+      ]
+    },
+    {
+      "network": "regtest",
+      "txid": "978dd1ed3c8c844dc8b9f48168805738dd0f39fd8a722ffc0bd94c3e3c005d63",
+      "references": [
+        {
+          "artifact": "docs/POLITICS_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[8].txid",
+          "height": null,
+          "blockHash": "6bdf59804bb06ea781447ce566797423a9971ec128479733557952cb0c790d39",
+          "confirmations": 1,
+          "feeSatoshis": 650
+        }
+      ]
+    },
+    {
+      "network": "regtest",
+      "txid": "b524c9cd53a246f25cab99e484c3bf522c299ab55dfbcb51fed01db4b6f5bb40",
+      "references": [
+        {
+          "artifact": "docs/POLITICS_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[9].txid",
+          "height": null,
+          "blockHash": "7a51d8944d05683273f3707df7a64ae426c9a0a0766227c5a1653b94af0ee755",
+          "confirmations": 1,
+          "feeSatoshis": 650
+        }
+      ]
+    },
+    {
+      "network": "regtest",
+      "txid": "d822f07e1eb365b1f202f07c2f2a171c2b75a700038eab0212b8b2c46a560c24",
+      "references": [
+        {
+          "artifact": "docs/POLITICS_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[10].txid",
+          "height": null,
+          "blockHash": "7728b2243bac81180960ac5df16701fdc1e4ba931bbb567ab52b2d215edf77a1",
+          "confirmations": 1,
+          "feeSatoshis": 500
+        },
+        {
+          "artifact": "docs/POLITICS_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[11].event.data.entryTxid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "regtest",
+      "txid": "6fe76e4f3622146f3cd0b9887d053def0d9cab6cf6d6a5c96365904a62d90799",
+      "references": [
+        {
+          "artifact": "docs/POLITICS_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[11].txid",
+          "height": null,
+          "blockHash": "69b904a666dbad7dd2e60e4459dcbe2e0b45404ca0c8afc1d5bcb1165ae0af6b",
+          "confirmations": 1,
+          "feeSatoshis": 254
+        }
+      ]
+    },
+    {
+      "network": "regtest",
+      "txid": "07b3aa6cb9325464a7652965ba1385bfe1aba2ca42d9761eac3773d318544cfd",
+      "references": [
+        {
+          "artifact": "docs/POLITICS_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[12].txid",
+          "height": null,
+          "blockHash": "4a0e826b3a38155c3b6a10416506427c4bc3fc433cd40140c958edd3522e2324",
+          "confirmations": 1,
+          "feeSatoshis": 500
+        }
+      ]
+    },
+    {
+      "network": "regtest",
+      "txid": "af3bcb2da279883ffb33154968c72664b585ddcb7e89f471cd39e1a4926a0533",
+      "references": [
+        {
+          "artifact": "docs/POLITICS_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[13].txid",
+          "height": null,
+          "blockHash": "5e0b862f8f309466e8796f92b9196aa98469370a378b8189654e30bba9158b99",
+          "confirmations": 1,
+          "feeSatoshis": 500
+        }
+      ]
+    },
+    {
+      "network": "regtest",
+      "txid": "cb1c87c519a3a9d78f53ee9338187a97c181d565e8d77a8f699e1dfaaa80f142",
+      "references": [
+        {
+          "artifact": "docs/POLITICS_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[14].txid",
+          "height": null,
+          "blockHash": "37a5107b6061bf33d6ca1feb130935e2daf897d4f77468acdf4be69b16bbcee8",
+          "confirmations": 1,
+          "feeSatoshis": 500
+        },
+        {
+          "artifact": "docs/POLITICS_REGTEST_RECEIPTS.json",
+          "path": "$.politics.charter.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "68d26d810b809c4e1f8d6128585851b484743f51040740eb3bb61f241e0f4a4a",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[0].receipt.txid",
+          "height": 334672,
+          "blockHash": "0000000080a953555c08f35ab2c92f031174dcc835a1f81bd102482a6933aeb2",
+          "confirmations": 2,
+          "feeSatoshis": 500
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[0].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[0].proof.receipt.txid",
+          "height": 334672,
+          "blockHash": "0000000080a953555c08f35ab2c92f031174dcc835a1f81bd102482a6933aeb2",
+          "confirmations": 28,
+          "feeSatoshis": 500
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[0].proof.current.txid",
+          "height": 334672,
+          "blockHash": null,
+          "confirmations": 28,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[0].proof.history[0].txid",
+          "height": 334672,
+          "blockHash": null,
+          "confirmations": 28,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[1].receipt.authorityInput.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[1].proof.receipt.authorityInput.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "c4a6b85324df77c1183d697cfd1cbee7096a3a608316b37072c83022c63ed5bc",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[0].receipt.authorityInput.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[0].proof.receipt.authorityInput.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "7cd314a52217b9667c3f313a200fea38456dcc41bdc5b72af9a02cae9cc8ec59",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[1].receipt.txid",
+          "height": 334674,
+          "blockHash": "000000001d8e2e321ab268ee13229f3d923a8dc8917b0e24838cfc0e12228198",
+          "confirmations": 2,
+          "feeSatoshis": 500
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[1].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[1].proof.receipt.txid",
+          "height": 334674,
+          "blockHash": "000000001d8e2e321ab268ee13229f3d923a8dc8917b0e24838cfc0e12228198",
+          "confirmations": 28,
+          "feeSatoshis": 500
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[1].proof.history[0].txid",
+          "height": 334674,
+          "blockHash": null,
+          "confirmations": 28,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[2].receipt.authorityInput.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[2].proof.receipt.authorityInput.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "a7c61efeab5e1df8a351dbf4215bc034dc34987a3ff484be684aa84aad7a9a0b",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[1].proof.current.txid",
+          "height": 334700,
+          "blockHash": null,
+          "confirmations": 2,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[1].proof.history[1].txid",
+          "height": 334700,
+          "blockHash": null,
+          "confirmations": 2,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "0a799b707693af5dcc3ae4a840d16c292df7f3dfa8c083609d5c0f68d84da8b2",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[2].receipt.txid",
+          "height": 334683,
+          "blockHash": "0000000026879e013efc0d7242de5ace598ecb9531e67f49f1073f4f9f92854c",
+          "confirmations": 2,
+          "feeSatoshis": 500
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[2].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[2].proof.receipt.txid",
+          "height": 334683,
+          "blockHash": "0000000026879e013efc0d7242de5ace598ecb9531e67f49f1073f4f9f92854c",
+          "confirmations": 17,
+          "feeSatoshis": 500
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[2].proof.current.txid",
+          "height": 334683,
+          "blockHash": null,
+          "confirmations": 17,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[2].proof.history[0].txid",
+          "height": 334683,
+          "blockHash": null,
+          "confirmations": 17,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[3].receipt.authorityInput.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[3].proof.receipt.authorityInput.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "741b784d25b5811d1aa01abe9de5d3df9ce2ae1d59d7b57870e45a6e54a52f71",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[3].receipt.txid",
+          "height": 334688,
+          "blockHash": "0000000000006e56a0e204ee1116022b5b157f96d52047f94d6bcfeac3e8f6a8",
+          "confirmations": 2,
+          "feeSatoshis": 500
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[3].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[3].proof.receipt.txid",
+          "height": 334688,
+          "blockHash": "0000000000006e56a0e204ee1116022b5b157f96d52047f94d6bcfeac3e8f6a8",
+          "confirmations": 12,
+          "feeSatoshis": 500
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[4].receipt.authorityInput.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[4].proof.receipt.authorityInput.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "83597038563f02a09e309b3d93d1bacc0cdb952329f84f7dce5d00ec87d6c914",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[4].receipt.txid",
+          "height": 334690,
+          "blockHash": "0000000031f63fc909ff7771595261906845d7f131fea736f5fb07598ed4ff19",
+          "confirmations": 2,
+          "feeSatoshis": 500
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[4].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_ASSETS.json",
+          "path": "$.assets[4].proof.receipt.txid",
+          "height": 334690,
+          "blockHash": "0000000031f63fc909ff7771595261906845d7f131fea736f5fb07598ed4ff19",
+          "confirmations": 10,
+          "feeSatoshis": 500
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "6c45291b09f80e1089ebf998218a48d282c8f5878eed872eeac72d2db4a65eb2",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_RECEIPTS.json",
+          "path": "$.payments[0].txid",
+          "height": 334566,
+          "blockHash": "00000000c4665db3a4c8b09661b21a9412c205300d017c167d9de97e8ef17748",
+          "confirmations": 4,
+          "feeSatoshis": 366
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_RECEIPTS.json",
+          "path": "$.payments[0].outcome.entry.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_EAST_MEADOW_PROOF.json",
+          "path": "$.territory.claim.entries[0].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_EAST_MEADOW_PROOF.json",
+          "path": "$.territory.history[0].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_EAST_MEADOW_PROOF.json",
+          "path": "$.territory.blockchain[0].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_EAST_MEADOW_PROOF.json",
+          "path": "$.records[1].record.entries[0].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_EAST_MEADOW_PROOF.json",
+          "path": "$.records[1].proofs[0].txid",
+          "height": 334566,
+          "blockHash": "00000000c4665db3a4c8b09661b21a9412c205300d017c167d9de97e8ef17748",
+          "confirmations": 19,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_EAST_MEADOW_PROOF.json",
+          "path": "$.recent[4].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": 19,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "cc44a0b5de2b6d0bc669aff6d156c2c7ee7de713ba2cb69b298750721991fb7d",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_RECEIPTS.json",
+          "path": "$.payments[1].txid",
+          "height": 334566,
+          "blockHash": "00000000c4665db3a4c8b09661b21a9412c205300d017c167d9de97e8ef17748",
+          "confirmations": 10,
+          "feeSatoshis": 366
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_RECEIPTS.json",
+          "path": "$.payments[1].outcome.entry.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_RARE_LEASE_PROOF.json",
+          "path": "$.territory.raffle.history[0].round.entries[0].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_RARE_LEASE_PROOF.json",
+          "path": "$.territory.raffle.history[0].entries[0].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_RARE_LEASE_PROOF.json",
+          "path": "$.territory.raffle.history[0].result.roster[0].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_RARE_LEASE_PROOF.json",
+          "path": "$.records[1].record.round.entries[0].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_RARE_LEASE_PROOF.json",
+          "path": "$.records[1].record.entries[0].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_RARE_LEASE_PROOF.json",
+          "path": "$.records[1].record.result.roster[0].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_RARE_LEASE_PROOF.json",
+          "path": "$.records[1].proofs[0].txid",
+          "height": 334566,
+          "blockHash": "00000000c4665db3a4c8b09661b21a9412c205300d017c167d9de97e8ef17748",
+          "confirmations": 22,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_RARE_LEASE_PROOF.json",
+          "path": "$.recent[2].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": 22,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "417df272d18fc60411e762515b19ba0b5be99a7356a212da58167b3ddfeede15",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_RECEIPTS.json",
+          "path": "$.payments[2].txid",
+          "height": 334573,
+          "blockHash": "00000000647a9ec89be6fd5e4f2211abf780619ab5103591505bab1acb982146",
+          "confirmations": 3,
+          "feeSatoshis": 366
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_RECEIPTS.json",
+          "path": "$.payments[2].outcome.entry.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_EAST_MEADOW_PROOF.json",
+          "path": "$.territory.claim.entries[1].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_EAST_MEADOW_PROOF.json",
+          "path": "$.territory.history[1].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_EAST_MEADOW_PROOF.json",
+          "path": "$.territory.blockchain[1].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_EAST_MEADOW_PROOF.json",
+          "path": "$.records[1].record.entries[1].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_EAST_MEADOW_PROOF.json",
+          "path": "$.records[1].proofs[1].txid",
+          "height": 334573,
+          "blockHash": "00000000647a9ec89be6fd5e4f2211abf780619ab5103591505bab1acb982146",
+          "confirmations": 12,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_EAST_MEADOW_PROOF.json",
+          "path": "$.recent[3].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": 12,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "938fa59ea7e0fcc8fa96d2393179546e0637efc1970e6bf0a5df5af2b25e8f59",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_RECEIPTS.json",
+          "path": "$.payments[3].txid",
+          "height": 334580,
+          "blockHash": "00000000879872fbb45da8963eaedb666858d5a45c6d9ba7e13c1e716e6968ad",
+          "confirmations": 2,
+          "feeSatoshis": 366
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_RECEIPTS.json",
+          "path": "$.payments[3].outcome.entries[0].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_RECEIPTS.json",
+          "path": "$.payments[3].outcome.battle.treasury.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_EAST_MEADOW_PROOF.json",
+          "path": "$.territory.blockchain[3].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_EAST_MEADOW_PROOF.json",
+          "path": "$.records[0].record.entries[0].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_EAST_MEADOW_PROOF.json",
+          "path": "$.records[0].record.battles[0].treasury.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_EAST_MEADOW_PROOF.json",
+          "path": "$.records[0].record.battle.treasury.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_EAST_MEADOW_PROOF.json",
+          "path": "$.records[0].record.treasury.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_EAST_MEADOW_PROOF.json",
+          "path": "$.records[0].proofs[0].txid",
+          "height": 334580,
+          "blockHash": "00000000879872fbb45da8963eaedb666858d5a45c6d9ba7e13c1e716e6968ad",
+          "confirmations": 5,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_EAST_MEADOW_PROOF.json",
+          "path": "$.recent[1].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": 5,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "1813d1143e9ce2ec166c00c1bc1d6d0f53cbfa55ba171e9574b105bb5a7efdbc",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_RECEIPTS.json",
+          "path": "$.proofs[0].txid",
+          "height": null,
+          "blockHash": "0000000026017cfd5593f9830ea0b597e5a4dcddfe31cba7902c6fe2aa4f3323",
+          "confirmations": null,
+          "feeSatoshis": 836
+        },
+        {
+          "artifact": "docs/TERRITORY_EAST_MEADOW_PROOF.json",
+          "path": "$.records[1].settlement.txid",
+          "height": 334577,
+          "blockHash": "0000000026017cfd5593f9830ea0b597e5a4dcddfe31cba7902c6fe2aa4f3323",
+          "confirmations": null,
+          "feeSatoshis": 836
+        },
+        {
+          "artifact": "docs/TERRITORY_EAST_MEADOW_PROOF.json",
+          "path": "$.recent[2].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": 8,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "cabc45926dacb16aff42d2da85109cf9be6a4a2d64da5d6f93be583dc7feff1f",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_RECEIPTS.json",
+          "path": "$.proofs[1].txid",
+          "height": null,
+          "blockHash": "000000003522cee3f820c8dfe20919f3bd1db89c7719b74027efa64843613360",
+          "confirmations": null,
+          "feeSatoshis": 516
+        },
+        {
+          "artifact": "docs/TERRITORY_EAST_MEADOW_PROOF.json",
+          "path": "$.records[0].settlement.txid",
+          "height": 334583,
+          "blockHash": "000000003522cee3f820c8dfe20919f3bd1db89c7719b74027efa64843613360",
+          "confirmations": null,
+          "feeSatoshis": 516
+        },
+        {
+          "artifact": "docs/TERRITORY_EAST_MEADOW_PROOF.json",
+          "path": "$.recent[0].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": 2,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "c56554bce33eae950789d72a5f0d553bca4548f09aff2bd9890ccd30b6f609fd",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_RECEIPTS.json",
+          "path": "$.proofs[2].txid",
+          "height": null,
+          "blockHash": "00000000647a9ec89be6fd5e4f2211abf780619ab5103591505bab1acb982146",
+          "confirmations": null,
+          "feeSatoshis": 516
+        },
+        {
+          "artifact": "docs/TERRITORY_RARE_LEASE_PROOF.json",
+          "path": "$.records[1].settlement.txid",
+          "height": 334573,
+          "blockHash": "00000000647a9ec89be6fd5e4f2211abf780619ab5103591505bab1acb982146",
+          "confirmations": null,
+          "feeSatoshis": 516
+        },
+        {
+          "artifact": "docs/TERRITORY_RARE_LEASE_PROOF.json",
+          "path": "$.recent[1].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": 15,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "e5d0d5f855985aa4d84c08cf04fd534ace20d9e480a14252c6c32c4959434cb3",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_CHIPNET_RECEIPTS.json",
+          "path": "$.proofs[3].txid",
+          "height": null,
+          "blockHash": "000000000000c4b6c9fd0cc6d67e4d0d9d2e0ec4defa697cda3fc49dd0f26e97",
+          "confirmations": null,
+          "feeSatoshis": 356
+        },
+        {
+          "artifact": "docs/TERRITORY_RARE_LEASE_PROOF.json",
+          "path": "$.records[0].settlement.txid",
+          "height": 334587,
+          "blockHash": "000000000000c4b6c9fd0cc6d67e4d0d9d2e0ec4defa697cda3fc49dd0f26e97",
+          "confirmations": null,
+          "feeSatoshis": 356
+        },
+        {
+          "artifact": "docs/TERRITORY_RARE_LEASE_PROOF.json",
+          "path": "$.recent[0].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": 2,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "6fc67aafa6e0c5d489433821390c8a514442b55c77a2b6773991be0dc444c4d2",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.setup.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": 254
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.genesis.receipt.inputs[0].txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "19069e8079258cdbe189f65547e5423a28e6e0caa4a9fe263fb31620ee429df9",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.genesis.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": 500
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.genesis.receipt.txid",
+          "height": 334692,
+          "blockHash": "000000000000bad922ffc044c9fdae11b660af44640df63709e2cdcfada6d62b",
+          "confirmations": 104,
+          "feeSatoshis": 500
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.deed:silverpass-test.receipt.authorityInput.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.deed:silverpass-test.proof.receipt.authorityInput.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "226d6385a6230ab5fe31401833ca700ca54caaddbd4b51a09d403875a08e6035",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.deed:silverpass-test.receipt.txid",
+          "height": 334697,
+          "blockHash": "00000000468878ef00a6636003d212350d408f1ebecea505d02814165a0ca2fa",
+          "confirmations": 2,
+          "feeSatoshis": 500
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.deed:silverpass-test.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.deed:silverpass-test.proof.receipt.txid",
+          "height": 334697,
+          "blockHash": "00000000468878ef00a6636003d212350d408f1ebecea505d02814165a0ca2fa",
+          "confirmations": 99,
+          "feeSatoshis": 500
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.deed:silverpass-test.proof.history[0].txid",
+          "height": 334697,
+          "blockHash": null,
+          "confirmations": 99,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.conquest:native-test-conquest.receipt.authorityInput.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.conquest:native-test-conquest.proof.receipt.authorityInput.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "d439f34f15a71aedbf784ac398bb76cacfa4d83893a2491b000689283fe0f548",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.deed:silverpass-test.proof.current.txid",
+          "height": 334700,
+          "blockHash": null,
+          "confirmations": 96,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.deed:silverpass-test.proof.history[1].txid",
+          "height": 334700,
+          "blockHash": null,
+          "confirmations": 96,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.transfer.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": 400
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "7a4d2fa2c372b8d38a141b90155482a0be0bafadf81bd793268cc731eeaa983b",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.conquest:native-test-conquest.receipt.txid",
+          "height": 334700,
+          "blockHash": "00000000271bed57259c03a17f231451b4e21b9a6d8dbaaae649c354e853847c",
+          "confirmations": 2,
+          "feeSatoshis": 500
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.conquest:native-test-conquest.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.conquest:native-test-conquest.proof.receipt.txid",
+          "height": 334700,
+          "blockHash": "00000000271bed57259c03a17f231451b4e21b9a6d8dbaaae649c354e853847c",
+          "confirmations": 96,
+          "feeSatoshis": 500
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.conquest:native-test-conquest.proof.current.txid",
+          "height": 334700,
+          "blockHash": null,
+          "confirmations": 96,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.conquest:native-test-conquest.proof.history[0].txid",
+          "height": 334700,
+          "blockHash": null,
+          "confirmations": 96,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.lease:native-test-lease.receipt.authorityInput.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.lease:native-test-lease.proof.receipt.authorityInput.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "0970ee83efbb515c7b253981602416399895f31b7817000c14aedde620d5a618",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.lease:native-test-lease.receipt.txid",
+          "height": 334702,
+          "blockHash": "00000000c8ca02d3f03842eb3e9776852d14cb3b2fa0f2e929c4f4fe3819113f",
+          "confirmations": 2,
+          "feeSatoshis": 500
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.lease:native-test-lease.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.lease:native-test-lease.proof.receipt.txid",
+          "height": 334702,
+          "blockHash": "00000000c8ca02d3f03842eb3e9776852d14cb3b2fa0f2e929c4f4fe3819113f",
+          "confirmations": 94,
+          "feeSatoshis": 500
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.lease:native-test-lease.proof.current.txid",
+          "height": 334702,
+          "blockHash": null,
+          "confirmations": 94,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.lease:native-test-lease.proof.history[0].txid",
+          "height": 334702,
+          "blockHash": null,
+          "confirmations": 94,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.lease-renewed:native-test-renewal.receipt.authorityInput.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.lease-renewed:native-test-renewal.proof.receipt.authorityInput.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "0eb8f289e058d56c580a88c9e4ca899bbeaef910734e24ade40dce150836ee74",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.lease-renewed:native-test-renewal.receipt.txid",
+          "height": 334704,
+          "blockHash": "000000003a4e51d8d472681726ec58a6435ca100e5b7cf2e3dba75164e8417ad",
+          "confirmations": 3,
+          "feeSatoshis": 500
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.lease-renewed:native-test-renewal.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.lease-renewed:native-test-renewal.proof.receipt.txid",
+          "height": 334704,
+          "blockHash": "000000003a4e51d8d472681726ec58a6435ca100e5b7cf2e3dba75164e8417ad",
+          "confirmations": 92,
+          "feeSatoshis": 500
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.lease-renewed:native-test-renewal.proof.current.txid",
+          "height": 334704,
+          "blockHash": null,
+          "confirmations": 92,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.lease-renewed:native-test-renewal.proof.history[0].txid",
+          "height": 334704,
+          "blockHash": null,
+          "confirmations": 92,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.lease-expired:native-test-expired.receipt.authorityInput.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.lease-expired:native-test-expired.proof.receipt.authorityInput.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "1219d6a0b7cdde42f5cab86aaa45359b4076b6e3f99339791e9c87f023b2e753",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.lease-expired:native-test-expired.receipt.txid",
+          "height": 334707,
+          "blockHash": "000000000c4951042a85b372ddb16296cd0d3b2d9bc409c66e09b0f9b91fdb73",
+          "confirmations": 89,
+          "feeSatoshis": 500
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.lease-expired:native-test-expired.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/TERRITORY_NATIVE_CASHTOKENS.json",
+          "path": "$.events.lease-expired:native-test-expired.proof.receipt.txid",
+          "height": 334707,
+          "blockHash": "000000000c4951042a85b372ddb16296cd0d3b2d9bc409c66e09b0f9b91fdb73",
+          "confirmations": 89,
+          "feeSatoshis": 500
+        }
+      ]
+    },
+    {
+      "network": "regtest",
+      "txid": "ed6dc0cc17c01e66d075e657be38098c36d341e0e542c3563e614029c7a63ad8",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[0].txid",
+          "height": null,
+          "blockHash": "0f8d362b36da65b9fdd9189d2275260a7d02237442686c581f11a48ffca5ee22",
+          "confirmations": 1,
+          "feeSatoshis": 500
+        }
+      ]
+    },
+    {
+      "network": "regtest",
+      "txid": "2dd8e922730af19eae345af8d71ebc27c0978bfbe504be0f17eb684c930b274e",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[1].txid",
+          "height": null,
+          "blockHash": "714c3da7f5ab8d1f90e3083a18372c6a475128505c9124bcd37fccab59e3cb85",
+          "confirmations": 1,
+          "feeSatoshis": 800
+        }
+      ]
+    },
+    {
+      "network": "regtest",
+      "txid": "bfe1fe98ccd2f1df753d08992fd8e8294ff9a53516b654c0d7fff9b9e534cab4",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[2].txid",
+          "height": null,
+          "blockHash": "3b75124de307cf06ee0205d67439d03f2c62c7191025c04df716f1585e13a077",
+          "confirmations": 1,
+          "feeSatoshis": 500
+        }
+      ]
+    },
+    {
+      "network": "regtest",
+      "txid": "a1caf18f085e3be6ec54b94e62ff4fab70d2083dccca808705f7e48cb8711ea7",
+      "references": [
+        {
+          "artifact": "docs/TERRITORY_REGTEST_RECEIPTS.json",
+          "path": "$.transactions[3].txid",
+          "height": null,
+          "blockHash": "1cf3d05ba904659d20bf639317ed5d87e82e9ca08abcfccb847fedb27a9c105e",
+          "confirmations": 1,
+          "feeSatoshis": 550
+        },
+        {
+          "artifact": "docs/TERRITORY_REGTEST_RECEIPTS.json",
+          "path": "$.token.currentTxid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "bcca3285cbdaa2c2df2ed6349b6cc5b89040d90b9394f88000e4da2ec19daca8",
+      "references": [
+        {
+          "artifact": "docs/VAULTBORN_CHIPNET_RECEIPTS.json",
+          "path": "$.rows[0].txid",
+          "height": 334227,
+          "blockHash": "00000000000013e2f2d10f6d91b855a49c775b8e13a68dad966ab980674dc0d8",
+          "confirmations": 3,
+          "feeSatoshis": 366
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "e9055762cb16374227d23cadddf96011b13b6841c309ea85f1e807bba2e40525",
+      "references": [
+        {
+          "artifact": "docs/VAULTBORN_CHIPNET_RECEIPTS.json",
+          "path": "$.rows[1].txid",
+          "height": 334227,
+          "blockHash": "00000000000013e2f2d10f6d91b855a49c775b8e13a68dad966ab980674dc0d8",
+          "confirmations": 3,
+          "feeSatoshis": 366
+        },
+        {
+          "artifact": "docs/VAULTBORN_CHIPNET_RECEIPTS.json",
+          "path": "$.rows[1].fulfillment.result.treasury.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/VAULTBORN_VERIFIABLE_BATTLE.json",
+          "path": "$.record.battle.treasury.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/VAULTBORN_VERIFIABLE_BATTLE.json",
+          "path": "$.record.initiation.txid",
+          "height": null,
+          "blockHash": "00000000000013e2f2d10f6d91b855a49c775b8e13a68dad966ab980674dc0d8",
+          "confirmations": null,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "084a5528f775499a08453f131e4e2221c75714e1378f0c8ba9a0be86403a9bb3",
+      "references": [
+        {
+          "artifact": "docs/VAULTBORN_CHIPNET_RECEIPTS.json",
+          "path": "$.rows[2].txid",
+          "height": 334227,
+          "blockHash": "00000000000013e2f2d10f6d91b855a49c775b8e13a68dad966ab980674dc0d8",
+          "confirmations": 3,
+          "feeSatoshis": 302
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "491597a3e95b6c9fff694ea5527abcbf4fac10b60e3da1705dfb05a99508673f",
+      "references": [
+        {
+          "artifact": "docs/VAULTBORN_CHIPNET_RECEIPTS.json",
+          "path": "$.rows[3].txid",
+          "height": 334233,
+          "blockHash": "0000000095f302583329b16a8763b5e5f962605704e0a4fd3893592184008b10",
+          "confirmations": 2,
+          "feeSatoshis": 356
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "121d6043929391405bb589aaf1aca3b2ad5b628012734e9e1940e55316365797",
+      "references": [
+        {
+          "artifact": "docs/VAULTBORN_CHIPNET_RECEIPTS.json",
+          "path": "$.battle.settlement.txid",
+          "height": null,
+          "blockHash": "000000004c1c432dade529bdba739b215d49d68edf0a668652430f2221750d1c",
+          "confirmations": null,
+          "feeSatoshis": null
+        },
+        {
+          "artifact": "docs/VAULTBORN_VERIFIABLE_BATTLE.json",
+          "path": "$.settlement.txid",
+          "height": null,
+          "blockHash": "000000004c1c432dade529bdba739b215d49d68edf0a668652430f2221750d1c",
+          "confirmations": null,
+          "feeSatoshis": null
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "e3beccec7e6834fb7dc8ea871b320f859dac309dab86ae2a7abd499a8cb55fae",
+      "references": [
+        {
+          "artifact": "docs/VAULTBORN_WIZARD_RECEIPT.json",
+          "path": "$.funding.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": 254
+        }
+      ]
+    },
+    {
+      "network": "chipnet",
+      "txid": "432d2281bdba1d845dfe36b49476c8fad5db4efbac7dff85c27c1bb6ca653895",
+      "references": [
+        {
+          "artifact": "docs/VAULTBORN_WIZARD_RECEIPT.json",
+          "path": "$.approval.txid",
+          "height": null,
+          "blockHash": null,
+          "confirmations": null,
+          "feeSatoshis": 366
+        },
+        {
+          "artifact": "docs/VAULTBORN_WIZARD_RECEIPT.json",
+          "path": "$.confirmed.txid",
+          "height": 334369,
+          "blockHash": "00000000672b99bba36b175fcdf4a929c7d0b9bc96c0348eb729ae0b9aa379b5",
+          "confirmations": 2,
+          "feeSatoshis": null
+        }
+      ]
+    }
+  ],
+  "previousSelene": {
+    "release": "Selene Wallet v2026.10.02",
+    "fixture": "Official web release assets, supplied pinned SQL.js WASM, disposable unfunded wallet, local relay with wss-to-ws harness bridge",
+    "gameHashes": {
+      "ritual-wallet.js": "430e4718daf4213781bba66c35a280933d28457532d3267de4387de6b9602738",
+      "screens.js": "abe6b2d5feac29be9744de813df0864779ad977af8b1ddae8c9f8554d25892a1",
+      "vendor/wizardconnect.js": "d95a56085c55e87e0467d450bc3929c428b154e1ad8129b6aebb78c7e224823c"
+    },
+    "paired": true,
+    "sameAddressAfterReload": true,
+    "disconnected": true,
+    "financialPosts": 0,
+    "broadcasts": 0,
+    "externalSocketsBlocked": 4,
+    "currentHashesMatch": true
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "network": "chipnet",
+  "action": "Disposable Selene funding for one current-policy payment",
+  "source": "bchtest:qplmjqhqt8rght6q4d94pj3xds8vmmhuwqnaa5xydl",
+  "address": "bchtest:qr2gdnwmfwacv0z2mgd86n8jyef774882vl4apsd0h",
+  "satoshis": 5000,
+  "txid": "602b9085529ec87398382081c02be43d822abd797f8b0e99038240cda43a2d6f",
+  "feeSatoshis": 254,
+  "broadcastAt": "2026-11-18T19:14:06.316Z",
+  "confirmations": 1,
+  "height": 337139,
+  "blockHash": "00000000be6e61e4197fcc1fa34f146df31196f9d8a765df1c980ccbabdbb0bc",
+  "verifiedAt": "2026-11-18T19:21:11.949Z",
+  "receipt": {
+    "txid": "602b9085529ec87398382081c02be43d822abd797f8b0e99038240cda43a2d6f",
+    "height": 337139,
+    "confirmations": 1,
+    "blockHash": "00000000be6e61e4197fcc1fa34f146df31196f9d8a765df1c980ccbabdbb0bc",
+    "blockTime": 1795029651000,
+    "network": "chipnet",
+    "explorerUrl": "https://chipnet.imaginary.cash/tx/602b9085529ec87398382081c02be43d822abd797f8b0e99038240cda43a2d6f",
+    "feeSatoshis": 254,
+    "inputs": [
+      {
+        "txid": "6fc67aafa6e0c5d489433821390c8a514442b55c77a2b6773991be0dc444c4d2",
+        "vout": 1
+      }
+    ],
+    "outputs": [
+      {
+        "vout": 0,
+        "script": "76a914d486cddb4bbb863c4ada1a7d4cf22653ef54e75388ac",
+        "satoshis": 5000,
+        "asset": "BCH"
+      },
+      {
+        "vout": 1,
+        "script": "76a9147fb902e059c68baf40ab4b50ca266c0ecdeefc7088ac",
+        "satoshis": 179492,
+        "asset": "BCH"
+      }
+    ]
+  }
+}

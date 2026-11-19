@@ -1,0 +1,30 @@
+.territory-outcome {
+  --signal: #e8c27b;
+  --plate: url('/art/event-victory.webp');
+  position: fixed;
+  inset: clamp(74px,15vh,170px) 0 auto;
+  box-sizing: border-box;
+  width: min(470px,92vw);
+  min-height: 146px;
+  padding: 18px 22px 21px;
+  margin: 0 auto;
+  border: 1px solid var(--signal);
+  color: #fff1cc;
+  background: linear-gradient(90deg,#111b20ed,#141f20d7,#111b20ed), var(--plate) center 48% / cover;
+  box-shadow: inset 0 0 0 4px #24252a, 0 10px 75px #000c;
+  pointer-events: none;
+  text-align: center;
+}
+.territory-outcome:popover-open { display: grid; align-content: center; justify-items: center; gap: 5px; animation: dominion-proclamation 4.1s both; }
+.territory-outcome.loss { --signal: #d68f73; --plate: url('/art/event-defeat.webp'); }
+.territory-outcome.lease { --signal: #d3b1ff; --plate: url('/art/event-season.webp'); }
+.territory-outcome .icon { color: var(--signal); width: 27px; height: 27px; }
+.territory-outcome strong { color: var(--signal); font: 700 clamp(18px,5vw,31px) Georgia,serif; letter-spacing: .07em; text-transform: uppercase; text-shadow: 0 2px 9px #000; }
+.territory-outcome small { color: #f2e4c2; font-size: .83rem; }
+@keyframes dominion-proclamation {
+  from { opacity: 0; transform: translateY(-11px) scale(.96); }
+  9%, 81% { opacity: 1; transform: none; }
+  to { opacity: 0; transform: translateY(4px); }
+}
+@media (prefers-reduced-motion: reduce) { .territory-outcome:popover-open { animation: none; } }
+.reduced .territory-outcome:popover-open { animation: none; }

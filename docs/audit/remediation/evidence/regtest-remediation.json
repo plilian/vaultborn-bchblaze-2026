@@ -1,0 +1,1856 @@
+{
+  "network": "regtest (private local chain, not Chipnet)",
+  "node": "/Bitcoin Cash Node:29.2.0/",
+  "relayPolicy": "standard (-acceptnonstdtxn=0)",
+  "executedAt": "2026-11-19T12:01:27.175Z",
+  "height": 1415,
+  "pass": 145,
+  "fail": 0,
+  "results": [
+    {
+      "group": "prize-carrier",
+      "name": "sweep that underpays the prize output by 1 satoshi",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_VERIFY operation) (code 16)"
+    },
+    {
+      "group": "prize-carrier",
+      "name": "sweep that redirects a kingdom share",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_EQUALVERIFY operation) (code 16)"
+    },
+    {
+      "group": "prize-carrier",
+      "name": "operator key trying to move an exactly funded carrier",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_VERIFY operation) (code 16)"
+    },
+    {
+      "group": "prize-carrier",
+      "name": "two carriers swept by the game signer: prize 800, kingdom 2,600 each",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "eb59e5f41cd49a62eb20c95574156b395365f28ac8267c999bb6919d90784e89",
+      "confirmations": 1,
+      "feeSatoshis": 768,
+      "bytes": 767,
+      "outputs": [
+        {
+          "script": "a9141016899f8f7b7d886b78f1679b5094761eee5f3587",
+          "satoshis": 800
+        },
+        {
+          "script": "a91400a3a992f2c40c9e793241a2b75da0fae067251287",
+          "satoshis": 2600
+        },
+        {
+          "script": "a914ee6b5451ce81df6f1c5e4162c32830be669157ae87",
+          "satoshis": 2600
+        },
+        {
+          "script": "a914361fb47bfe808057c7d8a629bc650b22de2b7e4487",
+          "satoshis": 4232
+        },
+        {
+          "script": "6a045642524e22011ce0ac2faf2b580918a81414a743a603352eaa0a522568d45cbada379b958213e2",
+          "satoshis": 0
+        }
+      ],
+      "topUpSatoshis": 0
+    },
+    {
+      "group": "prize-carrier",
+      "name": "lone carrier swept with a 146-satoshi top-up to the dust limit",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "7d3848ef47e351a5ba3a51a5e16bd7f3c6b67e6ec6b54d997e560aaa2034348b",
+      "confirmations": 1,
+      "feeSatoshis": 526,
+      "bytes": 526,
+      "outputs": [
+        {
+          "script": "a9141016899f8f7b7d886b78f1679b5094761eee5f3587",
+          "satoshis": 546
+        },
+        {
+          "script": "a914830612d38dfdb9c0b14042f8bba7c4b3c30890ad87",
+          "satoshis": 2600
+        },
+        {
+          "script": "a914143d4534a2bdb52080745ebefe1cbde5845bc5b787",
+          "satoshis": 4328
+        },
+        {
+          "script": "6a045642524e22011c4123bcb4ab23bf423c7f073384b9636752829b93d113239e3081aade6d7d91da",
+          "satoshis": 0
+        }
+      ],
+      "topUpSatoshis": 146
+    },
+    {
+      "group": "prize-carrier",
+      "name": "wrongly funded carrier returned through the operator recovery lane",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "13fa17dbdaf320ea42790bc817a59340e9cf2adef3d9c639036584d410e82a75",
+      "confirmations": 1,
+      "feeSatoshis": 500,
+      "bytes": 319,
+      "outputs": [
+        {
+          "script": "76a91457526b1a1534d4bde788253281649fc2e91dc70b88ac",
+          "satoshis": 2510
+        }
+      ]
+    },
+    {
+      "group": "political-escrow-v2",
+      "name": "exactly funded escrow released to the payee",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "d5c1cace66d40685117ca45034206c142fe40be7f41ae34bfa990017a31dee9a",
+      "confirmations": 1,
+      "feeSatoshis": 650,
+      "bytes": 445,
+      "outputs": [
+        {
+          "script": "76a914726d44b7af8228257c030bafe764d3c5839d5c0288ac",
+          "satoshis": 8300
+        },
+        {
+          "script": "6a045642524e220119d75fb83232ace9be7f57c4f222b83a430be56b95726514dc6a24c300c35e5a3a",
+          "satoshis": 0
+        }
+      ]
+    },
+    {
+      "group": "political-escrow-v2",
+      "name": "overfunded escrow (+500) returned to the payer by the operator lane",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "bb535b9f78b850451ad199adb1aa1d3dd5ac2b77dc7e497e938334b52c53fcd7",
+      "confirmations": 1,
+      "feeSatoshis": 650,
+      "bytes": 446,
+      "outputs": [
+        {
+          "script": "76a91457526b1a1534d4bde788253281649fc2e91dc70b88ac",
+          "satoshis": 8800
+        },
+        {
+          "script": "6a045642524e220119d75fb83232ace9be7f57c4f222b83a430be56b95726514dc6a24c300c35e5a3a",
+          "satoshis": 0
+        }
+      ]
+    },
+    {
+      "group": "political-escrow-v2",
+      "name": "underfunded escrow (-1) recovered by the payer alone after the timeout",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "fc42d94e991145d25e5bbe83f19567c9042a5d1923b80443a88d49f6f2b5f4b6",
+      "confirmations": 1,
+      "feeSatoshis": 650,
+      "bytes": 446,
+      "outputs": [
+        {
+          "script": "76a91457526b1a1534d4bde788253281649fc2e91dc70b88ac",
+          "satoshis": 8299
+        },
+        {
+          "script": "6a045642524e220119d75fb83232ace9be7f57c4f222b83a430be56b95726514dc6a24c300c35e5a3a",
+          "satoshis": 0
+        }
+      ]
+    },
+    {
+      "group": "political-escrow-v2",
+      "name": "600-satoshi payment recovered in full with a fee sponsor",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "56b20b111d68eb832390ae72d61b11e1452a708cc3b8c8b8176e7760e2493353",
+      "confirmations": 1,
+      "feeSatoshis": 1070,
+      "bytes": 621,
+      "outputs": [
+        {
+          "script": "76a91457526b1a1534d4bde788253281649fc2e91dc70b88ac",
+          "satoshis": 600
+        },
+        {
+          "script": "6a045642524e220119d75fb83232ace9be7f57c4f222b83a430be56b95726514dc6a24c300c35e5a3a",
+          "satoshis": 0
+        },
+        {
+          "script": "76a914362995a6e6922a04e0b832a80bc56c33709a42d288ac",
+          "satoshis": 3930
+        }
+      ]
+    },
+    {
+      "group": "political-escrow-v2",
+      "name": "payer refund before the timeout",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "bad-txns-nonfinal, non-final transaction (code 64)"
+    },
+    {
+      "group": "treasury-covenant-v2",
+      "name": "576-satoshi underpayment (stranded under version 1) recovered by the owner with a fee sponsor",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "10162013311032991cefaa0bcc659c6f1ce635664c0d34bdc1bf7e4247a125a7",
+      "confirmations": 1,
+      "feeSatoshis": 1000,
+      "bytes": 691,
+      "outputs": [
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 576
+        },
+        {
+          "script": "76a914362995a6e6922a04e0b832a80bc56c33709a42d288ac",
+          "satoshis": 4000
+        }
+      ]
+    },
+    {
+      "group": "treasury-covenant-v2",
+      "name": "overfunded tranche (+900) recovered by the owner",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "544f664a2c23ea5149d421c0e0697a04ff5d121b7ecde37fc47d4de44698b886",
+      "confirmations": 1,
+      "feeSatoshis": 800,
+      "bytes": 516,
+      "outputs": [
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 20900
+        }
+      ]
+    },
+    {
+      "group": "treasury-covenant-v2",
+      "name": "exact battle tranche settled by two attestor signatures",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "96c31b128dc6f078a6319ba23ad0df1470ad0beff7b54799ef2d2c13f8a6c045",
+      "confirmations": 1,
+      "feeSatoshis": 800,
+      "bytes": 617,
+      "outputs": [
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 10000
+        },
+        {
+          "script": "76a914f0f4189b8cf9f2db0ab8d3a3c009e1823a58842e88ac",
+          "satoshis": 10000
+        }
+      ]
+    },
+    {
+      "group": "treasury-covenant-v2",
+      "name": "600-satoshi prize voucher rolled over without any key, fee paid by a sponsor",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "9ef80477fcc4175c5743743b61dd4949b4a675d44740d11e52f25d5331f2f20e",
+      "confirmations": 1,
+      "feeSatoshis": 1000,
+      "bytes": 405,
+      "outputs": [
+        {
+          "script": "76a914f0f4189b8cf9f2db0ab8d3a3c009e1823a58842e88ac",
+          "satoshis": 600
+        },
+        {
+          "script": "76a914362995a6e6922a04e0b832a80bc56c33709a42d288ac",
+          "satoshis": 4000
+        }
+      ]
+    },
+    {
+      "group": "vault-covenant",
+      "name": "operator key trying to pay a vault deposit to itself",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_EQUALVERIFY operation) (code 16)"
+    },
+    {
+      "group": "vault-covenant",
+      "name": "assisted withdrawal of 5,000 to the owner with change back to the vault",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "56b5bc297cc3ccbcf6d2a0c8f418a925e6090ffaef32cc19f78f6c34ace858a3",
+      "confirmations": 1,
+      "feeSatoshis": 451,
+      "bytes": 439,
+      "outputs": [
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 5000
+        },
+        {
+          "script": "aa2012a7a1241186a0721bd7b832fd1c2a4b22ef89bbbc32ff101a72df46100560d087",
+          "satoshis": 14549
+        },
+        {
+          "script": "6a045642524e220119d75fb83232ace9be7f57c4f222b83a430be56b95726514dc6a24c300c35e5a3a",
+          "satoshis": 0
+        }
+      ]
+    },
+    {
+      "group": "vault-covenant",
+      "name": "the vault change output withdrawn in full to the owner",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "7077f53b8b3916d3cf87f0996acde33e9f747ee893ee7022e343d8ea265857c0",
+      "confirmations": 1,
+      "feeSatoshis": 357,
+      "bytes": 345,
+      "outputs": [
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 14192
+        }
+      ]
+    },
+    {
+      "group": "vault-covenant",
+      "name": "owner-only recovery after the recovery time, to an address of the owner's choice",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "41a29d63cdddc639dc584aa80c37402f6d18a645407c7986b3d03cda7c0ef557",
+      "confirmations": 1,
+      "feeSatoshis": 600,
+      "bytes": 345,
+      "outputs": [
+        {
+          "script": "76a914726d44b7af8228257c030bafe764d3c5839d5c0288ac",
+          "satoshis": 19400
+        }
+      ]
+    },
+    {
+      "group": "vault-covenant",
+      "name": "owner-only recovery before the recovery time",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "bad-txns-nonfinal, non-final transaction (code 64)"
+    },
+    {
+      "group": "vault-covenant",
+      "name": "early-recovery vault output is still unspent",
+      "expected": "unspent",
+      "result": "PASS"
+    },
+    {
+      "group": "prize-fund",
+      "name": "all signers together awarding more than 40% of a fund output",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_VERIFY operation) (code 16)"
+    },
+    {
+      "group": "prize-fund",
+      "name": "all signers together sending the remainder out of the fund",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_EQUALVERIFY operation) (code 16)"
+    },
+    {
+      "group": "prize-fund",
+      "name": "all signers together skimming into an extra output",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_NUMEQUALVERIFY operation) (code 16)"
+    },
+    {
+      "group": "prize-fund",
+      "name": "automation key signing in every position, without the attestors",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Signature must be zero for failed CHECK(MULTI)SIG operation) (code 16)"
+    },
+    {
+      "group": "prize-fund",
+      "name": "automation key plus only one of the two attestors",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Signature must be zero for failed CHECK(MULTI)SIG operation) (code 16)"
+    },
+    {
+      "group": "prize-fund",
+      "name": "keyless sponsor refund before the refund date",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "bad-txns-nonfinal, non-final transaction (code 64)"
+    },
+    {
+      "group": "prize-fund",
+      "name": "attested award to the winner with the remainder back in the same prize fund",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "a36592461759f6d22338abd62ff1d948d8fc0a5ef41f649367d1d46f88502fff",
+      "confirmations": 1,
+      "feeSatoshis": 700,
+      "bytes": 637,
+      "outputs": [
+        {
+          "script": "76a914726d44b7af8228257c030bafe764d3c5839d5c0288ac",
+          "satoshis": 5950000
+        },
+        {
+          "script": "aa20033f36a295745b7bd37548c42e6388f64f1a72c4a1f985013572717014c7150b87",
+          "satoshis": 11549300
+        },
+        {
+          "script": "6a045642524e220119d75fb83232ace9be7f57c4f222b83a430be56b95726514dc6a24c300c35e5a3a",
+          "satoshis": 0
+        }
+      ]
+    },
+    {
+      "group": "prize-fund",
+      "name": "fully signed award before the season has closed",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "bad-txns-nonfinal, non-final transaction (code 64)"
+    },
+    {
+      "group": "prize-fund",
+      "name": "keyless refund redirected away from the sponsor",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_EQUALVERIFY operation) (code 16)"
+    },
+    {
+      "group": "prize-fund",
+      "name": "keyless refund that keeps more than the fee cap",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script evaluated without error but finished with a false/empty top stack element) (code 16)"
+    },
+    {
+      "group": "prize-fund",
+      "name": "two unawarded contributions returned to their sponsor in one keyless transaction",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "61b211b7f50c5322624c9d1f5341c50cc6cdbf839d8b37d1b3de15d1b989f17d",
+      "confirmations": 1,
+      "feeSatoshis": 1200,
+      "bytes": 680,
+      "outputs": [
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 17499400
+        },
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 17499400
+        }
+      ]
+    },
+    {
+      "group": "prize-fund",
+      "name": "prize fund output of the open season is still unspent",
+      "expected": "unspent",
+      "result": "PASS"
+    },
+    {
+      "group": "kingdom-vault",
+      "name": "game key sending a kingdom vault output to itself",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_EQUALVERIFY operation) (code 16)"
+    },
+    {
+      "group": "kingdom-vault",
+      "name": "game key skimming a vault output into an extra output",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_NUMEQUALVERIFY operation) (code 16)"
+    },
+    {
+      "group": "kingdom-vault",
+      "name": "game key re-issuing a vault output to its own script to burn fees",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_EQUALVERIFY operation) (code 16)"
+    },
+    {
+      "group": "war-chest",
+      "name": "war chest release before the output has reached its age",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "non-BIP68-final (code 64)"
+    },
+    {
+      "group": "kingdom-vault",
+      "name": "owner recovery before the recovery date",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "bad-txns-nonfinal, non-final transaction (code 64)"
+    },
+    {
+      "group": "kingdom-vault",
+      "name": "three whole vault outputs paid to their owner in one transaction",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "1dff9a1bd04b247fa3d29acae76b10fe241d134f64ea9686937e2ffa89623cb6",
+      "confirmations": 1,
+      "feeSatoshis": 1056,
+      "bytes": 999,
+      "outputs": [
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 2573
+        },
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 2673
+        },
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 2773
+        },
+        {
+          "script": "6a045642524e220119d75fb83232ace9be7f57c4f222b83a430be56b95726514dc6a24c300c35e5a3a",
+          "satoshis": 0
+        }
+      ]
+    },
+    {
+      "group": "kingdom-vault",
+      "name": "owner-only recovery of a vault output after its date",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "cd04b310e5d9bca7d79aaa0cbf48a9a34323ac4a8131ac8037a8f41d787efbeb",
+      "confirmations": 1,
+      "feeSatoshis": 400,
+      "bytes": 323,
+      "outputs": [
+        {
+          "script": "76a914726d44b7af8228257c030bafe764d3c5839d5c0288ac",
+          "satoshis": 2825
+        }
+      ]
+    },
+    {
+      "group": "war-chest",
+      "name": "capture from a war chest output younger than its capture age",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "non-BIP68-final (code 64)"
+    },
+    {
+      "group": "war-chest",
+      "name": "capture of more than 20% of a war chest output",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script evaluated without error but finished with a false/empty top stack element) (code 16)"
+    },
+    {
+      "group": "war-chest",
+      "name": "capture signed by the game key alone, without the independent attestor",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Signature must be zero for failed CHECK(MULTI)SIG operation) (code 16)"
+    },
+    {
+      "group": "war-chest",
+      "name": "capture that returns the remainder somewhere else",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_EQUALVERIFY operation) (code 16)"
+    },
+    {
+      "group": "war-chest",
+      "name": "capture of exactly 20% to the winner, 80% back in the same chest",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "9150e8d106ab2b697b16101e578fea786656aac3498b8c4a72035ffb942ccdd8",
+      "confirmations": 1,
+      "feeSatoshis": 656,
+      "bytes": 654,
+      "outputs": [
+        {
+          "script": "aa20ef8b1861516be96a62e971857e4b4667816c0fc9457bfcc57162f13a8e620af787",
+          "satoshis": 40000
+        },
+        {
+          "script": "76a914726d44b7af8228257c030bafe764d3c5839d5c0288ac",
+          "satoshis": 9344
+        },
+        {
+          "script": "6a045642524e220119d75fb83232ace9be7f57c4f222b83a430be56b95726514dc6a24c300c35e5a3a",
+          "satoshis": 0
+        }
+      ]
+    },
+    {
+      "group": "war-chest",
+      "name": "game key sending a war chest output to itself through the assisted lane",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_VERIFY operation) (code 16)"
+    },
+    {
+      "group": "war-chest",
+      "name": "war chest output released to its owner wallet",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "797a52a820645a4824e1bb63dd966a058341de0f78eef9cbe0fd162d6a3b1671",
+      "confirmations": 1,
+      "feeSatoshis": 540,
+      "bytes": 538,
+      "outputs": [
+        {
+          "script": "aa204b1ba7ba268a98520e568c97e1b3053fb572757408c7fd97c0574e6912f52c4287",
+          "satoshis": 29460
+        },
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 20000
+        }
+      ]
+    },
+    {
+      "group": "stake-escrow",
+      "name": "attacker lane: whole stake back to the attacker, with the battle record",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "c1e009df2b4e5b3dfb6b9e63de41ad25a883327002d925403be965886b58f747",
+      "confirmations": 1,
+      "feeSatoshis": 600,
+      "bytes": 546,
+      "outputs": [
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 3000
+        },
+        {
+          "script": "6a045642524e220119d75fb83232ace9be7f57c4f222b83a430be56b95726514dc6a24c300c35e5a3a",
+          "satoshis": 0
+        }
+      ]
+    },
+    {
+      "group": "stake-escrow",
+      "name": "defender lane: stake split between attacker and the named defender",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "8ba07762b336a7a21a333ca8b8ea063193d981ccd45ec2ac8d7bca7a1fcd408b",
+      "confirmations": 1,
+      "feeSatoshis": 600,
+      "bytes": 580,
+      "outputs": [
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 1500
+        },
+        {
+          "script": "76a914f0f4189b8cf9f2db0ab8d3a3c009e1823a58842e88ac",
+          "satoshis": 1500
+        },
+        {
+          "script": "6a045642524e220119d75fb83232ace9be7f57c4f222b83a430be56b95726514dc6a24c300c35e5a3a",
+          "satoshis": 0
+        }
+      ]
+    },
+    {
+      "group": "stake-escrow",
+      "name": "outcome key paying the stake to itself",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_EQUALVERIFY operation) (code 16)"
+    },
+    {
+      "group": "stake-escrow",
+      "name": "the attacked escrow is still unspent",
+      "expected": "unspent",
+      "result": "PASS"
+    },
+    {
+      "group": "territory",
+      "name": "settlement key taking more than half of a claim stake",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_NUMEQUALVERIFY operation) (code 16)"
+    },
+    {
+      "group": "territory",
+      "name": "settlement key redirecting the claimant's own half",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_EQUALVERIFY operation) (code 16)"
+    },
+    {
+      "group": "territory",
+      "name": "lost claim: half back to the claimant, half to the contest winner, with the record",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "e6710a6fe65a6cb46ebb79e3e3e56d1e04375393ca7be86361c0a246833ee24a",
+      "confirmations": 1,
+      "feeSatoshis": 600,
+      "bytes": 551,
+      "outputs": [
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 1500
+        },
+        {
+          "script": "76a914726d44b7af8228257c030bafe764d3c5839d5c0288ac",
+          "satoshis": 1500
+        },
+        {
+          "script": "6a045642524e220119d75fb83232ace9be7f57c4f222b83a430be56b95726514dc6a24c300c35e5a3a",
+          "satoshis": 0
+        }
+      ]
+    },
+    {
+      "group": "territory",
+      "name": "won or sole claim: whole stake back to the claimant",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "93d5b885a1d9ccb74dd84d028071d013e2880e4865fe99cd6c8a4956d0d01f9d",
+      "confirmations": 1,
+      "feeSatoshis": 600,
+      "bytes": 517,
+      "outputs": [
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 3000
+        },
+        {
+          "script": "6a045642524e220119d75fb83232ace9be7f57c4f222b83a430be56b95726514dc6a24c300c35e5a3a",
+          "satoshis": 0
+        }
+      ]
+    },
+    {
+      "group": "territory",
+      "name": "raffle entry returned before the draw time",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "bad-txns-nonfinal, non-final transaction (code 64)"
+    },
+    {
+      "group": "territory",
+      "name": "raffle entry sent to anyone but its entrant",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_EQUALVERIFY operation) (code 16)"
+    },
+    {
+      "group": "territory",
+      "name": "raffle entry and unused reserve returned to the entrant without any key",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "59480153f533ba85096cc5bee12b69d9fa42d49cec0f25205262a678aea751ce",
+      "confirmations": 1,
+      "feeSatoshis": 600,
+      "bytes": 342,
+      "outputs": [
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 4600
+        },
+        {
+          "script": "6a045642524e220119d75fb83232ace9be7f57c4f222b83a430be56b95726514dc6a24c300c35e5a3a",
+          "satoshis": 0
+        }
+      ]
+    },
+    {
+      "group": "service-pool",
+      "name": "sweep that sends the prize shares somewhere other than the season pool",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_EQUALVERIFY operation) (code 16)"
+    },
+    {
+      "group": "service-pool",
+      "name": "sweep that pays the pool one satoshi less than the prize shares",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_VERIFY operation) (code 16)"
+    },
+    {
+      "group": "service-pool",
+      "name": "sweep that redirects a payer's kingdom share",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_EQUALVERIFY operation) (code 16)"
+    },
+    {
+      "group": "service-pool",
+      "name": "carrier refund before its date",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "bad-txns-nonfinal, non-final transaction (code 64)"
+    },
+    {
+      "group": "service-pool",
+      "name": "first keyless sweep: two carriers start the season pool, fee paid from their reserves",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "85f305f2709fbbeaf6de8be069fc472871b297b3c20556b811ef806d4126ae03",
+      "confirmations": 1,
+      "feeSatoshis": 774,
+      "bytes": 772,
+      "outputs": [
+        {
+          "script": "aa20c86285dc5fe1c6b1ecf94ac677bda7118cd2cad886cd2fe048da7212309fd45587",
+          "satoshis": 1126
+        },
+        {
+          "script": "aa2049efc25de116374674a7f31b7efa34013d5b7322f59700024ca52d4fd8971ea887",
+          "satoshis": 2925
+        },
+        {
+          "script": "aa20c9b8a8baaa13d7496310a7ec3c1d1d20b96504712a9bf6e928c9f7d892a24e6d87",
+          "satoshis": 2925
+        },
+        {
+          "script": "6a045642524e220119d75fb83232ace9be7f57c4f222b83a430be56b95726514dc6a24c300c35e5a3a",
+          "satoshis": 0
+        }
+      ]
+    },
+    {
+      "group": "service-pool",
+      "name": "re-issuing the pool without adding at least 300 satoshis (stalling awards)",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script evaluated without error but finished with a false/empty top stack element) (code 16)"
+    },
+    {
+      "group": "service-pool",
+      "name": "top-up sweep that shrinks the pool",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_VERIFY operation) (code 16)"
+    },
+    {
+      "group": "service-pool",
+      "name": "top-up sweep: three carriers and the pool output itself, no key",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "95489a041aade342ec650ad55e29473c787d4eba0d0eab26ccefd7d4eaa7600e",
+      "confirmations": 1,
+      "feeSatoshis": 1345,
+      "bytes": 1343,
+      "outputs": [
+        {
+          "script": "aa20c86285dc5fe1c6b1ecf94ac677bda7118cd2cad886cd2fe048da7212309fd45587",
+          "satoshis": 2631
+        },
+        {
+          "script": "aa20c2e9f2ed3839c0c6fe9cced90be6b0f54d8ac1926ca4f6d3b8a751470711ceb987",
+          "satoshis": 2925
+        },
+        {
+          "script": "aa20cd608ff670aebf8eca33773e53ee1102877a1126c757eb3ad2b6f8fcc7fd7edb87",
+          "satoshis": 2925
+        },
+        {
+          "script": "aa204f693b1336ba437fb5b943474358b9e5f00db05f17a38e054e207e1ad76b494087",
+          "satoshis": 2925
+        },
+        {
+          "script": "6a045642524e220119d75fb83232ace9be7f57c4f222b83a430be56b95726514dc6a24c300c35e5a3a",
+          "satoshis": 0
+        }
+      ]
+    },
+    {
+      "group": "service-pool",
+      "name": "unswept carrier returned to its payer after the refund date, no key",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "adcf2bda2f08602b4d8ba3e5421faf719ee0a9d39b9c859225d7195016ecde29",
+      "confirmations": 1,
+      "feeSatoshis": 450,
+      "bytes": 334,
+      "outputs": [
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 3425
+        }
+      ]
+    },
+    {
+      "group": "service-pool",
+      "name": "award from the season pool by the game key alone",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Signature must be zero for failed CHECK(MULTI)SIG operation) (code 16)"
+    },
+    {
+      "group": "service-pool",
+      "name": "attested award from the season pool, remainder back in the pool",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "2b5089977e60446fc32bea7ff45bca4a11727665a771d71d18a0d756e9684b6b",
+      "confirmations": 1,
+      "feeSatoshis": 600,
+      "bytes": 459,
+      "outputs": [
+        {
+          "script": "76a914726d44b7af8228257c030bafe764d3c5839d5c0288ac",
+          "satoshis": 894
+        },
+        {
+          "script": "aa20c86285dc5fe1c6b1ecf94ac677bda7118cd2cad886cd2fe048da7212309fd45587",
+          "satoshis": 1137
+        }
+      ]
+    },
+    {
+      "group": "service-economy",
+      "name": "a 4,000-satoshi service payment with 2,000 / 800 / 800(+300 reserve) / 400 outputs is relayed and mined under standard policy",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "cb6f0afbcbc8fcf6616e06cc79616bb80038a79c36e46fbf975e6561157873ad",
+      "outputs": [
+        {
+          "script": "aa20e2035a795cdf7af96408ed22c77e04c6eea8ad5d7d9b2adfeaeb460e203862a487",
+          "satoshis": 2000
+        },
+        {
+          "script": "76a914726d44b7af8228257c030bafe764d3c5839d5c0288ac",
+          "satoshis": 800
+        },
+        {
+          "script": "aa20f2861763dece2af3bd9b6c1bff11347ad80ba6224c87369215d822353e62c11787",
+          "satoshis": 1100
+        },
+        {
+          "script": "6a045642524e2201015b574bcc61e34d5b8bbaa94ae00723d03ba74ce7308f06e824a236b2d93e6698",
+          "satoshis": 400
+        }
+      ]
+    },
+    {
+      "group": "service-economy",
+      "name": "the 400-satoshi burn is a funded OP_RETURN output that never enters the spendable output set",
+      "expected": "unspendable",
+      "result": "PASS",
+      "txid": "cb6f0afbcbc8fcf6616e06cc79616bb80038a79c36e46fbf975e6561157873ad",
+      "vout": 3
+    },
+    {
+      "group": "service-economy",
+      "name": "feeder moved anywhere but its season pool",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_EQUALVERIFY operation) (code 16)"
+    },
+    {
+      "group": "service-economy",
+      "name": "feeder move that gives the pool less than the exact reward share",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script evaluated without error but finished with a false/empty top stack element) (code 16)"
+    },
+    {
+      "group": "service-economy",
+      "name": "one feeder starts the season pool without any key, fee paid from its own reserve",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "90bf580c39052d0158d70325940fb64bf63f234a94a0c66ba4be7518a3ea1f4b",
+      "confirmations": 1,
+      "feeSatoshis": 182,
+      "bytes": 180,
+      "outputs": [
+        {
+          "script": "aa20cd19f0472d20421ff0d8be2a4b87b35e20cffaf1babe9056a0712f91a072d94f87",
+          "satoshis": 918
+        }
+      ]
+    },
+    {
+      "group": "service-economy",
+      "name": "top-up that returns less than the pool plus the new shares",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script evaluated without error but finished with a false/empty top stack element) (code 16)"
+    },
+    {
+      "group": "service-economy",
+      "name": "two feeders top up the existing pool output, no key",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "ba8bb59957461bd1fe2da4faa5f2e30e4821e4565a2b02ae079aa445bc858560",
+      "confirmations": 1,
+      "feeSatoshis": 545,
+      "bytes": 543,
+      "outputs": [
+        {
+          "script": "aa20cd19f0472d20421ff0d8be2a4b87b35e20cffaf1babe9056a0712f91a072d94f87",
+          "satoshis": 2573
+        }
+      ]
+    },
+    {
+      "group": "service-economy",
+      "name": "a single feeder cannot pay for a top-up alone and waits for the next payment",
+      "expected": "refused",
+      "result": "PASS",
+      "detail": "The carriers in this sweep do not hold enough reserve for its network fee."
+    },
+    {
+      "group": "war-chest-v3",
+      "name": "two War Chest shares below the threshold moved early",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "non-BIP68-final (code 64)"
+    },
+    {
+      "group": "war-chest-v3",
+      "name": "War Chest shares moved to their owner's wallet instead of the War Chest",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_EQUALVERIFY operation) (code 16)"
+    },
+    {
+      "group": "war-chest-v3",
+      "name": "consolidation that keeps more than the payers' reserves as fee",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_VERIFY operation) (code 16)"
+    },
+    {
+      "group": "war-chest-v3",
+      "name": "three small War Chest shares join into one capturable War Chest output, no key and no wallet approval",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "a76f2c133ef4dc5c32d11b83aa33f741f24cf0536be44b1064567d889954e990",
+      "confirmations": 1,
+      "feeSatoshis": 534,
+      "bytes": 531,
+      "outputs": [
+        {
+          "script": "aa20c41ae4f7b94959fe42edefade2e5e9850411bbf8a98a3e1c7109275bfa78318b87",
+          "satoshis": 6876
+        }
+      ],
+      "chestSatoshis": 6876
+    },
+    {
+      "group": "war-chest-v3",
+      "name": "a lone share moved before its waiting period",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "non-BIP68-final (code 64)"
+    },
+    {
+      "group": "war-chest-v3",
+      "name": "a lone share joins the War Chest after its waiting period (20 blocks in this run, 2,016 in the game)",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "2d2e5836649168002ac1dc4a1ccdc50004badfc2c4d434111c2b826a61c5f1f9",
+      "confirmations": 1,
+      "feeSatoshis": 213,
+      "bytes": 212,
+      "outputs": [
+        {
+          "script": "aa20c41ae4f7b94959fe42edefade2e5e9850411bbf8a98a3e1c7109275bfa78318b87",
+          "satoshis": 2257
+        }
+      ],
+      "chestSatoshis": 2257
+    },
+    {
+      "group": "war-chest-v3",
+      "name": "capture signed by the game key and one of three attestors",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Signature must be zero for failed CHECK(MULTI)SIG operation) (code 16)"
+    },
+    {
+      "group": "war-chest-v3",
+      "name": "capture signed by two attestors without the game key",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Signature must be zero for failed CHECK(MULTI)SIG operation) (code 16)"
+    },
+    {
+      "group": "war-chest-v3",
+      "name": "20% capture from the consolidated output, game key and two of three attestors, pays its fee and a spendable amount",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "ff6414fc2c3f40056196877d5ca72f10ddfcfc0444af3a24e2c8819b327231b1",
+      "confirmations": 1,
+      "feeSatoshis": 804,
+      "bytes": 802,
+      "outputs": [
+        {
+          "script": "aa20c41ae4f7b94959fe42edefade2e5e9850411bbf8a98a3e1c7109275bfa78318b87",
+          "satoshis": 5501
+        },
+        {
+          "script": "76a914726d44b7af8228257c030bafe764d3c5839d5c0288ac",
+          "satoshis": 571
+        }
+      ],
+      "captured": 1375,
+      "paid": 571
+    },
+    {
+      "group": "war-chest-v3",
+      "name": "capture that returns less than 80% of the outputs it spends (correctly signed)",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script evaluated without error but finished with a false/empty top stack element) (code 16)"
+    },
+    {
+      "group": "war-chest-v3",
+      "name": "capture of 20% across three War Chest outputs leaves one consolidated remainder",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "4d79378e720fd38c323f907dd215f2648e7d8d5796ba10bc33fb08960adbc1d9",
+      "confirmations": 1,
+      "feeSatoshis": 2232,
+      "bytes": 2230,
+      "outputs": [
+        {
+          "script": "aa20c41ae4f7b94959fe42edefade2e5e9850411bbf8a98a3e1c7109275bfa78318b87",
+          "satoshis": 12800
+        },
+        {
+          "script": "76a914726d44b7af8228257c030bafe764d3c5839d5c0288ac",
+          "satoshis": 968
+        }
+      ],
+      "inputs": 3,
+      "remainder": 12800,
+      "paid": 968
+    },
+    {
+      "group": "war-chest-v3",
+      "name": "owner key sends a live War Chest output straight to the owner's wallet",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_EQUALVERIFY operation) (code 16)"
+    },
+    {
+      "group": "war-chest-v3",
+      "name": "owner starts an exit with the wallet key alone: the output moves into the exit script",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "bf014ba11e72396648fc8d73b29ca0ee5c8b356b41ec5093782098da959a45be",
+      "confirmations": 1,
+      "feeSatoshis": 637,
+      "bytes": 635,
+      "outputs": [
+        {
+          "script": "aa20252f7da408ad56dbd7e60ce18c1c7e1e6ca374138fb317c96d9d45827becfaf187",
+          "satoshis": 19363
+        }
+      ]
+    },
+    {
+      "group": "war-chest-v3",
+      "name": "the capture transaction built before the exit (its input is spent)",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "Missing inputs"
+    },
+    {
+      "group": "war-chest-v3",
+      "name": "owner finishes the exit immediately",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "non-BIP68-final (code 64)"
+    },
+    {
+      "group": "war-chest-v3",
+      "name": "owner finishes the exit after 144 blocks, when the capture can already confirm",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "non-BIP68-final (code 64)"
+    },
+    {
+      "group": "war-chest-v3",
+      "name": "the owed capture is taken from the exit script before the owner can leave",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "760f4b519a96e171a40fef1a2e86d386f4113c54d59fe84fa922693b21452005",
+      "confirmations": 1,
+      "feeSatoshis": 757,
+      "bytes": 755,
+      "outputs": [
+        {
+          "script": "aa20252f7da408ad56dbd7e60ce18c1c7e1e6ca374138fb317c96d9d45827becfaf187",
+          "satoshis": 16363
+        },
+        {
+          "script": "76a914726d44b7af8228257c030bafe764d3c5839d5c0288ac",
+          "satoshis": 2243
+        }
+      ],
+      "paid": 2243
+    },
+    {
+      "group": "war-chest-v3",
+      "name": "owner leaves with the rest once it is 288 blocks old, wallet key alone",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "8fa759a4452e344921a0d650a69248beb98f008dfbafd213387052518d480dcb",
+      "confirmations": 1,
+      "feeSatoshis": 700,
+      "bytes": 578,
+      "outputs": [
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 15663
+        }
+      ]
+    },
+    {
+      "group": "war-chest-v3",
+      "name": "game key pays a War Chest output to its owner's wallet (ordinary withdrawal)",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "73b079f38b3493aa359e876eb20bda770600db2bcdd5df49c3c29a8c58457457",
+      "confirmations": 1,
+      "feeSatoshis": 671,
+      "bytes": 625,
+      "outputs": [
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 19329
+        }
+      ]
+    },
+    {
+      "group": "prize-threshold",
+      "name": "prize award signed by the game key and one of three attestors before the recovery time",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "non-mandatory-script-verify-flag (Locktime requirement not satisfied) (code 64)"
+    },
+    {
+      "group": "prize-threshold",
+      "name": "prize award signed by the game key and two of three attestors, third offline",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "76da3d405e7a729e888c205c450bb44cbec079c4b2f586931fa581a29726c400",
+      "confirmations": 1,
+      "feeSatoshis": 638,
+      "bytes": 626,
+      "outputs": [
+        {
+          "script": "76a914726d44b7af8228257c030bafe764d3c5839d5c0288ac",
+          "satoshis": 30000
+        },
+        {
+          "script": "aa2042161aaa7cabb56d3aa9cc8609bec2c31926b885830963ea8a9479198f044e9187",
+          "satoshis": 69362
+        }
+      ]
+    },
+    {
+      "group": "prize-threshold",
+      "name": "prize award after the recovery time signed by the game key alone",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Signature must be zero for failed CHECK(MULTI)SIG operation) (code 16)"
+    },
+    {
+      "group": "prize-threshold",
+      "name": "prize award after the recovery time signed by the game key and one remaining attestor",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "2c5f5d0d7ecceff6592d9fc997509a2386d13bf42ed5626d69295166982d419f",
+      "confirmations": 1,
+      "feeSatoshis": 638,
+      "bytes": 561,
+      "outputs": [
+        {
+          "script": "76a914726d44b7af8228257c030bafe764d3c5839d5c0288ac",
+          "satoshis": 30000
+        },
+        {
+          "script": "aa209c2a58dce245ecbb7b712fbeb7f081055b42a0baec84723a5004aaee385718b987",
+          "satoshis": 69362
+        }
+      ]
+    },
+    {
+      "group": "stake-escrow-v3",
+      "name": "stake outcome signed by the game key in place of the attestors",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Signature must be zero for failed CHECK(MULTI)SIG operation) (code 16)"
+    },
+    {
+      "group": "stake-escrow-v3",
+      "name": "stake outcome signed by one of three attestors",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Signature must be zero for failed CHECK(MULTI)SIG operation) (code 16)"
+    },
+    {
+      "group": "stake-escrow-v3",
+      "name": "attested split that pays the defender more than half",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Signature must be zero for failed CHECK(MULTI)SIG operation) (code 16)"
+    },
+    {
+      "group": "stake-escrow-v3",
+      "name": "lost raid: two of three attestors split the stake 1,500 / 1,500 with the battle record, fee exactly the 600-satoshi reserve",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "e5b1fe94163248d5192c5f9f0ce6faa106d904dcf56ec42a337ea10d95311a20",
+      "confirmations": 1,
+      "feeSatoshis": 600,
+      "bytes": 597,
+      "outputs": [
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 1500
+        },
+        {
+          "script": "76a914f0f4189b8cf9f2db0ab8d3a3c009e1823a58842e88ac",
+          "satoshis": 1500
+        },
+        {
+          "script": "6a045642524e22010ced12904c13530f8b1d36147fcc9b1cf2ccb9ff8433b6614d44dcdf80abd07dd1",
+          "satoshis": 0
+        }
+      ],
+      "panel": "2 of 3 attestors, no game key"
+    },
+    {
+      "group": "stake-escrow-v3",
+      "name": "won raid: two of three attestors return the whole stake to the attacker",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "5ef9864465bf0b1b49f6cf67f07a98607c5ba4a7f1f735355d2824b8b94375b7",
+      "confirmations": 1,
+      "feeSatoshis": 600,
+      "bytes": 563,
+      "outputs": [
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 3000
+        },
+        {
+          "script": "6a045642524e22010ced12904c13530f8b1d36147fcc9b1cf2ccb9ff8433b6614d44dcdf80abd07dd1",
+          "satoshis": 0
+        }
+      ]
+    },
+    {
+      "group": "stake-escrow-v3",
+      "name": "territory claim: half to the contest winner named in the attested transaction, half kept",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "b80e1d5c0ed4c94cfd7ba2d7547f9b3cabfa08c67af3fce00f1905335cee3a74",
+      "confirmations": 1,
+      "feeSatoshis": 600,
+      "bytes": 568,
+      "outputs": [
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 1000
+        },
+        {
+          "script": "76a914726d44b7af8228257c030bafe764d3c5839d5c0288ac",
+          "satoshis": 1000
+        },
+        {
+          "script": "6a045642524e22010ced12904c13530f8b1d36147fcc9b1cf2ccb9ff8433b6614d44dcdf80abd07dd1",
+          "satoshis": 0
+        }
+      ]
+    },
+    {
+      "group": "stake-escrow-v3",
+      "name": "owner refund before the refund time",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "bad-txns-nonfinal, non-final transaction (code 64)"
+    },
+    {
+      "group": "war-chest-v3",
+      "name": "waiting shares taken along without the attestors",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Signature must be zero for failed CHECK(MULTI)SIG operation) (code 16)"
+    },
+    {
+      "group": "war-chest-v3",
+      "name": "a 5,000-satoshi War Chest output and two waiting shares: one attested capture takes 20% of all three and leaves one output",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "61b776ad1ee08bdc9e12247840061c2e8d6910e9c7b433bf729ea29d2bacd4fe",
+      "confirmations": 1,
+      "feeSatoshis": 1124,
+      "bytes": 1120,
+      "outputs": [
+        {
+          "script": "aa20c41ae4f7b94959fe42edefade2e5e9850411bbf8a98a3e1c7109275bfa78318b87",
+          "satoshis": 7952
+        },
+        {
+          "script": "76a914726d44b7af8228257c030bafe764d3c5839d5c0288ac",
+          "satoshis": 864
+        }
+      ],
+      "inputs": 3,
+      "captured": 1988,
+      "paid": 864,
+      "remainder": 7952
+    },
+    {
+      "group": "prize-threshold",
+      "name": "prize award by two of three attestors without the game key",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Signature must be zero for failed CHECK(MULTI)SIG operation) (code 16)"
+    },
+    {
+      "group": "prize-threshold",
+      "name": "prize award by all three attestors without the game key, after the recovery time",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "4b0433ce8c6b543c66ec99755ee102ab04265fce54b4ffcf4cd4beac83cbf8d8",
+      "confirmations": 1,
+      "feeSatoshis": 638,
+      "bytes": 626,
+      "outputs": [
+        {
+          "script": "76a914726d44b7af8228257c030bafe764d3c5839d5c0288ac",
+          "satoshis": 30000
+        },
+        {
+          "script": "aa2055c8b110a6cb45779d79d5aa3371d8f04776c75659f635d3a3154fcb2114e90387",
+          "satoshis": 69362
+        }
+      ]
+    },
+    {
+      "group": "prize-threshold",
+      "name": "prize award by all three attestors without the game key before the recovery time",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "non-mandatory-script-verify-flag (Locktime requirement not satisfied) (code 64)"
+    },
+    {
+      "group": "matched-stakes",
+      "name": "matched capture signed by the game key alone",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Signature must be zero for failed CHECK(MULTI)SIG operation) (code 16)"
+    },
+    {
+      "group": "matched-stakes",
+      "name": "matched capture signed by the attestor without the game key",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Signature must be zero for failed CHECK(MULTI)SIG operation) (code 16)"
+    },
+    {
+      "group": "matched-stakes",
+      "name": "correctly signed capture that takes one satoshi more than the stake from the War Chest",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script evaluated without error but finished with a false/empty top stack element) (code 16)"
+    },
+    {
+      "group": "matched-stakes",
+      "name": "correctly signed victory that keeps one satoshi of the unused reserve from the attacker",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script evaluated without error but finished with a false/empty top stack element) (code 16)"
+    },
+    {
+      "group": "matched-stakes",
+      "name": "correctly signed capture whose remainder leaves the War Chest",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script evaluated without error but finished with a false/empty top stack element) (code 16)"
+    },
+    {
+      "group": "matched-stakes",
+      "name": "attacker takes the escrow back by matching it with the attacker's own money, without the panel",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_VERIFY operation) (code 16)"
+    },
+    {
+      "group": "matched-stakes",
+      "name": "attacker victory, one attestor: the escrow and the defender's War Chest in ONE transaction; 2 x S and the unused reserve to the attacker, the rest back to the chest",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "aff6da18968e2ab832823832897c2d75c2755056a51a4994382f47db75ee0a28",
+      "confirmations": 1,
+      "feeSatoshis": 1207,
+      "bytes": 1205,
+      "outputs": [
+        {
+          "script": "76a91457526b1a1534d4bde788253281649fc2e91dc70b88ac",
+          "satoshis": 20000
+        },
+        {
+          "script": "76a91457526b1a1534d4bde788253281649fc2e91dc70b88ac",
+          "satoshis": 1673
+        },
+        {
+          "script": "aa202e726d1dd6e6e8b0d49738f2936064b0f31b3d68427dc121e6fab3124d3c0c7d87",
+          "satoshis": 15000
+        },
+        {
+          "script": "6a045642524e220119d75fb83232ace9be7f57c4f222b83a430be56b95726514dc6a24c300c35e5a3a",
+          "satoshis": 0
+        }
+      ],
+      "stake": 10000,
+      "reserve": 2880,
+      "attackerReceives": 21673,
+      "chestBefore": 25000,
+      "chestAfter": 15000
+    },
+    {
+      "group": "matched-stakes",
+      "name": "defender victory signed by the game key alone",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Signature must be zero for failed CHECK(MULTI)SIG operation) (code 16)"
+    },
+    {
+      "group": "matched-stakes",
+      "name": "defender victory, correctly signed by the panel, paid to a wallet other than the defender's",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_EQUALVERIFY operation) (code 16)"
+    },
+    {
+      "group": "matched-stakes",
+      "name": "defender victory: the whole stake to the defender, the unused reserve back to the attacker",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "7fd5cddda9cdc913a4c4a411e9ee78f79aa1be7990af9af20b57aef91a9afbdf",
+      "confirmations": 1,
+      "feeSatoshis": 610,
+      "bytes": 601,
+      "outputs": [
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 10000
+        },
+        {
+          "script": "76a91457526b1a1534d4bde788253281649fc2e91dc70b88ac",
+          "satoshis": 2270
+        },
+        {
+          "script": "6a045642524e220119d75fb83232ace9be7f57c4f222b83a430be56b95726514dc6a24c300c35e5a3a",
+          "satoshis": 0
+        }
+      ],
+      "defenderReceives": 10000,
+      "attackerGetsBack": 2270
+    },
+    {
+      "group": "matched-stakes",
+      "name": "void raid: stake and unused reserve back to the attacker",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "f5f11039cc1b9cf0a0f7f4f9f154da46e37ef3deb58ab6693b22e2b4a29928c1",
+      "confirmations": 1,
+      "feeSatoshis": 610,
+      "bytes": 567,
+      "outputs": [
+        {
+          "script": "76a91457526b1a1534d4bde788253281649fc2e91dc70b88ac",
+          "satoshis": 12270
+        },
+        {
+          "script": "6a045642524e220119d75fb83232ace9be7f57c4f222b83a430be56b95726514dc6a24c300c35e5a3a",
+          "satoshis": 0
+        }
+      ],
+      "attackerGetsBack": 12270
+    },
+    {
+      "group": "matched-stakes",
+      "name": "attacker's own refund before the refund time",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "bad-txns-nonfinal, non-final transaction (code 64)"
+    },
+    {
+      "group": "matched-stakes",
+      "name": "attacker's own refund after the refund time, with the attacker's key alone",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "7fe4fc9fdef283d812545ad2700ea65d537f3ac9a4c3a70b3aab909549179057",
+      "confirmations": 1,
+      "feeSatoshis": 610,
+      "bytes": 451,
+      "outputs": [
+        {
+          "script": "76a91457526b1a1534d4bde788253281649fc2e91dc70b88ac",
+          "satoshis": 12270
+        }
+      ]
+    },
+    {
+      "group": "matched-stakes",
+      "name": "game-key withdrawal of a War Chest output younger than 144 blocks",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "non-BIP68-final (code 64)"
+    },
+    {
+      "group": "matched-stakes",
+      "name": "exit that pays the owner's wallet instead of the exit script",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_EQUALVERIFY operation) (code 16)"
+    },
+    {
+      "group": "matched-stakes",
+      "name": "exit that shrinks the War Chest by one satoshi",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script evaluated without error but finished with a false/empty top stack element) (code 16)"
+    },
+    {
+      "group": "matched-stakes",
+      "name": "exit started by the game key",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Signature must be zero for failed CHECK(MULTI)SIG operation) (code 16)"
+    },
+    {
+      "group": "matched-stakes",
+      "name": "owner's exit: the whole output moves into the exit script, fee paid from the owner's wallet",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "29c2e0acaa1eb50e9b8cf530d2da590bc6866c9fccd9c8eb06df83538dfe28d2",
+      "confirmations": 1,
+      "feeSatoshis": 732,
+      "bytes": 723,
+      "outputs": [
+        {
+          "script": "aa2088eff112da5b0fe9c68c2d8a8c45d977b53b16f173a6c1fa60becca2176c9d9d87",
+          "satoshis": 10000
+        },
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 2268
+        }
+      ],
+      "moved": 10000
+    },
+    {
+      "group": "matched-stakes",
+      "name": "owner spends the exit output before 288 blocks",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "non-BIP68-final (code 64)"
+    },
+    {
+      "group": "matched-stakes",
+      "name": "attacker victory against an output already in its owner's exit script (exactly S: nothing remains)",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "8b0afab57c1fd1193bc429e63493bebc3d70ebe1178be43d46167b6f20b0ee6b",
+      "confirmations": 1,
+      "feeSatoshis": 1207,
+      "bytes": 1117,
+      "outputs": [
+        {
+          "script": "76a91457526b1a1534d4bde788253281649fc2e91dc70b88ac",
+          "satoshis": 20000
+        },
+        {
+          "script": "76a91457526b1a1534d4bde788253281649fc2e91dc70b88ac",
+          "satoshis": 1673
+        },
+        {
+          "script": "6a045642524e220119d75fb83232ace9be7f57c4f222b83a430be56b95726514dc6a24c300c35e5a3a",
+          "satoshis": 0
+        }
+      ],
+      "attackerReceives": 21673,
+      "remainder": 0
+    },
+    {
+      "group": "matched-stakes",
+      "name": "game-key withdrawal to a wallet other than the owner's",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_EQUALVERIFY operation) (code 16)"
+    },
+    {
+      "group": "matched-stakes",
+      "name": "game-key withdrawal after 144 blocks: the owner's wallet and a remainder on the 1,000-satoshi grid",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "91db9c31d4b1fbbba5d80172e43613dc8cebe1f7dff00b9187ea87afa949b2f2",
+      "confirmations": 1,
+      "feeSatoshis": 634,
+      "bytes": 632,
+      "outputs": [
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 4366
+        },
+        {
+          "script": "aa202e726d1dd6e6e8b0d49738f2936064b0f31b3d68427dc121e6fab3124d3c0c7d87",
+          "satoshis": 7000
+        },
+        {
+          "script": "6a045642524e220119d75fb83232ace9be7f57c4f222b83a430be56b95726514dc6a24c300c35e5a3a",
+          "satoshis": 0
+        }
+      ],
+      "paid": 4366,
+      "remainder": 7000
+    },
+    {
+      "group": "matched-stakes",
+      "name": "matched capture with one of three attestors",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Signature must be zero for failed CHECK(MULTI)SIG operation) (code 16)"
+    },
+    {
+      "group": "matched-stakes",
+      "name": "attacker victory, two of three attestors, two War Chest outputs of exactly the stake",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "4442be48eaf630c65ad4a7e55cc3d7ed5963c51ddbbead69e1560269b77ba84e",
+      "confirmations": 1,
+      "feeSatoshis": 2088,
+      "bytes": 2042,
+      "outputs": [
+        {
+          "script": "76a91457526b1a1534d4bde788253281649fc2e91dc70b88ac",
+          "satoshis": 50000
+        },
+        {
+          "script": "76a91457526b1a1534d4bde788253281649fc2e91dc70b88ac",
+          "satoshis": 1252
+        },
+        {
+          "script": "6a045642524e220119d75fb83232ace9be7f57c4f222b83a430be56b95726514dc6a24c300c35e5a3a",
+          "satoshis": 0
+        }
+      ],
+      "stake": 25000,
+      "reserve": 3340,
+      "attackerReceives": 51252,
+      "remainder": 0
+    },
+    {
+      "group": "record-reserve",
+      "name": "record reserve sent to the game key's own wallet, correctly signed by the game key",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_NUMEQUALVERIFY operation) (code 16)"
+    },
+    {
+      "group": "record-reserve",
+      "name": "record reserve with a second, paying output next to the record",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Script failed an OP_NUMEQUALVERIFY operation) (code 16)"
+    },
+    {
+      "group": "record-reserve",
+      "name": "record reserve spent by a key other than the game key",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "mandatory-script-verify-flag-failed (Signature must be zero for failed CHECK(MULTI)SIG operation) (code 16)"
+    },
+    {
+      "group": "record-reserve",
+      "name": "record reserve spent as the fee of one zero-value proof record",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "5a34d788d0496303f1375c60a83190c80af270d2453008d2a1f883531eaa5216",
+      "confirmations": 1,
+      "feeSatoshis": 576,
+      "bytes": 231,
+      "outputs": [
+        {
+          "script": "6a045642524e220119d75fb83232ace9be7f57c4f222b83a430be56b95726514dc6a24c300c35e5a3a",
+          "satoshis": 0
+        }
+      ]
+    },
+    {
+      "group": "record-reserve",
+      "name": "version 2 record reserve spent as the fee of one zero-value proof record",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "6701118a837bcf60ad8fda9b64198809077abb9a119956f488306607185ddb37",
+      "confirmations": 1,
+      "feeSatoshis": 576,
+      "bytes": 276,
+      "outputs": [
+        {
+          "script": "6a045642524e220119d75fb83232ace9be7f57c4f222b83a430be56b95726514dc6a24c300c35e5a3a",
+          "satoshis": 0
+        }
+      ]
+    },
+    {
+      "group": "record-reserve",
+      "name": "version 2 record reserve with a paying output, correctly signed by the game key",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "dust (code 64)"
+    },
+    {
+      "group": "record-reserve",
+      "name": "payer takes an unused record reserve back before it is 144 blocks old",
+      "expected": "rejected",
+      "result": "PASS",
+      "nodeError": "non-BIP68-final (code 64)"
+    },
+    {
+      "group": "record-reserve",
+      "name": "payer takes an unused record reserve back after 144 blocks, with the payer's key alone",
+      "expected": "accepted",
+      "result": "PASS",
+      "txid": "c36f60011f36f972ef79cf8cb06f7a93fc40889d1912704f1025e68e4f3e005d",
+      "confirmations": 1,
+      "feeSatoshis": 403,
+      "bytes": 401,
+      "outputs": [
+        {
+          "script": "76a9149fc5dbe5efdce10374a4dd4053c93af54021171888ac",
+          "satoshis": 2173
+        }
+      ]
+    },
+    {
+      "group": "standalone-tool",
+      "name": "the payout tool's node adapter finds a contract output by script, broadcasts a spend and reads its confirmation",
+      "expected": "accepted",
+      "result": "PASS",
+      "found": [
+        "3fedc8e7ccacc54be952eb6680d184cb75d4dfe23926ccea8998f200db217e7a:0 576"
+      ],
+      "txid": "9f22b92dafafd161ecb2720042cd569ff08c3a79f07e47ef39339544fdd3eccb",
+      "confirmations": 1,
+      "leftUnspent": 0
+    }
+  ]
+}

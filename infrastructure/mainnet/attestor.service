@@ -1,0 +1,16 @@
+# One run of an independent attestor. It belongs on the ATTESTOR'S OWN machine, never on the game server.
+# Install together with attestor.timer; see docs/ATTESTOR_GUIDE.md.
+[Unit]
+Description=VaultBorn attestor (one review-and-sign run)
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=attestor
+WorkingDirectory=/opt/vaultborn
+Environment=VAULTBORN_NETWORK=mainnet
+Environment=PRIZE_ATTESTOR_KEY_FILE=/home/attestor/vaultborn/attestor.key
+Environment=PRIZE_ATTESTOR_PINS=/home/attestor/vaultborn/pins.json
+Environment=PRIZE_ATTESTOR_BUNDLE_DIR=/home/attestor/vaultborn/bundles
+# Replace with the game's public address.
+ExecStart=/usr/bin/node scripts/prize-attest.mjs https://play.example.org --approve

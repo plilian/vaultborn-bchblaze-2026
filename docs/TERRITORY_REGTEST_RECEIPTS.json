@@ -1,0 +1,42 @@
+{
+  "network": "regtest",
+  "transactions": [
+    {
+      "name": "Territory split, stake and spendable outputs",
+      "txid": "ed6dc0cc17c01e66d075e657be38098c36d341e0e542c3563e614029c7a63ad8",
+      "blockHash": "0f8d362b36da65b9fdd9189d2275260a7d02237442686c581f11a48ffca5ee22",
+      "confirmations": 1,
+      "feeSatoshis": 500
+    },
+    {
+      "name": "Territory escrow settlement commitment",
+      "txid": "2dd8e922730af19eae345af8d71ebc27c0978bfbe504be0f17eb684c930b274e",
+      "blockHash": "714c3da7f5ab8d1f90e3083a18372c6a475128505c9124bcd37fccab59e3cb85",
+      "confirmations": 1,
+      "feeSatoshis": 800
+    },
+    {
+      "name": "Territory CashTokens genesis",
+      "txid": "bfe1fe98ccd2f1df753d08992fd8e8294ff9a53516b654c0d7fff9b9e534cab4",
+      "blockHash": "3b75124de307cf06ee0205d67439d03f2c62c7191025c04df716f1585e13a077",
+      "confirmations": 1,
+      "feeSatoshis": 500
+    },
+    {
+      "name": "Immutable territory NFT transfer to player",
+      "txid": "a1caf18f085e3be6ec54b94e62ff4fab70d2083dccca808705f7e48cb8711ea7",
+      "blockHash": "1cf3d05ba904659d20bf639317ed5d87e82e9ca08abcfccb847fedb27a9c105e",
+      "confirmations": 1,
+      "feeSatoshis": 550
+    }
+  ],
+  "node": "/Bitcoin Cash Node:29.2.0/",
+  "genesis": "0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206",
+  "token": {
+    "category": "902177560f00d39de2f9801d6ca44117abae72abcf4f9375de635d05ed1eac4c",
+    "commitment": "5b02b5f60535ddf55bff0f29c8aaed9cb3d0ffee219de446222e36819377729b",
+    "currentTxid": "a1caf18f085e3be6ec54b94e62ff4fab70d2083dccca808705f7e48cb8711ea7",
+    "vout": 0,
+    "capability": "none"
+  }
+}

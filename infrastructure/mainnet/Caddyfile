@@ -1,0 +1,12 @@
+# TLS termination for VaultBorn. Caddy obtains and renews the certificate for {$DOMAIN} by itself.
+{$DOMAIN} {
+	encode gzip
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Frame-Options "DENY"
+	}
+	# Server-sent events (the live game state) must not be buffered.
+	reverse_proxy vaultborn:4173 {
+		flush_interval -1
+	}
+}

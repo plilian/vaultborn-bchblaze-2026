@@ -1,0 +1,86 @@
+{
+  "scope": "New audit-only synthetic failure probes. NO on-chain evidence and NO real broadcast.",
+  "date": "2026-11-18",
+  "probes": [
+    {
+      "name": "service-policy-conformance",
+      "total": 4000,
+      "allocation": {
+        "development": 800,
+        "burn": 200,
+        "prize": 546,
+        "kingdom": 2454
+      },
+      "strict2010565": false
+    },
+    {
+      "name": "service-policy-conformance",
+      "total": 4500,
+      "allocation": {
+        "development": 900,
+        "burn": 225,
+        "prize": 546,
+        "kingdom": 2829
+      },
+      "strict2010565": false
+    },
+    {
+      "name": "service-policy-conformance",
+      "total": 6000,
+      "allocation": {
+        "development": 1200,
+        "burn": 300,
+        "prize": 600,
+        "kingdom": 3900
+      },
+      "strict2010565": true
+    },
+    {
+      "name": "service-policy-conformance",
+      "total": 24000,
+      "allocation": {
+        "development": 4800,
+        "burn": 1200,
+        "prize": 2400,
+        "kingdom": 15600
+      },
+      "strict2010565": true
+    },
+    {
+      "name": "permanent-broadcast-rejection",
+      "status": "REPRODUCED",
+      "synthetic": true,
+      "elapsedDays": 7,
+      "withdrawal": 2000,
+      "fee": 356,
+      "originalDeposit": 10000,
+      "pendingState": "submitted",
+      "rawRetained": true,
+      "spendablePersonalBalance": 0,
+      "subsequentRequest": "You already have a pending payout.",
+      "blockedSyntheticBroadcastCalls": 8,
+      "realBroadcasts": 0
+    },
+    {
+      "name": "newest-first-reconciliation-starvation",
+      "status": "REPRODUCED",
+      "synthetic": true,
+      "newerUnfundedIntents": 64,
+      "reconciliationCycles": 10,
+      "victimStateBeforeExpiry": "submitted",
+      "victimLookupsBeforeExpiry": 0,
+      "victimBalanceBeforeExpiry": 0,
+      "victimStateAfterFloodDrains": "credited",
+      "victimBalanceAfterDrain": 10000,
+      "realBroadcasts": 0
+    }
+  ],
+  "sourceSha256": {
+    "config/payments.mjs": "af54c8514a4bbaf12bd3718e123a02c7d9d6b8b4a12e5ee4b69e183af630efc1",
+    "apps/game-server/ledger.mjs": "8ca9496982577f38972623f1a202e3250709e5057e6b5df714fa3a6fff3bb26a",
+    "apps/game-server/wallet-checkout.mjs": "fc751fc978dfd5a8af4454c328ace37f3d47a782c5fbcd6269bfbe0ad7027f32",
+    "apps/game-server/store.mjs": "16f2bb904ec8d6bea19b181f58ad35afaf9daffd45893de0068a0fd36637e126",
+    "packages/chain-observer/index.mjs": "16fa86e3dc9363756f09b297313126cb78b80e68ceb1c46c64e0f8c183e08e2d",
+    "packages/chain-observer/vaultborn.mjs": "a9f37d045f3c9d15ad0e08738fafb568296d9b9d0bbe8c7d8b0249fc11d48656"
+  }
+}

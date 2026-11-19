@@ -1,0 +1,19 @@
+{
+  "name": "vaultborn-xo-treaty-escrow",
+  "private": true,
+  "license": "SEE LICENSE IN ../LICENSE",
+  "type": "module",
+  "description": "XO template for the VaultBorn treaty and protectorate escrow, with an offline engine test and a Chipnet runner.",
+  "scripts": {
+    "test": "node --import ./sim/register.mjs --test test-offline.mjs",
+    "build": "node build-template.mjs",
+    "chipnet": "node run-chipnet.mjs"
+  },
+  "dependencies": {
+    "@bitauth/libauth": "3.1.0-next.8",
+    "@xo-cash/engine": "0.1.1-next.18170561234",
+    "@xo-cash/state": "0.0.5",
+    "@xo-cash/templates": "0.0.12",
+    "@xo-cash/utils": "0.0.10"
+  }
+}

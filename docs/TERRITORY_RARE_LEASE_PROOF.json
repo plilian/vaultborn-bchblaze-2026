@@ -1,0 +1,413 @@
+{
+  "territory": {
+    "id": "ruins",
+    "name": "Oracle Ruins",
+    "x": 0.65,
+    "y": 0.65,
+    "category": "rare",
+    "type": "ruins",
+    "terrain": "forest",
+    "resource": "crystal",
+    "level": 1,
+    "owner": null,
+    "controller": null,
+    "protected": false,
+    "production": {
+      "wood": 0,
+      "stone": 0,
+      "iron": 0,
+      "food": 0,
+      "crystal": 12
+    },
+    "defenses": {
+      "level": 1,
+      "count": 0
+    },
+    "status": "raffle",
+    "claim": null,
+    "cooldownUntil": 0,
+    "nextUpkeep": null,
+    "missedUpkeep": 0,
+    "lastChanged": 1794872904647,
+    "history": [],
+    "blockchain": [],
+    "lease": null,
+    "claimEligibility": {
+      "ok": false
+    },
+    "attackEligibility": {
+      "ok": false
+    },
+    "assets": [],
+    "raffle": {
+      "fee": 7400,
+      "leaseHours": 72,
+      "round": {
+        "id": "rare-ruins-334576",
+        "site": "ruins",
+        "startHeight": 334576,
+        "closeHeight": 334581,
+        "drawHeight": 334583,
+        "confirmations": 2,
+        "fee": 7400,
+        "cutoff": "block-height",
+        "protocol": "vaultborn-raffle-v1"
+      },
+      "height": 334587,
+      "open": false,
+      "lease": null,
+      "history": [
+        {
+          "id": "rare-ruins-334564-settlement",
+          "territoryId": "ruins",
+          "kind": "raffle",
+          "round": {
+            "id": "rare-ruins-334564",
+            "site": "ruins",
+            "startHeight": 334564,
+            "closeHeight": 334569,
+            "drawHeight": 334571,
+            "confirmations": 2,
+            "fee": 7400,
+            "cutoff": "block-height",
+            "protocol": "vaultborn-raffle-v1",
+            "openedAt": 1794873105593,
+            "timeoutAt": 1795045905593,
+            "status": "drawn",
+            "entries": [
+              {
+                "id": "c93c7f62ce5bd0aa6fe12e8f51d2a940",
+                "txid": "cc44a0b5de2b6d0bc669aff6d156c2c7ee7de713ba2cb69b298750721991fb7d",
+                "player": "p1",
+                "included": 334566,
+                "wallet": "b081012d1ed5fcf3e6ea698c398e4165e09b7864c54b23adf8566c0a4824b53b",
+                "alliance": "emerald-watch",
+                "escrowSatoshis": 3700,
+                "at": 1794873105593
+              }
+            ]
+          },
+          "entries": [
+            {
+              "id": "c93c7f62ce5bd0aa6fe12e8f51d2a940",
+              "txid": "cc44a0b5de2b6d0bc669aff6d156c2c7ee7de713ba2cb69b298750721991fb7d",
+              "player": "p1",
+              "included": 334566,
+              "wallet": "b081012d1ed5fcf3e6ea698c398e4165e09b7864c54b23adf8566c0a4824b53b",
+              "alliance": "emerald-watch",
+              "escrowSatoshis": 3700,
+              "at": 1794873105593
+            }
+          ],
+          "winner": "p1",
+          "payout": [
+            {
+              "player": "p1",
+              "satoshis": 3700
+            }
+          ],
+          "block": {
+            "network": "chipnet",
+            "height": 334571,
+            "tip": 334572,
+            "confirmations": 2,
+            "hash": "00000000000079cf56147799789cd63b4e7ca92d8d160f48d43aaa4d3c61b521",
+            "raw": "00000020e84d7e9cad9d2ae61db86bce96108d89d047a21b06f8a8cf594c0000000000006e2e5c463f59d6d518bbe464147c9538781da010fe5e34bb191f4e43088ab7b73797fb6acbe8001bc94d739a",
+            "timestamp": 1794873143000
+          },
+          "result": {
+            "roster": [
+              {
+                "txid": "cc44a0b5de2b6d0bc669aff6d156c2c7ee7de713ba2cb69b298750721991fb7d",
+                "player": "p1",
+                "included": 334566,
+                "wallet": "b081012d1ed5fcf3e6ea698c398e4165e09b7864c54b23adf8566c0a4824b53b",
+                "alliance": "emerald-watch",
+                "escrowSatoshis": 3700
+              }
+            ],
+            "rosterHash": "244f7fa6a4ec797328c7e5d8efe3a10266f05e3cfc8f34bdc997c22ff48fe822",
+            "sample": "50df1b12eec04098080679b429308cae755299850eab8631afde681827d58d59",
+            "nonce": 0,
+            "index": 0,
+            "winner": "p1"
+          },
+          "lease": {
+            "id": "rare-ruins-334564-lease",
+            "playerId": "p1",
+            "alliance": "emerald-watch",
+            "startsAt": 1794873205698,
+            "expiresAt": 1795132405698
+          },
+          "at": 1794873205698
+        }
+      ]
+    }
+  },
+  "records": [
+    {
+      "record": {
+        "id": "rare-ruins-334564-lease-expired",
+        "territoryId": "ruins",
+        "kind": "lease-expired",
+        "lease": {
+          "id": "rare-ruins-334564-lease",
+          "playerId": "p1",
+          "alliance": "emerald-watch",
+          "startsAt": 1794873205698,
+          "expiresAt": 1795132405698
+        },
+        "preceding": "rare-ruins-334564-settlement",
+        "at": 1795132405698,
+        "entries": [],
+        "payout": []
+      },
+      "recordHash": "25fe8826649c58765bbe7da93d037ce038690462dbd635fe3302495a0c38fbd6",
+      "proofs": [],
+      "settlement": {
+        "txid": "e5d0d5f855985aa4d84c08cf04fd534ace20d9e480a14252c6c32c4959434cb3",
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/e5d0d5f855985aa4d84c08cf04fd534ace20d9e480a14252c6c32c4959434cb3",
+        "height": 334587,
+        "blockHash": "000000000000c4b6c9fd0cc6d67e4d0d9d2e0ec4defa697cda3fc49dd0f26e97",
+        "eventVout": 1,
+        "event": {
+          "version": 1,
+          "kind": "lease-expired",
+          "subject": "rare-ruins-334564-lease-expired",
+          "data": {
+            "territory": "ruins",
+            "recordHash": "25fe8826649c58765bbe7da93d037ce038690462dbd635fe3302495a0c38fbd6",
+            "entryTxids": []
+          },
+          "digest": "a8fb8edbed8a2f8cb67fd06a5d27cb012d9979be4fe3b7fc9bf28a97af197aa9"
+        },
+        "feeSatoshis": 356
+      },
+      "anchorStatus": "credited"
+    },
+    {
+      "record": {
+        "id": "rare-ruins-334564-settlement",
+        "territoryId": "ruins",
+        "kind": "raffle",
+        "round": {
+          "id": "rare-ruins-334564",
+          "site": "ruins",
+          "startHeight": 334564,
+          "closeHeight": 334569,
+          "drawHeight": 334571,
+          "confirmations": 2,
+          "fee": 7400,
+          "cutoff": "block-height",
+          "protocol": "vaultborn-raffle-v1",
+          "openedAt": 1794873105593,
+          "timeoutAt": 1795045905593,
+          "status": "drawn",
+          "entries": [
+            {
+              "id": "c93c7f62ce5bd0aa6fe12e8f51d2a940",
+              "txid": "cc44a0b5de2b6d0bc669aff6d156c2c7ee7de713ba2cb69b298750721991fb7d",
+              "player": "p1",
+              "included": 334566,
+              "wallet": "b081012d1ed5fcf3e6ea698c398e4165e09b7864c54b23adf8566c0a4824b53b",
+              "alliance": "emerald-watch",
+              "escrowSatoshis": 3700,
+              "at": 1794873105593
+            }
+          ]
+        },
+        "entries": [
+          {
+            "id": "c93c7f62ce5bd0aa6fe12e8f51d2a940",
+            "txid": "cc44a0b5de2b6d0bc669aff6d156c2c7ee7de713ba2cb69b298750721991fb7d",
+            "player": "p1",
+            "included": 334566,
+            "wallet": "b081012d1ed5fcf3e6ea698c398e4165e09b7864c54b23adf8566c0a4824b53b",
+            "alliance": "emerald-watch",
+            "escrowSatoshis": 3700,
+            "at": 1794873105593
+          }
+        ],
+        "winner": "p1",
+        "payout": [
+          {
+            "player": "p1",
+            "satoshis": 3700
+          }
+        ],
+        "block": {
+          "network": "chipnet",
+          "height": 334571,
+          "tip": 334572,
+          "confirmations": 2,
+          "hash": "00000000000079cf56147799789cd63b4e7ca92d8d160f48d43aaa4d3c61b521",
+          "raw": "00000020e84d7e9cad9d2ae61db86bce96108d89d047a21b06f8a8cf594c0000000000006e2e5c463f59d6d518bbe464147c9538781da010fe5e34bb191f4e43088ab7b73797fb6acbe8001bc94d739a",
+          "timestamp": 1794873143000
+        },
+        "result": {
+          "roster": [
+            {
+              "txid": "cc44a0b5de2b6d0bc669aff6d156c2c7ee7de713ba2cb69b298750721991fb7d",
+              "player": "p1",
+              "included": 334566,
+              "wallet": "b081012d1ed5fcf3e6ea698c398e4165e09b7864c54b23adf8566c0a4824b53b",
+              "alliance": "emerald-watch",
+              "escrowSatoshis": 3700
+            }
+          ],
+          "rosterHash": "244f7fa6a4ec797328c7e5d8efe3a10266f05e3cfc8f34bdc997c22ff48fe822",
+          "sample": "50df1b12eec04098080679b429308cae755299850eab8631afde681827d58d59",
+          "nonce": 0,
+          "index": 0,
+          "winner": "p1"
+        },
+        "lease": {
+          "id": "rare-ruins-334564-lease",
+          "playerId": "p1",
+          "alliance": "emerald-watch",
+          "startsAt": 1794873205698,
+          "expiresAt": 1795132405698
+        },
+        "at": 1794873205698
+      },
+      "recordHash": "4c0e870345eae4157326c0b336d61cf35aeaa9a9f7c983f75cc28c74c8677930",
+      "proofs": [
+        {
+          "txid": "cc44a0b5de2b6d0bc669aff6d156c2c7ee7de713ba2cb69b298750721991fb7d",
+          "confirmations": 22,
+          "explorerUrl": "https://chipnet.imaginary.cash/tx/cc44a0b5de2b6d0bc669aff6d156c2c7ee7de713ba2cb69b298750721991fb7d",
+          "blockHash": "00000000c4665db3a4c8b09661b21a9412c205300d017c167d9de97e8ef17748",
+          "height": 334566,
+          "eventVout": 3,
+          "event": {
+            "version": 1,
+            "kind": "territory-raffle",
+            "subject": "c93c7f62ce5bd0aa6fe12e8f51d2a940",
+            "data": {
+              "seasonId": 1,
+              "actionHash": "e1f3ad82bf2c52503df3e4b55e6c54bb4d3a66888216d1c35b4ad4f9d56194c9",
+              "allocation": {
+                "development": 1480,
+                "burn": 1110,
+                "prize": 1110,
+                "battle": 3700
+              },
+              "territory": "ruins",
+              "round": {
+                "id": "rare-ruins-334564",
+                "site": "ruins",
+                "startHeight": 334564,
+                "closeHeight": 334569,
+                "drawHeight": 334571,
+                "confirmations": 2,
+                "fee": 7400,
+                "cutoff": "block-height",
+                "protocol": "vaultborn-raffle-v1"
+              }
+            },
+            "digest": "48243abde47a0c865e33358720182011bf2feb542f9a825dec2814ad3f88b918"
+          }
+        }
+      ],
+      "settlement": {
+        "txid": "c56554bce33eae950789d72a5f0d553bca4548f09aff2bd9890ccd30b6f609fd",
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/c56554bce33eae950789d72a5f0d553bca4548f09aff2bd9890ccd30b6f609fd",
+        "height": 334573,
+        "blockHash": "00000000647a9ec89be6fd5e4f2211abf780619ab5103591505bab1acb982146",
+        "eventVout": 2,
+        "event": {
+          "version": 1,
+          "kind": "raffle-draw",
+          "subject": "rare-ruins-334564-settlement",
+          "data": {
+            "territory": "ruins",
+            "recordHash": "4c0e870345eae4157326c0b336d61cf35aeaa9a9f7c983f75cc28c74c8677930",
+            "entryTxids": [
+              "cc44a0b5de2b6d0bc669aff6d156c2c7ee7de713ba2cb69b298750721991fb7d"
+            ]
+          },
+          "digest": "73e7a2ec404c9ed0ad1f8abd32c8e3c4f8ab33ee8abeca658f969aae07fdc885"
+        },
+        "feeSatoshis": 516
+      },
+      "anchorStatus": "credited"
+    }
+  ],
+  "chain": "chipnet",
+  "recent": [
+    {
+      "activity": "lease-expired",
+      "txid": "e5d0d5f855985aa4d84c08cf04fd534ace20d9e480a14252c6c32c4959434cb3",
+      "explorerUrl": "https://chipnet.imaginary.cash/tx/e5d0d5f855985aa4d84c08cf04fd534ace20d9e480a14252c6c32c4959434cb3",
+      "confirmations": 2,
+      "event": {
+        "version": 1,
+        "kind": "lease-expired",
+        "subject": "rare-ruins-334564-lease-expired",
+        "data": {
+          "territory": "ruins",
+          "recordHash": "25fe8826649c58765bbe7da93d037ce038690462dbd635fe3302495a0c38fbd6",
+          "entryTxids": []
+        },
+        "digest": "a8fb8edbed8a2f8cb67fd06a5d27cb012d9979be4fe3b7fc9bf28a97af197aa9"
+      },
+      "eventVout": 1
+    },
+    {
+      "activity": "raffle-draw",
+      "txid": "c56554bce33eae950789d72a5f0d553bca4548f09aff2bd9890ccd30b6f609fd",
+      "explorerUrl": "https://chipnet.imaginary.cash/tx/c56554bce33eae950789d72a5f0d553bca4548f09aff2bd9890ccd30b6f609fd",
+      "confirmations": 15,
+      "event": {
+        "version": 1,
+        "kind": "raffle-draw",
+        "subject": "rare-ruins-334564-settlement",
+        "data": {
+          "territory": "ruins",
+          "recordHash": "4c0e870345eae4157326c0b336d61cf35aeaa9a9f7c983f75cc28c74c8677930",
+          "entryTxids": [
+            "cc44a0b5de2b6d0bc669aff6d156c2c7ee7de713ba2cb69b298750721991fb7d"
+          ]
+        },
+        "digest": "73e7a2ec404c9ed0ad1f8abd32c8e3c4f8ab33ee8abeca658f969aae07fdc885"
+      },
+      "eventVout": 2
+    },
+    {
+      "activity": "territory-raffle",
+      "txid": "cc44a0b5de2b6d0bc669aff6d156c2c7ee7de713ba2cb69b298750721991fb7d",
+      "explorerUrl": "https://chipnet.imaginary.cash/tx/cc44a0b5de2b6d0bc669aff6d156c2c7ee7de713ba2cb69b298750721991fb7d",
+      "confirmations": 22,
+      "event": {
+        "version": 1,
+        "kind": "territory-raffle",
+        "subject": "c93c7f62ce5bd0aa6fe12e8f51d2a940",
+        "data": {
+          "seasonId": 1,
+          "actionHash": "e1f3ad82bf2c52503df3e4b55e6c54bb4d3a66888216d1c35b4ad4f9d56194c9",
+          "allocation": {
+            "development": 1480,
+            "burn": 1110,
+            "prize": 1110,
+            "battle": 3700
+          },
+          "territory": "ruins",
+          "round": {
+            "id": "rare-ruins-334564",
+            "site": "ruins",
+            "startHeight": 334564,
+            "closeHeight": 334569,
+            "drawHeight": 334571,
+            "confirmations": 2,
+            "fee": 7400,
+            "cutoff": "block-height",
+            "protocol": "vaultborn-raffle-v1"
+          }
+        },
+        "digest": "48243abde47a0c865e33358720182011bf2feb542f9a825dec2814ad3f88b918"
+      },
+      "eventVout": 3
+    }
+  ],
+  "treasuryPublicKey": "022b265e4a85a3e96fb5dc326d39362891337b696d95e1cc7c25766d8984500a8c"
+}

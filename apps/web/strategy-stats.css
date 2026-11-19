@@ -1,0 +1,43 @@
+.strategy-ledger, .strategy-details, .raid-dossier {
+  margin: .85rem 0;
+  border: 1px solid #80663f80;
+  background: linear-gradient(145deg, #18180fd9, #0f1813db);
+  color: #e5d7b9;
+}
+.strategy-details, .strategy-ledger, .raid-dossier { padding: .8rem .95rem; }
+.strategy-details > summary { color: #e4bd79; cursor: pointer; }
+.strategy-ledger h3, .raid-dossier h3 { margin: 0 0 .55rem; color: #f0d59f; }
+.strategy-ledger table { width: 100%; border-collapse: collapse; text-align: left; font-variant-numeric: tabular-nums; }
+.strategy-ledger :is(td,th) { padding: .35rem .15rem; border-bottom: 1px solid #c2a36e32; }
+.strategy-ledger th { font-weight: 500; }
+.strategy-ledger thead th { color: #d9b77d; letter-spacing: .04em; font-size: .82rem; }
+.strategy-ledger :is(td,th):last-child { text-align: right; }
+.strategy-ledger td small { margin-inline-start: .4rem; color: #acd3ad; white-space: nowrap; }
+.strategy-order { display: flex; align-items: center; justify-content: space-between; gap: .65rem; padding: .65rem 0; border-top: 1px solid #c2a36e32; }
+.strategy-order p, .strategy-note { margin: .4rem 0; color: #d7c6a3; }
+.commander-heading { display: grid; grid-template-columns: 112px 1fr; align-items: center; gap: .9rem; }
+.commander-portrait { display: block; width: 100%; max-height: 165px; object-fit: cover; object-position: 50% 24%; border: 1px solid #977a4a; box-shadow: 0 0 20px #b18b3330; }
+.strategy-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+.strategy-columns > section { border-bottom: 1px solid #c2a36e32; padding-bottom: .5rem; }
+.strategy-columns dl, .strategy-summary { margin: 0; }
+.strategy-columns dl > div, .strategy-summary > div { margin-bottom: .35rem; }
+.strategy-columns dt, .strategy-summary dt { color: #d4ad6d; font-size: .82rem; }
+.strategy-columns dd, .strategy-summary dd { margin: 0; }
+.strategy-troops { color: #d6c5a1; font-size: .9rem; }
+.strategy-risk { margin-top: .65rem; padding: .45rem .65rem; border-left: 2px solid #d5ad69; background: #d5ad6914; }
+.strategy-risk p { margin: .22rem 0; }
+.commander-heading, .raid-dossier > .strategy-columns { animation: strategy-reveal .28s ease-out both; }
+#dialog:has(.raid-dossier) { width: min(47rem, calc(100vw - 24px)); }
+@media (min-width: 660px) {
+  [data-form="attack"] { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: .65rem; row-gap: .45rem; }
+  [data-form="attack"] > :is(.raid-dossier, .strategy-note, .buttons, .form-error) { grid-column: 1 / -1; }
+}
+@keyframes strategy-reveal { from { opacity: .68; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 540px) {
+  .strategy-ledger, .strategy-details, .raid-dossier { padding: .65rem; }
+  .strategy-order { align-items: flex-start; flex-direction: column; }
+  .commander-heading { grid-template-columns: 80px 1fr; gap: .65rem; }
+}
+@media (max-width: 365px) { .strategy-columns { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .commander-heading, .raid-dossier > .strategy-columns { animation: none; } }
+.reduced .commander-heading, .reduced .raid-dossier > .strategy-columns { animation: none; }

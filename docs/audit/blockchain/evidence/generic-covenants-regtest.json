@@ -1,0 +1,468 @@
+{
+  "network": "regtest",
+  "dataDirectory": "var/regtest-territory-9OcMCX",
+  "recordedAt": "2026-11-18T18:59:39.041Z",
+  "prior": [
+    {
+      "name": "Territory split, stake and spendable outputs",
+      "txid": "efa8baecc9ba795960008dce18580812a2c48822ee9393207a94ec1364084e89",
+      "confirmations": 27,
+      "blockHash": "420d18e6ce16cba7722388f20164a85911b8925585e8bc8d97f489b6af68f71e"
+    },
+    {
+      "name": "Territory escrow settlement commitment",
+      "txid": "b7fb03376bb4f04e225550263e1ffbb8015577d926c2ee329670219a36b2d43f",
+      "confirmations": 26,
+      "blockHash": "2856b745802a353fbadb78a45374623d0d5432502597a10c4ae53792a84ba418"
+    },
+    {
+      "name": "Territory CashTokens genesis",
+      "txid": "63f587ed18e29b30d03aa90d70e513516f8c8f65c10a41b81c1762543ce1fabb",
+      "confirmations": 25,
+      "blockHash": "4f670692647e033c5775c056451bb05ba1aefd3ac7ccca0f6d810bd3e1a578e4"
+    },
+    {
+      "name": "Immutable territory NFT transfer to player",
+      "txid": "bc71938a5b1ca6ed2aa89f675e06b9e19747ada6b99056046a130285fcc07f16",
+      "confirmations": 24,
+      "blockHash": "23a5cef5438fe6d9bc82564789fa2aa290ba334ef4fa6e5cf06ebc727832828b"
+    },
+    {
+      "name": "Political treaty escrow funding · release",
+      "txid": "54dea740c996cf2c0e699635198b73cd8328db50b6fd39d90a4fc54834aa94de",
+      "confirmations": 23,
+      "blockHash": "0b2ceefcea9ce47d241d56d54074d80a92d3f3325e45f633893e4778d85a70f0"
+    },
+    {
+      "name": "Political treaty escrow funding · payer-refund",
+      "txid": "023145e24234dd7ade7e36e27f4611584a8ce482b99b6d25b8ab6d993caac61d",
+      "confirmations": 22,
+      "blockHash": "1078bdc09b5ec22109040aeeddc768a30772242f032b9158a5cb2b54fac31a6c"
+    },
+    {
+      "name": "Political treaty escrow funding · operator-refund",
+      "txid": "da17fc8cca372c6ee99e83d7b0355b8835f47b842a96a4be799d7ed018fe20b8",
+      "confirmations": 21,
+      "blockHash": "4ac4dad3e08e50f3bb28acee69b101709ec7e41b54fbac735b41532517b874f7"
+    },
+    {
+      "name": "Political treaty escrow · release",
+      "txid": "c001c38cbac224eea61efb320d69acc1c9e6084bd5c733ece3991d8bd39994f1",
+      "confirmations": 20,
+      "blockHash": "57dc7e923817aaba2028561a27c74544e147321f8dfbf158364a429896a00fd8"
+    },
+    {
+      "name": "Political treaty escrow · payer-refund",
+      "txid": "978dd1ed3c8c844dc8b9f48168805738dd0f39fd8a722ffc0bd94c3e3c005d63",
+      "confirmations": 7,
+      "blockHash": "6bdf59804bb06ea781447ce566797423a9971ec128479733557952cb0c790d39"
+    },
+    {
+      "name": "Political treaty escrow · operator-refund",
+      "txid": "b524c9cd53a246f25cab99e484c3bf522c299ab55dfbcb51fed01db4b6f5bb40",
+      "confirmations": 6,
+      "blockHash": "7a51d8944d05683273f3707df7a64ae426c9a0a0766227c5a1653b94af0ee755"
+    },
+    {
+      "name": "Political charter fee and four exact allocations",
+      "txid": "d822f07e1eb365b1f202f07c2f2a171c2b75a700038eab0212b8b2c46a560c24",
+      "confirmations": 5,
+      "blockHash": "7728b2243bac81180960ac5df16701fdc1e4ba931bbb567ab52b2d215edf77a1"
+    },
+    {
+      "name": "Political outcome commitment from the development allocation",
+      "txid": "6fe76e4f3622146f3cd0b9887d053def0d9cab6cf6d6a5c96365904a62d90799",
+      "confirmations": 4,
+      "blockHash": "69b904a666dbad7dd2e60e4459dcbe2e0b45404ca0c8afc1d5bcb1165ae0af6b"
+    },
+    {
+      "name": "Political CashTokens authority input",
+      "txid": "07b3aa6cb9325464a7652965ba1385bfe1aba2ca42d9761eac3773d318544cfd",
+      "confirmations": 3,
+      "blockHash": "4a0e826b3a38155c3b6a10416506427c4bc3fc433cd40140c958edd3522e2324"
+    },
+    {
+      "name": "Political CashTokens minting authority",
+      "txid": "af3bcb2da279883ffb33154968c72664b585ddcb7e89f471cd39e1a4926a0533",
+      "confirmations": 2,
+      "blockHash": "5e0b862f8f309466e8796f92b9196aa98469370a378b8189654e30bba9158b99"
+    },
+    {
+      "name": "Immutable political treaty charter",
+      "txid": "cb1c87c519a3a9d78f53ee9338187a97c181d565e8d77a8f699e1dfaaa80f142",
+      "confirmations": 1,
+      "blockHash": "37a5107b6061bf33d6ca1feb130935e2daf897d4f77468acdf4be69b16bbcee8"
+    }
+  ],
+  "transactions": [
+    {
+      "name": "Funding missing generic treasury profiles",
+      "txid": "dd56f6974e1bebaa882f1691dd5ae779ba843af4101504c1be625c3aa0afc6b0",
+      "blockHash": "41cd6f2c3ec023808018e4c9ab95aa4e0f60e1ab799a4251c34ddc59eafcd1dd",
+      "confirmations": 1,
+      "feeSatoshis": 1200,
+      "outputs": [
+        {
+          "vout": 0,
+          "satoshis": 100000,
+          "script": "aa206e875d911c6e3d8a5272938216eff28211833e12cb342e37cee765349cc6716887"
+        },
+        {
+          "vout": 1,
+          "satoshis": 20800,
+          "script": "aa2021813cc796012eb89d710ffd6b8f6e217bbfeb560416f9bd065eeddea7e4498c87"
+        },
+        {
+          "vout": 2,
+          "satoshis": 20800,
+          "script": "aa2090e44abe6d2188e2bd6df9ef2bf9add5997759b0713c8e16fbb2241df7790c5187"
+        },
+        {
+          "vout": 3,
+          "satoshis": 20800,
+          "script": "aa20cee7d8497177c0887104fdaf087b247da40211eb8f49e7ca6bba71da7d76a2a687"
+        },
+        {
+          "vout": 4,
+          "satoshis": 20920,
+          "script": "aa20c796d78d7d94d39354b354d463f8d9e5969a142b7828e4477dba39991c5c412587"
+        },
+        {
+          "vout": 5,
+          "satoshis": 20800,
+          "script": "aa2014360e77de35ca987b1dd583574ae874e2247d041ef21339125459fcc3dbc1e787"
+        },
+        {
+          "vout": 6,
+          "satoshis": 20800,
+          "script": "aa20232305d5283f40d2bcd99add04665055bd5565ca3d8ae0fc5648adb029bfce7687"
+        },
+        {
+          "vout": 7,
+          "satoshis": 20800,
+          "script": "aa2045a4f11e28f28cb11996708793826e338c1fc39678420e7bdd56af3944d9997987"
+        },
+        {
+          "vout": 8,
+          "satoshis": 20800,
+          "script": "aa20eb1da42e42e7a88b4affa18f6ca5ed390f5f5fee449fc06c784c0d0ab3991f0987"
+        },
+        {
+          "vout": 9,
+          "satoshis": 20800,
+          "script": "aa205aa39989ed2d176db983470904e5432d502fcb2c3765bc4aa513f0ed8df6232487"
+        },
+        {
+          "vout": 10,
+          "satoshis": 4999711480,
+          "script": "76a914ad53db90c0c3629958833cd53c17ab0cd11d708f88ac"
+        }
+      ]
+    },
+    {
+      "name": "development-2of3",
+      "txid": "c72ed378982bedb702df15bf8e521de20784bc81e5136fd12e2789d63e5b2a6c",
+      "blockHash": "54d1c45cd267b388aaf118d585f9d75d317e3f2e1e7b871848da916a14712e81",
+      "confirmations": 1,
+      "feeSatoshis": 1000,
+      "outputs": [
+        {
+          "vout": 0,
+          "satoshis": 99000,
+          "script": "76a91479ab90dfc2f243c4b08a986688750678f109bf1e88ac"
+        }
+      ],
+      "kind": "development",
+      "fundingTxid": "dd56f6974e1bebaa882f1691dd5ae779ba843af4101504c1be625c3aa0afc6b0",
+      "fundingVout": 0,
+      "contractAddress": "bchtest:pdhgwhv3r3hrmzjjw2fcy9h072pprqe7zt9ngt3hemnk2dyucecksqy0ulw4e",
+      "principal": null,
+      "reserve": null,
+      "lane": "development"
+    },
+    {
+      "name": "battle-opponent-wins",
+      "txid": "b00422f583afd16769ff2eaf0e5ba8f69944dad529d426e892df5797163afb55",
+      "blockHash": "65bd3dcc5c4c73610c077b29e622f6cb1f2a2f244dd683f08501998318a0bbcb",
+      "confirmations": 1,
+      "feeSatoshis": 800,
+      "outputs": [
+        {
+          "vout": 0,
+          "satoshis": 10000,
+          "script": "76a91452a4389e437f6c9716b822c95054020c5414bb2288ac"
+        },
+        {
+          "vout": 1,
+          "satoshis": 10000,
+          "script": "76a91479ab90dfc2f243c4b08a986688750678f109bf1e88ac"
+        }
+      ],
+      "kind": "battle-escrow",
+      "fundingTxid": "dd56f6974e1bebaa882f1691dd5ae779ba843af4101504c1be625c3aa0afc6b0",
+      "fundingVout": 1,
+      "contractAddress": "bchtest:pvscz0x8jcqjawyawy8l66u0dcshh0lt2czpd7daqe0wmh48u3ycch6x8d3np",
+      "principal": 20000,
+      "reserve": 800,
+      "lane": "opponent-wins"
+    },
+    {
+      "name": "battle-return",
+      "txid": "2e3430e9d0243148a7589b88fa734ec21a51d1116acef8432a587d03e61ff2d2",
+      "blockHash": "5639f2ec5c766fd10869cad3510fb43ff795b23ef5031586bbf0a566bcf0e5df",
+      "confirmations": 1,
+      "feeSatoshis": 800,
+      "outputs": [
+        {
+          "vout": 0,
+          "satoshis": 20000,
+          "script": "76a91452a4389e437f6c9716b822c95054020c5414bb2288ac"
+        }
+      ],
+      "kind": "battle-escrow",
+      "fundingTxid": "dd56f6974e1bebaa882f1691dd5ae779ba843af4101504c1be625c3aa0afc6b0",
+      "fundingVout": 2,
+      "contractAddress": "bchtest:pwgwgj47d5sc3c4adhu772le4h2eja6ekpcnersklwezg80h0yx9zzqx8jr2v",
+      "principal": 20000,
+      "reserve": 800,
+      "lane": "return"
+    },
+    {
+      "name": "kingdom-capped-capture",
+      "txid": "62cd9d45d79d5865c2617289649e909ced82797f90d976932b994fb3ec9ab2a6",
+      "blockHash": "072f0e1c6946608ef7972b4139a0ad39be7e22ef917496bcc6e2f961cd428d20",
+      "confirmations": 1,
+      "feeSatoshis": 800,
+      "outputs": [
+        {
+          "vout": 0,
+          "satoshis": 17000,
+          "script": "76a91452a4389e437f6c9716b822c95054020c5414bb2288ac"
+        },
+        {
+          "vout": 1,
+          "satoshis": 3000,
+          "script": "76a91479ab90dfc2f243c4b08a986688750678f109bf1e88ac"
+        }
+      ],
+      "kind": "kingdom-treasury",
+      "fundingTxid": "dd56f6974e1bebaa882f1691dd5ae779ba843af4101504c1be625c3aa0afc6b0",
+      "fundingVout": 5,
+      "contractAddress": "bchtest:pv2rvrnhmc6u4xrmrh2cx462ap6wyfraqs00yyeezf29nlxrm0q7wtut4m9u0",
+      "principal": 20000,
+      "reserve": 800,
+      "lane": "opponent-wins"
+    },
+    {
+      "name": "territory-opponent-wins",
+      "txid": "00ad2dd90d54bf3e7db9d4372c36b928538763a4a9912e4f6a56b7d811822572",
+      "blockHash": "42fbd95f1932e60fbe3561c5ed794118d9fa755e7d9e1ecf37fabb243ad10767",
+      "confirmations": 1,
+      "feeSatoshis": 800,
+      "outputs": [
+        {
+          "vout": 0,
+          "satoshis": 10000,
+          "script": "76a91452a4389e437f6c9716b822c95054020c5414bb2288ac"
+        },
+        {
+          "vout": 1,
+          "satoshis": 10000,
+          "script": "76a91479ab90dfc2f243c4b08a986688750678f109bf1e88ac"
+        }
+      ],
+      "kind": "territory-escrow",
+      "fundingTxid": "dd56f6974e1bebaa882f1691dd5ae779ba843af4101504c1be625c3aa0afc6b0",
+      "fundingVout": 6,
+      "contractAddress": "bchtest:pv3jxpw49ql5p54umxdd6prx2p2m64t9eg7c4c8u2ey2mvpfhl88vuy9cr6vx",
+      "principal": 20000,
+      "reserve": 800,
+      "lane": "opponent-wins"
+    },
+    {
+      "name": "season-prize-claim",
+      "txid": "d0b5e1c1d817a3edca00a5728ff0dbcc567bd288998b7bd2de991962e4ebbf2d",
+      "blockHash": "0066c5635fa0246910314432d63150551bff3680eb1d321c4d309a8a10afce13",
+      "confirmations": 1,
+      "feeSatoshis": 800,
+      "outputs": [
+        {
+          "vout": 0,
+          "satoshis": 20000,
+          "script": "76a91452a4389e437f6c9716b822c95054020c5414bb2288ac"
+        }
+      ],
+      "kind": "season-prize",
+      "fundingTxid": "dd56f6974e1bebaa882f1691dd5ae779ba843af4101504c1be625c3aa0afc6b0",
+      "fundingVout": 8,
+      "contractAddress": "bchtest:p043mfpwgtn63z62l7sc7m99a5us7h6laezflsrv0pxq6z4nny0sj3kyxm90z",
+      "principal": 20000,
+      "reserve": 800,
+      "lane": "claim"
+    },
+    {
+      "name": "battle-owner-refund",
+      "txid": "7695c85b9de94e8a1026444dc6ee101e7341a4b2d9499e28039da7a40c52a4c2",
+      "blockHash": "199adabf9976bf5bc9b3ab6918b34067f6e3734f18e7e60b4f8ecd3419e5c858",
+      "confirmations": 1,
+      "feeSatoshis": 800,
+      "outputs": [
+        {
+          "vout": 0,
+          "satoshis": 20000,
+          "script": "76a91452a4389e437f6c9716b822c95054020c5414bb2288ac"
+        }
+      ],
+      "kind": "battle-escrow",
+      "fundingTxid": "dd56f6974e1bebaa882f1691dd5ae779ba843af4101504c1be625c3aa0afc6b0",
+      "fundingVout": 3,
+      "contractAddress": "bchtest:p08w0kzfw9mupzr3qn767zrmy376gqs3aw85ne72dwa8rknaw632vs4vhg8xl",
+      "principal": 20000,
+      "reserve": 800,
+      "lane": "refund"
+    },
+    {
+      "name": "battle-misfunded-refund",
+      "txid": "dea6ea9fa83fb1dd007e3291ed4c9e56185d2fea0781d79b6d9e6e63a94e835e",
+      "blockHash": "06ae13698445118c776d985597780d08136d74b6ddff64e9464328e064307bf1",
+      "confirmations": 1,
+      "feeSatoshis": 800,
+      "outputs": [
+        {
+          "vout": 0,
+          "satoshis": 20120,
+          "script": "76a91452a4389e437f6c9716b822c95054020c5414bb2288ac"
+        }
+      ],
+      "kind": "battle-escrow",
+      "fundingTxid": "dd56f6974e1bebaa882f1691dd5ae779ba843af4101504c1be625c3aa0afc6b0",
+      "fundingVout": 4,
+      "contractAddress": "bchtest:p0red4ud0k2d8y65kd2dgclcm8jedxs59duz3ez80karnxgut3qj2eesnp20e",
+      "principal": 20000,
+      "reserve": 800,
+      "lane": "refund"
+    },
+    {
+      "name": "territory-uncontested-return",
+      "txid": "7ad50ba2d3e0bd44c3b3c65af02b93b8b03c30acc3abce5056ddc3ec6735cfdd",
+      "blockHash": "47ad68dac7b9ea6d9d986b49c7cfd6c7d63397a7ca4f8b690ea0ca50f79df214",
+      "confirmations": 1,
+      "feeSatoshis": 800,
+      "outputs": [
+        {
+          "vout": 0,
+          "satoshis": 20000,
+          "script": "76a91452a4389e437f6c9716b822c95054020c5414bb2288ac"
+        }
+      ],
+      "kind": "territory-uncontested",
+      "fundingTxid": "dd56f6974e1bebaa882f1691dd5ae779ba843af4101504c1be625c3aa0afc6b0",
+      "fundingVout": 7,
+      "contractAddress": "bchtest:pdz6fug79regevgejecg0yuzdcecc87rjeuyyrnmm4t27w2ymxvhjt5qsy4rp",
+      "principal": 20000,
+      "reserve": 800,
+      "lane": "return"
+    },
+    {
+      "name": "season-prize-rollover",
+      "txid": "6154040b8d603f3f76699a84898e4e072d6e14bf95fa2ee437a194aaa153a30c",
+      "blockHash": "179e541bfc84e6c229dfdcd5dcd4dc0f80b31784e82af81b9e88cc4fb69711a8",
+      "confirmations": 1,
+      "feeSatoshis": 800,
+      "outputs": [
+        {
+          "vout": 0,
+          "satoshis": 20000,
+          "script": "76a91479ab90dfc2f243c4b08a986688750678f109bf1e88ac"
+        }
+      ],
+      "kind": "season-prize",
+      "fundingTxid": "dd56f6974e1bebaa882f1691dd5ae779ba843af4101504c1be625c3aa0afc6b0",
+      "fundingVout": 9,
+      "contractAddress": "bchtest:pdd28xvfa5k3wmdesdrsjp89gvk4qt7t9smkt0z255flpmvd7c3jg7yxzmpj3",
+      "principal": 20000,
+      "reserve": 800,
+      "lane": "refund"
+    }
+  ],
+  "negative": [
+    {
+      "name": "Development outsider cannot replace second council key",
+      "txid": "9db979db1ac0570d0dd01eb06a1a2b40da11ba8078e49e212a369f4a76ebaae7",
+      "reason": "16: mandatory-script-verify-flag-failed (Signature must be zero for failed CHECK(MULTI)SIG operation)"
+    },
+    {
+      "name": "Forged second battle attestor rejected",
+      "txid": "471a2b492769d2720a008714fd39985cb592a7bb131a3ac1511b920150907408",
+      "reason": "16: mandatory-script-verify-flag-failed (Signature must be zero for failed CHECK(MULTI)SIG operation)"
+    },
+    {
+      "name": "Even valid attestors cannot redirect committed outcome",
+      "txid": "8d5ce011ac0bb06bae0617920d4295e9aa2793e465b56f0626d66caf98cfd868",
+      "reason": "16: mandatory-script-verify-flag-failed (Script failed an OP_EQUALVERIFY operation)"
+    },
+    {
+      "name": "Owner recovery before absolute locktime rejected",
+      "txid": "7695c85b9de94e8a1026444dc6ee101e7341a4b2d9499e28039da7a40c52a4c2",
+      "reason": "64: bad-txns-nonfinal"
+    },
+    {
+      "name": "Uncontested return before closure rejected",
+      "txid": "7ad50ba2d3e0bd44c3b3c65af02b93b8b03c30acc3abce5056ddc3ec6735cfdd",
+      "reason": "64: bad-txns-nonfinal"
+    },
+    {
+      "name": "Prize rollover before deadline rejected",
+      "txid": "6154040b8d603f3f76699a84898e4e072d6e14bf95fa2ee437a194aaa153a30c",
+      "reason": "64: bad-txns-nonfinal"
+    },
+    {
+      "name": "A second confirmed prize claim cannot spend its consumed outpoint",
+      "txid": "d0b5e1c1d817a3edca00a5728ff0dbcc567bd288998b7bd2de991962e4ebbf2d",
+      "reason": "18: txn-already-known"
+    }
+  ],
+  "findings": [],
+  "sourceHash": "3894dbf28725ca6c74dff59591a74521a5e00b1f0a9f26da42c6b680f707fcb9",
+  "node": "/Bitcoin Cash Node:29.2.0/",
+  "genesis": "0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206",
+  "finalHeight": 256,
+  "status": "FAIL",
+  "underfundedRecovery": {
+    "status": "FAIL",
+    "name": "P2SH32 dust-level funding below fixed reserve cannot be recovered",
+    "fundingTxid": "5d25c98a403bce5e6a6ccde166548af55dfffb50bf8cce3cec4fe865b48cb884",
+    "fundingVout": 0,
+    "confirmations": 12,
+    "blockHash": "61be8b01a9e1e461be2d2171687f357b70f4e52be81fece44cea9087399cb6cc",
+    "contractAddress": "bchtest:p08w0kzfw9mupzr3qn767zrmy376gqs3aw85ne72dwa8rknaw632vs4vhg8xl",
+    "kind": "battle-escrow",
+    "fundedSatoshis": 576,
+    "fixedReserve": 800,
+    "expectedRefundSatoshis": -224,
+    "plannerError": "Satoshis must be a nonnegative integer.",
+    "nodeRejectReason": "64: dust",
+    "unspent": true,
+    "cause": "The settlement branch requires exact funding. The single-input refund branch requires one nonnegative output equal to UTXO value minus reserve. At 576<800 no valid transaction can satisfy that equation.",
+    "independentVmNonDustRefundResult": "Error in evaluating input index 0: Program failed an OP_VERIFY operation.",
+    "ownerSignatureIndependentlyVerified": true
+  },
+  "functionalSpendsStatus": "PASS",
+  "previousPoliticalContracts": [
+    {
+      "name": "Political treaty escrow · release",
+      "txid": "c001c38cbac224eea61efb320d69acc1c9e6084bd5c733ece3991d8bd39994f1",
+      "scriptMatchesCurrentCompiler": true
+    },
+    {
+      "name": "Political treaty escrow · payer-refund",
+      "txid": "978dd1ed3c8c844dc8b9f48168805738dd0f39fd8a722ffc0bd94c3e3c005d63",
+      "scriptMatchesCurrentCompiler": true
+    },
+    {
+      "name": "Political treaty escrow · operator-refund",
+      "txid": "b524c9cd53a246f25cab99e484c3bf522c299ab55dfbcb51fed01db4b6f5bb40",
+      "scriptMatchesCurrentCompiler": true
+    }
+  ]
+}

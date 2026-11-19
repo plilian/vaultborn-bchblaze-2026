@@ -1,0 +1,112 @@
+{
+  "generatedAt": "2026-11-18T19:39:02.278Z",
+  "completeSelectedLiveLifecycles": true,
+  "implementationFiles": 90,
+  "implementationUnchanged": true,
+  "mainnetReady": false,
+  "counts": {
+    "Blocker": 0,
+    "Critical": 0,
+    "High": 2,
+    "Medium": 5,
+    "Low": 1
+  },
+  "historicalChipnet": {
+    "PASS": 46,
+    "FAIL": 0,
+    "BLOCKED": 0
+  },
+  "realNewChipnet": [
+    {
+      "name": "Disposable actual Selene provisioning",
+      "network": "chipnet",
+      "action": "Disposable Selene funding for one current-policy payment",
+      "source": "bchtest:qplmjqhqt8rght6q4d94pj3xds8vmmhuwqnaa5xydl",
+      "address": "bchtest:qr2gdnwmfwacv0z2mgd86n8jyef774882vl4apsd0h",
+      "satoshis": 5000,
+      "txid": "602b9085529ec87398382081c02be43d822abd797f8b0e99038240cda43a2d6f",
+      "feeSatoshis": 254,
+      "broadcastAt": "2026-11-18T19:14:06.316Z",
+      "confirmations": 1,
+      "height": 337139,
+      "blockHash": "00000000be6e61e4197fcc1fa34f146df31196f9d8a765df1c980ccbabdbb0bc",
+      "verifiedAt": "2026-11-18T19:21:11.949Z",
+      "fee": 254,
+      "status": "PASS"
+    },
+    {
+      "name": "Actual Selene Vault premium",
+      "txid": "5d70026b034a2e0da374fa48e9d8902685d8ce9e47f3138d97c3cdcb8fb43b83",
+      "satoshis": 4500,
+      "fee": 500,
+      "confirmations": 3,
+      "height": 337143,
+      "status": "PASS"
+    },
+    {
+      "name": "sponsor-fund",
+      "txid": "f64241d4d4265ae4eddc7f337a4e9193d9c4d008c5c5a1431ce8e75ab23089d7",
+      "satoshis": 8000,
+      "fee": 334,
+      "confirmations": 13,
+      "height": 337139,
+      "status": "PASS"
+    },
+    {
+      "name": "attack-paid",
+      "txid": "ebc696dd1c4b3c3b1f42c173ed986f72c1d532c3241aa23e5496e6c17277731e",
+      "satoshis": 3600,
+      "fee": 334,
+      "confirmations": 13,
+      "height": 337139,
+      "status": "PASS"
+    },
+    {
+      "name": "territory-claim",
+      "txid": "e4f3d6184a9596c603a54db2d9f4cde43b5376a4e4b0d2ab9b133d096b30dbd4",
+      "satoshis": 2600,
+      "fee": 334,
+      "confirmations": 13,
+      "height": 337139,
+      "status": "PASS"
+    },
+    {
+      "name": "claim",
+      "txid": "056a9cb0cf0e519bf1ffb977e07b45e77592a630887a76095e7a8877007eaf1e",
+      "satoshis": 4389,
+      "fee": 356,
+      "confirmations": 4,
+      "height": 337148,
+      "status": "PASS"
+    },
+    {
+      "name": "territory-settlement",
+      "txid": "dfb4c2287bb9a5deb8cf81e64536616381a892ff46dd1ae9f068fa95f4b79dc9",
+      "satoshis": 2000,
+      "fee": 600,
+      "confirmations": 6,
+      "height": 337146,
+      "status": "PASS"
+    },
+    {
+      "name": "kingdom-withdraw",
+      "txid": "b8d054937b47c5361462f902f01de2415a7cefcc0a6a75fe4776ec714bdb264b",
+      "satoshis": 1200,
+      "fee": 356,
+      "confirmations": 6,
+      "height": 337146,
+      "status": "PASS"
+    },
+    {
+      "name": "battle-settlement",
+      "txid": "8994d3c130f6990b4a7c59d8e6778713533699276070d94dfe2d088c7492f8f6",
+      "satoshis": 3000,
+      "fee": 600,
+      "confirmations": 11,
+      "height": 337141,
+      "status": "PASS"
+    }
+  ],
+  "regtestNominalSpends": 10,
+  "regtestNegativeChecks": 7
+}

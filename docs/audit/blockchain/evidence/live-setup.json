@@ -1,0 +1,13 @@
+{
+  "recordedAt": "2026-11-18T19:11:22.223Z",
+  "network": "chipnet",
+  "tip": 337131,
+  "fixtureDatabase": "var/vaultborn-chipnet-R5XVjn/world.sqlite",
+  "backup": "var/blockchain-audit-live/before-audit.sqlite",
+  "account": "p1",
+  "authentication": "Existing verified disposable BCH key signed a real one-use login challenge.",
+  "rival": "Existing p2 test seat received a fresh private fixture session; no new city was allocated.",
+  "gameClock": 1795457369802,
+  "building": "vault",
+  "operatorAddress": "bchtest:qr0ejlz4pqlfg93euas388dl55053vns3grs7eyg56"
+}

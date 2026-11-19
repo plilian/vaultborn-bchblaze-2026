@@ -1,0 +1,9 @@
+{
+  "scope": "Current allocation and payment availability; audit only",
+  "findings": [
+    {"id":"BC-PAY-01","severity":"Medium","status":"FAIL","title":"Low-price services do not preserve strict 20/10/5/65 allocation","locations":["config/payments.mjs:44"],"evidence":["docs/audit/blockchain/evidence/payments-gap-probes.json"],"impact":"A larger prize output reduces the advertised Kingdom percentage at low service prices.","recommendation":"Choose a conforming price/output policy and align published percentages before accepting funds under that promise."},
+    {"id":"BC-PAY-02","severity":"High","status":"FAIL","title":"Newest-first reconciliation can indefinitely delay older funded operations","locations":["apps/game-server/ledger.mjs:525"],"evidence":["docs/audit/blockchain/evidence/payments-gap-probes.json"],"impact":"New unpaid rows can prevent automatic observations and credit for older submitted or funded financial actions.","recommendation":"Implement fair bounded scheduling and funded-operation priority with per-account quote quotas and owner retries."},
+    {"id":"BC-PAY-03","severity":"Medium","status":"FAIL","title":"Permanently rejected signed payouts retain reservations without recovery","locations":["apps/game-server/ledger.mjs:22","apps/game-server/ledger.mjs:371","apps/game-server/ledger.mjs:404","apps/game-server/ledger.mjs:525"],"evidence":["docs/audit/blockchain/evidence/payments-gap-probes.json"],"impact":"A signed but never accepted payout can hold the full selected inputs unavailable indefinitely.","recommendation":"Add safe durable rejection/conflict/replacement recovery; never unlock potentially live signed inputs solely by timeout."}
+  ],
+  "unexecutedAdversarialCase":"Proposed indexer simulation was blocked by automated safety review. Header-chain trust is documented from source without claiming an executed attack or real forged-chain evidence."
+}

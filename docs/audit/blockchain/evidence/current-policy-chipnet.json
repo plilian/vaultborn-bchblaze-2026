@@ -1,0 +1,1109 @@
+{
+  "network": "chipnet",
+  "startedAt": "2026-11-18T19:18:19.391Z",
+  "fixture": "var/vaultborn-chipnet-R5XVjn/world.sqlite",
+  "transport": "Actual HTTP game endpoints and existing disposable local-key signer; not a Selene UI test.",
+  "actions": [
+    {
+      "type": "sponsor-fund",
+      "id": "e3e58987accf9db27e6524822c4b642f",
+      "satoshis": 8000,
+      "outputs": [
+        {
+          "role": "prize",
+          "script": "a914b1300ffea9a715159e25706462865ce1d8c5ef1c87",
+          "address": "bchtest:pzcnqrl74xn329v7y4cxgc5xtnsa3300rslz8fnuyz",
+          "satoshis": 6400
+        },
+        {
+          "role": "development",
+          "script": "a914a22a337921c3ad11ee31ed761c9144273713d0f587",
+          "address": "bchtest:pz3z5vmey8p66y0wx8khv8y3gsnnwy7s757mvawr0g",
+          "satoshis": 1600
+        },
+        {
+          "role": "event",
+          "script": "6a045642524e2201075af0e4510976a3d6c72de395a22f71e97a2ccec5a1ebcfdec7799170cbe51ef8",
+          "satoshis": 0
+        }
+      ],
+      "policy": "sponsor-split-v1",
+      "state": "credited",
+      "payload": {
+        "type": "sponsor-fund",
+        "satoshis": 8000,
+        "consent": true
+      },
+      "txid": "f64241d4d4265ae4eddc7f337a4e9193d9c4d008c5c5a1431ce8e75ab23089d7",
+      "walletFeeSatoshis": 334,
+      "broadcastAt": "2026-11-18T19:18:40.916Z",
+      "receipt": {
+        "txid": "f64241d4d4265ae4eddc7f337a4e9193d9c4d008c5c5a1431ce8e75ab23089d7",
+        "network": "chipnet",
+        "confirmations": 16,
+        "height": 337139,
+        "blockHash": "00000000be6e61e4197fcc1fa34f146df31196f9d8a765df1c980ccbabdbb0bc",
+        "blockTime": 1795029651000,
+        "vout": 0,
+        "satoshis": 8000,
+        "address": "bchtest:pzcnqrl74xn329v7y4cxgc5xtnsa3300rslz8fnuyz",
+        "script": "a914b1300ffea9a715159e25706462865ce1d8c5ef1c87",
+        "redeemScript": "10e3e58987accf9db27e6524822c4b642f7521022b265e4a85a3e96fb5dc326d39362891337b696d95e1cc7c25766d8984500a8cac",
+        "allocations": [
+          {
+            "role": "prize",
+            "address": "bchtest:pzcnqrl74xn329v7y4cxgc5xtnsa3300rslz8fnuyz",
+            "script": "a914b1300ffea9a715159e25706462865ce1d8c5ef1c87",
+            "redeemScript": "10e3e58987accf9db27e6524822c4b642f7521022b265e4a85a3e96fb5dc326d39362891337b696d95e1cc7c25766d8984500a8cac",
+            "satoshis": 6400,
+            "txid": "f64241d4d4265ae4eddc7f337a4e9193d9c4d008c5c5a1431ce8e75ab23089d7",
+            "vout": 0
+          },
+          {
+            "role": "development",
+            "address": "bchtest:pz3z5vmey8p66y0wx8khv8y3gsnnwy7s757mvawr0g",
+            "script": "a914a22a337921c3ad11ee31ed761c9144273713d0f587",
+            "redeemScript": "1065c028de59d544c5e6b5e0d5c816a9ad7521022b265e4a85a3e96fb5dc326d39362891337b696d95e1cc7c25766d8984500a8cac",
+            "satoshis": 1600,
+            "txid": "f64241d4d4265ae4eddc7f337a4e9193d9c4d008c5c5a1431ce8e75ab23089d7",
+            "vout": 1
+          },
+          {
+            "role": "event",
+            "script": "6a045642524e2201075af0e4510976a3d6c72de395a22f71e97a2ccec5a1ebcfdec7799170cbe51ef8",
+            "satoshis": 0,
+            "txid": "f64241d4d4265ae4eddc7f337a4e9193d9c4d008c5c5a1431ce8e75ab23089d7",
+            "vout": 2
+          }
+        ],
+        "event": {
+          "version": 1,
+          "kind": "sponsor-fund",
+          "subject": "e3e58987accf9db27e6524822c4b642f",
+          "data": {
+            "seasonId": 2,
+            "actionHash": "228f8c062856a43b692a467349625193a69a03a96bc41051ed8277c86c9133b8",
+            "allocation": {
+              "development": 1600,
+              "prize": 6400
+            },
+            "allocationPolicy": "sponsor-split-v1"
+          },
+          "digest": "5af0e4510976a3d6c72de395a22f71e97a2ccec5a1ebcfdec7799170cbe51ef8"
+        },
+        "eventVout": 2,
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/f64241d4d4265ae4eddc7f337a4e9193d9c4d008c5c5a1431ce8e75ab23089d7",
+        "feeSatoshis": 334
+      },
+      "lastError": null
+    },
+    {
+      "type": "attack-paid",
+      "id": "e7fc593d1af1ff179443c38e34a93a83",
+      "satoshis": 3600,
+      "outputs": [
+        {
+          "role": "battle",
+          "script": "a914a36d6bb6cadffe7d8a3a1ea9f72d7b51c273953c87",
+          "address": "bchtest:pz3k66aket0lulv28g02naed0dguyuu48sqsppz4vz",
+          "satoshis": 3000
+        },
+        {
+          "role": "settlement",
+          "script": "a914f55821bd891a8689873731f727a8c30936e4fbcc87",
+          "address": "bchtest:pr64sgda3ydgdzv8xuclwfagcvynde8mess8vqp7f0",
+          "satoshis": 600
+        },
+        {
+          "role": "event",
+          "script": "6a045642524e2201038bbd1ead41cc6e7e23243af2d1489524026dc1175127232b82c78c330430bb43",
+          "satoshis": 0
+        }
+      ],
+      "policy": "separate-stake-v2",
+      "state": "credited",
+      "payload": {
+        "type": "attack-paid",
+        "target": "p2"
+      },
+      "txid": "ebc696dd1c4b3c3b1f42c173ed986f72c1d532c3241aa23e5496e6c17277731e",
+      "walletFeeSatoshis": 334,
+      "broadcastAt": "2026-11-18T19:18:50.755Z",
+      "receipt": {
+        "txid": "ebc696dd1c4b3c3b1f42c173ed986f72c1d532c3241aa23e5496e6c17277731e",
+        "network": "chipnet",
+        "confirmations": 16,
+        "height": 337139,
+        "blockHash": "00000000be6e61e4197fcc1fa34f146df31196f9d8a765df1c980ccbabdbb0bc",
+        "blockTime": 1795029651000,
+        "vout": 0,
+        "satoshis": 3600,
+        "address": "bchtest:pz3k66aket0lulv28g02naed0dguyuu48sqsppz4vz",
+        "script": "a914a36d6bb6cadffe7d8a3a1ea9f72d7b51c273953c87",
+        "redeemScript": "10e7fc593d1af1ff179443c38e34a93a837521022b265e4a85a3e96fb5dc326d39362891337b696d95e1cc7c25766d8984500a8cac",
+        "allocations": [
+          {
+            "role": "battle",
+            "address": "bchtest:pz3k66aket0lulv28g02naed0dguyuu48sqsppz4vz",
+            "script": "a914a36d6bb6cadffe7d8a3a1ea9f72d7b51c273953c87",
+            "redeemScript": "10e7fc593d1af1ff179443c38e34a93a837521022b265e4a85a3e96fb5dc326d39362891337b696d95e1cc7c25766d8984500a8cac",
+            "satoshis": 3000,
+            "txid": "ebc696dd1c4b3c3b1f42c173ed986f72c1d532c3241aa23e5496e6c17277731e",
+            "vout": 0
+          },
+          {
+            "role": "settlement",
+            "address": "bchtest:pr64sgda3ydgdzv8xuclwfagcvynde8mess8vqp7f0",
+            "script": "a914f55821bd891a8689873731f727a8c30936e4fbcc87",
+            "redeemScript": "1089ffd0dab5fb580601f370b779715a2c7521022b265e4a85a3e96fb5dc326d39362891337b696d95e1cc7c25766d8984500a8cac",
+            "satoshis": 600,
+            "txid": "ebc696dd1c4b3c3b1f42c173ed986f72c1d532c3241aa23e5496e6c17277731e",
+            "vout": 1
+          },
+          {
+            "role": "event",
+            "script": "6a045642524e2201038bbd1ead41cc6e7e23243af2d1489524026dc1175127232b82c78c330430bb43",
+            "satoshis": 0,
+            "txid": "ebc696dd1c4b3c3b1f42c173ed986f72c1d532c3241aa23e5496e6c17277731e",
+            "vout": 2
+          }
+        ],
+        "event": {
+          "version": 1,
+          "kind": "attack-paid",
+          "subject": "e7fc593d1af1ff179443c38e34a93a83",
+          "data": {
+            "seasonId": 2,
+            "actionHash": "2f73c2838b0b32e4bf2ed2408a64c9a0c3de09c81b6f4ee20658dd1274d5b8ed",
+            "allocation": {
+              "battle": 3000,
+              "settlement": 600
+            },
+            "allocationPolicy": "separate-stake-v2"
+          },
+          "digest": "8bbd1ead41cc6e7e23243af2d1489524026dc1175127232b82c78c330430bb43"
+        },
+        "eventVout": 2,
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/ebc696dd1c4b3c3b1f42c173ed986f72c1d532c3241aa23e5496e6c17277731e",
+        "feeSatoshis": 334
+      },
+      "fulfillment": {
+        "status": "applied",
+        "result": {
+          "id": "b10",
+          "kind": "raid",
+          "attacker": "p1",
+          "defender": "p2",
+          "attackerName": "Riverhold",
+          "defenderName": "Ironhaven",
+          "at": 1795457369802,
+          "commitment": "ddcd3b22f86e74b915f3a0c3d871b88aeedfb266246eb55749cc4064dbdc9259",
+          "input": {
+            "attacker": {
+              "troops": {
+                "infantry": 23,
+                "shield": 12,
+                "archer": 14,
+                "cavalry": 6,
+                "siege": 3,
+                "mage": 3
+              },
+              "hero": "warden",
+              "fieldRules": 2,
+              "tactic": "balanced",
+              "formation": "line",
+              "tech": {
+                "logistics": 0,
+                "fortification": 0,
+                "tactics": 0,
+                "signals": 0
+              },
+              "wall": 2,
+              "politicalMorale": 1,
+              "intel": 0
+            },
+            "defender": {
+              "troops": {
+                "infantry": 19,
+                "shield": 10,
+                "archer": 13,
+                "cavalry": 5,
+                "siege": 2,
+                "mage": 2
+              },
+              "hero": "warden",
+              "fieldRules": 2,
+              "tactic": "balanced",
+              "formation": "line",
+              "tech": {
+                "logistics": 0,
+                "fortification": 0,
+                "tactics": 0,
+                "signals": 0
+              },
+              "wall": 2,
+              "politicalMorale": 1
+            },
+            "terrain": "plains"
+          },
+          "seed": "2b14946608f7528047668c45a436a07a81b8f53577a3657fbd143479beeebe66",
+          "paid": true,
+          "loot": {
+            "wood": 30,
+            "stone": 30,
+            "iron": 30,
+            "food": 30,
+            "crystal": 19
+          },
+          "winner": "attacker",
+          "losses": {
+            "attacker": {
+              "infantry": 4,
+              "shield": 2,
+              "archer": 2,
+              "cavalry": 2,
+              "siege": 0,
+              "mage": 0
+            },
+            "defender": {
+              "infantry": 7,
+              "shield": 3,
+              "archer": 6,
+              "cavalry": 2,
+              "siege": 0,
+              "mage": 0
+            }
+          },
+          "events": [
+            {
+              "round": 1,
+              "at": 0,
+              "phase": "Advance",
+              "attackerLoss": 1,
+              "defenderLoss": 4,
+              "attackerRemaining": 60,
+              "defenderRemaining": 47
+            },
+            {
+              "round": 2,
+              "at": 6000,
+              "phase": "Advance",
+              "attackerLoss": 4,
+              "defenderLoss": 4,
+              "attackerRemaining": 56,
+              "defenderRemaining": 43
+            },
+            {
+              "round": 3,
+              "at": 12000,
+              "phase": "Advance",
+              "attackerLoss": 3,
+              "defenderLoss": 1,
+              "attackerRemaining": 53,
+              "defenderRemaining": 42
+            },
+            {
+              "round": 4,
+              "at": 18000,
+              "phase": "Engagement",
+              "attackerLoss": 0,
+              "defenderLoss": 1,
+              "attackerRemaining": 53,
+              "defenderRemaining": 41
+            },
+            {
+              "round": 5,
+              "at": 24000,
+              "phase": "Engagement",
+              "attackerLoss": 0,
+              "defenderLoss": 2,
+              "attackerRemaining": 53,
+              "defenderRemaining": 39
+            },
+            {
+              "round": 6,
+              "at": 30000,
+              "phase": "Engagement",
+              "attackerLoss": 0,
+              "defenderLoss": 2,
+              "attackerRemaining": 53,
+              "defenderRemaining": 37
+            },
+            {
+              "round": 7,
+              "at": 36000,
+              "phase": "Rout",
+              "attackerLoss": 0,
+              "defenderLoss": 3,
+              "attackerRemaining": 53,
+              "defenderRemaining": 34
+            },
+            {
+              "round": 8,
+              "at": 42000,
+              "phase": "Rout",
+              "attackerLoss": 1,
+              "defenderLoss": 1,
+              "attackerRemaining": 52,
+              "defenderRemaining": 33
+            },
+            {
+              "round": 9,
+              "at": 48000,
+              "phase": "Rout",
+              "attackerLoss": 1,
+              "defenderLoss": 0,
+              "attackerRemaining": 51,
+              "defenderRemaining": 33
+            }
+          ],
+          "differential": 336,
+          "hash": "b9ca2b0c9e24e65c01229e968cad45acaabac6890d09c216782a5b558dc93472",
+          "aftermath": {
+            "attacker": {
+              "campaignPoints": 15,
+              "influence": 4,
+              "achievement": "frontier-defender",
+              "mastery": 8
+            },
+            "defender": {
+              "campaignPoints": 2,
+              "influence": 0,
+              "shieldUntil": 1795471769802,
+              "mastery": 4
+            }
+          },
+          "treasury": {
+            "kind": "battle",
+            "effect": "escrow-recovered",
+            "payment": "e7fc593d1af1ff179443c38e34a93a83",
+            "txid": "ebc696dd1c4b3c3b1f42c173ed986f72c1d532c3241aa23e5496e6c17277731e",
+            "outpoint": "ebc696dd1c4b3c3b1f42c173ed986f72c1d532c3241aa23e5496e6c17277731e:0",
+            "allocation": {
+              "battle": 3000,
+              "settlement": 600
+            },
+            "attacker": "p1",
+            "defender": "p2",
+            "winner": "attacker",
+            "recipient": "p1",
+            "escrowSatoshis": 3000,
+            "capturedSatoshis": 0,
+            "now": 1795457369802,
+            "contest": null,
+            "allocationPolicy": "separate-stake-v2",
+            "stakePayouts": {
+              "attacker": 3000,
+              "defender": 0
+            },
+            "balances": {
+              "attacker": {
+                "before": 5250,
+                "after": 8250
+              },
+              "defender": {
+                "before": 0,
+                "after": 0,
+                "committedBefore": 0,
+                "committedAfter": 0
+              }
+            }
+          }
+        }
+      },
+      "lastError": null
+    },
+    {
+      "type": "territory-claim",
+      "id": "6e901c834f7019daf98a55a4079ae2f4",
+      "satoshis": 2600,
+      "outputs": [
+        {
+          "role": "battle",
+          "script": "a9147c32eacefdf4a3d62e9b7f60f7a5e02dd4103cab87",
+          "address": "bchtest:pp7r96kwlh62843wndlkpaa9uqkagypu4v0ad8ysu9",
+          "satoshis": 2000
+        },
+        {
+          "role": "settlement",
+          "script": "a9141276cb6efa0428a7ac593d7647578a77bee0488887",
+          "address": "bchtest:pqf8djmwlgzz3favty7hv36h3fmmaczg3qsztpgkg3",
+          "satoshis": 600
+        },
+        {
+          "role": "event",
+          "script": "6a045642524e2201107e7b27c495d77245352327a3bc1d38dceab16757135c74864043897e0b8395a1",
+          "satoshis": 0
+        }
+      ],
+      "policy": "separate-stake-v2",
+      "state": "credited",
+      "payload": {
+        "type": "territory-claim",
+        "territory": "east-meadow"
+      },
+      "txid": "e4f3d6184a9596c603a54db2d9f4cde43b5376a4e4b0d2ab9b133d096b30dbd4",
+      "walletFeeSatoshis": 334,
+      "broadcastAt": "2026-11-18T19:19:00.660Z",
+      "receipt": {
+        "txid": "e4f3d6184a9596c603a54db2d9f4cde43b5376a4e4b0d2ab9b133d096b30dbd4",
+        "network": "chipnet",
+        "confirmations": 16,
+        "height": 337139,
+        "blockHash": "00000000be6e61e4197fcc1fa34f146df31196f9d8a765df1c980ccbabdbb0bc",
+        "blockTime": 1795029651000,
+        "vout": 0,
+        "satoshis": 2600,
+        "address": "bchtest:pp7r96kwlh62843wndlkpaa9uqkagypu4v0ad8ysu9",
+        "script": "a9147c32eacefdf4a3d62e9b7f60f7a5e02dd4103cab87",
+        "redeemScript": "106e901c834f7019daf98a55a4079ae2f47521022b265e4a85a3e96fb5dc326d39362891337b696d95e1cc7c25766d8984500a8cac",
+        "allocations": [
+          {
+            "role": "battle",
+            "address": "bchtest:pp7r96kwlh62843wndlkpaa9uqkagypu4v0ad8ysu9",
+            "script": "a9147c32eacefdf4a3d62e9b7f60f7a5e02dd4103cab87",
+            "redeemScript": "106e901c834f7019daf98a55a4079ae2f47521022b265e4a85a3e96fb5dc326d39362891337b696d95e1cc7c25766d8984500a8cac",
+            "satoshis": 2000,
+            "txid": "e4f3d6184a9596c603a54db2d9f4cde43b5376a4e4b0d2ab9b133d096b30dbd4",
+            "vout": 0
+          },
+          {
+            "role": "settlement",
+            "address": "bchtest:pqf8djmwlgzz3favty7hv36h3fmmaczg3qsztpgkg3",
+            "script": "a9141276cb6efa0428a7ac593d7647578a77bee0488887",
+            "redeemScript": "106663d83e275883670d91f8033c8cd7987521022b265e4a85a3e96fb5dc326d39362891337b696d95e1cc7c25766d8984500a8cac",
+            "satoshis": 600,
+            "txid": "e4f3d6184a9596c603a54db2d9f4cde43b5376a4e4b0d2ab9b133d096b30dbd4",
+            "vout": 1
+          },
+          {
+            "role": "event",
+            "script": "6a045642524e2201107e7b27c495d77245352327a3bc1d38dceab16757135c74864043897e0b8395a1",
+            "satoshis": 0,
+            "txid": "e4f3d6184a9596c603a54db2d9f4cde43b5376a4e4b0d2ab9b133d096b30dbd4",
+            "vout": 2
+          }
+        ],
+        "event": {
+          "version": 1,
+          "kind": "territory-claim",
+          "subject": "6e901c834f7019daf98a55a4079ae2f4",
+          "data": {
+            "seasonId": 2,
+            "actionHash": "e22f006916eef89ff528684bad68b5133dfee72c64ab37e90ddab1e60c0f3fb0",
+            "allocation": {
+              "battle": 2000,
+              "settlement": 600
+            },
+            "allocationPolicy": "separate-stake-v2",
+            "territory": "east-meadow"
+          },
+          "digest": "7e7b27c495d77245352327a3bc1d38dceab16757135c74864043897e0b8395a1"
+        },
+        "eventVout": 2,
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/e4f3d6184a9596c603a54db2d9f4cde43b5376a4e4b0d2ab9b133d096b30dbd4",
+        "feeSatoshis": 334
+      },
+      "fulfillment": {
+        "status": "applied",
+        "result": {
+          "kind": "territory-entry",
+          "territoryId": "east-meadow",
+          "claimId": "tc15",
+          "entry": {
+            "id": "6e901c834f7019daf98a55a4079ae2f4",
+            "txid": "e4f3d6184a9596c603a54db2d9f4cde43b5376a4e4b0d2ab9b133d096b30dbd4",
+            "player": "p1",
+            "escrowSatoshis": 2000
+          },
+          "endsAt": 1795460969802,
+          "lockAt": 1795460849802
+        }
+      },
+      "lastError": null
+    }
+  ],
+  "events": [],
+  "originalIds": [
+    "602052b704a0e401a5493219af62f214",
+    "ca52d4dbb85b661f19b35ed959f976d5",
+    "0f2a9b5259c92494f8efd0b278b1ae67",
+    "921b470aa651bd97523b4b05354e383d",
+    "8c1366152d8df8712e7e562c25cf52c7"
+  ],
+  "newOutgoing": [
+    {
+      "id": "3febb5c78b5949250611b9884fc68140",
+      "action": "claim",
+      "state": "credited",
+      "txid": "056a9cb0cf0e519bf1ffb977e07b45e77592a630887a76095e7a8877007eaf1e",
+      "satoshis": 4389,
+      "feeSatoshis": 356,
+      "pool": "sponsor",
+      "receipt": {
+        "txid": "056a9cb0cf0e519bf1ffb977e07b45e77592a630887a76095e7a8877007eaf1e",
+        "network": "chipnet",
+        "confirmations": 7,
+        "height": 337148,
+        "blockHash": "000000002ccda1fb702dab9f4054956f105b59aebdc7be4126a74df59cda73db",
+        "blockTime": 1795030451000,
+        "vout": 0,
+        "satoshis": 4389,
+        "address": "bchtest:qp3w6c2x3syvjpfn3tf5muffvlnggpfzuy7s6zr6z6",
+        "script": "76a91462ed61468c08c905338ad34df12967e6840522e188ac",
+        "event": {
+          "version": 1,
+          "kind": "claim",
+          "subject": "p1",
+          "data": {
+            "satoshis": 4389,
+            "address": "bchtest:qp3w6c2x3syvjpfn3tf5muffvlnggpfzuy7s6zr6z6",
+            "seasonId": 2,
+            "policy": "season-rollover-v1",
+            "prizeBase": 10973
+          },
+          "digest": "b6d37d0b5c8b3056e92bb50a7efe50b33c9a561e5e369954da50f69d79a6684a"
+        },
+        "eventVout": 2,
+        "change": {
+          "address": "bchtest:pppmm3u65zz5c2szh0fp77fdfps9d8q2pgzphd9yvl",
+          "script": "a91443bdc79aa0854c2a02bbd21f792d4860569c0a0a87",
+          "redeemScript": "103febb5c78b5949250611b9884fc681407521022b265e4a85a3e96fb5dc326d39362891337b696d95e1cc7c25766d8984500a8cac",
+          "vout": 1,
+          "satoshis": 1655,
+          "txid": "056a9cb0cf0e519bf1ffb977e07b45e77592a630887a76095e7a8877007eaf1e"
+        },
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/056a9cb0cf0e519bf1ffb977e07b45e77592a630887a76095e7a8877007eaf1e",
+        "feeSatoshis": 356
+      },
+      "payload": {
+        "seasonId": 2,
+        "claimDeadline": 1796666781105,
+        "policy": "season-rollover-v1",
+        "prizeBase": 10973,
+        "claimable": 4389
+      }
+    },
+    {
+      "id": "7a81b0314add8657f4ff6ac53390b5d5",
+      "action": "territory-settlement",
+      "state": "credited",
+      "txid": "dfb4c2287bb9a5deb8cf81e64536616381a892ff46dd1ae9f068fa95f4b79dc9",
+      "satoshis": 2000,
+      "feeSatoshis": 600,
+      "pool": "settlement",
+      "receipt": {
+        "txid": "dfb4c2287bb9a5deb8cf81e64536616381a892ff46dd1ae9f068fa95f4b79dc9",
+        "network": "chipnet",
+        "confirmations": 9,
+        "height": 337146,
+        "blockHash": "0000000078ad4d93deb724891cd3d226a999c53aac4db227e534225dede0484f",
+        "blockTime": 1795030261000,
+        "vout": 0,
+        "satoshis": 2000,
+        "address": "bchtest:pr2qnsz33mhheurcazs93z3usy7sn85dpsyxtdcmea",
+        "script": "a914d409c0518eef7cf078e8a0588a3c813d099e8d0c87",
+        "redeemScript": "107a81b0314add8657f4ff6ac53390b5d57521022b265e4a85a3e96fb5dc326d39362891337b696d95e1cc7c25766d8984500a8cac",
+        "event": {
+          "version": 1,
+          "kind": "territory-settlement",
+          "subject": "tc15",
+          "data": {
+            "territory": "east-meadow",
+            "recordHash": "f33a9da37a0de8e2a01774d0865303b395f4d926543940fb3b055dee347f8492",
+            "entryTxids": [
+              "e4f3d6184a9596c603a54db2d9f4cde43b5376a4e4b0d2ab9b133d096b30dbd4"
+            ]
+          },
+          "digest": "442ec2df60e0c43000e2a70726ac86c661985007beae807fc9f8e1579506213e"
+        },
+        "eventVout": 1,
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/dfb4c2287bb9a5deb8cf81e64536616381a892ff46dd1ae9f068fa95f4b79dc9",
+        "feeSatoshis": 600
+      },
+      "payload": {
+        "territory": "east-meadow",
+        "record": "tc15"
+      }
+    },
+    {
+      "id": "06b151d83171cb22c2179f5626486b4b",
+      "action": "kingdom-withdraw",
+      "state": "credited",
+      "txid": "b8d054937b47c5361462f902f01de2415a7cefcc0a6a75fe4776ec714bdb264b",
+      "satoshis": 1200,
+      "feeSatoshis": 356,
+      "pool": "kingdom",
+      "receipt": {
+        "txid": "b8d054937b47c5361462f902f01de2415a7cefcc0a6a75fe4776ec714bdb264b",
+        "network": "chipnet",
+        "confirmations": 9,
+        "height": 337146,
+        "blockHash": "0000000078ad4d93deb724891cd3d226a999c53aac4db227e534225dede0484f",
+        "blockTime": 1795030261000,
+        "vout": 0,
+        "satoshis": 1200,
+        "address": "bchtest:qp3w6c2x3syvjpfn3tf5muffvlnggpfzuy7s6zr6z6",
+        "script": "76a91462ed61468c08c905338ad34df12967e6840522e188ac",
+        "event": {
+          "version": 1,
+          "kind": "kingdom-withdraw",
+          "subject": "p1",
+          "data": {
+            "satoshis": 1200,
+            "address": "bchtest:qp3w6c2x3syvjpfn3tf5muffvlnggpfzuy7s6zr6z6",
+            "seasonId": null
+          },
+          "digest": "d756e9b52372035a24037eca3db132099257386066d7a309269f456bcd526324"
+        },
+        "eventVout": 2,
+        "change": {
+          "address": "bchtest:pztqysduusc44gzlqmudw7df96zwzx3m0gwl66mf5m",
+          "script": "a914960241bce4315aa05f06f8d779a92e84e11a3b7a87",
+          "redeemScript": "1006b151d83171cb22c2179f5626486b4b7521022b265e4a85a3e96fb5dc326d39362891337b696d95e1cc7c25766d8984500a8cac",
+          "vout": 1,
+          "satoshis": 1444,
+          "txid": "b8d054937b47c5361462f902f01de2415a7cefcc0a6a75fe4776ec714bdb264b"
+        },
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/b8d054937b47c5361462f902f01de2415a7cefcc0a6a75fe4776ec714bdb264b",
+        "feeSatoshis": 356
+      },
+      "payload": {}
+    },
+    {
+      "id": "bcde3cae993c9d6fe34536d0152aa73c",
+      "action": "battle-settlement",
+      "state": "credited",
+      "txid": "8994d3c130f6990b4a7c59d8e6778713533699276070d94dfe2d088c7492f8f6",
+      "satoshis": 3000,
+      "feeSatoshis": 600,
+      "pool": "settlement",
+      "receipt": {
+        "txid": "8994d3c130f6990b4a7c59d8e6778713533699276070d94dfe2d088c7492f8f6",
+        "network": "chipnet",
+        "confirmations": 14,
+        "height": 337141,
+        "blockHash": "00000000ebdf71cde0800154278d4bf9649c620e80874b49dfc0c147041340ad",
+        "blockTime": 1795029804000,
+        "vout": 0,
+        "satoshis": 3000,
+        "address": "bchtest:pr7rrgusz2248szgn60jeedp5ahjm4z6l5xqwpl56r",
+        "script": "a914fc31a390129553c0489e9f2ce5a1a76f2dd45afd87",
+        "redeemScript": "10bcde3cae993c9d6fe34536d0152aa73c7521022b265e4a85a3e96fb5dc326d39362891337b696d95e1cc7c25766d8984500a8cac",
+        "event": {
+          "version": 1,
+          "kind": "battle-settlement",
+          "subject": "b10",
+          "data": {
+            "recordHash": "c528bdcded329b06782394eb1a7146c28f37a1a597e005ab354d9fd059a686fe",
+            "initiationTxid": "ebc696dd1c4b3c3b1f42c173ed986f72c1d532c3241aa23e5496e6c17277731e"
+          },
+          "digest": "868f8805a8c104dece5d1b1c2fa36bc95f824ebf5e68165cba656021c54aa0a4"
+        },
+        "eventVout": 1,
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/8994d3c130f6990b4a7c59d8e6778713533699276070d94dfe2d088c7492f8f6",
+        "feeSatoshis": 600
+      },
+      "payload": {},
+      "anchorFor": "b10"
+    }
+  ],
+  "kingdomWithdrawal": {
+    "quote": {
+      "address": "bchtest:qp3w6c2x3syvjpfn3tf5muffvlnggpfzuy7s6zr6z6",
+      "satoshis": 1200,
+      "feeSatoshis": 356,
+      "kind": "kingdom-withdraw"
+    },
+    "payment": {
+      "id": "06b151d83171cb22c2179f5626486b4b",
+      "playerId": "p1",
+      "action": "kingdom-withdraw",
+      "payload": {},
+      "network": "chipnet",
+      "state": "submitted",
+      "direction": "outgoing",
+      "address": "bchtest:qp3w6c2x3syvjpfn3tf5muffvlnggpfzuy7s6zr6z6",
+      "satoshis": 1200,
+      "feeSatoshis": 356,
+      "amountBch": "0.00001200",
+      "createdAt": 1795457369802,
+      "expiresAt": null,
+      "txid": "b8d054937b47c5361462f902f01de2415a7cefcc0a6a75fe4776ec714bdb264b",
+      "receipt": null,
+      "minConfirmations": 2,
+      "event": {
+        "version": 1,
+        "kind": "kingdom-withdraw",
+        "subject": "p1",
+        "data": {
+          "satoshis": 1200,
+          "address": "bchtest:qp3w6c2x3syvjpfn3tf5muffvlnggpfzuy7s6zr6z6",
+          "seasonId": null
+        },
+        "digest": "d756e9b52372035a24037eca3db132099257386066d7a309269f456bcd526324"
+      },
+      "explorerUrl": "https://chipnet.imaginary.cash/tx/b8d054937b47c5361462f902f01de2415a7cefcc0a6a75fe4776ec714bdb264b",
+      "title": "Kingdom treasury withdrawal",
+      "description": "The operator signs the confirmed treasury outputs for this Chipnet transfer.",
+      "pool": "kingdom"
+    }
+  },
+  "development": {
+    "commands": [
+      {
+        "player": "p1",
+        "result": {
+          "id": "j19",
+          "kind": "building",
+          "key": "hall",
+          "level": 3,
+          "startedAt": 1795457369802,
+          "commander": "warden",
+          "completesAt": 1795457493998,
+          "cost": {
+            "wood": 234,
+            "stone": 195,
+            "iron": 110,
+            "food": 156,
+            "crystal": 19
+          }
+        }
+      },
+      {
+        "player": "p2",
+        "result": {
+          "id": "j20",
+          "kind": "building",
+          "key": "hall",
+          "level": 3,
+          "startedAt": 1795457369802,
+          "commander": "warden",
+          "completesAt": 1795457493998,
+          "cost": {
+            "wood": 234,
+            "stone": 195,
+            "iron": 110,
+            "food": 156,
+            "crystal": 19
+          }
+        }
+      }
+    ],
+    "final": {
+      "gameClock": 1795461029802,
+      "p1Score": 28,
+      "p2Score": 5
+    }
+  },
+  "territoryAfterClosure": {
+    "id": "east-meadow",
+    "name": "East Meadow",
+    "x": 0.47,
+    "y": 0.43,
+    "category": "unclaimed",
+    "type": "farm",
+    "terrain": "plains",
+    "resource": "food",
+    "level": 1,
+    "owner": "p1",
+    "controller": "p1",
+    "protected": false,
+    "version": 1,
+    "production": {
+      "wood": 0,
+      "stone": 0,
+      "iron": 0,
+      "food": 32,
+      "crystal": 0
+    },
+    "defenses": {
+      "level": 1,
+      "count": 0,
+      "garrison": {
+        "infantry": 0,
+        "shield": 0,
+        "archer": 0,
+        "cavalry": 0,
+        "siege": 0,
+        "mage": 0
+      }
+    },
+    "status": "controlled",
+    "claim": {
+      "id": "tc15",
+      "status": "settled",
+      "startedAt": 1795457369802,
+      "lockAt": 1795460849802,
+      "endsAt": 1795460969802,
+      "commitment": "983037846643d0edb526e9d8105970ef89eeec2412a334d2df9ac868b6a8eca9",
+      "entries": [
+        {
+          "id": "6e901c834f7019daf98a55a4079ae2f4",
+          "txid": "e4f3d6184a9596c603a54db2d9f4cde43b5376a4e4b0d2ab9b133d096b30dbd4",
+          "player": "p1",
+          "escrowSatoshis": 2000,
+          "alliance": "emerald-watch",
+          "at": 1795457369802,
+          "status": "won"
+        }
+      ],
+      "winner": "p1",
+      "fieldRules": 2,
+      "seed": "a35cd51a9b5a15074e9bbcf771f00efc1cb90170a904428f750cce00fa29d12b",
+      "closedAt": 1795460969802
+    },
+    "cooldownUntil": 1795475369802,
+    "lastChanged": 1795460969802,
+    "history": [
+      {
+        "kind": "entered",
+        "claimId": "tc15",
+        "playerId": "p1",
+        "txid": "e4f3d6184a9596c603a54db2d9f4cde43b5376a4e4b0d2ab9b133d096b30dbd4",
+        "at": 1795457369802
+      },
+      {
+        "kind": "claimed",
+        "playerId": "p1",
+        "previousOwner": null,
+        "version": 1,
+        "at": 1795460969802
+      }
+    ],
+    "blockchain": [
+      {
+        "kind": "entry",
+        "id": "6e901c834f7019daf98a55a4079ae2f4",
+        "txid": "e4f3d6184a9596c603a54db2d9f4cde43b5376a4e4b0d2ab9b133d096b30dbd4",
+        "at": 1795457369802
+      },
+      {
+        "kind": "settlement",
+        "id": "tc15",
+        "txid": null,
+        "at": 1795460969802
+      }
+    ],
+    "region": "core",
+    "controlAlliance": "emerald-watch",
+    "lease": null,
+    "claimEligibility": {
+      "ok": false,
+      "reason": "This site is not available for a permanent claim.",
+      "code": "territory_not_open"
+    },
+    "attackEligibility": {
+      "ok": false,
+      "reason": "Choose an opposing controllable site.",
+      "code": "territory_attack_target"
+    },
+    "canReinforce": false,
+    "missedUpkeep": 0,
+    "nextUpkeep": 1795504169802,
+    "stats": {
+      "terrainDefensePercent": 0,
+      "localDefensePercent": 0.5719999999999947,
+      "supply": {
+        "range": 0.44,
+        "distance": 0.2545584412271571
+      },
+      "productionType": "unclaimed",
+      "productionPerHour": {
+        "wood": 0,
+        "stone": 0,
+        "iron": 0,
+        "food": 32,
+        "crystal": 0
+      },
+      "politicalProductionMultiplier": 1,
+      "fortification": {
+        "current": 1,
+        "max": 5,
+        "next": 2,
+        "nextCost": {
+          "wood": 40,
+          "stone": 62,
+          "iron": 16
+        },
+        "nextDefensePercent": 1.1439999999999895
+      }
+    },
+    "assets": []
+  },
+  "season": {
+    "before": {
+      "number": 2,
+      "name": "Frontier Campaign 2",
+      "startedAt": 1795457181105,
+      "endsAt": 1796061981105
+    },
+    "after": {
+      "number": 3,
+      "name": "Frontier Campaign 3",
+      "startedAt": 1796061981105,
+      "endsAt": 1796666781105
+    },
+    "archive": {
+      "number": 2,
+      "name": "Frontier Campaign 2",
+      "startedAt": 1795457181105,
+      "endsAt": 1796061981105,
+      "rankings": [
+        {
+          "id": "p1",
+          "name": "Riverhold",
+          "owner": "Warden",
+          "faction": "emerald",
+          "alliance": "emerald-watch",
+          "score": 28,
+          "power": 862,
+          "territories": 0,
+          "npc": false
+        },
+        {
+          "id": "p2",
+          "name": "Ironhaven",
+          "owner": "Blackthorn",
+          "faction": "crimson",
+          "alliance": "crimson-legion",
+          "score": 5,
+          "power": 625,
+          "territories": 0,
+          "npc": false
+        },
+        {
+          "id": "p3",
+          "name": "Northcrest",
+          "owner": "Aster",
+          "faction": "emerald",
+          "alliance": "emerald-watch",
+          "score": 0,
+          "power": 1370,
+          "territories": 0,
+          "npc": false
+        },
+        {
+          "id": "p4",
+          "name": "Stonevale",
+          "owner": "Lady Sable",
+          "faction": "violet",
+          "alliance": null,
+          "score": 0,
+          "power": 625,
+          "territories": 0,
+          "npc": false
+        }
+      ],
+      "alliances": [
+        {
+          "id": "emerald-watch",
+          "name": "Emerald Watch",
+          "score": 28,
+          "territories": 0
+        },
+        {
+          "id": "crimson-legion",
+          "name": "Crimson Legion",
+          "score": 5,
+          "territories": 0
+        }
+      ],
+      "finalizedAt": 1796061981105
+    },
+    "vault": {
+      "depositedSatoshis": 0,
+      "sponsoredSatoshis": 12910,
+      "claimableSatoshis": 4389,
+      "claimDeadline": 1796666781105,
+      "sponsorshipPolicy": {
+        "developmentPercent": 20,
+        "prizePercent": 80,
+        "minimumSatoshis": 2730,
+        "maximumSatoshis": 250000,
+        "satoshiStep": 5
+      },
+      "atRiskSatoshis": 0,
+      "walletSatoshis": null,
+      "kingdomSatoshis": 11523,
+      "lockedSatoshis": 0,
+      "availableKingdomSatoshis": 11523,
+      "riskRelease": null,
+      "quarantined": false,
+      "payoutsEnabled": true
+    }
+  },
+  "wrongClaimDestination": {
+    "status": 403,
+    "error": "vault/quote 403: Use the verified Chipnet wallet for this kingdom."
+  },
+  "claim": {
+    "quote": {
+      "address": "bchtest:qp3w6c2x3syvjpfn3tf5muffvlnggpfzuy7s6zr6z6",
+      "satoshis": 4389,
+      "feeSatoshis": 356,
+      "kind": "claim"
+    },
+    "payment": {
+      "id": "3febb5c78b5949250611b9884fc68140",
+      "playerId": "p1",
+      "action": "claim",
+      "payload": {
+        "seasonId": 2,
+        "claimDeadline": 1796666781105,
+        "policy": "season-rollover-v1",
+        "prizeBase": 10973,
+        "claimable": 4389
+      },
+      "network": "chipnet",
+      "state": "submitted",
+      "direction": "outgoing",
+      "address": "bchtest:qp3w6c2x3syvjpfn3tf5muffvlnggpfzuy7s6zr6z6",
+      "satoshis": 4389,
+      "feeSatoshis": 356,
+      "amountBch": "0.00004389",
+      "createdAt": 1796061981106,
+      "expiresAt": null,
+      "txid": "056a9cb0cf0e519bf1ffb977e07b45e77592a630887a76095e7a8877007eaf1e",
+      "receipt": null,
+      "minConfirmations": 2,
+      "event": {
+        "version": 1,
+        "kind": "claim",
+        "subject": "p1",
+        "data": {
+          "satoshis": 4389,
+          "address": "bchtest:qp3w6c2x3syvjpfn3tf5muffvlnggpfzuy7s6zr6z6",
+          "seasonId": 2,
+          "policy": "season-rollover-v1",
+          "prizeBase": 10973
+        },
+        "digest": "b6d37d0b5c8b3056e92bb50a7efe50b33c9a561e5e369954da50f69d79a6684a"
+      },
+      "explorerUrl": "https://chipnet.imaginary.cash/tx/056a9cb0cf0e519bf1ffb977e07b45e77592a630887a76095e7a8877007eaf1e",
+      "title": "Season reward",
+      "description": "The operator signs the confirmed treasury outputs for this Chipnet transfer.",
+      "pool": "sponsor"
+    }
+  },
+  "duplicateClaim": {
+    "status": 409,
+    "error": "vault/payout 409: You already have a pending payout.",
+    "countBefore": 2,
+    "countAfter": 2
+  },
+  "confirmedDuplicateClaim": {
+    "status": 400,
+    "error": "vault/payout 400: There is no eligible payout of 600 satoshis or more.",
+    "countBefore": 2,
+    "countAfter": 2
+  },
+  "finalAccounting": {
+    "status": "PASS",
+    "poolBefore": 12910,
+    "payout": 4389,
+    "fee": 356,
+    "poolAfter": 8165,
+    "claimableAfter": 0
+  }
+}

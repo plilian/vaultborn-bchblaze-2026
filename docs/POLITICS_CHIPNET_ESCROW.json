@@ -1,0 +1,77 @@
+{
+  "network": "chipnet",
+  "records": [
+    {
+      "record": {
+        "id": "pe-863df93b13ee45fb1d1d6db8f76165e8",
+        "kind": "treaty-compensation",
+        "treaty": "dt3",
+        "termsHash": "c2442ccfebf71fa214ca46739ef456215dba91039806426e5e7e6c1924dbcc11",
+        "version": 1,
+        "payer": "p1",
+        "payee": "p2",
+        "principal": 3100,
+        "contract": {
+          "id": "863df93b13ee45fb1d1d6db8f76165e8",
+          "operatorKey": "022b265e4a85a3e96fb5dc326d39362891337b696d95e1cc7c25766d8984500a8c",
+          "payerKey": "03481f3db559906de900c29748c056385b5f440fe8d11940d755a21f6ef5670f68",
+          "payeeKey": "036867ad3647fad78512cefd1a200c8236e0f364db44f50bcfc6c1021bff3c12f8",
+          "principal": 3100,
+          "refundAt": 1794944765,
+          "script": "a914a4bf51034e4f1bfa5eacb26e93857c70d485b49387",
+          "address": "bchtest:pzjt75grfe83h7j74jexayu903cdfpd5jv3nmad0mz",
+          "redeemScript": "10863df93b13ee45fb1d1d6db8f76165e8756321022b265e4a85a3e96fb5dc326d39362891337b696d95e1cc7c25766d8984500a8cad00cd1976a9141c494911e4ceca86ee7c34872b58e342b3eaa9ed88ac88676321022b265e4a85a3e96fb5dc326d39362891337b696d95e1cc7c25766d8984500a8cad6704fdaefc6ab1752103481f3db559906de900c29748c056385b5f440fe8d11940d755a21f6ef5670f68ad6800cd1976a91462ed61468c08c905338ad34df12967e6840522e188ac886800cc021c0c9d51cc009dc4529c",
+          "payer": "bchtest:qp3w6c2x3syvjpfn3tf5muffvlnggpfzuy7s6zr6z6",
+          "payee": "bchtest:qqwyjjg3un8v4phw0s6gw26cudpt864fa5z5h3arht",
+          "satoshis": 3750
+        },
+        "funding": {
+          "txid": "416853525d78eacf96f255dbd3109066bebe3fc376f185ca3dfe4b808764da6d",
+          "confirmations": 83,
+          "height": 335398,
+          "blockHash": "00000000dbb916d67595f5a71aedc41ba2bf4f81f93c0403c36c8dcf691e01a4",
+          "event": {
+            "version": 1,
+            "kind": "political-escrow",
+            "subject": "863df93b13ee45fb1d1d6db8f76165e8",
+            "data": {
+              "treaty": "dt3",
+              "termsHash": "c2442ccfebf71fa214ca46739ef456215dba91039806426e5e7e6c1924dbcc11",
+              "principal": 3100,
+              "refundAt": 1794944765,
+              "script": "a914a4bf51034e4f1bfa5eacb26e93857c70d485b49387"
+            },
+            "digest": "5fae14532bfa2211eb3efa2a3bb1a8a9e7031e8527d4331f2eb72d6867861660"
+          },
+          "eventVout": 1,
+          "explorerUrl": "https://chipnet.imaginary.cash/tx/416853525d78eacf96f255dbd3109066bebe3fc376f185ca3dfe4b808764da6d",
+          "feeSatoshis": 302
+        },
+        "settlement": {
+          "txid": "cd391d982762952ee64e780506cfc0b15e5f96f4bbe1504c6f9a9f7b7ec65140",
+          "confirmations": 2,
+          "height": 335480,
+          "blockHash": "000000002f03cafc3ea0c1215e3516fb23ddcee501933e8da91efb3d8466c71b",
+          "event": {
+            "version": 1,
+            "kind": "political-release",
+            "subject": "pe-863df93b13ee45fb1d1d6db8f76165e8",
+            "data": {
+              "treaty": "dt3",
+              "termsHash": "c2442ccfebf71fa214ca46739ef456215dba91039806426e5e7e6c1924dbcc11",
+              "entryTxid": "416853525d78eacf96f255dbd3109066bebe3fc376f185ca3dfe4b808764da6d",
+              "principal": 3100
+            },
+            "digest": "e77c5f9d3a3179ea39727c9eaf43cd560844139227f949003f7b4267c17c7257"
+          },
+          "eventVout": 1,
+          "explorerUrl": "https://chipnet.imaginary.cash/tx/cd391d982762952ee64e780506cfc0b15e5f96f4bbe1504c6f9a9f7b7ec65140",
+          "feeSatoshis": 650
+        },
+        "at": 1794928138759
+      },
+      "recordHash": "9f82e00783473963cdbd40eab24f5650da94aa9e5b4b865f1e62f437122b97d6",
+      "anchored": null
+    }
+  ]
+}

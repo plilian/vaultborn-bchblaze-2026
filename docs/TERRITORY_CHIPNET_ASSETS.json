@@ -1,0 +1,400 @@
+{
+  "network": "chipnet",
+  "authority": {
+    "category": "5029234968e031206567fb70673cd5b1c91cdc25a95bae2860d01ba1d2a1c2df",
+    "genesisTxid": "c4a6b85324df77c1183d697cfd1cbee7096a3a608316b37072c83022c63ed5bc",
+    "publicKey": "02e8c1438ee0dbe8fef9b539220fbb0c3e8c3ec19154be6e4b039db7ce4b1b4055",
+    "headTxid": "83597038563f02a09e309b3d93d1bacc0cdb952329f84f7dce5d00ec87d6c914",
+    "network": "chipnet",
+    "signingEnabled": true,
+    "explorerUrl": "https://chipnet.imaginary.cash/tx/c4a6b85324df77c1183d697cfd1cbee7096a3a608316b37072c83022c63ed5bc",
+    "batonVout": 0,
+    "status": "configured"
+  },
+  "assets": [
+    {
+      "id": "lease:rare-ruins-334564-settlement",
+      "eventId": "rare-ruins-334564-settlement",
+      "territoryId": "ruins",
+      "kind": "lease",
+      "version": 1,
+      "controllerId": "p1",
+      "controlHash": "4c0e870345eae4157326c0b336d61cf35aeaa9a9f7c983f75cc28c74c8677930",
+      "holderAddress": "bchtest:zp3w6c2x3syvjpfn3tf5muffvlnggpfzuye6fuduaf",
+      "expiresAt": 1795132405698,
+      "relatedTxid": "c56554bce33eae950789d72a5f0d553bca4548f09aff2bd9890ccd30b6f609fd",
+      "anchorOnly": false,
+      "state": "confirmed",
+      "receipt": {
+        "txid": "68d26d810b809c4e1f8d6128585851b484743f51040740eb3bb61f241e0f4a4a",
+        "confirmations": 2,
+        "height": 334672,
+        "blockHash": "0000000080a953555c08f35ab2c92f031174dcc835a1f81bd102482a6933aeb2",
+        "network": "chipnet",
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/68d26d810b809c4e1f8d6128585851b484743f51040740eb3bb61f241e0f4a4a",
+        "category": "5029234968e031206567fb70673cd5b1c91cdc25a95bae2860d01ba1d2a1c2df",
+        "commitment": "56425441010301000000903ff96d2f676922f3188d2434ea6bf199c189ac43afbe6cd0f45d769aac",
+        "eventDigest": "903ff96d2f676922f3188d2434ea6bf199c189ac43afbe6cd0f45d769aac3d53",
+        "anchorVout": 2,
+        "assetVout": 1,
+        "feeSatoshis": 500,
+        "authorityInput": {
+          "txid": "c4a6b85324df77c1183d697cfd1cbee7096a3a608316b37072c83022c63ed5bc",
+          "vout": 0
+        },
+        "authorityVout": 0
+      },
+      "txid": "68d26d810b809c4e1f8d6128585851b484743f51040740eb3bb61f241e0f4a4a",
+      "category": "5029234968e031206567fb70673cd5b1c91cdc25a95bae2860d01ba1d2a1c2df",
+      "commitment": "56425441010301000000903ff96d2f676922f3188d2434ea6bf199c189ac43afbe6cd0f45d769aac",
+      "statusDetail": null,
+      "authority": "game-controlled; collectible transfer does not change territory control",
+      "proof": {
+        "receipt": {
+          "txid": "68d26d810b809c4e1f8d6128585851b484743f51040740eb3bb61f241e0f4a4a",
+          "confirmations": 28,
+          "height": 334672,
+          "blockHash": "0000000080a953555c08f35ab2c92f031174dcc835a1f81bd102482a6933aeb2",
+          "network": "chipnet",
+          "explorerUrl": "https://chipnet.imaginary.cash/tx/68d26d810b809c4e1f8d6128585851b484743f51040740eb3bb61f241e0f4a4a",
+          "category": "5029234968e031206567fb70673cd5b1c91cdc25a95bae2860d01ba1d2a1c2df",
+          "commitment": "56425441010301000000903ff96d2f676922f3188d2434ea6bf199c189ac43afbe6cd0f45d769aac",
+          "eventDigest": "903ff96d2f676922f3188d2434ea6bf199c189ac43afbe6cd0f45d769aac3d53",
+          "anchorVout": 2,
+          "assetVout": 1,
+          "feeSatoshis": 500,
+          "authorityInput": {
+            "txid": "c4a6b85324df77c1183d697cfd1cbee7096a3a608316b37072c83022c63ed5bc",
+            "vout": 0
+          },
+          "authorityVout": 0
+        },
+        "status": "unspent",
+        "current": {
+          "txid": "68d26d810b809c4e1f8d6128585851b484743f51040740eb3bb61f241e0f4a4a",
+          "vout": 1,
+          "address": "bchtest:zp3w6c2x3syvjpfn3tf5muffvlnggpfzuye6fuduaf",
+          "script": "76a91462ed61468c08c905338ad34df12967e6840522e188ac",
+          "satoshis": 1500,
+          "height": 334672,
+          "confirmations": 28,
+          "explorerUrl": "https://chipnet.imaginary.cash/tx/68d26d810b809c4e1f8d6128585851b484743f51040740eb3bb61f241e0f4a4a"
+        },
+        "history": [
+          {
+            "txid": "68d26d810b809c4e1f8d6128585851b484743f51040740eb3bb61f241e0f4a4a",
+            "vout": 1,
+            "address": "bchtest:zp3w6c2x3syvjpfn3tf5muffvlnggpfzuye6fuduaf",
+            "script": "76a91462ed61468c08c905338ad34df12967e6840522e188ac",
+            "satoshis": 1500,
+            "height": 334672,
+            "confirmations": 28,
+            "explorerUrl": "https://chipnet.imaginary.cash/tx/68d26d810b809c4e1f8d6128585851b484743f51040740eb3bb61f241e0f4a4a",
+            "type": "issued"
+          }
+        ]
+      }
+    },
+    {
+      "id": "deed:east-meadow",
+      "eventId": "tc4",
+      "territoryId": "east-meadow",
+      "kind": "deed",
+      "version": 1,
+      "controllerId": "p1",
+      "controlHash": "098216570e1d8b48b2f38f05d58993ea1b8e02afe8c226dca3b2accc349a72e6",
+      "holderAddress": "bchtest:zp3w6c2x3syvjpfn3tf5muffvlnggpfzuye6fuduaf",
+      "expiresAt": null,
+      "relatedTxid": "1813d1143e9ce2ec166c00c1bc1d6d0f53cbfa55ba171e9574b105bb5a7efdbc",
+      "anchorOnly": false,
+      "state": "confirmed",
+      "receipt": {
+        "txid": "7cd314a52217b9667c3f313a200fea38456dcc41bdc5b72af9a02cae9cc8ec59",
+        "confirmations": 2,
+        "height": 334674,
+        "blockHash": "000000001d8e2e321ab268ee13229f3d923a8dc8917b0e24838cfc0e12228198",
+        "network": "chipnet",
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/7cd314a52217b9667c3f313a200fea38456dcc41bdc5b72af9a02cae9cc8ec59",
+        "category": "5029234968e031206567fb70673cd5b1c91cdc25a95bae2860d01ba1d2a1c2df",
+        "commitment": "5642544101010100000068f6792217eb11dbbc9d048319021704f3766b41650d7c8863ae8f44fa9b",
+        "eventDigest": "68f6792217eb11dbbc9d048319021704f3766b41650d7c8863ae8f44fa9b7e0a",
+        "anchorVout": 2,
+        "assetVout": 1,
+        "feeSatoshis": 500,
+        "authorityInput": {
+          "txid": "68d26d810b809c4e1f8d6128585851b484743f51040740eb3bb61f241e0f4a4a",
+          "vout": 0
+        },
+        "authorityVout": 0
+      },
+      "txid": "7cd314a52217b9667c3f313a200fea38456dcc41bdc5b72af9a02cae9cc8ec59",
+      "category": "5029234968e031206567fb70673cd5b1c91cdc25a95bae2860d01ba1d2a1c2df",
+      "commitment": "5642544101010100000068f6792217eb11dbbc9d048319021704f3766b41650d7c8863ae8f44fa9b",
+      "statusDetail": null,
+      "authority": "game-controlled; collectible transfer does not change territory control",
+      "proof": {
+        "receipt": {
+          "txid": "7cd314a52217b9667c3f313a200fea38456dcc41bdc5b72af9a02cae9cc8ec59",
+          "confirmations": 28,
+          "height": 334674,
+          "blockHash": "000000001d8e2e321ab268ee13229f3d923a8dc8917b0e24838cfc0e12228198",
+          "network": "chipnet",
+          "explorerUrl": "https://chipnet.imaginary.cash/tx/7cd314a52217b9667c3f313a200fea38456dcc41bdc5b72af9a02cae9cc8ec59",
+          "category": "5029234968e031206567fb70673cd5b1c91cdc25a95bae2860d01ba1d2a1c2df",
+          "commitment": "5642544101010100000068f6792217eb11dbbc9d048319021704f3766b41650d7c8863ae8f44fa9b",
+          "eventDigest": "68f6792217eb11dbbc9d048319021704f3766b41650d7c8863ae8f44fa9b7e0a",
+          "anchorVout": 2,
+          "assetVout": 1,
+          "feeSatoshis": 500,
+          "authorityInput": {
+            "txid": "68d26d810b809c4e1f8d6128585851b484743f51040740eb3bb61f241e0f4a4a",
+            "vout": 0
+          },
+          "authorityVout": 0
+        },
+        "status": "unspent",
+        "current": {
+          "txid": "a7c61efeab5e1df8a351dbf4215bc034dc34987a3ff484be684aa84aad7a9a0b",
+          "vout": 0,
+          "address": "bchtest:zqwyjjg3un8v4phw0s6gw26cudpt864fa597y0n9gc",
+          "script": "76a9141c494911e4ceca86ee7c34872b58e342b3eaa9ed88ac",
+          "satoshis": 1100,
+          "height": 334700,
+          "confirmations": 2,
+          "explorerUrl": "https://chipnet.imaginary.cash/tx/a7c61efeab5e1df8a351dbf4215bc034dc34987a3ff484be684aa84aad7a9a0b"
+        },
+        "history": [
+          {
+            "txid": "7cd314a52217b9667c3f313a200fea38456dcc41bdc5b72af9a02cae9cc8ec59",
+            "vout": 1,
+            "address": "bchtest:zp3w6c2x3syvjpfn3tf5muffvlnggpfzuye6fuduaf",
+            "script": "76a91462ed61468c08c905338ad34df12967e6840522e188ac",
+            "satoshis": 1500,
+            "height": 334674,
+            "confirmations": 28,
+            "explorerUrl": "https://chipnet.imaginary.cash/tx/7cd314a52217b9667c3f313a200fea38456dcc41bdc5b72af9a02cae9cc8ec59",
+            "type": "issued"
+          },
+          {
+            "txid": "a7c61efeab5e1df8a351dbf4215bc034dc34987a3ff484be684aa84aad7a9a0b",
+            "vout": 0,
+            "address": "bchtest:zqwyjjg3un8v4phw0s6gw26cudpt864fa597y0n9gc",
+            "script": "76a9141c494911e4ceca86ee7c34872b58e342b3eaa9ed88ac",
+            "satoshis": 1100,
+            "height": 334700,
+            "confirmations": 2,
+            "explorerUrl": "https://chipnet.imaginary.cash/tx/a7c61efeab5e1df8a351dbf4215bc034dc34987a3ff484be684aa84aad7a9a0b",
+            "type": "transferred"
+          }
+        ]
+      }
+    },
+    {
+      "id": "conquest:ts18",
+      "eventId": "ts18",
+      "territoryId": "east-meadow",
+      "kind": "conquest",
+      "version": 1,
+      "controllerId": "p2",
+      "controlHash": "cb57c8144a2c446523bb21046206e13141c44bf4d61601d35cfb0c3a9168a6c2",
+      "holderAddress": "bchtest:zqwyjjg3un8v4phw0s6gw26cudpt864fa597y0n9gc",
+      "expiresAt": null,
+      "relatedTxid": "cabc45926dacb16aff42d2da85109cf9be6a4a2d64da5d6f93be583dc7feff1f",
+      "anchorOnly": false,
+      "state": "confirmed",
+      "receipt": {
+        "txid": "0a799b707693af5dcc3ae4a840d16c292df7f3dfa8c083609d5c0f68d84da8b2",
+        "confirmations": 2,
+        "height": 334683,
+        "blockHash": "0000000026879e013efc0d7242de5ace598ecb9531e67f49f1073f4f9f92854c",
+        "network": "chipnet",
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/0a799b707693af5dcc3ae4a840d16c292df7f3dfa8c083609d5c0f68d84da8b2",
+        "category": "5029234968e031206567fb70673cd5b1c91cdc25a95bae2860d01ba1d2a1c2df",
+        "commitment": "564254410102010000000ab07ea30ee3dee0991b9cefc880df123d6701d6313a35dadb7ac2f68c48",
+        "eventDigest": "0ab07ea30ee3dee0991b9cefc880df123d6701d6313a35dadb7ac2f68c48689b",
+        "anchorVout": 2,
+        "assetVout": 1,
+        "feeSatoshis": 500,
+        "authorityInput": {
+          "txid": "7cd314a52217b9667c3f313a200fea38456dcc41bdc5b72af9a02cae9cc8ec59",
+          "vout": 0
+        },
+        "authorityVout": 0
+      },
+      "txid": "0a799b707693af5dcc3ae4a840d16c292df7f3dfa8c083609d5c0f68d84da8b2",
+      "category": "5029234968e031206567fb70673cd5b1c91cdc25a95bae2860d01ba1d2a1c2df",
+      "commitment": "564254410102010000000ab07ea30ee3dee0991b9cefc880df123d6701d6313a35dadb7ac2f68c48",
+      "statusDetail": null,
+      "authority": "game-controlled; collectible transfer does not change territory control",
+      "proof": {
+        "receipt": {
+          "txid": "0a799b707693af5dcc3ae4a840d16c292df7f3dfa8c083609d5c0f68d84da8b2",
+          "confirmations": 17,
+          "height": 334683,
+          "blockHash": "0000000026879e013efc0d7242de5ace598ecb9531e67f49f1073f4f9f92854c",
+          "network": "chipnet",
+          "explorerUrl": "https://chipnet.imaginary.cash/tx/0a799b707693af5dcc3ae4a840d16c292df7f3dfa8c083609d5c0f68d84da8b2",
+          "category": "5029234968e031206567fb70673cd5b1c91cdc25a95bae2860d01ba1d2a1c2df",
+          "commitment": "564254410102010000000ab07ea30ee3dee0991b9cefc880df123d6701d6313a35dadb7ac2f68c48",
+          "eventDigest": "0ab07ea30ee3dee0991b9cefc880df123d6701d6313a35dadb7ac2f68c48689b",
+          "anchorVout": 2,
+          "assetVout": 1,
+          "feeSatoshis": 500,
+          "authorityInput": {
+            "txid": "7cd314a52217b9667c3f313a200fea38456dcc41bdc5b72af9a02cae9cc8ec59",
+            "vout": 0
+          },
+          "authorityVout": 0
+        },
+        "status": "unspent",
+        "current": {
+          "txid": "0a799b707693af5dcc3ae4a840d16c292df7f3dfa8c083609d5c0f68d84da8b2",
+          "vout": 1,
+          "address": "bchtest:zqwyjjg3un8v4phw0s6gw26cudpt864fa597y0n9gc",
+          "script": "76a9141c494911e4ceca86ee7c34872b58e342b3eaa9ed88ac",
+          "satoshis": 1500,
+          "height": 334683,
+          "confirmations": 17,
+          "explorerUrl": "https://chipnet.imaginary.cash/tx/0a799b707693af5dcc3ae4a840d16c292df7f3dfa8c083609d5c0f68d84da8b2"
+        },
+        "history": [
+          {
+            "txid": "0a799b707693af5dcc3ae4a840d16c292df7f3dfa8c083609d5c0f68d84da8b2",
+            "vout": 1,
+            "address": "bchtest:zqwyjjg3un8v4phw0s6gw26cudpt864fa597y0n9gc",
+            "script": "76a9141c494911e4ceca86ee7c34872b58e342b3eaa9ed88ac",
+            "satoshis": 1500,
+            "height": 334683,
+            "confirmations": 17,
+            "explorerUrl": "https://chipnet.imaginary.cash/tx/0a799b707693af5dcc3ae4a840d16c292df7f3dfa8c083609d5c0f68d84da8b2",
+            "type": "issued"
+          }
+        ]
+      }
+    },
+    {
+      "id": "control:ts18",
+      "eventId": "ts18",
+      "territoryId": "east-meadow",
+      "kind": "control",
+      "version": 1,
+      "controllerId": "p2",
+      "controlHash": "cb57c8144a2c446523bb21046206e13141c44bf4d61601d35cfb0c3a9168a6c2",
+      "holderAddress": null,
+      "expiresAt": null,
+      "relatedTxid": "cabc45926dacb16aff42d2da85109cf9be6a4a2d64da5d6f93be583dc7feff1f",
+      "anchorOnly": true,
+      "state": "confirmed",
+      "receipt": {
+        "txid": "741b784d25b5811d1aa01abe9de5d3df9ce2ae1d59d7b57870e45a6e54a52f71",
+        "confirmations": 2,
+        "height": 334688,
+        "blockHash": "0000000000006e56a0e204ee1116022b5b157f96d52047f94d6bcfeac3e8f6a8",
+        "network": "chipnet",
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/741b784d25b5811d1aa01abe9de5d3df9ce2ae1d59d7b57870e45a6e54a52f71",
+        "category": "5029234968e031206567fb70673cd5b1c91cdc25a95bae2860d01ba1d2a1c2df",
+        "commitment": null,
+        "eventDigest": "072bcb054df84d1da5ce0b885b0a33f41eccb1c29d070b5317b1e043d35f99bb",
+        "anchorVout": 1,
+        "assetVout": null,
+        "feeSatoshis": 500,
+        "authorityInput": {
+          "txid": "0a799b707693af5dcc3ae4a840d16c292df7f3dfa8c083609d5c0f68d84da8b2",
+          "vout": 0
+        },
+        "authorityVout": 0
+      },
+      "txid": "741b784d25b5811d1aa01abe9de5d3df9ce2ae1d59d7b57870e45a6e54a52f71",
+      "category": "5029234968e031206567fb70673cd5b1c91cdc25a95bae2860d01ba1d2a1c2df",
+      "commitment": null,
+      "statusDetail": null,
+      "authority": "game-controlled; collectible transfer does not change territory control",
+      "proof": {
+        "status": "anchored",
+        "receipt": {
+          "txid": "741b784d25b5811d1aa01abe9de5d3df9ce2ae1d59d7b57870e45a6e54a52f71",
+          "confirmations": 12,
+          "height": 334688,
+          "blockHash": "0000000000006e56a0e204ee1116022b5b157f96d52047f94d6bcfeac3e8f6a8",
+          "network": "chipnet",
+          "explorerUrl": "https://chipnet.imaginary.cash/tx/741b784d25b5811d1aa01abe9de5d3df9ce2ae1d59d7b57870e45a6e54a52f71",
+          "category": "5029234968e031206567fb70673cd5b1c91cdc25a95bae2860d01ba1d2a1c2df",
+          "commitment": null,
+          "eventDigest": "072bcb054df84d1da5ce0b885b0a33f41eccb1c29d070b5317b1e043d35f99bb",
+          "anchorVout": 1,
+          "assetVout": null,
+          "feeSatoshis": 500,
+          "authorityInput": {
+            "txid": "0a799b707693af5dcc3ae4a840d16c292df7f3dfa8c083609d5c0f68d84da8b2",
+            "vout": 0
+          },
+          "authorityVout": 0
+        },
+        "current": null,
+        "history": []
+      }
+    },
+    {
+      "id": "lease-expired:rare-ruins-334564-lease-expired",
+      "eventId": "rare-ruins-334564-lease-expired",
+      "territoryId": "ruins",
+      "kind": "lease-expired",
+      "version": 1,
+      "controllerId": null,
+      "controlHash": "25fe8826649c58765bbe7da93d037ce038690462dbd635fe3302495a0c38fbd6",
+      "holderAddress": null,
+      "expiresAt": 1795132405698,
+      "relatedTxid": "e5d0d5f855985aa4d84c08cf04fd534ace20d9e480a14252c6c32c4959434cb3",
+      "anchorOnly": true,
+      "state": "confirmed",
+      "receipt": {
+        "txid": "83597038563f02a09e309b3d93d1bacc0cdb952329f84f7dce5d00ec87d6c914",
+        "confirmations": 2,
+        "height": 334690,
+        "blockHash": "0000000031f63fc909ff7771595261906845d7f131fea736f5fb07598ed4ff19",
+        "network": "chipnet",
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/83597038563f02a09e309b3d93d1bacc0cdb952329f84f7dce5d00ec87d6c914",
+        "category": "5029234968e031206567fb70673cd5b1c91cdc25a95bae2860d01ba1d2a1c2df",
+        "commitment": null,
+        "eventDigest": "d526f8ae75ed13e559e49d90d321736701746434c2b79f2bcf24dd96af04e719",
+        "anchorVout": 1,
+        "assetVout": null,
+        "feeSatoshis": 500,
+        "authorityInput": {
+          "txid": "741b784d25b5811d1aa01abe9de5d3df9ce2ae1d59d7b57870e45a6e54a52f71",
+          "vout": 0
+        },
+        "authorityVout": 0
+      },
+      "txid": "83597038563f02a09e309b3d93d1bacc0cdb952329f84f7dce5d00ec87d6c914",
+      "category": "5029234968e031206567fb70673cd5b1c91cdc25a95bae2860d01ba1d2a1c2df",
+      "commitment": null,
+      "statusDetail": null,
+      "authority": "game-controlled; collectible transfer does not change territory control",
+      "proof": {
+        "status": "anchored",
+        "receipt": {
+          "txid": "83597038563f02a09e309b3d93d1bacc0cdb952329f84f7dce5d00ec87d6c914",
+          "confirmations": 10,
+          "height": 334690,
+          "blockHash": "0000000031f63fc909ff7771595261906845d7f131fea736f5fb07598ed4ff19",
+          "network": "chipnet",
+          "explorerUrl": "https://chipnet.imaginary.cash/tx/83597038563f02a09e309b3d93d1bacc0cdb952329f84f7dce5d00ec87d6c914",
+          "category": "5029234968e031206567fb70673cd5b1c91cdc25a95bae2860d01ba1d2a1c2df",
+          "commitment": null,
+          "eventDigest": "d526f8ae75ed13e559e49d90d321736701746434c2b79f2bcf24dd96af04e719",
+          "anchorVout": 1,
+          "assetVout": null,
+          "feeSatoshis": 500,
+          "authorityInput": {
+            "txid": "741b784d25b5811d1aa01abe9de5d3df9ce2ae1d59d7b57870e45a6e54a52f71",
+            "vout": 0
+          },
+          "authorityVout": 0
+        },
+        "current": null,
+        "history": []
+      }
+    }
+  ]
+}

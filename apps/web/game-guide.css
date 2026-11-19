@@ -1,0 +1,47 @@
+.codex-intro {
+  margin: 0 0 .9rem;
+  min-height: 6rem;
+  padding: 1.15rem;
+  border-block: 1px solid #99724577;
+  background: linear-gradient(90deg,#111e24f6,#10192095),url('/art/event-season.webp') center 29%/cover;
+  color: #eee2ca;
+  display: grid;
+  align-content: center;
+}
+.codex-intro p { margin: .18rem 0; }
+.codex-search { display: grid; gap: .4rem; margin: .7rem 0; }
+.codex-search input { min-width: 0; min-height: 44px; width: 100%; }
+.codex-chapters { display: flex; flex-wrap: wrap; gap: .35rem; margin: .7rem 0 1rem; }
+.codex-chapters button { min-height: 35px; padding: .3rem .62rem; border: 1px solid #a693645f; border-radius: 2px; color: #e9d9bc; background: #1c2a2b; line-height: 1.2; }
+.codex-chapters button[aria-pressed='true'] { background: #314a36; border-color: #bacb89; color: #fcf0d2; }
+.codex details { margin: 0 0 .38rem; border: 1px solid #a693645f; background: #111f26; }
+.codex summary { padding: .6rem .8rem; cursor: pointer; color: #f4dfb5; }
+.codex-entry { max-width: 76ch; padding: 0 .85rem .7rem; color: #d5cbbb; line-height: 1.52; }
+.codex-entry p { margin: .65rem 0; }
+.codex .kicker { color: #e3bd79; }
+.codex-link { margin-block: .35rem; }
+.codex-context { display: flex; justify-content: flex-end; }
+.masthead .codex-shortcut { flex: 0 0 auto; }
+.order-error { margin: .85rem 0; padding: .85rem 1rem; border: 1px solid #c68265; background: linear-gradient(100deg,#3a2527,#17232a); color: #ffddd0; }
+.order-error strong { display: block; margin-bottom: .25rem; color: #ffcbab; }
+.order-error p { margin: 0; }
+.order-error button { margin: .65rem 0 0; }
+@media (max-width: 760px) {
+  .codex-chapters { flex-wrap: nowrap; overflow-x: auto; padding: .25rem .2rem .55rem; scrollbar-color: #aa9564 #152328; }
+  .codex-chapters button { flex: 0 0 auto; }
+  .codex-chapters button { min-height: 44px; }
+  .codex summary { min-height: 44px; }
+  .masthead .round-icon { width: 36px; min-width: 36px; height: 40px; }
+  .masthead .wallet-shortcut { max-width: 90px; min-width: 0; }
+  .masthead .wallet-shortcut span { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+  .masthead .wallet-shortcut :is(.icon,.status-dot) { flex: 0 0 auto; }
+}
+@media (max-width: 360px) {
+  .masthead { grid-template-columns: minmax(0,1fr) auto auto auto auto; column-gap: 4px; }
+  .masthead .brand { min-width: 0; gap: 5px; overflow: hidden; }
+  .masthead .brand .icon { width: 20px; flex: 0 0 20px; }
+  .masthead .brand strong { font-size: calc(12px * var(--ui-text)); letter-spacing: .01em; }
+  .masthead .brand small { font-size: calc(5px * var(--ui-text)); letter-spacing: .12em; }
+  .masthead .round-icon { width: 32px; min-width: 32px; }
+  .masthead .wallet-shortcut { max-width: 89px; }
+}

@@ -1,0 +1,24 @@
+{
+  "network": "chipnet",
+  "relay": "loopback",
+  "fixtureAddress": "bchtest:qr0s38zmselsgkz7husz4qa7vlmgff43gufvsmzq2j",
+  "startedAt": "2026-11-16T20:19:58.320Z",
+  "funding": {
+    "txid": "e3beccec7e6834fb7dc8ea871b320f859dac309dab86ae2a7abd499a8cb55fae",
+    "feeSatoshis": 254
+  },
+  "paired": true,
+  "approval": {
+    "txid": "432d2281bdba1d845dfe36b49476c8fad5db4efbac7dff85c27c1bb6ca653895",
+    "signedInputCount": 1,
+    "protocol": "hdwalletv1",
+    "feeSatoshis": 366
+  },
+  "confirmed": {
+    "txid": "432d2281bdba1d845dfe36b49476c8fad5db4efbac7dff85c27c1bb6ca653895",
+    "confirmations": 2,
+    "blockHash": "00000000672b99bba36b175fcdf4a929c7d0b9bc96c0348eb729ae0b9aa379b5",
+    "height": 334369,
+    "eventVout": 3
+  }
+}

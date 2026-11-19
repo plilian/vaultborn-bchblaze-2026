@@ -1,0 +1,1232 @@
+{
+  "territory": {
+    "id": "east-meadow",
+    "name": "East Meadow",
+    "x": 0.47,
+    "y": 0.43,
+    "category": "unclaimed",
+    "type": "farm",
+    "terrain": "plains",
+    "resource": "food",
+    "level": 1,
+    "owner": "p2",
+    "controller": "p2",
+    "protected": false,
+    "production": {
+      "wood": 0,
+      "stone": 0,
+      "iron": 0,
+      "food": 32,
+      "crystal": 0
+    },
+    "defenses": {
+      "level": 1,
+      "count": 12
+    },
+    "status": "controlled",
+    "claim": {
+      "id": "tc4",
+      "status": "settled",
+      "startedAt": 1794873123510,
+      "lockAt": 1794876603510,
+      "endsAt": 1794876723510,
+      "commitment": "f8980da777be13d35f505605daa2722ce2a6a02149c2692a2e04fd5a5fac2e8e",
+      "entries": [
+        {
+          "id": "1f057e0dffda9a98479ca79044382460",
+          "txid": "6c45291b09f80e1089ebf998218a48d282c8f5878eed872eeac72d2db4a65eb2",
+          "player": "p1",
+          "escrowSatoshis": 2000,
+          "alliance": "emerald-watch",
+          "at": 1794873123510,
+          "status": "won"
+        },
+        {
+          "id": "e94359db300367dd8c255bfaf0042edc",
+          "txid": "417df272d18fc60411e762515b19ba0b5be99a7356a212da58167b3ddfeede15",
+          "player": "p2",
+          "escrowSatoshis": 2000,
+          "alliance": "crimson-legion",
+          "at": 1794873466419,
+          "status": "lost"
+        }
+      ],
+      "winner": "p1",
+      "seed": "c3db339f75e31fa2bf401c3bb3555cdb231477f0ceac31d021ad442a05f9cb37",
+      "closedAt": 1794876723510
+    },
+    "cooldownUntil": 1794905783304,
+    "nextUpkeep": 1794934583304,
+    "missedUpkeep": 0,
+    "lastChanged": 1794891383304,
+    "history": [
+      {
+        "kind": "entered",
+        "claimId": "tc4",
+        "playerId": "p1",
+        "txid": "6c45291b09f80e1089ebf998218a48d282c8f5878eed872eeac72d2db4a65eb2",
+        "at": 1794873123510
+      },
+      {
+        "kind": "entered",
+        "claimId": "tc4",
+        "playerId": "p2",
+        "txid": "417df272d18fc60411e762515b19ba0b5be99a7356a212da58167b3ddfeede15",
+        "at": 1794873466419
+      },
+      {
+        "kind": "claimed",
+        "playerId": "p1",
+        "previousOwner": null,
+        "at": 1794876723510
+      },
+      {
+        "kind": "conquered",
+        "playerId": "p2",
+        "previousOwner": "p1",
+        "at": 1794891383304
+      }
+    ],
+    "blockchain": [
+      {
+        "kind": "entry",
+        "id": "1f057e0dffda9a98479ca79044382460",
+        "txid": "6c45291b09f80e1089ebf998218a48d282c8f5878eed872eeac72d2db4a65eb2",
+        "at": 1794873123510
+      },
+      {
+        "kind": "entry",
+        "id": "e94359db300367dd8c255bfaf0042edc",
+        "txid": "417df272d18fc60411e762515b19ba0b5be99a7356a212da58167b3ddfeede15",
+        "at": 1794873466419
+      },
+      {
+        "kind": "settlement",
+        "id": "tc4",
+        "txid": null,
+        "at": 1794876723510
+      },
+      {
+        "kind": "attack",
+        "id": "b0cc3e64736fa9fbf976ae0d62a59189",
+        "txid": "938fa59ea7e0fcc8fa96d2393179546e0637efc1970e6bf0a5df5af2b25e8f59",
+        "at": 1794891383304
+      }
+    ],
+    "lease": null,
+    "claimEligibility": {
+      "ok": false
+    },
+    "attackEligibility": {
+      "ok": false
+    },
+    "assets": []
+  },
+  "records": [
+    {
+      "record": {
+        "id": "ts18",
+        "kind": "territory-attack",
+        "territoryId": "east-meadow",
+        "attacker": "p2",
+        "defender": "p1",
+        "winner": "p2",
+        "entries": [
+          {
+            "id": "b0cc3e64736fa9fbf976ae0d62a59189",
+            "txid": "938fa59ea7e0fcc8fa96d2393179546e0637efc1970e6bf0a5df5af2b25e8f59",
+            "player": "p2",
+            "escrowSatoshis": 3000
+          }
+        ],
+        "battles": [
+          {
+            "id": "b14",
+            "kind": "territory-attack",
+            "territoryId": "east-meadow",
+            "attacker": "p2",
+            "defender": "p1",
+            "attackerName": "Ironhaven",
+            "defenderName": "Riverhold",
+            "at": 1794891383304,
+            "commitment": "63e60474cd3e23544ddd62f43f9eaa2f61c803e6532e3ac54a6992065ef5afab",
+            "input": {
+              "attacker": {
+                "troops": {
+                  "infantry": 20,
+                  "shield": 12,
+                  "archer": 14,
+                  "cavalry": 7,
+                  "siege": 3,
+                  "mage": 3
+                },
+                "hero": "warden",
+                "tactic": "balanced",
+                "formation": "line",
+                "tech": {
+                  "logistics": 0,
+                  "fortification": 0,
+                  "tactics": 0,
+                  "signals": 0
+                },
+                "wall": 2
+              },
+              "defender": {
+                "troops": {
+                  "infantry": 8,
+                  "shield": 5,
+                  "archer": 6,
+                  "cavalry": 3,
+                  "siege": 1,
+                  "mage": 1
+                },
+                "hero": "warden",
+                "tactic": "balanced",
+                "formation": "line",
+                "tech": {
+                  "logistics": 0,
+                  "fortification": 0,
+                  "tactics": 0,
+                  "signals": 0
+                },
+                "wall": 1
+              },
+              "terrain": "plains"
+            },
+            "seed": "db3c65e6d322d014a9944e0e80cf38ec2cc42e496ff6643da57b2032a66dc5db",
+            "paid": true,
+            "loot": {
+              "wood": 0,
+              "stone": 0,
+              "iron": 0,
+              "food": 0,
+              "crystal": 0
+            },
+            "winner": "attacker",
+            "losses": {
+              "attacker": {
+                "infantry": 2,
+                "shield": 0,
+                "archer": 2,
+                "cavalry": 1,
+                "siege": 1,
+                "mage": 0
+              },
+              "defender": {
+                "infantry": 3,
+                "shield": 2,
+                "archer": 2,
+                "cavalry": 1,
+                "siege": 0,
+                "mage": 0
+              }
+            },
+            "events": [
+              {
+                "round": 1,
+                "at": 0,
+                "phase": "Advance",
+                "attackerLoss": 1,
+                "defenderLoss": 3,
+                "attackerRemaining": 58,
+                "defenderRemaining": 21
+              },
+              {
+                "round": 2,
+                "at": 6000,
+                "phase": "Advance",
+                "attackerLoss": 3,
+                "defenderLoss": 3,
+                "attackerRemaining": 55,
+                "defenderRemaining": 18
+              },
+              {
+                "round": 3,
+                "at": 12000,
+                "phase": "Advance",
+                "attackerLoss": 0,
+                "defenderLoss": 1,
+                "attackerRemaining": 55,
+                "defenderRemaining": 17
+              },
+              {
+                "round": 4,
+                "at": 18000,
+                "phase": "Engagement",
+                "attackerLoss": 1,
+                "defenderLoss": 0,
+                "attackerRemaining": 54,
+                "defenderRemaining": 17
+              },
+              {
+                "round": 5,
+                "at": 24000,
+                "phase": "Engagement",
+                "attackerLoss": 1,
+                "defenderLoss": 1,
+                "attackerRemaining": 53,
+                "defenderRemaining": 16
+              },
+              {
+                "round": 6,
+                "at": 30000,
+                "phase": "Engagement",
+                "attackerLoss": 0,
+                "defenderLoss": 0,
+                "attackerRemaining": 53,
+                "defenderRemaining": 16
+              },
+              {
+                "round": 7,
+                "at": 36000,
+                "phase": "Rout",
+                "attackerLoss": 0,
+                "defenderLoss": 0,
+                "attackerRemaining": 53,
+                "defenderRemaining": 16
+              },
+              {
+                "round": 8,
+                "at": 42000,
+                "phase": "Rout",
+                "attackerLoss": 0,
+                "defenderLoss": 0,
+                "attackerRemaining": 53,
+                "defenderRemaining": 16
+              },
+              {
+                "round": 9,
+                "at": 48000,
+                "phase": "Rout",
+                "attackerLoss": 0,
+                "defenderLoss": 0,
+                "attackerRemaining": 53,
+                "defenderRemaining": 16
+              }
+            ],
+            "differential": 893,
+            "hash": "a7c788e1835819ac1e53a71c9a2c1a8274889b9dab77db92bab44860b22c93c2",
+            "conquest": {
+              "id": "east-meadow",
+              "name": "East Meadow",
+              "previousOwner": "p1",
+              "owner": "p2"
+            },
+            "treasury": {
+              "kind": "battle",
+              "effect": "escrow-returned-and-captured",
+              "payment": "b0cc3e64736fa9fbf976ae0d62a59189",
+              "txid": "938fa59ea7e0fcc8fa96d2393179546e0637efc1970e6bf0a5df5af2b25e8f59",
+              "outpoint": "938fa59ea7e0fcc8fa96d2393179546e0637efc1970e6bf0a5df5af2b25e8f59:0",
+              "allocation": {
+                "development": 1200,
+                "burn": 900,
+                "prize": 900,
+                "battle": 3000
+              },
+              "attacker": "p2",
+              "defender": "p1",
+              "winner": "attacker",
+              "recipient": "p2",
+              "escrowSatoshis": 3000,
+              "capturedSatoshis": 400,
+              "now": 1794891383304,
+              "contest": {
+                "distinctVerifiedWallets": true,
+                "defenderCommitment": "1e2b74991c16335a50eba1e801188ea60e1e3dde2803e35edd59cbb763a7bd96",
+                "pairCooldownHours": 24,
+                "captureLimitPercent": 20
+              },
+              "balances": {
+                "attacker": {
+                  "before": 0,
+                  "after": 3400
+                },
+                "defender": {
+                  "before": 7700,
+                  "after": 7300,
+                  "committedBefore": 2000,
+                  "committedAfter": 1600
+                }
+              }
+            }
+          }
+        ],
+        "battle": {
+          "id": "b14",
+          "kind": "territory-attack",
+          "territoryId": "east-meadow",
+          "attacker": "p2",
+          "defender": "p1",
+          "attackerName": "Ironhaven",
+          "defenderName": "Riverhold",
+          "at": 1794891383304,
+          "commitment": "63e60474cd3e23544ddd62f43f9eaa2f61c803e6532e3ac54a6992065ef5afab",
+          "input": {
+            "attacker": {
+              "troops": {
+                "infantry": 20,
+                "shield": 12,
+                "archer": 14,
+                "cavalry": 7,
+                "siege": 3,
+                "mage": 3
+              },
+              "hero": "warden",
+              "tactic": "balanced",
+              "formation": "line",
+              "tech": {
+                "logistics": 0,
+                "fortification": 0,
+                "tactics": 0,
+                "signals": 0
+              },
+              "wall": 2
+            },
+            "defender": {
+              "troops": {
+                "infantry": 8,
+                "shield": 5,
+                "archer": 6,
+                "cavalry": 3,
+                "siege": 1,
+                "mage": 1
+              },
+              "hero": "warden",
+              "tactic": "balanced",
+              "formation": "line",
+              "tech": {
+                "logistics": 0,
+                "fortification": 0,
+                "tactics": 0,
+                "signals": 0
+              },
+              "wall": 1
+            },
+            "terrain": "plains"
+          },
+          "seed": "db3c65e6d322d014a9944e0e80cf38ec2cc42e496ff6643da57b2032a66dc5db",
+          "paid": true,
+          "loot": {
+            "wood": 0,
+            "stone": 0,
+            "iron": 0,
+            "food": 0,
+            "crystal": 0
+          },
+          "winner": "attacker",
+          "losses": {
+            "attacker": {
+              "infantry": 2,
+              "shield": 0,
+              "archer": 2,
+              "cavalry": 1,
+              "siege": 1,
+              "mage": 0
+            },
+            "defender": {
+              "infantry": 3,
+              "shield": 2,
+              "archer": 2,
+              "cavalry": 1,
+              "siege": 0,
+              "mage": 0
+            }
+          },
+          "events": [
+            {
+              "round": 1,
+              "at": 0,
+              "phase": "Advance",
+              "attackerLoss": 1,
+              "defenderLoss": 3,
+              "attackerRemaining": 58,
+              "defenderRemaining": 21
+            },
+            {
+              "round": 2,
+              "at": 6000,
+              "phase": "Advance",
+              "attackerLoss": 3,
+              "defenderLoss": 3,
+              "attackerRemaining": 55,
+              "defenderRemaining": 18
+            },
+            {
+              "round": 3,
+              "at": 12000,
+              "phase": "Advance",
+              "attackerLoss": 0,
+              "defenderLoss": 1,
+              "attackerRemaining": 55,
+              "defenderRemaining": 17
+            },
+            {
+              "round": 4,
+              "at": 18000,
+              "phase": "Engagement",
+              "attackerLoss": 1,
+              "defenderLoss": 0,
+              "attackerRemaining": 54,
+              "defenderRemaining": 17
+            },
+            {
+              "round": 5,
+              "at": 24000,
+              "phase": "Engagement",
+              "attackerLoss": 1,
+              "defenderLoss": 1,
+              "attackerRemaining": 53,
+              "defenderRemaining": 16
+            },
+            {
+              "round": 6,
+              "at": 30000,
+              "phase": "Engagement",
+              "attackerLoss": 0,
+              "defenderLoss": 0,
+              "attackerRemaining": 53,
+              "defenderRemaining": 16
+            },
+            {
+              "round": 7,
+              "at": 36000,
+              "phase": "Rout",
+              "attackerLoss": 0,
+              "defenderLoss": 0,
+              "attackerRemaining": 53,
+              "defenderRemaining": 16
+            },
+            {
+              "round": 8,
+              "at": 42000,
+              "phase": "Rout",
+              "attackerLoss": 0,
+              "defenderLoss": 0,
+              "attackerRemaining": 53,
+              "defenderRemaining": 16
+            },
+            {
+              "round": 9,
+              "at": 48000,
+              "phase": "Rout",
+              "attackerLoss": 0,
+              "defenderLoss": 0,
+              "attackerRemaining": 53,
+              "defenderRemaining": 16
+            }
+          ],
+          "differential": 893,
+          "hash": "a7c788e1835819ac1e53a71c9a2c1a8274889b9dab77db92bab44860b22c93c2",
+          "conquest": {
+            "id": "east-meadow",
+            "name": "East Meadow",
+            "previousOwner": "p1",
+            "owner": "p2"
+          },
+          "treasury": {
+            "kind": "battle",
+            "effect": "escrow-returned-and-captured",
+            "payment": "b0cc3e64736fa9fbf976ae0d62a59189",
+            "txid": "938fa59ea7e0fcc8fa96d2393179546e0637efc1970e6bf0a5df5af2b25e8f59",
+            "outpoint": "938fa59ea7e0fcc8fa96d2393179546e0637efc1970e6bf0a5df5af2b25e8f59:0",
+            "allocation": {
+              "development": 1200,
+              "burn": 900,
+              "prize": 900,
+              "battle": 3000
+            },
+            "attacker": "p2",
+            "defender": "p1",
+            "winner": "attacker",
+            "recipient": "p2",
+            "escrowSatoshis": 3000,
+            "capturedSatoshis": 400,
+            "now": 1794891383304,
+            "contest": {
+              "distinctVerifiedWallets": true,
+              "defenderCommitment": "1e2b74991c16335a50eba1e801188ea60e1e3dde2803e35edd59cbb763a7bd96",
+              "pairCooldownHours": 24,
+              "captureLimitPercent": 20
+            },
+            "balances": {
+              "attacker": {
+                "before": 0,
+                "after": 3400
+              },
+              "defender": {
+                "before": 7700,
+                "after": 7300,
+                "committedBefore": 2000,
+                "committedAfter": 1600
+              }
+            }
+          }
+        },
+        "at": 1794891383304,
+        "payout": [],
+        "treasury": {
+          "kind": "battle",
+          "effect": "escrow-returned-and-captured",
+          "payment": "b0cc3e64736fa9fbf976ae0d62a59189",
+          "txid": "938fa59ea7e0fcc8fa96d2393179546e0637efc1970e6bf0a5df5af2b25e8f59",
+          "outpoint": "938fa59ea7e0fcc8fa96d2393179546e0637efc1970e6bf0a5df5af2b25e8f59:0",
+          "allocation": {
+            "development": 1200,
+            "burn": 900,
+            "prize": 900,
+            "battle": 3000
+          },
+          "attacker": "p2",
+          "defender": "p1",
+          "winner": "attacker",
+          "recipient": "p2",
+          "escrowSatoshis": 3000,
+          "capturedSatoshis": 400,
+          "now": 1794891383304,
+          "contest": {
+            "distinctVerifiedWallets": true,
+            "defenderCommitment": "1e2b74991c16335a50eba1e801188ea60e1e3dde2803e35edd59cbb763a7bd96",
+            "pairCooldownHours": 24,
+            "captureLimitPercent": 20
+          },
+          "balances": {
+            "attacker": {
+              "before": 0,
+              "after": 3400
+            },
+            "defender": {
+              "before": 7700,
+              "after": 7300,
+              "committedBefore": 2000,
+              "committedAfter": 1600
+            }
+          }
+        },
+        "controller": "p2"
+      },
+      "recordHash": "cb57c8144a2c446523bb21046206e13141c44bf4d61601d35cfb0c3a9168a6c2",
+      "proofs": [
+        {
+          "txid": "938fa59ea7e0fcc8fa96d2393179546e0637efc1970e6bf0a5df5af2b25e8f59",
+          "confirmations": 5,
+          "explorerUrl": "https://chipnet.imaginary.cash/tx/938fa59ea7e0fcc8fa96d2393179546e0637efc1970e6bf0a5df5af2b25e8f59",
+          "blockHash": "00000000879872fbb45da8963eaedb666858d5a45c6d9ba7e13c1e716e6968ad",
+          "height": 334580,
+          "eventVout": 3,
+          "event": {
+            "version": 1,
+            "kind": "territory-attack",
+            "subject": "b0cc3e64736fa9fbf976ae0d62a59189",
+            "data": {
+              "seasonId": 1,
+              "actionHash": "35d075bd5bdc3a8aa1e5426fab2327259482cdff88b116f20a2b8da83eda483c",
+              "allocation": {
+                "development": 1200,
+                "burn": 900,
+                "prize": 900,
+                "battle": 3000
+              },
+              "territory": "east-meadow"
+            },
+            "digest": "e828f1c06000519d153887e0f95ff77d9ac3af5530b4712e8c525695b3ab958c"
+          }
+        }
+      ],
+      "settlement": {
+        "txid": "cabc45926dacb16aff42d2da85109cf9be6a4a2d64da5d6f93be583dc7feff1f",
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/cabc45926dacb16aff42d2da85109cf9be6a4a2d64da5d6f93be583dc7feff1f",
+        "height": 334583,
+        "blockHash": "000000003522cee3f820c8dfe20919f3bd1db89c7719b74027efa64843613360",
+        "eventVout": 2,
+        "event": {
+          "version": 1,
+          "kind": "conquest",
+          "subject": "ts18",
+          "data": {
+            "territory": "east-meadow",
+            "recordHash": "cb57c8144a2c446523bb21046206e13141c44bf4d61601d35cfb0c3a9168a6c2",
+            "entryTxids": [
+              "938fa59ea7e0fcc8fa96d2393179546e0637efc1970e6bf0a5df5af2b25e8f59"
+            ]
+          },
+          "digest": "39781e90b9f6442c942699c013a238b94f93669fac87e2799dfd1264ba7ac30a"
+        },
+        "feeSatoshis": 516
+      },
+      "anchorStatus": "credited"
+    },
+    {
+      "record": {
+        "id": "tc4",
+        "kind": "territory-claim",
+        "territoryId": "east-meadow",
+        "entries": [
+          {
+            "id": "1f057e0dffda9a98479ca79044382460",
+            "txid": "6c45291b09f80e1089ebf998218a48d282c8f5878eed872eeac72d2db4a65eb2",
+            "player": "p1",
+            "escrowSatoshis": 2000
+          },
+          {
+            "id": "e94359db300367dd8c255bfaf0042edc",
+            "txid": "417df272d18fc60411e762515b19ba0b5be99a7356a212da58167b3ddfeede15",
+            "player": "p2",
+            "escrowSatoshis": 2000
+          }
+        ],
+        "winner": "p1",
+        "battles": [
+          {
+            "id": "b10",
+            "kind": "territory-contest",
+            "territoryId": "east-meadow",
+            "attacker": "p1",
+            "defender": "p2",
+            "attackerName": "Riverhold",
+            "defenderName": "Ironhaven",
+            "at": 1794876723510,
+            "commitment": "8d66497df3f51b193df3f3ab3d4a38b2e155d5fb55035ec714493077044a4036",
+            "input": {
+              "attacker": {
+                "troops": {
+                  "infantry": 18,
+                  "shield": 8,
+                  "archer": 12,
+                  "cavalry": 6,
+                  "siege": 2,
+                  "mage": 2
+                },
+                "hero": "warden",
+                "tactic": "balanced",
+                "formation": "line",
+                "tech": {
+                  "logistics": 0,
+                  "fortification": 0,
+                  "tactics": 0,
+                  "signals": 0
+                },
+                "wall": 0
+              },
+              "defender": {
+                "troops": {
+                  "infantry": 18,
+                  "shield": 8,
+                  "archer": 12,
+                  "cavalry": 6,
+                  "siege": 2,
+                  "mage": 2
+                },
+                "hero": "warden",
+                "tactic": "balanced",
+                "formation": "line",
+                "tech": {
+                  "logistics": 0,
+                  "fortification": 0,
+                  "tactics": 0,
+                  "signals": 0
+                },
+                "wall": 0
+              },
+              "terrain": "plains"
+            },
+            "seed": "fee378a06c997a74f63c2c2f124d46b6e6afa0fd240261996799c87475877ae5",
+            "paid": false,
+            "loot": {
+              "wood": 0,
+              "stone": 0,
+              "iron": 0,
+              "food": 0,
+              "crystal": 0
+            },
+            "winner": "defender",
+            "losses": {
+              "attacker": {
+                "infantry": 8,
+                "shield": 1,
+                "archer": 5,
+                "cavalry": 2,
+                "siege": 0,
+                "mage": 0
+              },
+              "defender": {
+                "infantry": 5,
+                "shield": 1,
+                "archer": 3,
+                "cavalry": 1,
+                "siege": 0,
+                "mage": 0
+              }
+            },
+            "events": [
+              {
+                "round": 1,
+                "at": 0,
+                "phase": "Advance",
+                "attackerLoss": 2,
+                "defenderLoss": 1,
+                "attackerRemaining": 46,
+                "defenderRemaining": 47
+              },
+              {
+                "round": 2,
+                "at": 6000,
+                "phase": "Advance",
+                "attackerLoss": 2,
+                "defenderLoss": 2,
+                "attackerRemaining": 44,
+                "defenderRemaining": 45
+              },
+              {
+                "round": 3,
+                "at": 12000,
+                "phase": "Advance",
+                "attackerLoss": 3,
+                "defenderLoss": 0,
+                "attackerRemaining": 41,
+                "defenderRemaining": 45
+              },
+              {
+                "round": 4,
+                "at": 18000,
+                "phase": "Engagement",
+                "attackerLoss": 3,
+                "defenderLoss": 1,
+                "attackerRemaining": 38,
+                "defenderRemaining": 44
+              },
+              {
+                "round": 5,
+                "at": 24000,
+                "phase": "Engagement",
+                "attackerLoss": 3,
+                "defenderLoss": 1,
+                "attackerRemaining": 35,
+                "defenderRemaining": 43
+              },
+              {
+                "round": 6,
+                "at": 30000,
+                "phase": "Engagement",
+                "attackerLoss": 1,
+                "defenderLoss": 1,
+                "attackerRemaining": 34,
+                "defenderRemaining": 42
+              },
+              {
+                "round": 7,
+                "at": 36000,
+                "phase": "Rout",
+                "attackerLoss": 0,
+                "defenderLoss": 1,
+                "attackerRemaining": 34,
+                "defenderRemaining": 41
+              },
+              {
+                "round": 8,
+                "at": 42000,
+                "phase": "Rout",
+                "attackerLoss": 1,
+                "defenderLoss": 2,
+                "attackerRemaining": 33,
+                "defenderRemaining": 39
+              },
+              {
+                "round": 9,
+                "at": 48000,
+                "phase": "Rout",
+                "attackerLoss": 1,
+                "defenderLoss": 1,
+                "attackerRemaining": 32,
+                "defenderRemaining": 38
+              }
+            ],
+            "differential": -172,
+            "hash": "f8e1adbe00c85d5efd6932e0fa42b7c184d712f1a7e197c52b5499d1c7e87b8e"
+          },
+          {
+            "id": "b11",
+            "kind": "territory-contest",
+            "territoryId": "east-meadow",
+            "attacker": "p2",
+            "defender": "p1",
+            "attackerName": "Ironhaven",
+            "defenderName": "Riverhold",
+            "at": 1794876723510,
+            "commitment": "8d66497df3f51b193df3f3ab3d4a38b2e155d5fb55035ec714493077044a4036",
+            "input": {
+              "attacker": {
+                "troops": {
+                  "infantry": 18,
+                  "shield": 8,
+                  "archer": 12,
+                  "cavalry": 6,
+                  "siege": 2,
+                  "mage": 2
+                },
+                "hero": "warden",
+                "tactic": "balanced",
+                "formation": "line",
+                "tech": {
+                  "logistics": 0,
+                  "fortification": 0,
+                  "tactics": 0,
+                  "signals": 0
+                },
+                "wall": 0
+              },
+              "defender": {
+                "troops": {
+                  "infantry": 18,
+                  "shield": 8,
+                  "archer": 12,
+                  "cavalry": 6,
+                  "siege": 2,
+                  "mage": 2
+                },
+                "hero": "warden",
+                "tactic": "balanced",
+                "formation": "line",
+                "tech": {
+                  "logistics": 0,
+                  "fortification": 0,
+                  "tactics": 0,
+                  "signals": 0
+                },
+                "wall": 0
+              },
+              "terrain": "plains"
+            },
+            "seed": "fee378a06c997a74f63c2c2f124d46b6e6afa0fd240261996799c87475877ae5",
+            "paid": false,
+            "loot": {
+              "wood": 0,
+              "stone": 0,
+              "iron": 0,
+              "food": 0,
+              "crystal": 0
+            },
+            "winner": "defender",
+            "losses": {
+              "attacker": {
+                "infantry": 8,
+                "shield": 1,
+                "archer": 5,
+                "cavalry": 2,
+                "siege": 0,
+                "mage": 0
+              },
+              "defender": {
+                "infantry": 5,
+                "shield": 1,
+                "archer": 3,
+                "cavalry": 1,
+                "siege": 0,
+                "mage": 0
+              }
+            },
+            "events": [
+              {
+                "round": 1,
+                "at": 0,
+                "phase": "Advance",
+                "attackerLoss": 2,
+                "defenderLoss": 1,
+                "attackerRemaining": 46,
+                "defenderRemaining": 47
+              },
+              {
+                "round": 2,
+                "at": 6000,
+                "phase": "Advance",
+                "attackerLoss": 2,
+                "defenderLoss": 2,
+                "attackerRemaining": 44,
+                "defenderRemaining": 45
+              },
+              {
+                "round": 3,
+                "at": 12000,
+                "phase": "Advance",
+                "attackerLoss": 3,
+                "defenderLoss": 0,
+                "attackerRemaining": 41,
+                "defenderRemaining": 45
+              },
+              {
+                "round": 4,
+                "at": 18000,
+                "phase": "Engagement",
+                "attackerLoss": 3,
+                "defenderLoss": 1,
+                "attackerRemaining": 38,
+                "defenderRemaining": 44
+              },
+              {
+                "round": 5,
+                "at": 24000,
+                "phase": "Engagement",
+                "attackerLoss": 3,
+                "defenderLoss": 1,
+                "attackerRemaining": 35,
+                "defenderRemaining": 43
+              },
+              {
+                "round": 6,
+                "at": 30000,
+                "phase": "Engagement",
+                "attackerLoss": 1,
+                "defenderLoss": 1,
+                "attackerRemaining": 34,
+                "defenderRemaining": 42
+              },
+              {
+                "round": 7,
+                "at": 36000,
+                "phase": "Rout",
+                "attackerLoss": 0,
+                "defenderLoss": 1,
+                "attackerRemaining": 34,
+                "defenderRemaining": 41
+              },
+              {
+                "round": 8,
+                "at": 42000,
+                "phase": "Rout",
+                "attackerLoss": 1,
+                "defenderLoss": 2,
+                "attackerRemaining": 33,
+                "defenderRemaining": 39
+              },
+              {
+                "round": 9,
+                "at": 48000,
+                "phase": "Rout",
+                "attackerLoss": 1,
+                "defenderLoss": 1,
+                "attackerRemaining": 32,
+                "defenderRemaining": 38
+              }
+            ],
+            "differential": -172,
+            "hash": "f8e1adbe00c85d5efd6932e0fa42b7c184d712f1a7e197c52b5499d1c7e87b8e"
+          }
+        ],
+        "distributions": [
+          {
+            "entryId": "1f057e0dffda9a98479ca79044382460",
+            "playerId": "p1",
+            "satoshis": 2000,
+            "reason": "claim-winner"
+          },
+          {
+            "entryId": "e94359db300367dd8c255bfaf0042edc",
+            "playerId": "p1",
+            "satoshis": 2000,
+            "reason": "claim-winner"
+          }
+        ],
+        "at": 1794876723510,
+        "rules": {
+          "seed": "c3db339f75e31fa2bf401c3bb3555cdb231477f0ceac31d021ad442a05f9cb37",
+          "commitment": "f8980da777be13d35f505605daa2722ce2a6a02149c2692a2e04fd5a5fac2e8e",
+          "neutralTerrain": "plains",
+          "bracket": "seeded-mirrored-elimination"
+        }
+      },
+      "recordHash": "098216570e1d8b48b2f38f05d58993ea1b8e02afe8c226dca3b2accc349a72e6",
+      "proofs": [
+        {
+          "txid": "6c45291b09f80e1089ebf998218a48d282c8f5878eed872eeac72d2db4a65eb2",
+          "confirmations": 19,
+          "explorerUrl": "https://chipnet.imaginary.cash/tx/6c45291b09f80e1089ebf998218a48d282c8f5878eed872eeac72d2db4a65eb2",
+          "blockHash": "00000000c4665db3a4c8b09661b21a9412c205300d017c167d9de97e8ef17748",
+          "height": 334566,
+          "eventVout": 3,
+          "event": {
+            "version": 1,
+            "kind": "territory-claim",
+            "subject": "1f057e0dffda9a98479ca79044382460",
+            "data": {
+              "seasonId": 1,
+              "actionHash": "e22f006916eef89ff528684bad68b5133dfee72c64ab37e90ddab1e60c0f3fb0",
+              "allocation": {
+                "development": 800,
+                "burn": 600,
+                "prize": 600,
+                "battle": 2000
+              },
+              "territory": "east-meadow"
+            },
+            "digest": "3b7c545bcd599949af1d4088d1dadb9c227a14f284b3bfb7e1f81be372550e99"
+          }
+        },
+        {
+          "txid": "417df272d18fc60411e762515b19ba0b5be99a7356a212da58167b3ddfeede15",
+          "confirmations": 12,
+          "explorerUrl": "https://chipnet.imaginary.cash/tx/417df272d18fc60411e762515b19ba0b5be99a7356a212da58167b3ddfeede15",
+          "blockHash": "00000000647a9ec89be6fd5e4f2211abf780619ab5103591505bab1acb982146",
+          "height": 334573,
+          "eventVout": 3,
+          "event": {
+            "version": 1,
+            "kind": "territory-claim",
+            "subject": "e94359db300367dd8c255bfaf0042edc",
+            "data": {
+              "seasonId": 1,
+              "actionHash": "45c8624d3fc43a4f52b236cd06f59b18f4ed917c79df3de876d6a95f9e3c8fe2",
+              "allocation": {
+                "development": 800,
+                "burn": 600,
+                "prize": 600,
+                "battle": 2000
+              },
+              "territory": "east-meadow"
+            },
+            "digest": "55bd16b201f1d599d0af4a09f3d926644c937f6091a775f6b471cbf1ccf0181f"
+          }
+        }
+      ],
+      "settlement": {
+        "txid": "1813d1143e9ce2ec166c00c1bc1d6d0f53cbfa55ba171e9574b105bb5a7efdbc",
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/1813d1143e9ce2ec166c00c1bc1d6d0f53cbfa55ba171e9574b105bb5a7efdbc",
+        "height": 334577,
+        "blockHash": "0000000026017cfd5593f9830ea0b597e5a4dcddfe31cba7902c6fe2aa4f3323",
+        "eventVout": 2,
+        "event": {
+          "version": 1,
+          "kind": "territory-settlement",
+          "subject": "tc4",
+          "data": {
+            "territory": "east-meadow",
+            "recordHash": "098216570e1d8b48b2f38f05d58993ea1b8e02afe8c226dca3b2accc349a72e6",
+            "entryTxids": [
+              "6c45291b09f80e1089ebf998218a48d282c8f5878eed872eeac72d2db4a65eb2",
+              "417df272d18fc60411e762515b19ba0b5be99a7356a212da58167b3ddfeede15"
+            ]
+          },
+          "digest": "5311f7cdb303dea724fc6289633fb2eb365a8a979a088535513c205562119ae5"
+        },
+        "feeSatoshis": 836
+      },
+      "anchorStatus": "credited"
+    }
+  ],
+  "chain": "chipnet",
+  "recent": [
+    {
+      "activity": "conquest",
+      "txid": "cabc45926dacb16aff42d2da85109cf9be6a4a2d64da5d6f93be583dc7feff1f",
+      "explorerUrl": "https://chipnet.imaginary.cash/tx/cabc45926dacb16aff42d2da85109cf9be6a4a2d64da5d6f93be583dc7feff1f",
+      "confirmations": 2,
+      "event": {
+        "version": 1,
+        "kind": "conquest",
+        "subject": "ts18",
+        "data": {
+          "territory": "east-meadow",
+          "recordHash": "cb57c8144a2c446523bb21046206e13141c44bf4d61601d35cfb0c3a9168a6c2",
+          "entryTxids": [
+            "938fa59ea7e0fcc8fa96d2393179546e0637efc1970e6bf0a5df5af2b25e8f59"
+          ]
+        },
+        "digest": "39781e90b9f6442c942699c013a238b94f93669fac87e2799dfd1264ba7ac30a"
+      },
+      "eventVout": 2
+    },
+    {
+      "activity": "territory-attack",
+      "txid": "938fa59ea7e0fcc8fa96d2393179546e0637efc1970e6bf0a5df5af2b25e8f59",
+      "explorerUrl": "https://chipnet.imaginary.cash/tx/938fa59ea7e0fcc8fa96d2393179546e0637efc1970e6bf0a5df5af2b25e8f59",
+      "confirmations": 5,
+      "event": {
+        "version": 1,
+        "kind": "territory-attack",
+        "subject": "b0cc3e64736fa9fbf976ae0d62a59189",
+        "data": {
+          "seasonId": 1,
+          "actionHash": "35d075bd5bdc3a8aa1e5426fab2327259482cdff88b116f20a2b8da83eda483c",
+          "allocation": {
+            "development": 1200,
+            "burn": 900,
+            "prize": 900,
+            "battle": 3000
+          },
+          "territory": "east-meadow"
+        },
+        "digest": "e828f1c06000519d153887e0f95ff77d9ac3af5530b4712e8c525695b3ab958c"
+      },
+      "eventVout": 3
+    },
+    {
+      "activity": "territory-settlement",
+      "txid": "1813d1143e9ce2ec166c00c1bc1d6d0f53cbfa55ba171e9574b105bb5a7efdbc",
+      "explorerUrl": "https://chipnet.imaginary.cash/tx/1813d1143e9ce2ec166c00c1bc1d6d0f53cbfa55ba171e9574b105bb5a7efdbc",
+      "confirmations": 8,
+      "event": {
+        "version": 1,
+        "kind": "territory-settlement",
+        "subject": "tc4",
+        "data": {
+          "territory": "east-meadow",
+          "recordHash": "098216570e1d8b48b2f38f05d58993ea1b8e02afe8c226dca3b2accc349a72e6",
+          "entryTxids": [
+            "6c45291b09f80e1089ebf998218a48d282c8f5878eed872eeac72d2db4a65eb2",
+            "417df272d18fc60411e762515b19ba0b5be99a7356a212da58167b3ddfeede15"
+          ]
+        },
+        "digest": "5311f7cdb303dea724fc6289633fb2eb365a8a979a088535513c205562119ae5"
+      },
+      "eventVout": 2
+    },
+    {
+      "activity": "territory-claim",
+      "txid": "417df272d18fc60411e762515b19ba0b5be99a7356a212da58167b3ddfeede15",
+      "explorerUrl": "https://chipnet.imaginary.cash/tx/417df272d18fc60411e762515b19ba0b5be99a7356a212da58167b3ddfeede15",
+      "confirmations": 12,
+      "event": {
+        "version": 1,
+        "kind": "territory-claim",
+        "subject": "e94359db300367dd8c255bfaf0042edc",
+        "data": {
+          "seasonId": 1,
+          "actionHash": "45c8624d3fc43a4f52b236cd06f59b18f4ed917c79df3de876d6a95f9e3c8fe2",
+          "allocation": {
+            "development": 800,
+            "burn": 600,
+            "prize": 600,
+            "battle": 2000
+          },
+          "territory": "east-meadow"
+        },
+        "digest": "55bd16b201f1d599d0af4a09f3d926644c937f6091a775f6b471cbf1ccf0181f"
+      },
+      "eventVout": 3
+    },
+    {
+      "activity": "territory-claim",
+      "txid": "6c45291b09f80e1089ebf998218a48d282c8f5878eed872eeac72d2db4a65eb2",
+      "explorerUrl": "https://chipnet.imaginary.cash/tx/6c45291b09f80e1089ebf998218a48d282c8f5878eed872eeac72d2db4a65eb2",
+      "confirmations": 19,
+      "event": {
+        "version": 1,
+        "kind": "territory-claim",
+        "subject": "1f057e0dffda9a98479ca79044382460",
+        "data": {
+          "seasonId": 1,
+          "actionHash": "e22f006916eef89ff528684bad68b5133dfee72c64ab37e90ddab1e60c0f3fb0",
+          "allocation": {
+            "development": 800,
+            "burn": 600,
+            "prize": 600,
+            "battle": 2000
+          },
+          "territory": "east-meadow"
+        },
+        "digest": "3b7c545bcd599949af1d4088d1dadb9c227a14f284b3bfb7e1f81be372550e99"
+      },
+      "eventVout": 3
+    }
+  ],
+  "treasuryPublicKey": "022b265e4a85a3e96fb5dc326d39362891337b696d95e1cc7c25766d8984500a8c"
+}

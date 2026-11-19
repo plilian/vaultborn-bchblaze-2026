@@ -1,0 +1,390 @@
+{
+  "generatedBy": "scripts/simulate-war-chest.mjs",
+  "feeRate": "1 satoshi per byte",
+  "configurations": [
+    {
+      "attestors": 1,
+      "threshold": 1,
+      "sizes": {
+        "ridingShareInCapture": 160,
+        "chestFeederMove": {
+          "1": 214,
+          "2": 374,
+          "3": 534,
+          "4": 694
+        },
+        "captureFee": {
+          "1": 663,
+          "2": 1236
+        },
+        "withdrawal": 597,
+        "ownerExit": {
+          "stepOne": 563,
+          "stepTwo": 504
+        },
+        "captureFloor": 6350
+      },
+      "perPrice": [
+        {
+          "price": 4000,
+          "warChestShare": 2000,
+          "before": {
+            "reserve": 300,
+            "payerOverhead": 664,
+            "overheadPercent": 16.6,
+            "capturableAlone": false,
+            "withdrawalFeePerShare": 544,
+            "withdrawalPercent": 27.2,
+            "endToEndCostPerShare": 876
+          },
+          "after": {
+            "direct": false,
+            "reserve": 520,
+            "payerOverhead": 884,
+            "overheadPercent": 22.1,
+            "sharesToJoin": 4,
+            "joinedOutput": 8186,
+            "reserveReturnedToChest": 186,
+            "capture": {
+              "gross": 1637,
+              "fee": 663,
+              "net": 974,
+              "inputs": 1,
+              "used": [
+                8186
+              ],
+              "riding": []
+            },
+            "withdrawalFeePerShare": 149,
+            "withdrawalPercent": 7.3,
+            "endToEndCostPerShare": 655
+          }
+        },
+        {
+          "price": 4500,
+          "warChestShare": 2250,
+          "before": {
+            "reserve": 300,
+            "payerOverhead": 664,
+            "overheadPercent": 14.8,
+            "capturableAlone": false,
+            "withdrawalFeePerShare": 544,
+            "withdrawalPercent": 24.2,
+            "endToEndCostPerShare": 876
+          },
+          "after": {
+            "direct": false,
+            "reserve": 520,
+            "payerOverhead": 884,
+            "overheadPercent": 19.6,
+            "sharesToJoin": 3,
+            "joinedOutput": 6876,
+            "reserveReturnedToChest": 126,
+            "capture": {
+              "gross": 1375,
+              "fee": 663,
+              "net": 712,
+              "inputs": 1,
+              "used": [
+                6876
+              ],
+              "riding": []
+            },
+            "withdrawalFeePerShare": 199,
+            "withdrawalPercent": 8.7,
+            "endToEndCostPerShare": 709
+          }
+        },
+        {
+          "price": 24000,
+          "warChestShare": 12000,
+          "before": {
+            "reserve": 300,
+            "payerOverhead": 664,
+            "overheadPercent": 2.8,
+            "capturableAlone": true,
+            "withdrawalFeePerShare": 544,
+            "withdrawalPercent": 4.5,
+            "endToEndCostPerShare": 876
+          },
+          "after": {
+            "direct": true,
+            "reserve": 300,
+            "payerOverhead": 664,
+            "overheadPercent": 2.8,
+            "sharesToJoin": 1,
+            "joinedOutput": 12000,
+            "reserveReturnedToChest": 0,
+            "capture": {
+              "gross": 2400,
+              "fee": 663,
+              "net": 1737,
+              "inputs": 1,
+              "used": [
+                12000
+              ],
+              "riding": []
+            },
+            "withdrawalFeePerShare": 597,
+            "withdrawalPercent": 5,
+            "endToEndCostPerShare": 929
+          }
+        }
+      ],
+      "neverDeposits": [
+        {
+          "servicesPerWeek": 0.25,
+          "paid": 13500,
+          "firstCapturableDay": 83,
+          "daysCapturable": 1,
+          "captures": 1,
+          "capturedGross": 1375,
+          "captureFees": 663,
+          "winnersReceived": 712,
+          "averageWaitDays": 28,
+          "chestOutputsAtEnd": 1,
+          "chestAtEnd": 5501,
+          "belowFloorAtEnd": 5501,
+          "stillWaitingAtEnd": 0
+        },
+        {
+          "servicesPerWeek": 1,
+          "paid": 54000,
+          "firstCapturableDay": 20,
+          "daysCapturable": 16,
+          "captures": 16,
+          "capturedGross": 23098,
+          "captureFees": 12048,
+          "winnersReceived": 11050,
+          "averageWaitDays": 1.8,
+          "chestOutputsAtEnd": 1,
+          "chestAtEnd": 6008,
+          "belowFloorAtEnd": 6008,
+          "stillWaitingAtEnd": 0
+        },
+        {
+          "servicesPerWeek": 3,
+          "paid": 162000,
+          "firstCapturableDay": 6,
+          "daysCapturable": 56,
+          "captures": 56,
+          "capturedGross": 82361,
+          "captureFees": 42408,
+          "winnersReceived": 39953,
+          "averageWaitDays": 0.2,
+          "chestOutputsAtEnd": 1,
+          "chestAtEnd": 6025,
+          "belowFloorAtEnd": 6025,
+          "stillWaitingAtEnd": 0
+        },
+        {
+          "servicesPerWeek": 7,
+          "paid": 378000,
+          "firstCapturableDay": 2,
+          "daysCapturable": 82,
+          "captures": 82,
+          "capturedGross": 197066,
+          "captureFees": 67326,
+          "winnersReceived": 129740,
+          "averageWaitDays": 0,
+          "chestOutputsAtEnd": 1,
+          "chestAtEnd": 9880,
+          "belowFloorAtEnd": 0,
+          "stillWaitingAtEnd": 0
+        }
+      ]
+    },
+    {
+      "attestors": 3,
+      "threshold": 2,
+      "sizes": {
+        "ridingShareInCapture": 160,
+        "chestFeederMove": {
+          "1": 214,
+          "2": 374,
+          "3": 534,
+          "4": 694
+        },
+        "captureFee": {
+          "1": 804,
+          "2": 1518
+        },
+        "withdrawal": 671,
+        "ownerExit": {
+          "stepOne": 637,
+          "stepTwo": 578
+        },
+        "captureFloor": 7050
+      },
+      "perPrice": [
+        {
+          "price": 4000,
+          "warChestShare": 2000,
+          "before": {
+            "reserve": 300,
+            "payerOverhead": 664,
+            "overheadPercent": 16.6,
+            "capturableAlone": false,
+            "withdrawalFeePerShare": 544,
+            "withdrawalPercent": 27.2,
+            "endToEndCostPerShare": 876
+          },
+          "after": {
+            "direct": false,
+            "reserve": 520,
+            "payerOverhead": 884,
+            "overheadPercent": 22.1,
+            "sharesToJoin": 4,
+            "joinedOutput": 8186,
+            "reserveReturnedToChest": 186,
+            "capture": {
+              "gross": 1637,
+              "fee": 804,
+              "net": 833,
+              "inputs": 1,
+              "used": [
+                8186
+              ],
+              "riding": []
+            },
+            "withdrawalFeePerShare": 168,
+            "withdrawalPercent": 8.2,
+            "endToEndCostPerShare": 673
+          }
+        },
+        {
+          "price": 4500,
+          "warChestShare": 2250,
+          "before": {
+            "reserve": 300,
+            "payerOverhead": 664,
+            "overheadPercent": 14.8,
+            "capturableAlone": false,
+            "withdrawalFeePerShare": 544,
+            "withdrawalPercent": 24.2,
+            "endToEndCostPerShare": 876
+          },
+          "after": {
+            "direct": false,
+            "reserve": 520,
+            "payerOverhead": 884,
+            "overheadPercent": 19.6,
+            "sharesToJoin": 4,
+            "joinedOutput": 9186,
+            "reserveReturnedToChest": 186,
+            "capture": {
+              "gross": 1837,
+              "fee": 804,
+              "net": 1033,
+              "inputs": 1,
+              "used": [
+                9186
+              ],
+              "riding": []
+            },
+            "withdrawalFeePerShare": 168,
+            "withdrawalPercent": 7.3,
+            "endToEndCostPerShare": 673
+          }
+        },
+        {
+          "price": 24000,
+          "warChestShare": 12000,
+          "before": {
+            "reserve": 300,
+            "payerOverhead": 664,
+            "overheadPercent": 2.8,
+            "capturableAlone": true,
+            "withdrawalFeePerShare": 544,
+            "withdrawalPercent": 4.5,
+            "endToEndCostPerShare": 876
+          },
+          "after": {
+            "direct": true,
+            "reserve": 300,
+            "payerOverhead": 664,
+            "overheadPercent": 2.8,
+            "sharesToJoin": 1,
+            "joinedOutput": 12000,
+            "reserveReturnedToChest": 0,
+            "capture": {
+              "gross": 2400,
+              "fee": 804,
+              "net": 1596,
+              "inputs": 1,
+              "used": [
+                12000
+              ],
+              "riding": []
+            },
+            "withdrawalFeePerShare": 671,
+            "withdrawalPercent": 5.6,
+            "endToEndCostPerShare": 1003
+          }
+        }
+      ],
+      "neverDeposits": [
+        {
+          "servicesPerWeek": 0.25,
+          "paid": 13500,
+          "firstCapturableDay": null,
+          "daysCapturable": 0,
+          "captures": 0,
+          "capturedGross": 0,
+          "captureFees": 0,
+          "winnersReceived": 0,
+          "averageWaitDays": null,
+          "chestOutputsAtEnd": 0,
+          "chestAtEnd": 0,
+          "belowFloorAtEnd": 0,
+          "stillWaitingAtEnd": 6750
+        },
+        {
+          "servicesPerWeek": 1,
+          "paid": 54000,
+          "firstCapturableDay": 27,
+          "daysCapturable": 13,
+          "captures": 13,
+          "capturedGross": 21651,
+          "captureFees": 11732,
+          "winnersReceived": 9919,
+          "averageWaitDays": 3.5,
+          "chestOutputsAtEnd": 1,
+          "chestAtEnd": 7295,
+          "belowFloorAtEnd": 0,
+          "stillWaitingAtEnd": 0
+        },
+        {
+          "servicesPerWeek": 3,
+          "paid": 162000,
+          "firstCapturableDay": 9,
+          "daysCapturable": 49,
+          "captures": 49,
+          "capturedGross": 80934,
+          "captureFees": 44516,
+          "winnersReceived": 36418,
+          "averageWaitDays": 0.4,
+          "chestOutputsAtEnd": 1,
+          "chestAtEnd": 7292,
+          "belowFloorAtEnd": 0,
+          "stillWaitingAtEnd": 0
+        },
+        {
+          "servicesPerWeek": 7,
+          "paid": 378000,
+          "firstCapturableDay": 3,
+          "daysCapturable": 81,
+          "captures": 81,
+          "capturedGross": 196906,
+          "captureFees": 77924,
+          "winnersReceived": 118982,
+          "averageWaitDays": 0.1,
+          "chestOutputsAtEnd": 1,
+          "chestAtEnd": 9880,
+          "belowFloorAtEnd": 0,
+          "stillWaitingAtEnd": 0
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,296 @@
+{
+  "startedAt": "2026-11-18T19:04:14.628Z",
+  "network": "chipnet",
+  "readOnly": true,
+  "minConfirmations": 2,
+  "collectibles": [
+    {
+      "id": "lease:rare-ruins-334564-settlement",
+      "txid": "68d26d810b809c4e1f8d6128585851b484743f51040740eb3bb61f241e0f4a4a",
+      "category": "5029234968e031206567fb70673cd5b1c91cdc25a95bae2860d01ba1d2a1c2df",
+      "proof": {
+        "status": "unspent",
+        "current": {
+          "txid": "68d26d810b809c4e1f8d6128585851b484743f51040740eb3bb61f241e0f4a4a",
+          "vout": 1,
+          "address": "bchtest:zp3w6c2x3syvjpfn3tf5muffvlnggpfzuye6fuduaf",
+          "script": "76a91462ed61468c08c905338ad34df12967e6840522e188ac",
+          "satoshis": 1500,
+          "height": 334672,
+          "confirmations": 2453,
+          "explorerUrl": "https://chipnet.imaginary.cash/tx/68d26d810b809c4e1f8d6128585851b484743f51040740eb3bb61f241e0f4a4a"
+        },
+        "history": [
+          {
+            "txid": "68d26d810b809c4e1f8d6128585851b484743f51040740eb3bb61f241e0f4a4a",
+            "vout": 1,
+            "address": "bchtest:zp3w6c2x3syvjpfn3tf5muffvlnggpfzuye6fuduaf",
+            "script": "76a91462ed61468c08c905338ad34df12967e6840522e188ac",
+            "satoshis": 1500,
+            "height": 334672,
+            "confirmations": 2453,
+            "explorerUrl": "https://chipnet.imaginary.cash/tx/68d26d810b809c4e1f8d6128585851b484743f51040740eb3bb61f241e0f4a4a",
+            "type": "issued"
+          }
+        ]
+      },
+      "status": "PASS",
+      "archiveCurrentMatches": true
+    },
+    {
+      "id": "deed:east-meadow",
+      "txid": "7cd314a52217b9667c3f313a200fea38456dcc41bdc5b72af9a02cae9cc8ec59",
+      "category": "5029234968e031206567fb70673cd5b1c91cdc25a95bae2860d01ba1d2a1c2df",
+      "proof": {
+        "status": "unspent",
+        "current": {
+          "txid": "a7c61efeab5e1df8a351dbf4215bc034dc34987a3ff484be684aa84aad7a9a0b",
+          "vout": 0,
+          "address": "bchtest:zqwyjjg3un8v4phw0s6gw26cudpt864fa597y0n9gc",
+          "script": "76a9141c494911e4ceca86ee7c34872b58e342b3eaa9ed88ac",
+          "satoshis": 1100,
+          "height": 334700,
+          "confirmations": 2425,
+          "explorerUrl": "https://chipnet.imaginary.cash/tx/a7c61efeab5e1df8a351dbf4215bc034dc34987a3ff484be684aa84aad7a9a0b"
+        },
+        "history": [
+          {
+            "txid": "7cd314a52217b9667c3f313a200fea38456dcc41bdc5b72af9a02cae9cc8ec59",
+            "vout": 1,
+            "address": "bchtest:zp3w6c2x3syvjpfn3tf5muffvlnggpfzuye6fuduaf",
+            "script": "76a91462ed61468c08c905338ad34df12967e6840522e188ac",
+            "satoshis": 1500,
+            "height": 334674,
+            "confirmations": 2451,
+            "explorerUrl": "https://chipnet.imaginary.cash/tx/7cd314a52217b9667c3f313a200fea38456dcc41bdc5b72af9a02cae9cc8ec59",
+            "type": "issued"
+          },
+          {
+            "txid": "a7c61efeab5e1df8a351dbf4215bc034dc34987a3ff484be684aa84aad7a9a0b",
+            "vout": 0,
+            "address": "bchtest:zqwyjjg3un8v4phw0s6gw26cudpt864fa597y0n9gc",
+            "script": "76a9141c494911e4ceca86ee7c34872b58e342b3eaa9ed88ac",
+            "satoshis": 1100,
+            "height": 334700,
+            "confirmations": 2425,
+            "explorerUrl": "https://chipnet.imaginary.cash/tx/a7c61efeab5e1df8a351dbf4215bc034dc34987a3ff484be684aa84aad7a9a0b",
+            "type": "transferred"
+          }
+        ]
+      },
+      "status": "PASS",
+      "archiveCurrentMatches": true
+    },
+    {
+      "id": "conquest:ts18",
+      "txid": "0a799b707693af5dcc3ae4a840d16c292df7f3dfa8c083609d5c0f68d84da8b2",
+      "category": "5029234968e031206567fb70673cd5b1c91cdc25a95bae2860d01ba1d2a1c2df",
+      "proof": {
+        "status": "unspent",
+        "current": {
+          "txid": "0a799b707693af5dcc3ae4a840d16c292df7f3dfa8c083609d5c0f68d84da8b2",
+          "vout": 1,
+          "address": "bchtest:zqwyjjg3un8v4phw0s6gw26cudpt864fa597y0n9gc",
+          "script": "76a9141c494911e4ceca86ee7c34872b58e342b3eaa9ed88ac",
+          "satoshis": 1500,
+          "height": 334683,
+          "confirmations": 2442,
+          "explorerUrl": "https://chipnet.imaginary.cash/tx/0a799b707693af5dcc3ae4a840d16c292df7f3dfa8c083609d5c0f68d84da8b2"
+        },
+        "history": [
+          {
+            "txid": "0a799b707693af5dcc3ae4a840d16c292df7f3dfa8c083609d5c0f68d84da8b2",
+            "vout": 1,
+            "address": "bchtest:zqwyjjg3un8v4phw0s6gw26cudpt864fa597y0n9gc",
+            "script": "76a9141c494911e4ceca86ee7c34872b58e342b3eaa9ed88ac",
+            "satoshis": 1500,
+            "height": 334683,
+            "confirmations": 2442,
+            "explorerUrl": "https://chipnet.imaginary.cash/tx/0a799b707693af5dcc3ae4a840d16c292df7f3dfa8c083609d5c0f68d84da8b2",
+            "type": "issued"
+          }
+        ]
+      },
+      "status": "PASS",
+      "archiveCurrentMatches": true
+    },
+    {
+      "id": "deed:silverpass-test",
+      "txid": "226d6385a6230ab5fe31401833ca700ca54caaddbd4b51a09d403875a08e6035",
+      "category": "6fc67aafa6e0c5d489433821390c8a514442b55c77a2b6773991be0dc444c4d2",
+      "proof": {
+        "status": "unspent",
+        "current": {
+          "txid": "d439f34f15a71aedbf784ac398bb76cacfa4d83893a2491b000689283fe0f548",
+          "vout": 0,
+          "address": "bchtest:zpzfafnj4u3tfhal5ejmd7ulglfqpv6lhvcsv6svzg",
+          "script": "76a914449ea672af22b4dfbfa665b6fb9f47d200b35fbb88ac",
+          "satoshis": 1100,
+          "height": 334700,
+          "confirmations": 2425,
+          "explorerUrl": "https://chipnet.imaginary.cash/tx/d439f34f15a71aedbf784ac398bb76cacfa4d83893a2491b000689283fe0f548"
+        },
+        "history": [
+          {
+            "txid": "226d6385a6230ab5fe31401833ca700ca54caaddbd4b51a09d403875a08e6035",
+            "vout": 1,
+            "address": "bchtest:zz98gr69caps3j34h8newwrvzdvd06q60q60r7ytwz",
+            "script": "76a9148a740f45c74308ca35b9e797386c1358d7e81a7888ac",
+            "satoshis": 1500,
+            "height": 334697,
+            "confirmations": 2428,
+            "explorerUrl": "https://chipnet.imaginary.cash/tx/226d6385a6230ab5fe31401833ca700ca54caaddbd4b51a09d403875a08e6035",
+            "type": "issued"
+          },
+          {
+            "txid": "d439f34f15a71aedbf784ac398bb76cacfa4d83893a2491b000689283fe0f548",
+            "vout": 0,
+            "address": "bchtest:zpzfafnj4u3tfhal5ejmd7ulglfqpv6lhvcsv6svzg",
+            "script": "76a914449ea672af22b4dfbfa665b6fb9f47d200b35fbb88ac",
+            "satoshis": 1100,
+            "height": 334700,
+            "confirmations": 2425,
+            "explorerUrl": "https://chipnet.imaginary.cash/tx/d439f34f15a71aedbf784ac398bb76cacfa4d83893a2491b000689283fe0f548",
+            "type": "transferred"
+          }
+        ]
+      },
+      "status": "PASS",
+      "archiveCurrentMatches": true
+    },
+    {
+      "id": "conquest:native-test-conquest",
+      "txid": "7a4d2fa2c372b8d38a141b90155482a0be0bafadf81bd793268cc731eeaa983b",
+      "category": "6fc67aafa6e0c5d489433821390c8a514442b55c77a2b6773991be0dc444c4d2",
+      "proof": {
+        "status": "unspent",
+        "current": {
+          "txid": "7a4d2fa2c372b8d38a141b90155482a0be0bafadf81bd793268cc731eeaa983b",
+          "vout": 1,
+          "address": "bchtest:zpzfafnj4u3tfhal5ejmd7ulglfqpv6lhvcsv6svzg",
+          "script": "76a914449ea672af22b4dfbfa665b6fb9f47d200b35fbb88ac",
+          "satoshis": 1500,
+          "height": 334700,
+          "confirmations": 2425,
+          "explorerUrl": "https://chipnet.imaginary.cash/tx/7a4d2fa2c372b8d38a141b90155482a0be0bafadf81bd793268cc731eeaa983b"
+        },
+        "history": [
+          {
+            "txid": "7a4d2fa2c372b8d38a141b90155482a0be0bafadf81bd793268cc731eeaa983b",
+            "vout": 1,
+            "address": "bchtest:zpzfafnj4u3tfhal5ejmd7ulglfqpv6lhvcsv6svzg",
+            "script": "76a914449ea672af22b4dfbfa665b6fb9f47d200b35fbb88ac",
+            "satoshis": 1500,
+            "height": 334700,
+            "confirmations": 2425,
+            "explorerUrl": "https://chipnet.imaginary.cash/tx/7a4d2fa2c372b8d38a141b90155482a0be0bafadf81bd793268cc731eeaa983b",
+            "type": "issued"
+          }
+        ]
+      },
+      "status": "PASS",
+      "archiveCurrentMatches": true
+    },
+    {
+      "id": "lease:native-test-lease",
+      "txid": "0970ee83efbb515c7b253981602416399895f31b7817000c14aedde620d5a618",
+      "category": "6fc67aafa6e0c5d489433821390c8a514442b55c77a2b6773991be0dc444c4d2",
+      "proof": {
+        "status": "unspent",
+        "current": {
+          "txid": "0970ee83efbb515c7b253981602416399895f31b7817000c14aedde620d5a618",
+          "vout": 1,
+          "address": "bchtest:zz98gr69caps3j34h8newwrvzdvd06q60q60r7ytwz",
+          "script": "76a9148a740f45c74308ca35b9e797386c1358d7e81a7888ac",
+          "satoshis": 1500,
+          "height": 334702,
+          "confirmations": 2423,
+          "explorerUrl": "https://chipnet.imaginary.cash/tx/0970ee83efbb515c7b253981602416399895f31b7817000c14aedde620d5a618"
+        },
+        "history": [
+          {
+            "txid": "0970ee83efbb515c7b253981602416399895f31b7817000c14aedde620d5a618",
+            "vout": 1,
+            "address": "bchtest:zz98gr69caps3j34h8newwrvzdvd06q60q60r7ytwz",
+            "script": "76a9148a740f45c74308ca35b9e797386c1358d7e81a7888ac",
+            "satoshis": 1500,
+            "height": 334702,
+            "confirmations": 2423,
+            "explorerUrl": "https://chipnet.imaginary.cash/tx/0970ee83efbb515c7b253981602416399895f31b7817000c14aedde620d5a618",
+            "type": "issued"
+          }
+        ]
+      },
+      "status": "PASS",
+      "archiveCurrentMatches": true
+    },
+    {
+      "id": "lease-renewed:native-test-renewal",
+      "txid": "0eb8f289e058d56c580a88c9e4ca899bbeaef910734e24ade40dce150836ee74",
+      "category": "6fc67aafa6e0c5d489433821390c8a514442b55c77a2b6773991be0dc444c4d2",
+      "proof": {
+        "status": "unspent",
+        "current": {
+          "txid": "0eb8f289e058d56c580a88c9e4ca899bbeaef910734e24ade40dce150836ee74",
+          "vout": 1,
+          "address": "bchtest:zz98gr69caps3j34h8newwrvzdvd06q60q60r7ytwz",
+          "script": "76a9148a740f45c74308ca35b9e797386c1358d7e81a7888ac",
+          "satoshis": 1500,
+          "height": 334704,
+          "confirmations": 2421,
+          "explorerUrl": "https://chipnet.imaginary.cash/tx/0eb8f289e058d56c580a88c9e4ca899bbeaef910734e24ade40dce150836ee74"
+        },
+        "history": [
+          {
+            "txid": "0eb8f289e058d56c580a88c9e4ca899bbeaef910734e24ade40dce150836ee74",
+            "vout": 1,
+            "address": "bchtest:zz98gr69caps3j34h8newwrvzdvd06q60q60r7ytwz",
+            "script": "76a9148a740f45c74308ca35b9e797386c1358d7e81a7888ac",
+            "satoshis": 1500,
+            "height": 334704,
+            "confirmations": 2421,
+            "explorerUrl": "https://chipnet.imaginary.cash/tx/0eb8f289e058d56c580a88c9e4ca899bbeaef910734e24ade40dce150836ee74",
+            "type": "issued"
+          }
+        ]
+      },
+      "status": "PASS",
+      "archiveCurrentMatches": true
+    }
+  ],
+  "authorities": [
+    {
+      "category": "5029234968e031206567fb70673cd5b1c91cdc25a95bae2860d01ba1d2a1c2df",
+      "address": "bchtest:qqeppa4zzlq2cwtgl3r4826mn4kp9w342qlu0dm4hz",
+      "mintingBatons": [
+        {
+          "txid": "83597038563f02a09e309b3d93d1bacc0cdb952329f84f7dce5d00ec87d6c914",
+          "vout": 0,
+          "satoshis": 12500,
+          "confirmations": 2435
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "category": "6fc67aafa6e0c5d489433821390c8a514442b55c77a2b6773991be0dc444c4d2",
+      "address": "bchtest:qplq4eztyxnfh9utauxtrh27n8ruszygm5tsvrnm6c",
+      "mintingBatons": [
+        {
+          "txid": "1219d6a0b7cdde42f5cab86aaa45359b4076b6e3f99339791e9c87f023b2e753",
+          "vout": 0,
+          "satoshis": 6000,
+          "confirmations": 2418
+        }
+      ],
+      "status": "PASS"
+    }
+  ],
+  "tip": 337124,
+  "finishedAt": "2026-11-18T19:04:48.682Z",
+  "summary": {
+    "collectibles": 7,
+    "unspent": 7,
+    "authorityChecks": 2
+  }
+}

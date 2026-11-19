@@ -1,0 +1,247 @@
+{
+  "network": "regtest",
+  "transactions": [
+    {
+      "name": "Territory split, stake and spendable outputs",
+      "txid": "efa8baecc9ba795960008dce18580812a2c48822ee9393207a94ec1364084e89",
+      "blockHash": "420d18e6ce16cba7722388f20164a85911b8925585e8bc8d97f489b6af68f71e",
+      "confirmations": 1,
+      "feeSatoshis": 500
+    },
+    {
+      "name": "Territory escrow settlement commitment",
+      "txid": "b7fb03376bb4f04e225550263e1ffbb8015577d926c2ee329670219a36b2d43f",
+      "blockHash": "2856b745802a353fbadb78a45374623d0d5432502597a10c4ae53792a84ba418",
+      "confirmations": 1,
+      "feeSatoshis": 800
+    },
+    {
+      "name": "Territory CashTokens genesis",
+      "txid": "63f587ed18e29b30d03aa90d70e513516f8c8f65c10a41b81c1762543ce1fabb",
+      "blockHash": "4f670692647e033c5775c056451bb05ba1aefd3ac7ccca0f6d810bd3e1a578e4",
+      "confirmations": 1,
+      "feeSatoshis": 500
+    },
+    {
+      "name": "Immutable territory NFT transfer to player",
+      "txid": "bc71938a5b1ca6ed2aa89f675e06b9e19747ada6b99056046a130285fcc07f16",
+      "blockHash": "23a5cef5438fe6d9bc82564789fa2aa290ba334ef4fa6e5cf06ebc727832828b",
+      "confirmations": 1,
+      "feeSatoshis": 550
+    },
+    {
+      "name": "Political treaty escrow funding · release",
+      "txid": "54dea740c996cf2c0e699635198b73cd8328db50b6fd39d90a4fc54834aa94de",
+      "blockHash": "0b2ceefcea9ce47d241d56d54074d80a92d3f3325e45f633893e4778d85a70f0",
+      "confirmations": 1,
+      "feeSatoshis": 500
+    },
+    {
+      "name": "Political treaty escrow funding · payer-refund",
+      "txid": "023145e24234dd7ade7e36e27f4611584a8ce482b99b6d25b8ab6d993caac61d",
+      "blockHash": "1078bdc09b5ec22109040aeeddc768a30772242f032b9158a5cb2b54fac31a6c",
+      "confirmations": 1,
+      "feeSatoshis": 500
+    },
+    {
+      "name": "Political treaty escrow funding · operator-refund",
+      "txid": "da17fc8cca372c6ee99e83d7b0355b8835f47b842a96a4be799d7ed018fe20b8",
+      "blockHash": "4ac4dad3e08e50f3bb28acee69b101709ec7e41b54fbac735b41532517b874f7",
+      "confirmations": 1,
+      "feeSatoshis": 500
+    },
+    {
+      "name": "Political treaty escrow · release",
+      "txid": "c001c38cbac224eea61efb320d69acc1c9e6084bd5c733ece3991d8bd39994f1",
+      "blockHash": "57dc7e923817aaba2028561a27c74544e147321f8dfbf158364a429896a00fd8",
+      "confirmations": 1,
+      "feeSatoshis": 650,
+      "fundingTxid": "54dea740c996cf2c0e699635198b73cd8328db50b6fd39d90a4fc54834aa94de",
+      "principal": 8300,
+      "lane": "release",
+      "contract": {
+        "id": "462e72ef4b2bc10341544bb8012d170d",
+        "operatorKey": "03a3012f68830b2c103c726fcc81d12b9cbf383967fa1f40b4be6d13c9bbc0498a",
+        "payerKey": "02b625525a97d700fcbc7c063ee1ccdb329a5de7720803e42d49935e7f1c4d9a35",
+        "payeeKey": "03f600eff57aeb2d6fdaa66b3093c549340486438f02655d849900afb9760e73c8",
+        "principal": 8300,
+        "refundAt": 1794928129,
+        "script": "a9147087406e9baca7da36d792157936bd9aace8e6bb87",
+        "address": "bchtest:ppcgwsrwnwk20k3k67fp27fkhkd2e68xhv8r3a02gf",
+        "redeemScript": "10462e72ef4b2bc10341544bb8012d170d75632103a3012f68830b2c103c726fcc81d12b9cbf383967fa1f40b4be6d13c9bbc0498aad00cd1976a9144ec39dd66209e50c9d63989b5f8459d61ba137b488ac8867632103a3012f68830b2c103c726fcc81d12b9cbf383967fa1f40b4be6d13c9bbc0498aad6704016efc6ab1752102b625525a97d700fcbc7c063ee1ccdb329a5de7720803e42d49935e7f1c4d9a35ad6800cd1976a9148eec2224e87c78c4aa42504bef5a33716ae045c488ac886800cc026c209d51cc009dc4529c",
+        "payer": "bchtest:qz8wcg3yap783392gfgyhm66xdck4cz9csmf8h2yvq",
+        "payee": "bchtest:qp8v88wkvgy72ryavwvfkhuyt8tphgfhksmj4u6cty",
+        "satoshis": 8950
+      },
+      "event": {
+        "version": 1,
+        "kind": "political-release",
+        "subject": "462e72ef4b2bc10341544bb8012d170d",
+        "data": {
+          "treaty": "test-accord-0",
+          "termsHash": "fba1d551f142bf9d0cedd789bfec99366668ffcec704dc921d9c5e26e2e1cdda",
+          "entryTxid": "54dea740c996cf2c0e699635198b73cd8328db50b6fd39d90a4fc54834aa94de"
+        },
+        "digest": "c638ff4acd3c89f208480b2fe5bcbdd741b30db8f6d5ce97e4101fcea0226b92"
+      }
+    },
+    {
+      "name": "Political treaty escrow · payer-refund",
+      "txid": "978dd1ed3c8c844dc8b9f48168805738dd0f39fd8a722ffc0bd94c3e3c005d63",
+      "blockHash": "6bdf59804bb06ea781447ce566797423a9971ec128479733557952cb0c790d39",
+      "confirmations": 1,
+      "feeSatoshis": 650,
+      "fundingTxid": "023145e24234dd7ade7e36e27f4611584a8ce482b99b6d25b8ab6d993caac61d",
+      "principal": 8300,
+      "lane": "payer-refund",
+      "contract": {
+        "id": "f302d210f900b65280c29e6f9dc383db",
+        "operatorKey": "03a3012f68830b2c103c726fcc81d12b9cbf383967fa1f40b4be6d13c9bbc0498a",
+        "payerKey": "02b625525a97d700fcbc7c063ee1ccdb329a5de7720803e42d49935e7f1c4d9a35",
+        "payeeKey": "03f600eff57aeb2d6fdaa66b3093c549340486438f02655d849900afb9760e73c8",
+        "principal": 8300,
+        "refundAt": 1794928129,
+        "script": "a9149b0164850526ea4ff595c63fdb25073eece4ddd887",
+        "address": "bchtest:pzdszey9q5nw5nl4jhrrlke9qulweexamqzv87ju6k",
+        "redeemScript": "10f302d210f900b65280c29e6f9dc383db75632103a3012f68830b2c103c726fcc81d12b9cbf383967fa1f40b4be6d13c9bbc0498aad00cd1976a9144ec39dd66209e50c9d63989b5f8459d61ba137b488ac8867632103a3012f68830b2c103c726fcc81d12b9cbf383967fa1f40b4be6d13c9bbc0498aad6704016efc6ab1752102b625525a97d700fcbc7c063ee1ccdb329a5de7720803e42d49935e7f1c4d9a35ad6800cd1976a9148eec2224e87c78c4aa42504bef5a33716ae045c488ac886800cc026c209d51cc009dc4529c",
+        "payer": "bchtest:qz8wcg3yap783392gfgyhm66xdck4cz9csmf8h2yvq",
+        "payee": "bchtest:qp8v88wkvgy72ryavwvfkhuyt8tphgfhksmj4u6cty",
+        "satoshis": 8950
+      },
+      "event": {
+        "version": 1,
+        "kind": "political-refund",
+        "subject": "f302d210f900b65280c29e6f9dc383db",
+        "data": {
+          "treaty": "test-accord-1",
+          "termsHash": "df4704f644f5c9ac4550f5dadfb5a5c0d94f239afa177cb422b71c17c6f5bb03",
+          "entryTxid": "023145e24234dd7ade7e36e27f4611584a8ce482b99b6d25b8ab6d993caac61d"
+        },
+        "digest": "9dcf8e00e19a2812fbe269a52f3add879fd3f78a06ae9f93461b70ab34edbbe0"
+      }
+    },
+    {
+      "name": "Political treaty escrow · operator-refund",
+      "txid": "b524c9cd53a246f25cab99e484c3bf522c299ab55dfbcb51fed01db4b6f5bb40",
+      "blockHash": "7a51d8944d05683273f3707df7a64ae426c9a0a0766227c5a1653b94af0ee755",
+      "confirmations": 1,
+      "feeSatoshis": 650,
+      "fundingTxid": "da17fc8cca372c6ee99e83d7b0355b8835f47b842a96a4be799d7ed018fe20b8",
+      "principal": 8300,
+      "lane": "operator-refund",
+      "contract": {
+        "id": "af7623020ee7bc758be8ee6100ea0782",
+        "operatorKey": "03a3012f68830b2c103c726fcc81d12b9cbf383967fa1f40b4be6d13c9bbc0498a",
+        "payerKey": "02b625525a97d700fcbc7c063ee1ccdb329a5de7720803e42d49935e7f1c4d9a35",
+        "payeeKey": "03f600eff57aeb2d6fdaa66b3093c549340486438f02655d849900afb9760e73c8",
+        "principal": 8300,
+        "refundAt": 1794928129,
+        "script": "a91427baec781ec42d916c77c619f8d4a04d75e5c67287",
+        "address": "bchtest:pqnm4mrcrmzzmytvwlrpn7x55pxhtewxwggxd62x7d",
+        "redeemScript": "10af7623020ee7bc758be8ee6100ea078275632103a3012f68830b2c103c726fcc81d12b9cbf383967fa1f40b4be6d13c9bbc0498aad00cd1976a9144ec39dd66209e50c9d63989b5f8459d61ba137b488ac8867632103a3012f68830b2c103c726fcc81d12b9cbf383967fa1f40b4be6d13c9bbc0498aad6704016efc6ab1752102b625525a97d700fcbc7c063ee1ccdb329a5de7720803e42d49935e7f1c4d9a35ad6800cd1976a9148eec2224e87c78c4aa42504bef5a33716ae045c488ac886800cc026c209d51cc009dc4529c",
+        "payer": "bchtest:qz8wcg3yap783392gfgyhm66xdck4cz9csmf8h2yvq",
+        "payee": "bchtest:qp8v88wkvgy72ryavwvfkhuyt8tphgfhksmj4u6cty",
+        "satoshis": 8950
+      },
+      "event": {
+        "version": 1,
+        "kind": "political-refund",
+        "subject": "af7623020ee7bc758be8ee6100ea0782",
+        "data": {
+          "treaty": "test-accord-2",
+          "termsHash": "b1ff1ca563536a2fa604841ca357da4775eae442f4ec0c32241588ea5e3703e0",
+          "entryTxid": "da17fc8cca372c6ee99e83d7b0355b8835f47b842a96a4be799d7ed018fe20b8"
+        },
+        "digest": "e889f0d7f2795c87b2fcbbae5b5364e2fbce361bd8e4c2602a771580372cbae6"
+      }
+    },
+    {
+      "name": "Political charter fee and four exact allocations",
+      "txid": "d822f07e1eb365b1f202f07c2f2a171c2b75a700038eab0212b8b2c46a560c24",
+      "blockHash": "7728b2243bac81180960ac5df16701fdc1e4ba931bbb567ab52b2d215edf77a1",
+      "confirmations": 1,
+      "feeSatoshis": 500
+    },
+    {
+      "name": "Political outcome commitment from the development allocation",
+      "txid": "6fe76e4f3622146f3cd0b9887d053def0d9cab6cf6d6a5c96365904a62d90799",
+      "blockHash": "69b904a666dbad7dd2e60e4459dcbe2e0b45404ca0c8afc1d5bcb1165ae0af6b",
+      "confirmations": 1,
+      "feeSatoshis": 254,
+      "record": {
+        "id": "regtest-treaty",
+        "kind": "treaty-charter",
+        "treaty": "regtest-accord",
+        "termsHash": "fba1d551f142bf9d0cedd789bfec99366668ffcec704dc921d9c5e26e2e1cdda"
+      },
+      "opening": {
+        "player": "p1",
+        "action": {
+          "type": "political-operation",
+          "operation": "attest",
+          "treaty": "regtest-accord",
+          "termsHash": "fba1d551f142bf9d0cedd789bfec99366668ffcec704dc921d9c5e26e2e1cdda"
+        },
+        "nonce": "afafafafafafafafafafafafafafafafafafafafafafafaf"
+      },
+      "allocation": {
+        "development": 800,
+        "burn": 600,
+        "prize": 600,
+        "kingdom": 2000
+      },
+      "feeTxid": "d822f07e1eb365b1f202f07c2f2a171c2b75a700038eab0212b8b2c46a560c24",
+      "event": {
+        "version": 1,
+        "kind": "political-outcome",
+        "subject": "regtest-treaty",
+        "data": {
+          "recordHash": "7765bc0f72046bf5e9f5650b9f38e37a560197bd9fab0b5b51613f0b3cba5686",
+          "entryTxid": "d822f07e1eb365b1f202f07c2f2a171c2b75a700038eab0212b8b2c46a560c24"
+        },
+        "digest": "0a0442e9aaaf90a5cdbe47250dc6cc8b5542a6bd1559c527c796539f64c3a150"
+      }
+    },
+    {
+      "name": "Political CashTokens authority input",
+      "txid": "07b3aa6cb9325464a7652965ba1385bfe1aba2ca42d9761eac3773d318544cfd",
+      "blockHash": "4a0e826b3a38155c3b6a10416506427c4bc3fc433cd40140c958edd3522e2324",
+      "confirmations": 1,
+      "feeSatoshis": 500
+    },
+    {
+      "name": "Political CashTokens minting authority",
+      "txid": "af3bcb2da279883ffb33154968c72664b585ddcb7e89f471cd39e1a4926a0533",
+      "blockHash": "5e0b862f8f309466e8796f92b9196aa98469370a378b8189654e30bba9158b99",
+      "confirmations": 1,
+      "feeSatoshis": 500
+    },
+    {
+      "name": "Immutable political treaty charter",
+      "txid": "cb1c87c519a3a9d78f53ee9338187a97c181d565e8d77a8f699e1dfaaa80f142",
+      "blockHash": "37a5107b6061bf33d6ca1feb130935e2daf897d4f77468acdf4be69b16bbcee8",
+      "confirmations": 1,
+      "feeSatoshis": 500
+    }
+  ],
+  "node": "/Bitcoin Cash Node:29.2.0/",
+  "genesis": "0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206",
+  "token": {
+    "category": "29ac720fe43b6063ba6f357214a56f01da8e1bfb2fe2b6fc05be8538e13a6df9",
+    "commitment": "acfe4bed61597d0092c985253af7a17c21038aa328c6c99cedc8efb21ddd1f58",
+    "currentTxid": "bc71938a5b1ca6ed2aa89f675e06b9e19747ada6b99056046a130285fcc07f16",
+    "vout": 0,
+    "capability": "none"
+  },
+  "politics": {
+    "refundBeforeDeadlineRejected": true,
+    "category": "07b3aa6cb9325464a7652965ba1385bfe1aba2ca42d9761eac3773d318544cfd",
+    "genesis": "af3bcb2da279883ffb33154968c72664b585ddcb7e89f471cd39e1a4926a0533",
+    "charter": {
+      "txid": "cb1c87c519a3a9d78f53ee9338187a97c181d565e8d77a8f699e1dfaaa80f142",
+      "vout": 1,
+      "commitment": "56425441010701000000c1f91655d90cc5ace0046582709e6ac7e980fc70c80e5c7f329bb6d76427",
+      "kind": "political-treaty"
+    }
+  }
+}

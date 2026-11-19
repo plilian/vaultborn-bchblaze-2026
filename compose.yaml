@@ -1,0 +1,12 @@
+services:
+  dominion:
+    build: .
+    ports:
+      - "127.0.0.1:4173:4173"
+    environment:
+      HOST: 0.0.0.0
+      DOMINION_LOCAL_DEMO: "true"
+    volumes:
+      - dominion-data:/app/var
+volumes:
+  dominion-data:

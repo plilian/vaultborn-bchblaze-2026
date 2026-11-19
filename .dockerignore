@@ -1,0 +1,14 @@
+.cache
+.env
+.git
+node_modules
+var
+docs/screenshots
+output
+.npm-cache
+.qa-temp
+**/*.key
+**/*.wif
+.env.*
+xo/node_modules
+xo/var

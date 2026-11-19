@@ -1,0 +1,100 @@
+{
+  "network": "chipnet",
+  "treasuryPublicKey": "022b265e4a85a3e96fb5dc326d39362891337b696d95e1cc7c25766d8984500a8c",
+  "records": [
+    {
+      "record": {
+        "id": "po-1512e02faf93c7d072a31a9dc8ae7761",
+        "kind": "treaty-charter",
+        "treaty": "dt7",
+        "termsHash": "73cea3303a43c4fb6a70743d1c5ca031fa5a35eb97276246a44da8bfc7319266",
+        "version": 1,
+        "holder": "p1",
+        "terms": {
+          "id": "dt7",
+          "from": "p1",
+          "to": "p2",
+          "participants": [
+            "p1",
+            "p2"
+          ],
+          "terms": {
+            "hours": 48,
+            "note": "",
+            "territoryIds": [],
+            "permissions": [
+              "trade"
+            ],
+            "cancellation": "mutual-or-six-hour-notice",
+            "breach": "termination-and-political-penalty"
+          },
+          "version": 1,
+          "termsHash": "73cea3303a43c4fb6a70743d1c5ca031fa5a35eb97276246a44da8bfc7319266",
+          "kind": "trade",
+          "status": "active",
+          "acceptedAt": 1794923165533,
+          "expiresAt": 1795095965533,
+          "endsAt": 1795095965533
+        },
+        "operation": "1512e02faf93c7d072a31a9dc8ae7761",
+        "at": 1794928721379
+      },
+      "recordHash": "b5b54f03e13bae18dc312eb2bf82dd3b1a836f5dd64c62d811a721fc39e9542a",
+      "anchored": {
+        "txid": "0c25c4544566cd90145685bc8826a127528defb4b65f855e6b6683e1711e6b0a",
+        "confirmations": 2,
+        "height": 335491,
+        "blockHash": "00000000adc8d4f3b5d28477a11b11b5319cd7db04728516dbc8221a18c9b317",
+        "event": {
+          "version": 1,
+          "kind": "political-outcome",
+          "subject": "po-1512e02faf93c7d072a31a9dc8ae7761",
+          "data": {
+            "recordHash": "b5b54f03e13bae18dc312eb2bf82dd3b1a836f5dd64c62d811a721fc39e9542a",
+            "entryTxid": "cdd875f3d1948317885deb0fb3e5824efa0a318a79baf544160e60d7e03a721e"
+          },
+          "digest": "550d9f1d1bf93635fd8f47164157fb5286039adeae8d70c4766601ceb6b550bc"
+        },
+        "eventVout": 1,
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/0c25c4544566cd90145685bc8826a127528defb4b65f855e6b6683e1711e6b0a",
+        "feeSatoshis": 254
+      },
+      "payment": {
+        "txid": "cdd875f3d1948317885deb0fb3e5824efa0a318a79baf544160e60d7e03a721e",
+        "confirmations": 6,
+        "height": 335487,
+        "blockHash": "000000004fa8b318b1f9f0bfe304c88a3d419e158d97b9794dbbcb3af3eff190",
+        "event": {
+          "version": 1,
+          "kind": "political-operation",
+          "subject": "1512e02faf93c7d072a31a9dc8ae7761",
+          "data": {
+            "seasonId": 1,
+            "actionHash": "1771e8f89a748efe2ceeaaa700918b6b8903c4f1f321ded26ca44e2ee3f4ebcf",
+            "allocation": {
+              "development": 800,
+              "burn": 600,
+              "prize": 600,
+              "kingdom": 2000
+            }
+          },
+          "digest": "983ad7d8a6215a40905fa39e9a726e6daefdeaf9fb33492fbb8f0b3ae46083e8"
+        },
+        "eventVout": 3,
+        "explorerUrl": "https://chipnet.imaginary.cash/tx/cdd875f3d1948317885deb0fb3e5824efa0a318a79baf544160e60d7e03a721e",
+        "feeSatoshis": 366
+      },
+      "opening": {
+        "player": "p1",
+        "action": {
+          "type": "political-operation",
+          "operation": "attest",
+          "treaty": "dt7",
+          "termsHash": "73cea3303a43c4fb6a70743d1c5ca031fa5a35eb97276246a44da8bfc7319266",
+          "version": 1
+        },
+        "nonce": "5c1a4f29e8452dcce07891979145cb8c01b390e8751fd745"
+      }
+    }
+  ]
+}

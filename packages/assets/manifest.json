@@ -1,0 +1,727 @@
+{
+  "version": 2,
+  "license": "MIT for project-authored material where applicable",
+  "source": "Original art directed from the project reference boards",
+  "audio": [
+    {
+      "path": "frontier-score.mp3",
+      "title": "March of the Riverwardens",
+      "use": "Campaign music",
+      "attribution": "VAULTBORN original score",
+      "production": "scripts/render-score.py"
+    },
+    {
+      "path": "battle-score.mp3",
+      "title": "Oath at Dusk",
+      "use": "Battle replay music",
+      "attribution": "VAULTBORN original score",
+      "production": "scripts/render-battle-score.py"
+    }
+  ],
+  "assets": [
+    {
+      "path": "alliance-1.webp",
+      "size": [
+        320,
+        314
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "alliance-2.webp",
+      "size": [
+        269,
+        237
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "alliance-3.webp",
+      "size": [
+        281,
+        273
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "barracks-1.webp",
+      "size": [
+        320,
+        316
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "barracks-2.webp",
+      "size": [
+        291,
+        253
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "barracks-3.webp",
+      "size": [
+        295,
+        295
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "battlefield.webp",
+      "size": [
+        1672,
+        941
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Battle replay scenery",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "castle-azure.webp",
+      "size": [
+        503,
+        493
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Map settlement sprites",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "castle-crimson.webp",
+      "size": [
+        502,
+        478
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Map settlement sprites",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "castle-desert.webp",
+      "size": [
+        503,
+        472
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Map settlement sprites",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "castle-emerald.webp",
+      "size": [
+        500,
+        488
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Map settlement sprites",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "castle-gold.webp",
+      "size": [
+        504,
+        480
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Map settlement sprites",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "castle-violet.webp",
+      "size": [
+        499,
+        484
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Map settlement sprites",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "event-defeat.webp",
+      "size": [
+        470,
+        470
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "World and event key art",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "event-protectorate.webp",
+      "size": [
+        470,
+        470
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "World and event key art",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "event-rebellion.webp",
+      "size": [
+        470,
+        470
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "World and event key art",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "event-season.webp",
+      "size": [
+        470,
+        470
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "World and event key art",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "event-vault.webp",
+      "size": [
+        470,
+        470
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "World and event key art",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "event-victory.webp",
+      "size": [
+        470,
+        470
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "World and event key art",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "farm-1.webp",
+      "size": [
+        320,
+        284
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "farm-2.webp",
+      "size": [
+        287,
+        255
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "farm-3.webp",
+      "size": [
+        288,
+        253
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "hall-1.webp",
+      "size": [
+        320,
+        317
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "hall-2.webp",
+      "size": [
+        281,
+        271
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "hall-3.webp",
+      "size": [
+        284,
+        295
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "hero-commander.webp",
+      "size": [
+        440,
+        440
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Commander portraits",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "hero-engineer.webp",
+      "size": [
+        439,
+        440
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Commander portraits",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "hero-keeper.webp",
+      "size": [
+        439,
+        440
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Commander portraits",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "hero-merchant.webp",
+      "size": [
+        439,
+        439
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Commander portraits",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "hero-queen.webp",
+      "size": [
+        439,
+        439
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Commander portraits",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "hero-ranger.webp",
+      "size": [
+        440,
+        439
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Commander portraits",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "hero-scholar.webp",
+      "size": [
+        440,
+        439
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Commander portraits",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "hero-warden.webp",
+      "size": [
+        440,
+        440
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Commander portraits",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "library-1.webp",
+      "size": [
+        320,
+        306
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "library-2.webp",
+      "size": [
+        266,
+        247
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "library-3.webp",
+      "size": [
+        281,
+        274
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "market-1.webp",
+      "size": [
+        320,
+        295
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "market-2.webp",
+      "size": [
+        273,
+        278
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "market-3.webp",
+      "size": [
+        286,
+        275
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "scout-1.webp",
+      "size": [
+        227,
+        320
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "scout-2.webp",
+      "size": [
+        207,
+        292
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "scout-3.webp",
+      "size": [
+        295,
+        278
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "terrain.webp",
+      "size": [
+        1586,
+        992
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "World panorama",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "unit-archer-crimson.webp",
+      "size": [
+        318,
+        320
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Battle troop sprites",
+      "production": "Codex ImageGen with faction palette variant"
+    },
+    {
+      "path": "unit-archer.webp",
+      "size": [
+        318,
+        320
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Battle troop sprites",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "unit-cavalry-crimson.webp",
+      "size": [
+        317,
+        320
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Battle troop sprites",
+      "production": "Codex ImageGen with faction palette variant"
+    },
+    {
+      "path": "unit-cavalry.webp",
+      "size": [
+        317,
+        320
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Battle troop sprites",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "unit-infantry-crimson.webp",
+      "size": [
+        320,
+        308
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Battle troop sprites",
+      "production": "Codex ImageGen with faction palette variant"
+    },
+    {
+      "path": "unit-infantry.webp",
+      "size": [
+        320,
+        308
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Battle troop sprites",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "unit-mage-crimson.webp",
+      "size": [
+        282,
+        320
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Battle troop sprites",
+      "production": "Codex ImageGen with faction palette variant"
+    },
+    {
+      "path": "unit-mage.webp",
+      "size": [
+        282,
+        320
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Battle troop sprites",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "unit-shield-crimson.webp",
+      "size": [
+        301,
+        320
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Battle troop sprites",
+      "production": "Codex ImageGen with faction palette variant"
+    },
+    {
+      "path": "unit-shield.webp",
+      "size": [
+        301,
+        320
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Battle troop sprites",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "unit-siege-crimson.webp",
+      "size": [
+        320,
+        317
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Battle troop sprites",
+      "production": "Codex ImageGen with faction palette variant"
+    },
+    {
+      "path": "unit-siege.webp",
+      "size": [
+        320,
+        317
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "Battle troop sprites",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "vault-1.webp",
+      "size": [
+        320,
+        317
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "vault-2.webp",
+      "size": [
+        289,
+        260
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "vault-3.webp",
+      "size": [
+        290,
+        295
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "walls-1.webp",
+      "size": [
+        320,
+        315
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "walls-2.webp",
+      "size": [
+        280,
+        253
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "walls-3.webp",
+      "size": [
+        286,
+        294
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "workshop-1.webp",
+      "size": [
+        309,
+        320
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "workshop-2.webp",
+      "size": [
+        257,
+        257
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    },
+    {
+      "path": "workshop-3.webp",
+      "size": [
+        282,
+        264
+      ],
+      "frames": 1,
+      "attribution": "BCH Dominion original art",
+      "use": "City structure progression",
+      "production": "Codex ImageGen"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+.territory-starter { --territory-color:#80bded; }
+.territory-unclaimed { --territory-color:#e1bd75; }
+.territory-resource { --territory-color:#88d3ad; }
+.territory-strategic { --territory-color:#ec9273; }
+.territory-rare { --territory-color:#c89aee; }
+.territory-marker.landmark { border-color:var(--territory-color); width:31px; height:31px; box-shadow:0 0 0 3px #142023bd, 0 3px 8px #000; overflow:visible; }
+.territory-marker .icon { color:var(--territory-color); }
+.territory-marker.controlled { border-color:var(--faction); }
+.territory-marker.landmark:hover, .territory-marker.landmark:focus-visible { outline:2px solid #fce0aa; outline-offset:3px; box-shadow:0 0 14px var(--territory-color); }
+.territory-marker.territory-starter { transform:translate(23px,10px); width:21px; height:21px; opacity:.9; }
+.territory-marker.territory-starter:not(.owned) { opacity:.61; }
+.territory-marker.territory-resource { border-radius:3px; }
+.territory-marker.territory-strategic { border-radius:3px 3px 12px 12px; }
+.territory-marker.territory-rare { box-shadow:0 0 15px #d28eff75, 0 2px 8px #000; }
+.territory-marker > i { position:absolute; inset:-7px; border:1px solid transparent; border-radius:inherit; pointer-events:none; }
+.territory-marker.contested > i { border-color:#edc078; border-style:dashed; animation:territory-halo 2.8s ease-in-out infinite; }
+.territory-marker.leased > i { border-color:#cc9bee; animation:territory-halo 4s ease-in-out infinite; }
+.territory-marker.owned > i { border-color:#a6d7ac99; }
+.territory-marker.territory-transition > i { border-color:var(--territory-color); animation:territory-control 1.6s ease-out; }
+@keyframes territory-halo { 50% { opacity:.4; transform:scale(1.18); } }
+@keyframes territory-control { from { opacity:1; transform:scale(.75); box-shadow:0 0 24px var(--territory-color); } to { opacity:.5; transform:scale(1.25); } }
+.territory-atlas { columns:2; column-gap:12px; }
+.territory-atlas button,.territory-detail button,.territory-marker { -webkit-tap-highlight-color:transparent; }
+.territory-atlas > .territory-section { display:inline-block; width:100%; break-inside:avoid; }
+.territory-row { display:grid; grid-template-columns:47px minmax(0,1fr) auto; align-items:center; gap:9px; padding:8px 0; border-top:1px solid #a6885036; }
+.territory-row img { width:47px; height:48px; object-fit:cover; border:1px solid color-mix(in srgb,var(--territory-color),transparent 45%); }
+.territory-row p, .territory-atlas p { margin:3px 0; }
+.territory-detail { display:grid; gap:8px; }
+.territory-landscape { min-height:125px; display:grid; align-content:end; gap:5px; padding:17px; border:1px solid color-mix(in srgb,var(--territory-color),transparent 32%); color:#fbe9bf; background:linear-gradient(90deg,#111b1ef4,#1b2625b5 75%,#18232180),var(--territory-art) center 50% / cover; }
+.territory-landscape div, .territory-landscape .icon { color:var(--territory-color); }
+.territory-landscape strong { font:700 clamp(19px,4vw,27px) Georgia,serif; }
+.territory-yield { display:flex; flex-wrap:wrap; gap:4px 10px; color:#addbbc; font-size:.8rem; }
+.territory-yield .icon { width:16px; height:16px; color:inherit; }
+.territory-production { min-height:34px; padding:6px 12px; align-items:center; border:1px solid #5f876756; background:#42604a37; }
+.territory-production.producing .icon { animation:territory-halo 2.8s ease-in-out infinite; }
+.territory-rule { color:#dabf8c; }
+.territory-section h4 { margin-bottom:0; color:#ddc392; }
+.territory-list { display:grid; gap:8px; list-style:none; padding:0; }
+.territory-list li { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:5px 12px; border-bottom:1px solid #a6885036; padding-bottom:5px; overflow-wrap:anywhere; }
+.territory-list li span { color:#dbcfb5; }
+.territory-proof-link,.territory-section a:not(.btn) { color:#f0d296; text-underline-offset:.2em; }
+.territory-form { margin-bottom:12px; }
+.territory-form > .btn { justify-self:start; }
+.territory-section details summary { color:#efc78d; cursor:pointer; margin:9px 0; }
+@media (max-width:700px) { .territory-atlas { columns:1; } .territory-marker.landmark { width:25px; height:25px; } .territory-marker.territory-starter { transform:translate(13px,9px); width:17px; height:17px; } }
+@media (prefers-reduced-motion:reduce) { .territory-marker > i,.territory-production.producing .icon { animation:none !important; } }
+.reduced .territory-marker > i,.reduced .territory-production.producing .icon { animation:none !important; }

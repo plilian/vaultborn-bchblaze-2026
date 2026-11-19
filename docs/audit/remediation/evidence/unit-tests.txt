@@ -1,0 +1,12 @@
+node --test "tests/*.test.mjs" "packages/*/*.test.mjs"  (19 November 2026, Node v22.23.5)
+# tests 249
+# pass 249
+# fail 0
+# cancelled 0
+# skipped 0
+(3 of the 249 are tests of the owner's Mainnet launcher, which is kept outside the public repository; a public copy runs 246.
+ 11 of them run the server installation script against a simulated server with stand-in docker, nginx and certbot commands; they do not show that a real server accepts it.)
+node --import ./sim/register.mjs --test test-offline.mjs  (in xo/, same day: XO engine 0.1.1-next.18170561234 on a local chain, no public network)
+# tests 6
+# pass 6
+# fail 0

@@ -1,0 +1,31 @@
+{
+  "startedAt": "2026-11-18T19:27:37.074Z",
+  "network": "chipnet",
+  "readOnly": true,
+  "sourceArtifact": "docs/POLITICS_CHIPNET_AUTHORITY.json",
+  "category": "cef79c5014434acf2dc138f09be3a0798daa038d1b0853214c27741fbe2c2069",
+  "genesisTxid": "be3175ac5cb7ed54fcd731231479e6ef03ac417ce275fae8a5cf7016657308eb",
+  "operatorPublicKey": "02336fda8d1f1237224b5c5cb7869ec548852356c956d3f8215edafe0c7895c6e9",
+  "address": "bchtest:qpqw5aaqd52waq2gf8zzqrct74udwqr7ystlxc42xh",
+  "minConfirmations": 2,
+  "tip": 337143,
+  "genesis": {
+    "confirmations": 2162,
+    "height": 334982,
+    "blockHash": "000000008d42d340bc24ce51d91a20c8e1921c26556d814983fb41d15d562911"
+  },
+  "mintingBatons": [
+    {
+      "txid": "be3175ac5cb7ed54fcd731231479e6ef03ac417ce275fae8a5cf7016657308eb",
+      "vout": 0,
+      "satoshis": 19500,
+      "confirmations": 2162,
+      "height": 334982,
+      "blockHash": "000000008d42d340bc24ce51d91a20c8e1921c26556d814983fb41d15d562911",
+      "expectedCommitment": true,
+      "expectedOperator": true
+    }
+  ],
+  "status": "PASS",
+  "finishedAt": "2026-11-18T19:27:45.696Z"
+}

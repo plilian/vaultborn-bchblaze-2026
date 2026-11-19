@@ -1,0 +1,405 @@
+{
+  "record": {
+    "rulesHash": "e9442a5c1bd319c981ae015d9893219afb5d53dd074f17aa3696a44ac412c504",
+    "battle": {
+      "id": "b5",
+      "kind": "raid",
+      "attacker": "p1",
+      "defender": "p2",
+      "attackerName": "Riverhold",
+      "defenderName": "Ironhaven",
+      "at": 1794852600457,
+      "commitment": "9608dcb611cd1262b996a8b137193d764b99b88d08c9c7726636691f556daa1e",
+      "input": {
+        "attacker": {
+          "troops": {
+            "infantry": 32,
+            "shield": 15,
+            "archer": 22,
+            "cavalry": 10,
+            "siege": 4,
+            "mage": 4
+          },
+          "hero": "warden",
+          "tactic": "balanced",
+          "formation": "line",
+          "tech": {
+            "logistics": 0,
+            "fortification": 0,
+            "tactics": 0,
+            "signals": 0
+          },
+          "wall": 2,
+          "intel": 0
+        },
+        "defender": {
+          "troops": {
+            "infantry": 28,
+            "shield": 13,
+            "archer": 19,
+            "cavalry": 9,
+            "siege": 3,
+            "mage": 3
+          },
+          "hero": "warden",
+          "tactic": "balanced",
+          "formation": "line",
+          "tech": {
+            "logistics": 0,
+            "fortification": 0,
+            "tactics": 0,
+            "signals": 0
+          },
+          "wall": 2
+        },
+        "terrain": "plains"
+      },
+      "seed": "039c52ecbd2458d9b08dc699d9709f72df704665558c4d4f3a5c4fc9602d4ed2",
+      "paid": true,
+      "loot": {
+        "wood": 36,
+        "stone": 36,
+        "iron": 36,
+        "food": 36,
+        "crystal": 9
+      },
+      "winner": "attacker",
+      "losses": {
+        "attacker": {
+          "infantry": 9,
+          "shield": 3,
+          "archer": 8,
+          "cavalry": 4,
+          "siege": 1,
+          "mage": 1
+        },
+        "defender": {
+          "infantry": 9,
+          "shield": 3,
+          "archer": 6,
+          "cavalry": 4,
+          "siege": 1,
+          "mage": 1
+        }
+      },
+      "events": [
+        {
+          "round": 1,
+          "at": 0,
+          "phase": "Advance",
+          "attackerLoss": 3,
+          "defenderLoss": 2,
+          "attackerRemaining": 84,
+          "defenderRemaining": 73
+        },
+        {
+          "round": 2,
+          "at": 6000,
+          "phase": "Advance",
+          "attackerLoss": 2,
+          "defenderLoss": 2,
+          "attackerRemaining": 82,
+          "defenderRemaining": 71
+        },
+        {
+          "round": 3,
+          "at": 12000,
+          "phase": "Advance",
+          "attackerLoss": 3,
+          "defenderLoss": 4,
+          "attackerRemaining": 79,
+          "defenderRemaining": 67
+        },
+        {
+          "round": 4,
+          "at": 18000,
+          "phase": "Engagement",
+          "attackerLoss": 3,
+          "defenderLoss": 2,
+          "attackerRemaining": 76,
+          "defenderRemaining": 65
+        },
+        {
+          "round": 5,
+          "at": 24000,
+          "phase": "Engagement",
+          "attackerLoss": 4,
+          "defenderLoss": 4,
+          "attackerRemaining": 72,
+          "defenderRemaining": 61
+        },
+        {
+          "round": 6,
+          "at": 30000,
+          "phase": "Engagement",
+          "attackerLoss": 3,
+          "defenderLoss": 3,
+          "attackerRemaining": 69,
+          "defenderRemaining": 58
+        },
+        {
+          "round": 7,
+          "at": 36000,
+          "phase": "Rout",
+          "attackerLoss": 1,
+          "defenderLoss": 2,
+          "attackerRemaining": 68,
+          "defenderRemaining": 56
+        },
+        {
+          "round": 8,
+          "at": 42000,
+          "phase": "Rout",
+          "attackerLoss": 3,
+          "defenderLoss": 3,
+          "attackerRemaining": 65,
+          "defenderRemaining": 53
+        },
+        {
+          "round": 9,
+          "at": 48000,
+          "phase": "Rout",
+          "attackerLoss": 4,
+          "defenderLoss": 2,
+          "attackerRemaining": 61,
+          "defenderRemaining": 51
+        }
+      ],
+      "differential": 78,
+      "hash": "a1c7ecdfbf26ffe69af425e4ccc9411e571ea78fb0bca207974313cdd9987c52",
+      "treasury": {
+        "kind": "battle",
+        "payment": "921b470aa651bd97523b4b05354e383d",
+        "txid": "e9055762cb16374227d23cadddf96011b13b6841c309ea85f1e807bba2e40525",
+        "attacker": "p1",
+        "defender": "p2",
+        "winner": "attacker",
+        "recipient": "p1",
+        "escrowSatoshis": 3000,
+        "capturedSatoshis": 0,
+        "now": 1794852600457
+      }
+    },
+    "initiation": {
+      "txid": "e9055762cb16374227d23cadddf96011b13b6841c309ea85f1e807bba2e40525",
+      "explorerUrl": "https://chipnet.imaginary.cash/tx/e9055762cb16374227d23cadddf96011b13b6841c309ea85f1e807bba2e40525",
+      "blockHash": "00000000000013e2f2d10f6d91b855a49c775b8e13a68dad966ab980674dc0d8",
+      "vout": 3,
+      "event": {
+        "version": 1,
+        "kind": "attack-paid",
+        "subject": "921b470aa651bd97523b4b05354e383d",
+        "data": {
+          "seasonId": 1,
+          "actionHash": "2f73c2838b0b32e4bf2ed2408a64c9a0c3de09c81b6f4ee20658dd1274d5b8ed",
+          "allocation": {
+            "development": 1200,
+            "burn": 900,
+            "prize": 900,
+            "battle": 3000
+          }
+        },
+        "digest": "a32e32646959f1f785e1d37b430209b22359e519b0a03bbcbbfed4512941e1a2"
+      }
+    }
+  },
+  "recordHash": "9d012606ba36de11ad09607c19fd722eb8a40d5b6b80d15701c533045bb5b8a2",
+  "event": {
+    "version": 1,
+    "kind": "battle-settlement",
+    "subject": "b5",
+    "data": {
+      "recordHash": "9d012606ba36de11ad09607c19fd722eb8a40d5b6b80d15701c533045bb5b8a2",
+      "initiationTxid": "e9055762cb16374227d23cadddf96011b13b6841c309ea85f1e807bba2e40525"
+    },
+    "digest": "4be38d8899b3970f6cd0e1b259c32fb299408a38fd8ec31d837c590459a16e2d"
+  },
+  "publicAt": 1794939000457,
+  "rules": {
+    "version": "vaultborn-combat-1",
+    "units": {
+      "infantry": {
+        "name": "Infantry",
+        "attack": 12,
+        "guard": 9,
+        "life": 21,
+        "time": 1100,
+        "cost": [
+          3,
+          0,
+          4,
+          6,
+          0
+        ]
+      },
+      "shield": {
+        "name": "Shield Infantry",
+        "attack": 8,
+        "guard": 15,
+        "life": 26,
+        "time": 1300,
+        "cost": [
+          2,
+          2,
+          6,
+          6,
+          0
+        ]
+      },
+      "archer": {
+        "name": "Archer",
+        "attack": 15,
+        "guard": 6,
+        "life": 17,
+        "time": 1400,
+        "cost": [
+          6,
+          0,
+          3,
+          6,
+          0
+        ]
+      },
+      "cavalry": {
+        "name": "Cavalry",
+        "attack": 18,
+        "guard": 10,
+        "life": 22,
+        "time": 2000,
+        "cost": [
+          4,
+          0,
+          8,
+          10,
+          0
+        ]
+      },
+      "siege": {
+        "name": "Siege Unit",
+        "attack": 20,
+        "guard": 5,
+        "life": 25,
+        "time": 2500,
+        "cost": [
+          10,
+          5,
+          8,
+          5,
+          1
+        ]
+      },
+      "mage": {
+        "name": "War Mage",
+        "attack": 13,
+        "guard": 8,
+        "life": 18,
+        "time": 2200,
+        "cost": [
+          3,
+          2,
+          3,
+          7,
+          2
+        ]
+      }
+    },
+    "counters": {
+      "infantry": [
+        1,
+        0.82,
+        1.15,
+        0.9,
+        1.23,
+        1.07
+      ],
+      "shield": [
+        1.17,
+        1,
+        0.97,
+        1.25,
+        0.88,
+        0.86
+      ],
+      "archer": [
+        1.19,
+        0.83,
+        1,
+        0.74,
+        1.05,
+        1.2
+      ],
+      "cavalry": [
+        1.08,
+        0.72,
+        1.31,
+        1,
+        1.2,
+        0.86
+      ],
+      "siege": [
+        0.79,
+        1.27,
+        0.86,
+        0.78,
+        1,
+        1.07
+      ],
+      "mage": [
+        0.98,
+        1.22,
+        0.88,
+        1.14,
+        0.89,
+        1
+      ]
+    },
+    "terrains": {
+      "plains": {
+        "name": "Open Plains",
+        "defense": 1
+      },
+      "hills": {
+        "name": "Highlands",
+        "defense": 1.07
+      },
+      "forest": {
+        "name": "Deep Forest",
+        "defense": 1.06
+      },
+      "river": {
+        "name": "River Crossing",
+        "defense": 1.09
+      },
+      "coast": {
+        "name": "Coastal Reach",
+        "defense": 1.03
+      },
+      "desert": {
+        "name": "Drylands",
+        "defense": 1.01
+      }
+    },
+    "options": {
+      "varianceBound": 0.12,
+      "fortInfluence": 0.52
+    }
+  },
+  "verified": true,
+  "settlement": {
+    "txid": "121d6043929391405bb589aaf1aca3b2ad5b628012734e9e1940e55316365797",
+    "explorerUrl": "https://chipnet.imaginary.cash/tx/121d6043929391405bb589aaf1aca3b2ad5b628012734e9e1940e55316365797",
+    "blockHash": "000000004c1c432dade529bdba739b215d49d68edf0a668652430f2221750d1c",
+    "vout": 2,
+    "event": {
+      "version": 1,
+      "kind": "battle-settlement",
+      "subject": "b5",
+      "data": {
+        "recordHash": "9d012606ba36de11ad09607c19fd722eb8a40d5b6b80d15701c533045bb5b8a2",
+        "initiationTxid": "e9055762cb16374227d23cadddf96011b13b6841c309ea85f1e807bba2e40525"
+      },
+      "digest": "4be38d8899b3970f6cd0e1b259c32fb299408a38fd8ec31d837c590459a16e2d"
+    }
+  },
+  "anchorStatus": "credited"
+}

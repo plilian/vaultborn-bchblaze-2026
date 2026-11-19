@@ -1,0 +1,22 @@
+# systemd unit for running VaultBorn on Mainnet without Docker. Adjust the paths, then:
+#   sudo cp infrastructure/mainnet/vaultborn.service /etc/systemd/system/ && sudo systemctl daemon-reload
+#   sudo systemctl enable --now vaultborn          (only after the owner's authorisation is in .env.mainnet)
+[Unit]
+Description=VaultBorn game server (Bitcoin Cash Mainnet)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=vaultborn
+WorkingDirectory=/opt/vaultborn
+ExecStartPre=/usr/bin/node --env-file=/opt/vaultborn/.env.mainnet scripts/mainnet-preflight.mjs
+ExecStart=/usr/bin/node --env-file=/opt/vaultborn/.env.mainnet apps/game-server/index.mjs
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/opt/vaultborn/var
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

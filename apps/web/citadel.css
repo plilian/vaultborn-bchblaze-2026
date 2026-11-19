@@ -1,0 +1,157 @@
+.citadel {
+  min-height: 100%;
+  height: auto;
+  overflow: auto;
+  background: #0f1819;
+  color: #e9e2ca;
+  --citadel-gold: #d6b675;
+  --citadel-line: #8c73476b;
+  --citadel-muted: #beb8a5;
+}
+.citadel-embedded {
+  min-height: 0;
+  height: auto;
+}
+.citadel-embedded .citadel-bar {
+  position: sticky;
+  top: 0;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: .55rem 1.2rem;
+  padding: .75rem clamp(.75rem,4vw,2rem);
+}
+.citadel-embedded .citadel-main {
+  min-height: 0;
+}
+.citadel-receipt {
+  display: grid;
+  grid-template-columns: 2.6rem minmax(0, 1fr);
+  align-items: start;
+  gap: .65rem;
+}
+.receipt-seal {
+  display: grid;
+  place-items: center;
+  min-height: 2.6rem;
+  color: #e2c37e;
+  border: 1px solid #827047;
+  background: #1e302e;
+}
+.receipt-seal .icon {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+.citadel-bar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: .8rem clamp(1rem,5vw,4.5rem);
+  border-bottom: 1px solid var(--citadel-line);
+  background: #111c20;
+}
+.citadel a { color: #ead29b; }
+.citadel-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  font: 700 clamp(1.2rem,3vw,1.75rem) Georgia,serif;
+  letter-spacing: .12em;
+  text-decoration: none;
+}
+.citadel-brand img {
+  flex: none;
+  object-fit: contain;
+}
+.citadel-bar nav, .citadel-actions {
+  display: flex;
+  gap: .75rem 1.15rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.citadel-bar nav a { text-decoration: none; font-size: .88rem; }
+.citadel-bar nav a[aria-current] { color: #fff1cb; border-bottom: 1px solid var(--citadel-gold); }
+.citadel-main { min-height: calc(100vh - 52px); padding: 0 max(1rem, calc((100% - 1060px) / 2)) 5rem; }
+.citadel-hero {
+  position: relative;
+  isolation: isolate;
+  margin: 0 -1rem 1.75rem;
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: clamp(1rem,5vw,3rem);
+  border-bottom: 1px solid var(--citadel-line);
+}
+.citadel-hero::before {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg,#0f1819 1%,#0d191a3e 100%),linear-gradient(90deg,#111b1eaa,#111b1e20),var(--hero);
+  background-position: center;
+  background-size: cover;
+}
+.citadel h1, .citadel h2, .citadel h3 { font-family: Georgia,serif; font-weight: 600; color: #f4dfaa; line-height: 1.18; }
+.citadel h1 { margin: .25rem 0 .45rem; font-size: clamp(2.4rem,6vw,4.5rem); }
+.citadel h2 { margin: 0 0 1rem; font-size: 1.55rem; }
+.citadel h3 { margin: 0 0 .3rem; font-size: 1.2rem; }
+.citadel p { line-height: 1.55; margin: .3rem 0 .85rem; }
+.citadel-hero p { max-width: 49ch; text-wrap: pretty; }
+.citadel-label { color: #ccbd95; text-transform: uppercase; font-size: .72rem; letter-spacing: .13em; font-weight: 650; }
+.citadel-block {
+  margin-bottom: 1.4rem;
+  border: 1px solid var(--citadel-line);
+  background: linear-gradient(140deg,#222b24,#131e1e 70%);
+  padding: clamp(.85rem,3vw,1.65rem);
+  box-shadow: inset 0 0 0 3px #0d1716, 0 5px 18px #0005;
+}
+.citadel-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,230px),1fr)); gap: .85rem 1.5rem; }
+.citadel-stats { margin: 0; }
+.citadel-stats div { padding: .75rem 0 .55rem; border-bottom: 1px solid #9a7e4e46; min-width: 0; }
+.citadel-stats dt { color: var(--citadel-muted); font-size: .83rem; margin-bottom: .3rem; }
+.citadel-stats dd { margin: 0; color: #f4dfaa; font: 600 1.27rem Georgia,serif; overflow-wrap: anywhere; }
+.citadel-list { list-style: none; margin: 0; padding: 0; }
+.citadel-list > li, .citadel-row { border-top: 1px solid #9a7e4e46; padding: .9rem 0; }
+.citadel-list > li:last-child { padding-bottom: .25rem; }
+.citadel-row { display: grid; grid-template-columns: 1fr auto; gap: .65rem 1.25rem; }
+.citadel-row h3, .citadel-row p { min-width: 0; overflow-wrap: anywhere; }
+.citadel-meta { color: var(--citadel-muted); font-size: .87rem; }
+.citadel-meta a, .citadel-mono { font-family: ui-monospace,monospace; overflow-wrap: anywhere; }
+.citadel .btn { display: inline-flex; min-height: 40px; align-items: center; text-decoration: none; }
+.citadel form { display: grid; gap: .65rem; margin: .75rem 0; }
+.citadel form label { display: grid; gap: .3rem; color: #e8dabe; font-size: .85rem; }
+.citadel form input:not([type="radio"],[type="checkbox"],[type="file"]), .citadel form textarea {
+  font: inherit; color: #f4ead9; background: #101a1a; border: 1px solid var(--citadel-line);
+  border-radius: 3px; padding: .6rem .7rem; min-width: 0; width: 100%; min-height: 39px;
+}
+.citadel input[type="radio"], .citadel input[type="checkbox"] {
+  appearance: none; display: inline-grid; place-items: center; width: 18px; height: 18px;
+  border: 1px solid #9f874f; background: #101919; border-radius: 2px; margin: 0;
+}
+.citadel input[type="radio"] { transform: rotate(45deg) scale(.83); }
+.citadel input[type="radio"]:checked::after, .citadel input[type="checkbox"]:checked::after {
+  content: ""; width: 8px; height: 8px; background: #e4b76d; box-shadow: 0 0 6px #e4b76d88;
+}
+.citadel form fieldset { border: 1px solid var(--citadel-line); display: flex; flex-wrap: wrap; gap: 1rem; padding: .6rem; }
+.citadel form label.citadel-choice { display: inline-flex; align-items: center; gap: .4rem; }
+.citadel .citadel-inline { display: flex; flex-wrap: wrap; align-items: flex-end; gap: .8rem; }
+.citadel .citadel-inline > label { flex: 1 1 170px; }
+.citadel summary { cursor: pointer; color: #e7ce96; min-height: 36px; padding: .45rem 0; }
+.citadel img.sponsor-crest { width: 52px; height: 52px; object-fit: contain; border: 1px solid var(--citadel-line); background: #192726; }
+.citadel .branded-title { display: flex; gap: .65rem; align-items: center; }
+.citadel-toast {
+  position: fixed; z-index: 6; right: 1rem; bottom: 1rem; max-width: min(90vw,440px);
+  padding: .6rem .9rem; background: #1f2b25; border: 1px solid var(--citadel-gold);
+  box-shadow: 0 4px 18px #0009;
+}
+.citadel-toast[data-error] { border-color: #e68c73; }
+.citadel a:focus-visible, .citadel button:focus-visible, .citadel input:focus-visible, .citadel summary:focus-visible { outline: 2px solid #dfbe74; outline-offset: 3px; }
+@media (max-width: 530px) {
+  .citadel-bar { align-items: flex-start; flex-direction: column; gap: .65rem; }
+  .citadel-hero { min-height: 205px; }
+  .citadel-row { grid-template-columns: 1fr; }
+}

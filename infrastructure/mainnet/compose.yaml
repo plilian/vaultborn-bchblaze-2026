@@ -1,0 +1,49 @@
+# VaultBorn on Mainnet: the game server behind a TLS reverse proxy. Nothing here starts until you run it:
+#   docker compose -f infrastructure/mainnet/compose.yaml up -d
+# Before that: fill in .env.mainnet, run `npm run preflight:mainnet`, set DOMAIN below, and read docs/MAINNET.md.
+# The server itself refuses to start until .env.mainnet contains the owner's VAULTBORN_MAINNET_ACK.
+services:
+  vaultborn:
+    build: ../..
+    restart: unless-stopped
+    env_file: ../../.env.mainnet
+    environment:
+      HOST: 0.0.0.0
+      PORT: "4173"
+    expose:
+      - "4173"
+    volumes:
+      # The database, the game key file and the optional issuer key live here. Back this volume up.
+      - ../../var/mainnet:/app/var/mainnet
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4173/api/health').then(r=>r.json()).then(b=>process.exit(b.ok&&b.network==='mainnet'?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+  # The owner-operated attestors. They review and sign raid outcomes and prizes every minute. They are run by the same
+  # owner as the game, on the same machine: they are not independent, and the game tells its players so.
+  attestors:
+    build: ../..
+    restart: unless-stopped
+    environment:
+      VAULTBORN_NETWORK: mainnet
+    command: ["node", "scripts/attestor-supervisor.mjs", "http://vaultborn:4173", "var/mainnet/attestors"]
+    depends_on:
+      - vaultborn
+    volumes:
+      - ../../var/mainnet/attestors:/app/var/mainnet/attestors
+  proxy:
+    image: caddy:2
+    restart: unless-stopped
+    depends_on:
+      - vaultborn
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN:?set DOMAIN to the public host name, for example DOMAIN=play.example.org}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+volumes:
+  caddy-data:

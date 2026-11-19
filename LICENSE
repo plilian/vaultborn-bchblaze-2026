@@ -1,0 +1,68 @@
+VaultBorn — All Rights Reserved License
+
+Copyright (c) 2026 plilian (https://github.com/plilian), the author of VaultBorn
+(formerly BCH Dominion). All rights reserved.
+
+This repository is published so that people can READ it. It is not open-source software.
+No licence to use it is granted except the limited permissions in section 1.
+
+1. What you may do
+
+   a. View and read the source code, documentation, art and other material in this
+      repository on GitHub, and make the copies that your browser or GitHub's own
+      services make for that purpose. GitHub's Terms of Service allow GitHub users to
+      view and fork public repositories on GitHub; a fork made under those terms gives
+      no permission beyond viewing it on GitHub.
+
+   b. Judges and organisers of the BCH BLAZE 2026 hackathon may download, run and test
+      this software for the sole purpose of evaluating the hackathon entry, until the
+      judging of that hackathon has ended.
+
+   c. Play the game at the address published by the author, under the terms shown there.
+
+2. What you may not do
+
+   Without the author's prior written permission you may not, in whole or in part:
+
+   a. copy, reproduce, download for any purpose other than section 1, or mirror this
+      material;
+   b. modify it, translate it, or create derivative works based on it;
+   c. run, deploy, host or operate it, or offer it as a service, for yourself or others;
+   d. distribute, publish, sublicense, sell, rent or lend it;
+   e. use it, or any part of it, in a commercial or non-commercial product or project;
+   f. use the art, music, names, logos or game content, or the names "VaultBorn" and
+      "BCH Dominion", in any way;
+   g. use it to train, fine-tune or evaluate machine-learning models, or to build data
+      sets;
+   h. remove or change this licence or any copyright notice.
+
+3. Third-party components
+
+   Some files are made by others and remain under their own licences, which are listed
+   in docs/THIRD_PARTY.md (for example the WizardConnect wallet library under
+   LGPL-3.0-or-later, Libauth under MIT and the fonts under the SIL Open Font
+   Licence 1.1). Nothing in this licence limits the rights those licences give you for
+   those components.
+
+4. Contributions
+
+   The author does not accept contributions under this licence. Anything you send
+   (issues, suggestions, code) may be used by the author without obligation to you.
+
+5. No warranty, no liability
+
+   THIS MATERIAL IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+   INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+   PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+   ANY CLAIM, DAMAGES OR OTHER LIABILITY, INCLUDING ANY LOSS OF FUNDS OR CRYPTOCURRENCY,
+   WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+   CONNECTION WITH THIS MATERIAL OR ITS USE.
+
+6. Termination
+
+   Any use outside section 1 ends the permissions in section 1 at once, without notice.
+
+7. Permission requests
+
+   To ask for any use not allowed above, open an issue in this repository or contact the
+   author through GitHub. Permission exists only if the author gives it in writing.

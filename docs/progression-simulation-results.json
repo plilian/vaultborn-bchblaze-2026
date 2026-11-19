@@ -1,0 +1,266 @@
+{
+  "seed": "vaultborn-progression-audit-v1",
+  "rosterBasis": "approximately equal composite army power",
+  "samples": 12000,
+  "totalResolutions": 72000,
+  "results": {
+    "baseline": {
+      "samples": 12000,
+      "wins": 4043,
+      "winPercent": 33.69,
+      "meanAttackerCasualties": 30.59
+    },
+    "veteranAttacker": {
+      "samples": 12000,
+      "wins": 4377,
+      "winPercent": 36.48,
+      "meanAttackerCasualties": 30.47
+    },
+    "veteranDefense": {
+      "samples": 12000,
+      "wins": 3842,
+      "winPercent": 32.02,
+      "meanAttackerCasualties": 30.73
+    },
+    "bothVeteran": {
+      "samples": 12000,
+      "wins": 4169,
+      "winPercent": 34.74,
+      "meanAttackerCasualties": 30.62
+    },
+    "wrongFormation": {
+      "samples": 12000,
+      "wins": 3863,
+      "winPercent": 32.19,
+      "meanAttackerCasualties": 30.62
+    },
+    "terrainDoctrine": {
+      "samples": 12000,
+      "wins": 3968,
+      "winPercent": 33.07,
+      "meanAttackerCasualties": 29.73
+    }
+  },
+  "byBuild": {
+    "combined": {
+      "samples": 2962,
+      "wins": 790,
+      "winPercent": 26.67,
+      "meanAttackerCasualties": 31.86
+    },
+    "cavalry": {
+      "samples": 3065,
+      "wins": 1535,
+      "winPercent": 50.08,
+      "meanAttackerCasualties": 28.4
+    },
+    "ranged": {
+      "samples": 2940,
+      "wins": 1134,
+      "winPercent": 38.57,
+      "meanAttackerCasualties": 33.84
+    },
+    "shieldwall": {
+      "samples": 3033,
+      "wins": 584,
+      "winPercent": 19.25,
+      "meanAttackerCasualties": 28.39
+    }
+  },
+  "revisedByBuild": {
+    "combined": {
+      "samples": 2962,
+      "wins": 827,
+      "winPercent": 27.92,
+      "meanAttackerCasualties": 30.92
+    },
+    "cavalry": {
+      "samples": 3065,
+      "wins": 1271,
+      "winPercent": 41.47,
+      "meanAttackerCasualties": 27.77
+    },
+    "ranged": {
+      "samples": 2940,
+      "wins": 1235,
+      "winPercent": 42.01,
+      "meanAttackerCasualties": 32.87
+    },
+    "shieldwall": {
+      "samples": 3033,
+      "wins": 635,
+      "winPercent": 20.94,
+      "meanAttackerCasualties": 27.52
+    }
+  },
+  "headToHead": {
+    "combined vs combined": {
+      "samples": 774,
+      "wins": 237,
+      "winPercent": 30.62,
+      "meanAttackerCasualties": 31.44
+    },
+    "combined vs cavalry": {
+      "samples": 727,
+      "wins": 76,
+      "winPercent": 10.45,
+      "meanAttackerCasualties": 34.71
+    },
+    "combined vs ranged": {
+      "samples": 734,
+      "wins": 167,
+      "winPercent": 22.75,
+      "meanAttackerCasualties": 33.61
+    },
+    "combined vs shieldwall": {
+      "samples": 727,
+      "wins": 310,
+      "winPercent": 42.64,
+      "meanAttackerCasualties": 27.69
+    },
+    "cavalry vs combined": {
+      "samples": 790,
+      "wins": 479,
+      "winPercent": 60.63,
+      "meanAttackerCasualties": 27.73
+    },
+    "cavalry vs cavalry": {
+      "samples": 772,
+      "wins": 261,
+      "winPercent": 33.81,
+      "meanAttackerCasualties": 30.83
+    },
+    "cavalry vs ranged": {
+      "samples": 767,
+      "wins": 386,
+      "winPercent": 50.33,
+      "meanAttackerCasualties": 29.52
+    },
+    "cavalry vs shieldwall": {
+      "samples": 736,
+      "wins": 409,
+      "winPercent": 55.57,
+      "meanAttackerCasualties": 25.4
+    },
+    "ranged vs combined": {
+      "samples": 762,
+      "wins": 338,
+      "winPercent": 44.36,
+      "meanAttackerCasualties": 33.43
+    },
+    "ranged vs cavalry": {
+      "samples": 724,
+      "wins": 134,
+      "winPercent": 18.51,
+      "meanAttackerCasualties": 36.66
+    },
+    "ranged vs ranged": {
+      "samples": 770,
+      "wins": 215,
+      "winPercent": 27.92,
+      "meanAttackerCasualties": 35.69
+    },
+    "ranged vs shieldwall": {
+      "samples": 684,
+      "wins": 447,
+      "winPercent": 65.35,
+      "meanAttackerCasualties": 29.23
+    },
+    "shieldwall vs combined": {
+      "samples": 794,
+      "wins": 198,
+      "winPercent": 24.94,
+      "meanAttackerCasualties": 27.88
+    },
+    "shieldwall vs cavalry": {
+      "samples": 756,
+      "wins": 87,
+      "winPercent": 11.51,
+      "meanAttackerCasualties": 30.16
+    },
+    "shieldwall vs ranged": {
+      "samples": 750,
+      "wins": 84,
+      "winPercent": 11.2,
+      "meanAttackerCasualties": 30.46
+    },
+    "shieldwall vs shieldwall": {
+      "samples": 733,
+      "wins": 215,
+      "winPercent": 29.33,
+      "meanAttackerCasualties": 25
+    }
+  },
+  "recruitment": [
+    {
+      "hero": "engineer",
+      "rarity": "Rare",
+      "permanent": 710,
+      "rent1": 152,
+      "rent3": 398,
+      "rent7": 650,
+      "proposedRentalPercent": 113,
+      "rentalCostAsPercentOfPermanent": 91.5
+    },
+    {
+      "hero": "keeper",
+      "rarity": "Epic",
+      "permanent": 1044,
+      "rent1": 234,
+      "rent3": 601,
+      "rent7": 998,
+      "proposedRentalPercent": 118,
+      "rentalCostAsPercentOfPermanent": 95.6
+    },
+    {
+      "hero": "commander",
+      "rarity": "Epic",
+      "permanent": 1093,
+      "rent1": 240,
+      "rent3": 615,
+      "rent7": 1022,
+      "proposedRentalPercent": 115.4,
+      "rentalCostAsPercentOfPermanent": 93.5
+    },
+    {
+      "hero": "ranger",
+      "rarity": "Rare",
+      "permanent": 720,
+      "rent1": 155,
+      "rent3": 403,
+      "rent7": 660,
+      "proposedRentalPercent": 113.1,
+      "rentalCostAsPercentOfPermanent": 91.6
+    },
+    {
+      "hero": "queen",
+      "rarity": "Legendary",
+      "permanent": 1489,
+      "rent1": 319,
+      "rent3": 823,
+      "rent7": 1360,
+      "proposedRentalPercent": 112.8,
+      "rentalCostAsPercentOfPermanent": 91.4
+    },
+    {
+      "hero": "merchant",
+      "rarity": "Rare",
+      "permanent": 742,
+      "rent1": 160,
+      "rent3": 416,
+      "rent7": 680,
+      "proposedRentalPercent": 113.1,
+      "rentalCostAsPercentOfPermanent": 91.6
+    },
+    {
+      "hero": "scholar",
+      "rarity": "Epic",
+      "permanent": 984,
+      "rent1": 216,
+      "rent3": 555,
+      "rent7": 926,
+      "proposedRentalPercent": 116.1,
+      "rentalCostAsPercentOfPermanent": 94.1
+    }
+  ]
+}

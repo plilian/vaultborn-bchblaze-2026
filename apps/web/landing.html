@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en-US" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b151b">
+  <meta name="description" content="Found a kingdom, command armies, and fight for a shared frontier in VaultBorn, a fantasy strategy game.">
+  <title>VaultBorn · Build, Defend, Conquer</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preload" href="/fonts/cinzel-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/landing.css">
+  <script type="module" src="/landing.js"></script>
+</head>
+<body id="gates">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <aside id="blaze-banner" class="blaze-banner" aria-label="BCH BLAZE 2026 entry" hidden></aside>
+  <div class="gate-frame">
+  <header class="gate-header">
+    <a class="gate-brand" href="#gates" aria-label="VaultBorn home"><img src="/logo.webp" width="44" height="56" alt=""> VaultBorn</a>
+    <nav aria-label="Landing navigation">
+      <a class="quiet-link gate-how-link" href="#how-to-play">How to Play</a>
+      <button class="gate-sign-in" type="button" data-open-sign-in>Sign in</button>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="gate-hero" aria-labelledby="gate-title">
+      <img class="gate-landscape" src="/art/battlefield.webp" alt="" width="1672" height="941" fetchpriority="high" decoding="async">
+      <div class="gate-guard" aria-hidden="true">
+        <img class="gate-cavalry" src="/art/unit-cavalry.webp" alt="" width="317" height="320" decoding="async">
+        <img class="gate-archer" src="/art/unit-archer.webp" alt="" decoding="async">
+        <img class="gate-guard-soldier" src="/art/unit-shield.webp" alt="" decoding="async">
+      </div>
+      <div class="gate-copy">
+        <p class="gate-eyebrow"><span aria-hidden="true"></span> Build · Defend · Conquer</p>
+        <h1 id="gate-title">VaultBorn</h1>
+        <p class="gate-tagline">A kingdom is earned.</p>
+        <p class="gate-intro">Raise a citadel, command your armies, and claim your place on a frontier shaped by other players.</p>
+        <div class="gate-actions">
+          <a class="gate-button" href="/play">Play now <span aria-hidden="true">→</span></a>
+          <button class="gate-button gate-wallet-button" type="button" data-connect-wallet hidden>Connect wallet <span aria-hidden="true">→</span></button>
+          <span class="gate-entry-note">Start with a free territory, or connect your BCH wallet to enter with it.</span>
+        </div>
+      </div>
+      <a class="gate-scroll" href="#how-to-play">Explore the frontier <span aria-hidden="true">↓</span></a>
+    </section>
+
+    <section class="frontier" id="frontier" aria-labelledby="frontier-title">
+      <header class="frontier-heading" id="how-to-play" data-reveal>
+        <div class="section-emblem" aria-hidden="true"><img src="/logo.webp" width="30" height="38" alt=""></div>
+        <h2 id="frontier-title">How to Play</h2>
+        <p>Build a lasting kingdom on a shared frontier. Develop your city, command its armies, and earn your place in the season standings.</p>
+      </header>
+
+      <article class="frontier-story" data-reveal>
+        <figure class="story-art story-atlas">
+          <img class="story-land" src="/art/terrain.webp" loading="lazy" decoding="async" width="1586" height="992" alt="">
+          <img class="story-castle" src="/art/castle-emerald.webp" loading="lazy" decoding="async" width="500" height="488" alt="">
+        </figure>
+        <div class="story-copy">
+          <h3>Raise a kingdom</h3>
+          <p>Start with a free protected castle. Produce wood, stone, iron, food, and crystal, then spend those resources on buildings, research, and a stronger garrison.</p>
+        </div>
+      </article>
+
+      <article class="frontier-story story-reverse" data-reveal>
+        <figure class="story-art story-army">
+          <img src="/art/event-victory.webp" loading="lazy" decoding="async" width="470" height="470" alt="">
+        </figure>
+        <div class="story-copy">
+          <h3>Earn your victories</h3>
+          <p>Train troops and assign a commander. Scout NPC garrisons and take expeditions using earned supplies, or join seasonal PvP to challenge eligible rivals.</p>
+        </div>
+      </article>
+
+      <article class="frontier-story" data-reveal>
+        <figure class="story-art story-treaty">
+          <img src="/art/event-protectorate.webp" loading="lazy" decoding="async" width="470" height="470" alt="">
+        </figure>
+        <div class="story-copy">
+          <h3>Choose your allies</h3>
+          <p>Scout and hold territory for production. Join an alliance, exchange supplies, and negotiate treaties. Earn Season Points through development and strategy, then follow individual and alliance rankings.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="gate-finale" aria-labelledby="finale-title">
+      <img src="/art/event-vault.webp" alt="" width="470" height="470" loading="lazy" decoding="async">
+      <div data-reveal>
+        <p class="gate-eyebrow">Powered by Bitcoin Cash</p>
+        <h2 id="finale-title">Play Free. Build Your Kingdom. Discover Bitcoin Cash.</h2>
+        <p>Build, recruit, explore, and fight NPCs with resources you earn in the game. Bitcoin Cash powers selected upgrades, competitive contests, and treasury actions. Eligible winners can claim BCH prizes in funded seasons.</p>
+        <dl class="gate-technologies"><div><dt>Bitcoin Cash</dt><dd>Payments and treasury contracts</dd></div><div><dt>CashTokens</dt><dd>Transferable proof collectibles</dd></div><div><dt>Nostr</dt><dd>Verifiable identity and sign-in</dd></div></dl>
+        <a class="gate-button" href="/play">Enter the kingdom <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+  </main>
+  <footer class="gate-footer">
+    <a class="gate-brand" href="#gates"><img src="/logo.webp" alt="" width="22" height="28"> VaultBorn</a>
+    <button type="button" class="quiet-link" data-open-sign-in>Sign in</button>
+  </footer>
+  </div>
+
+  <dialog id="wallet-dialog" class="gate-dialog" aria-labelledby="wallet-title">
+    <button class="gate-dialog-close" type="button" aria-label="Close wallet connection">×</button>
+    <header class="gate-dialog-header">
+      <img src="/logo.webp" alt="" width="38" height="48">
+      <h2 id="wallet-title" tabindex="-1">Connect your wallet</h2>
+      <p>Your BCH wallet is your key. A wallet that already has a kingdom opens it; a new wallet starts a new kingdom.</p>
+    </header>
+    <div id="gate-wallet" class="gate-wallet" aria-live="polite"></div>
+  </dialog>
+
+  <dialog id="dialog" class="gate-dialog" aria-labelledby="sign-in-title">
+    <button class="gate-dialog-close" type="button" aria-label="Close sign in">×</button>
+    <header class="gate-dialog-header">
+      <img src="/logo.webp" alt="" width="38" height="48">
+      <h2 id="sign-in-title" tabindex="-1">Return to your kingdom</h2>
+      <p>Restore your existing city, army, and progress with a key you have already linked.</p>
+    </header>
+    <div id="gate-identity"></div>
+  </dialog>
+</body>
+</html>

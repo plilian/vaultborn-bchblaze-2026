@@ -1,0 +1,357 @@
+{
+  "startedAt": "2026-11-18T19:41:35.727Z",
+  "network": "chipnet",
+  "readOnly": true,
+  "endpoint": "chipnet.bch.ninja:50002",
+  "transactions": [
+    {
+      "name": "Disposable actual Selene provisioning",
+      "status": "PASS",
+      "txid": "602b9085529ec87398382081c02be43d822abd797f8b0e99038240cda43a2d6f",
+      "height": 337139,
+      "blockHash": "00000000be6e61e4197fcc1fa34f146df31196f9d8a765df1c980ccbabdbb0bc",
+      "confirmations": 17,
+      "feeSatoshis": 254,
+      "inputs": [
+        {
+          "txid": "6fc67aafa6e0c5d489433821390c8a514442b55c77a2b6773991be0dc444c4d2",
+          "vout": 1
+        }
+      ],
+      "outputs": [
+        {
+          "vout": 0,
+          "script": "76a914d486cddb4bbb863c4ada1a7d4cf22653ef54e75388ac",
+          "satoshis": 5000,
+          "asset": "BCH"
+        },
+        {
+          "vout": 1,
+          "script": "76a9147fb902e059c68baf40ab4b50ca266c0ecdeefc7088ac",
+          "satoshis": 179492,
+          "asset": "BCH"
+        }
+      ]
+    },
+    {
+      "name": "Actual Selene Vault premium",
+      "status": "PASS",
+      "txid": "5d70026b034a2e0da374fa48e9d8902685d8ce9e47f3138d97c3cdcb8fb43b83",
+      "height": 337143,
+      "blockHash": "00000000974d776fc0fc202785971dd5eabf4c4551f46d5ecddf4e2e1ebc4e21",
+      "confirmations": 13,
+      "feeSatoshis": 500,
+      "inputs": [
+        {
+          "txid": "602b9085529ec87398382081c02be43d822abd797f8b0e99038240cda43a2d6f",
+          "vout": 0
+        }
+      ],
+      "outputs": [
+        {
+          "vout": 0,
+          "script": "a9142a11804826f91e492ef283a54b6d5cb060c2c18187",
+          "satoshis": 2829,
+          "asset": "BCH"
+        },
+        {
+          "vout": 1,
+          "script": "a9147335127013c170f7f3b14476126ebcd2e99dd7b687",
+          "satoshis": 900,
+          "asset": "BCH"
+        },
+        {
+          "vout": 2,
+          "script": "a914b4e02043c1189cbe335e1919c04d317a40dbb65087",
+          "satoshis": 546,
+          "asset": "BCH"
+        },
+        {
+          "vout": 3,
+          "script": "6a045642524e220101203214e69fdd8c81cb1f4854171f18822deb160b57c54fa6a2a1c019208e3e61",
+          "satoshis": 225,
+          "asset": "BCH"
+        }
+      ]
+    },
+    {
+      "name": "sponsor-fund",
+      "status": "PASS",
+      "txid": "f64241d4d4265ae4eddc7f337a4e9193d9c4d008c5c5a1431ce8e75ab23089d7",
+      "height": 337139,
+      "blockHash": "00000000be6e61e4197fcc1fa34f146df31196f9d8a765df1c980ccbabdbb0bc",
+      "confirmations": 17,
+      "feeSatoshis": 334,
+      "inputs": [
+        {
+          "txid": "602b9085529ec87398382081c02be43d822abd797f8b0e99038240cda43a2d6f",
+          "vout": 1
+        }
+      ],
+      "outputs": [
+        {
+          "vout": 0,
+          "script": "a914b1300ffea9a715159e25706462865ce1d8c5ef1c87",
+          "satoshis": 6400,
+          "asset": "BCH"
+        },
+        {
+          "vout": 1,
+          "script": "a914a22a337921c3ad11ee31ed761c9144273713d0f587",
+          "satoshis": 1600,
+          "asset": "BCH"
+        },
+        {
+          "vout": 2,
+          "script": "6a045642524e2201075af0e4510976a3d6c72de395a22f71e97a2ccec5a1ebcfdec7799170cbe51ef8",
+          "satoshis": 0,
+          "asset": "BCH"
+        },
+        {
+          "vout": 3,
+          "script": "76a9147fb902e059c68baf40ab4b50ca266c0ecdeefc7088ac",
+          "satoshis": 171158,
+          "asset": "BCH"
+        }
+      ]
+    },
+    {
+      "name": "attack-paid",
+      "status": "PASS",
+      "txid": "ebc696dd1c4b3c3b1f42c173ed986f72c1d532c3241aa23e5496e6c17277731e",
+      "height": 337139,
+      "blockHash": "00000000be6e61e4197fcc1fa34f146df31196f9d8a765df1c980ccbabdbb0bc",
+      "confirmations": 17,
+      "feeSatoshis": 334,
+      "inputs": [
+        {
+          "txid": "f64241d4d4265ae4eddc7f337a4e9193d9c4d008c5c5a1431ce8e75ab23089d7",
+          "vout": 3
+        }
+      ],
+      "outputs": [
+        {
+          "vout": 0,
+          "script": "a914a36d6bb6cadffe7d8a3a1ea9f72d7b51c273953c87",
+          "satoshis": 3000,
+          "asset": "BCH"
+        },
+        {
+          "vout": 1,
+          "script": "a914f55821bd891a8689873731f727a8c30936e4fbcc87",
+          "satoshis": 600,
+          "asset": "BCH"
+        },
+        {
+          "vout": 2,
+          "script": "6a045642524e2201038bbd1ead41cc6e7e23243af2d1489524026dc1175127232b82c78c330430bb43",
+          "satoshis": 0,
+          "asset": "BCH"
+        },
+        {
+          "vout": 3,
+          "script": "76a9147fb902e059c68baf40ab4b50ca266c0ecdeefc7088ac",
+          "satoshis": 167224,
+          "asset": "BCH"
+        }
+      ]
+    },
+    {
+      "name": "territory-claim",
+      "status": "PASS",
+      "txid": "e4f3d6184a9596c603a54db2d9f4cde43b5376a4e4b0d2ab9b133d096b30dbd4",
+      "height": 337139,
+      "blockHash": "00000000be6e61e4197fcc1fa34f146df31196f9d8a765df1c980ccbabdbb0bc",
+      "confirmations": 17,
+      "feeSatoshis": 334,
+      "inputs": [
+        {
+          "txid": "ebc696dd1c4b3c3b1f42c173ed986f72c1d532c3241aa23e5496e6c17277731e",
+          "vout": 3
+        }
+      ],
+      "outputs": [
+        {
+          "vout": 0,
+          "script": "a9147c32eacefdf4a3d62e9b7f60f7a5e02dd4103cab87",
+          "satoshis": 2000,
+          "asset": "BCH"
+        },
+        {
+          "vout": 1,
+          "script": "a9141276cb6efa0428a7ac593d7647578a77bee0488887",
+          "satoshis": 600,
+          "asset": "BCH"
+        },
+        {
+          "vout": 2,
+          "script": "6a045642524e2201107e7b27c495d77245352327a3bc1d38dceab16757135c74864043897e0b8395a1",
+          "satoshis": 0,
+          "asset": "BCH"
+        },
+        {
+          "vout": 3,
+          "script": "76a9147fb902e059c68baf40ab4b50ca266c0ecdeefc7088ac",
+          "satoshis": 164290,
+          "asset": "BCH"
+        }
+      ]
+    },
+    {
+      "name": "claim",
+      "status": "PASS",
+      "txid": "056a9cb0cf0e519bf1ffb977e07b45e77592a630887a76095e7a8877007eaf1e",
+      "height": 337148,
+      "blockHash": "000000002ccda1fb702dab9f4054956f105b59aebdc7be4126a74df59cda73db",
+      "confirmations": 8,
+      "feeSatoshis": 356,
+      "inputs": [
+        {
+          "txid": "f64241d4d4265ae4eddc7f337a4e9193d9c4d008c5c5a1431ce8e75ab23089d7",
+          "vout": 0
+        }
+      ],
+      "outputs": [
+        {
+          "vout": 0,
+          "script": "76a91462ed61468c08c905338ad34df12967e6840522e188ac",
+          "satoshis": 4389,
+          "asset": "BCH"
+        },
+        {
+          "vout": 1,
+          "script": "a91443bdc79aa0854c2a02bbd21f792d4860569c0a0a87",
+          "satoshis": 1655,
+          "asset": "BCH"
+        },
+        {
+          "vout": 2,
+          "script": "6a045642524e220109b6d37d0b5c8b3056e92bb50a7efe50b33c9a561e5e369954da50f69d79a6684a",
+          "satoshis": 0,
+          "asset": "BCH"
+        }
+      ]
+    },
+    {
+      "name": "territory-settlement",
+      "status": "PASS",
+      "txid": "dfb4c2287bb9a5deb8cf81e64536616381a892ff46dd1ae9f068fa95f4b79dc9",
+      "height": 337146,
+      "blockHash": "0000000078ad4d93deb724891cd3d226a999c53aac4db227e534225dede0484f",
+      "confirmations": 10,
+      "feeSatoshis": 600,
+      "inputs": [
+        {
+          "txid": "e4f3d6184a9596c603a54db2d9f4cde43b5376a4e4b0d2ab9b133d096b30dbd4",
+          "vout": 0
+        },
+        {
+          "txid": "e4f3d6184a9596c603a54db2d9f4cde43b5376a4e4b0d2ab9b133d096b30dbd4",
+          "vout": 1
+        }
+      ],
+      "outputs": [
+        {
+          "vout": 0,
+          "script": "a914d409c0518eef7cf078e8a0588a3c813d099e8d0c87",
+          "satoshis": 2000,
+          "asset": "BCH"
+        },
+        {
+          "vout": 1,
+          "script": "6a045642524e220113442ec2df60e0c43000e2a70726ac86c661985007beae807fc9f8e1579506213e",
+          "satoshis": 0,
+          "asset": "BCH"
+        }
+      ]
+    },
+    {
+      "name": "kingdom-withdraw",
+      "status": "PASS",
+      "txid": "b8d054937b47c5361462f902f01de2415a7cefcc0a6a75fe4776ec714bdb264b",
+      "height": 337146,
+      "blockHash": "0000000078ad4d93deb724891cd3d226a999c53aac4db227e534225dede0484f",
+      "confirmations": 10,
+      "feeSatoshis": 356,
+      "inputs": [
+        {
+          "txid": "8994d3c130f6990b4a7c59d8e6778713533699276070d94dfe2d088c7492f8f6",
+          "vout": 0
+        }
+      ],
+      "outputs": [
+        {
+          "vout": 0,
+          "script": "76a91462ed61468c08c905338ad34df12967e6840522e188ac",
+          "satoshis": 1200,
+          "asset": "BCH"
+        },
+        {
+          "vout": 1,
+          "script": "a914960241bce4315aa05f06f8d779a92e84e11a3b7a87",
+          "satoshis": 1444,
+          "asset": "BCH"
+        },
+        {
+          "vout": 2,
+          "script": "6a045642524e22010ad756e9b52372035a24037eca3db132099257386066d7a309269f456bcd526324",
+          "satoshis": 0,
+          "asset": "BCH"
+        }
+      ]
+    },
+    {
+      "name": "battle-settlement",
+      "status": "PASS",
+      "txid": "8994d3c130f6990b4a7c59d8e6778713533699276070d94dfe2d088c7492f8f6",
+      "height": 337141,
+      "blockHash": "00000000ebdf71cde0800154278d4bf9649c620e80874b49dfc0c147041340ad",
+      "confirmations": 15,
+      "feeSatoshis": 600,
+      "inputs": [
+        {
+          "txid": "ebc696dd1c4b3c3b1f42c173ed986f72c1d532c3241aa23e5496e6c17277731e",
+          "vout": 0
+        },
+        {
+          "txid": "ebc696dd1c4b3c3b1f42c173ed986f72c1d532c3241aa23e5496e6c17277731e",
+          "vout": 1
+        }
+      ],
+      "outputs": [
+        {
+          "vout": 0,
+          "script": "a914fc31a390129553c0489e9f2ce5a1a76f2dd45afd87",
+          "satoshis": 3000,
+          "asset": "BCH"
+        },
+        {
+          "vout": 1,
+          "script": "6a045642524e22010c868f8805a8c104dece5d1b1c2fa36bc95f824ebf5e68165cba656021c54aa0a4",
+          "satoshis": 0,
+          "asset": "BCH"
+        }
+      ]
+    }
+  ],
+  "balances": [
+    {
+      "address": "bchtest:qplmjqhqt8rght6q4d94pj3xds8vmmhuwqnaa5xydl",
+      "status": "PASS",
+      "confirmedSatoshis": 164290,
+      "expected": 164290,
+      "unspentOutputs": [
+        {
+          "txid": "e4f3d6184a9596c603a54db2d9f4cde43b5376a4e4b0d2ab9b133d096b30dbd4",
+          "vout": 3,
+          "satoshis": 164290,
+          "height": 337139
+        }
+      ]
+    }
+  ],
+  "tip": 337155,
+  "status": "BLOCKED",
+  "error": "Expected values to be strictly equal:\n\n22005 !== 24005\n",
+  "finishedAt": "2026-11-18T19:41:56.036Z"
+}

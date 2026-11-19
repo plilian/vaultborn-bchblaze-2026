@@ -1,0 +1,8 @@
+{
+  "category": "7dc69f046866ffcba98223b5ff6e9d6a9f5c61a7d9741378141974014b9f2253",
+  "genesisTxid": "fe49669bfd3b96821506769b0a3cd2c564a54f8f2c8fdd1d601f0d384b35dc15",
+  "operatorPublicKey": "0340880c593e9968b906afea07fca3a350198e2de90c57a158ce6251c60fa997b7",
+  "genesisBlockHash": "00000000000099f963172487bd006dccd892f8354c3a1cf9da4e812d4fa81554",
+  "genesisHeight": 334604,
+  "minConfirmations": 2
+}

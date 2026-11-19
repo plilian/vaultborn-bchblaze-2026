@@ -1,0 +1,18 @@
+# Game feel and local verification
+
+VaultBorn still uses the original frontier, its city and territory coordinates, the existing saves, and the existing combat and economy rules. This pass changes what players can see and how they navigate those systems.
+
+| Area | What changed |
+| --- | --- |
+| World atlas | Painted terrain continues beyond the original map edge. The camera clamps against that scenery at every zoom level and supports keyboard, mouse, touch drag, and pinch. The border is scenery; settlements and sites stay in place. |
+| Raid planning | The two kingdoms face each other above their orders and army information. The dossier uses the server's attack preview, shows the confidence and age of scouting, and withholds unknown rival information. A free raid requires confirmation before it spends an attack slot. |
+| Battle replay | The server can reproduce the archived combat with an optional per-exchange trace. The viewer uses it for troop-class casualties and surviving counts, then presents the recorded victory or defeat, casualties and spoils. The soundtrack, weapon effects and outcome cues follow the replay; pause, scrub, skip and reduced motion are supported. Older records without a verifiable trace only show the information those records retained. |
+| Progression and trade | Daily tribute, training, construction, research, commander actions and market exchanges get distinct dispatches when the server accepts them. Training forecasts reflect the actual queue and capacity. Market quotes show the current exchange and check it again at execution; receipts survive refresh. Daily grants reflect per-resource storage caps. |
+| Kingdom chronicle | After ten minutes away, the game can show net store, army, and treasury changes with recorded events, such as completed orders, battle results, and ownership changes. Reports persist across server restarts, can be dismissed, and remain available in Dispatches. |
+| Wallet and Explorer | A compatible active WizardConnect session can be restored in the same tab while its peer is online. Territory inspection retains its place through the wallet step. Explorer navigation from the campaign keeps the game shell and audio alive; personal BCH and kingdom funds are separate. Pairing does not replace the first receiving-address ownership proof. |
+
+The [art direction](ART_DIRECTION.md) covers the illustrated asset set. Display headings use [Cinzel](https://github.com/google/fonts/blob/main/ofl/cinzel/METADATA.pb); body text uses [Alegreya Sans](https://github.com/google/fonts/blob/main/ofl/alegreyasans/OFL.txt). Both families are served locally with their Open Font License files in `apps/web/fonts`. The original battle score is built by `scripts/render-battle-score.py` and plays from the local asset pack.
+
+Use `npm run preview:offline` to start an isolated preview. Its payment and issuance providers are disabled. `npm test`, `npm run test:browser`, `npm run test:citadel`, `npm run test:identity:browser`, `npm run test:wallet:browser`, and `node scripts/test-battle-browser.mjs` use local fixtures. `npm run simulate`, `npm run simulate:progression`, and `npm run simulate:audit -- --quick` exercise combat, progression and the economy without a chain. The market audit sampled 960 exchange combinations and found no net normalized gain from cycling quotes. Rates, grants, combat coefficients and timers were unchanged in this pass.
+
+Browser checkout fixtures prove quotes, navigation and review; they do not prove a funded payment. No blockchain transaction, deployment or publication was performed for this pass. Existing historical verification remains separate.

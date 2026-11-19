@@ -1,0 +1,333 @@
+{
+  "generatedAt": "2026-11-19T12:03:43.785Z",
+  "note": "Sizes of transactions built, signed and verified in the BCH VM by the game's own contract code. One byte costs one satoshi. Nothing here was broadcast.",
+  "split": {
+    "warChest": 50,
+    "prize": 20,
+    "development": 20,
+    "burn": 10
+  },
+  "priceBook": "prices-v2",
+  "table": {
+    "services": [
+      {
+        "action": "Rush an upgrade",
+        "was": 4000,
+        "now": 20000,
+        "warChestShare": 10000,
+        "seasonPrizes": 4000,
+        "development": 4000,
+        "burned": 2000,
+        "networkReserve": 300,
+        "walletFee": 357,
+        "fixedNetworkCostPercentOfPrice": {
+          "was": 16.4,
+          "now": 3.3
+        },
+        "note": "single use; the War Chest share equals the smallest raid stake"
+      },
+      {
+        "action": "Paid intelligence mission",
+        "was": 4000,
+        "now": 20000,
+        "warChestShare": 10000,
+        "seasonPrizes": 4000,
+        "development": 4000,
+        "burned": 2000,
+        "networkReserve": 300,
+        "walletFee": 357,
+        "fixedNetworkCostPercentOfPrice": {
+          "was": 16.4,
+          "now": 3.3
+        },
+        "note": "single use; same floor"
+      },
+      {
+        "action": "Premium building improvement",
+        "was": 4500,
+        "now": 22000,
+        "warChestShare": 11000,
+        "seasonPrizes": 4400,
+        "development": 4400,
+        "burned": 2200,
+        "networkReserve": 300,
+        "walletFee": 357,
+        "fixedNetworkCostPercentOfPrice": {
+          "was": 14.6,
+          "now": 3
+        },
+        "note": "permanent; a tenth above the single-use price, as before"
+      },
+      {
+        "action": "Protectorate proposal",
+        "was": 24000,
+        "now": 24000,
+        "warChestShare": 12000,
+        "seasonPrizes": 4800,
+        "development": 4800,
+        "burned": 2400,
+        "networkReserve": 300,
+        "walletFee": 357,
+        "fixedNetworkCostPercentOfPrice": {
+          "was": 2.7,
+          "now": 2.7
+        },
+        "note": "unchanged: its share already exceeds the smallest stake"
+      },
+      {
+        "action": "Treaty charter (was closed)",
+        "was": 4000,
+        "now": 20000,
+        "warChestShare": 10000,
+        "seasonPrizes": 4000,
+        "development": 4000,
+        "burned": 2000,
+        "networkReserve": 876,
+        "walletFee": 401,
+        "fixedNetworkCostPercentOfPrice": {
+          "was": 16.4,
+          "now": 6.4
+        },
+        "note": "restored; the extra reserve can only pay the fee of its proof record"
+      },
+      {
+        "action": "Political support (was closed)",
+        "was": 6000,
+        "now": 20000,
+        "warChestShare": 10000,
+        "seasonPrizes": 4000,
+        "development": 4000,
+        "burned": 2000,
+        "networkReserve": 876,
+        "walletFee": 401,
+        "fixedNetworkCostPercentOfPrice": {
+          "was": 10.9,
+          "now": 6.4
+        },
+        "note": "restored at the single-use price"
+      }
+    ],
+    "stakes": [
+      {
+        "action": "Paid raid",
+        "was": "stake 3,000 + reserve 600; win: 20% of the chest capped at the stake, less a capture fee of 663 to 804; loss: half the stake",
+        "now": "stake S chosen from 10000 to 250000 in steps of 1000; both sides exposed to S",
+        "reserveLocked": {
+          "oneAttestor": 2880,
+          "twoOfThree": 3340
+        },
+        "networkFeeWin": {
+          "oneAttestor": 1207,
+          "twoOfThree": 1386
+        },
+        "networkFeeLossOrVoid": {
+          "oneAttestor": 610,
+          "twoOfThree": 650
+        },
+        "winFeePercentOfSmallestStake": {
+          "oneAttestor": 12.1,
+          "twoOfThree": 13.9
+        }
+      },
+      {
+        "action": "territory-claim",
+        "was": {
+          "principal": 2000,
+          "reserve": 600
+        },
+        "now": {
+          "principal": 6000,
+          "reserve": 600
+        },
+        "reservePercentOfPrincipal": {
+          "was": 30,
+          "now": 10
+        }
+      },
+      {
+        "action": "territory-attack",
+        "was": {
+          "principal": 3000,
+          "reserve": 600
+        },
+        "now": {
+          "principal": 10000,
+          "reserve": 600
+        },
+        "reservePercentOfPrincipal": {
+          "was": 20,
+          "now": 6
+        }
+      },
+      {
+        "action": "territory-raffle",
+        "was": {
+          "principal": 3700,
+          "reserve": 1500
+        },
+        "now": {
+          "principal": 6000,
+          "reserve": 600
+        },
+        "reservePercentOfPrincipal": {
+          "was": 40.5,
+          "now": 10
+        }
+      }
+    ],
+    "deposits": {
+      "warChestMinimum": {
+        "was": "6,350 (one attestor) or 7,050 (two of three)",
+        "now": 10000,
+        "step": 1000
+      },
+      "personalVault": {
+        "was": "1,000 to 250,000 into a separate protected vault",
+        "now": "closed to new deposits: one treasury"
+      },
+      "treatyCompensationEscrow": "unchanged: the principal the treaty names plus 650 for its settlement",
+      "sponsorship": "unchanged: 0.25 BCH minimum, 0.5 BCH season banner, 2 BCH title sponsor, 25 BCH maximum; 30% Development, 70% prizes"
+    }
+  },
+  "measured": {
+    "oneAttestor": {
+      "attestors": "1 of 1",
+      "scripts": {
+        "warChestBytes": 381,
+        "raidEscrowBytes": 294
+      },
+      "matchedRaid": {
+        "reserveLockedWithTheStake": 2880,
+        "settleFee": 610,
+        "winBase": 647,
+        "winPerWarChestOutput": 560,
+        "attackerWins": {
+          "oneWarChestOutput": {
+            "bytes": 1205,
+            "fee": 1207,
+            "attackerReceives": 21673
+          },
+          "twoWarChestOutputs": {
+            "bytes": 1765,
+            "fee": 1767,
+            "attackerReceives": 21113
+          },
+          "threeWarChestOutputs": {
+            "bytes": 2325,
+            "fee": 2327,
+            "attackerReceives": 20553
+          }
+        },
+        "defenderWins": {
+          "bytes": 601,
+          "fee": 610,
+          "outputs": [
+            10000,
+            2270
+          ]
+        },
+        "voidRaid": {
+          "bytes": 567,
+          "fee": 610,
+          "outputs": [
+            12270
+          ]
+        },
+        "attackerOwnRefund": {
+          "bytes": 451,
+          "feeAllowed": 610
+        }
+      },
+      "warChest": {
+        "withdrawal": {
+          "oneOutput": 634,
+          "twoOutputs": 1128,
+          "threeOutputs": 1622,
+          "feeCap": 2000
+        },
+        "ownerExit": {
+          "stepOneBytes": 723,
+          "stepOnePaidFromTheOwnersWallet": 732,
+          "stepTwoBytes": 494
+        }
+      },
+      "territoryStake": {
+        "reserve": 600,
+        "splitSettlementBytes": 558
+      }
+    },
+    "twoOfThree": {
+      "attestors": "2 of 3",
+      "scripts": {
+        "warChestBytes": 455,
+        "raidEscrowBytes": 331
+      },
+      "matchedRaid": {
+        "reserveLockedWithTheStake": 3340,
+        "settleFee": 650,
+        "winBase": 685,
+        "winPerWarChestOutput": 701,
+        "attackerWins": {
+          "oneWarChestOutput": {
+            "bytes": 1384,
+            "fee": 1386,
+            "attackerReceives": 21954
+          },
+          "twoWarChestOutputs": {
+            "bytes": 2085,
+            "fee": 2087,
+            "attackerReceives": 21253
+          },
+          "threeWarChestOutputs": {
+            "bytes": 2786,
+            "fee": 2788,
+            "attackerReceives": 20552
+          }
+        },
+        "defenderWins": {
+          "bytes": 639,
+          "fee": 650,
+          "outputs": [
+            10000,
+            2690
+          ]
+        },
+        "voidRaid": {
+          "bytes": 605,
+          "fee": 650,
+          "outputs": [
+            12690
+          ]
+        },
+        "attackerOwnRefund": {
+          "bytes": 488,
+          "feeAllowed": 650
+        }
+      },
+      "warChest": {
+        "withdrawal": {
+          "oneOutput": 708,
+          "twoOutputs": 1276,
+          "threeOutputs": 1844,
+          "feeCap": 2000
+        },
+        "ownerExit": {
+          "stepOneBytes": 797,
+          "stepOnePaidFromTheOwnersWallet": 806,
+          "stepTwoBytes": 568
+        }
+      },
+      "territoryStake": {
+        "reserve": 600,
+        "splitSettlementBytes": 597
+      }
+    },
+    "politicalProofRecord": {
+      "bytes": 276,
+      "reserve": 576,
+      "why": "the smallest contract output the network relays"
+    },
+    "servicePaymentBytes": 357,
+    "rewardShareReserve": 300
+  }
+}

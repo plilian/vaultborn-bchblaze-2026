@@ -1,0 +1,136 @@
+{
+  "executedAt": "2026-11-19T10:26:21.479Z",
+  "networkProfile": "chipnet",
+  "server": "live local game server over HTTP on the enforcing fixture node (BCH VM). No public network was contacted and no coin of any network moved: with networkProfile \"mainnet\" this shows that addresses, contracts, start-up conditions and attestor checks work under the Mainnet configuration, not that anything ran on Mainnet",
+  "attestors": "three keys, each running scripts/prize-attest.mjs as its own process with its own key file and pin file",
+  "threshold": "2 of 3",
+  "scenarios": [
+    {
+      "name": "one service purchase is a War Chest that covers the smallest stake; three payers' reward shares join one season pool",
+      "result": "PASS",
+      "price": 22000,
+      "warChestShare": 11000,
+      "networkReserve": 300,
+      "capturableAtOnce": 11000,
+      "poolSatoshis": 13666,
+      "txid": "a886ea13beecb395d5c4b08de16ece606b4dc2690e5da6afb6135de4bc5dc5f8"
+    },
+    {
+      "name": "a contested territory claim is settled by the attestors: the loser's half goes to the contest winner's verified wallet",
+      "result": "PASS",
+      "territory": "east-meadow",
+      "stake": 6000,
+      "lanes": [
+        "return",
+        "forfeit"
+      ],
+      "loserKept": 3000,
+      "winnerReceived": 3000,
+      "forgedPayeeRefused": "the lane does not follow the contest record",
+      "txids": [
+        "e2f48822a18bf5fef64a2e87ceaa37f64e5f13837e845f7d45af9c67dc2a6d8d",
+        "8875d0a5760eb66c2ca7d9f393988208a4fb1cefc6505720cf767846399a276f"
+      ]
+    },
+    {
+      "name": "matched raid, attacker wins: a forged \"defender wins\" proposed with the server key is refused by all three attestors",
+      "result": "PASS",
+      "stakePayment": "4bd4f84ef597a5060e397447a35e5ad22e7245219c1ec5f7e5ab799f6993040c",
+      "stake": 25000,
+      "walletPaid": 28340,
+      "proposedByServer": "defender-wins",
+      "replayedWinner": "attacker",
+      "attestorProblems": [
+        "the replayed battle was won by the attacker; the proposed lane \"defender-wins\" does not follow from it"
+      ]
+    },
+    {
+      "name": "the defender starts an exit after the raid was funded: the settlement lapses and is proposed again against the exit script",
+      "result": "PASS",
+      "exitTxid": "f976d0baa582bab1a068e0aa7a2adc217327bb916d8a90dee1ebe7d1e4065119",
+      "movedWhole": 30000,
+      "exitingSatoshis": 30000,
+      "offeredToNewRaids": 0
+    },
+    {
+      "name": "matched raid settled by two of three attestors in ONE transaction: one attestor alone moves nothing; the attacker receives exactly what was previewed",
+      "result": "PASS",
+      "lane": "attacker-wins",
+      "stake": 25000,
+      "attackerReceived": 51953,
+      "previewed": 51953,
+      "defenderLost": 25000,
+      "defenderWarChestAfter": 16000,
+      "networkFee": 1387,
+      "bytes": 1341,
+      "inputs": 2,
+      "signedBy": "attestors 1 and 2; attestor 3 offline",
+      "txid": "4d5e06915a913a05e21ca52fa8634f94b3a9387647abb66602934b25abe46a7c"
+    },
+    {
+      "name": "matched raid, defender wins: a forged capture of the defender's War Chest and an edited battle record are both refused",
+      "result": "PASS",
+      "stakePayment": "c358eebd2a4bfcb8d7c6b366f25909019bfe431a28df0d1ffa09f5fd0eb2647e",
+      "forgedCaptureRefused": [
+        "the replayed battle was won by the defender; the proposed lane \"attacker-wins\" does not follow from it"
+      ],
+      "editedBattleRecordRefused": [
+        "replaying the recorded battle does not reproduce its result",
+        "the replayed battle was won by the attacker; the proposed lane \"defender-wins\" does not follow from it"
+      ]
+    },
+    {
+      "name": "the defender receives the attacker's whole stake, signed by two of three attestors; the War Chest is not an input",
+      "result": "PASS",
+      "lane": "defender-wins",
+      "stake": 10000,
+      "defenderReceived": 10000,
+      "attackerLost": 10000,
+      "reserveReturnedToAttacker": 2690,
+      "networkFee": 650,
+      "bytes": 639,
+      "signedBy": "attestors 2 and 3; attestor 1 offline",
+      "txid": "4665ad26bce15b47b8b4e488dd7580400c78a6b5adddc6a9275b85648e506878"
+    },
+    {
+      "name": "a paid political operation publishes its proof record from the payer's own record reserve, with no attestor and no operator money",
+      "result": "PASS",
+      "price": 20000,
+      "recordReserve": 576,
+      "proofTxid": "176bff8f06f64782416dc02997f6cea2cbaefa40dda490d53d046e2365262012",
+      "proofFee": 576,
+      "proofBytes": 276
+    },
+    {
+      "name": "a legitimate season prize is proposed automatically and paid after two attestors audit the season evidence",
+      "result": "PASS",
+      "season": 1,
+      "winner": "p1",
+      "rank": 1,
+      "score": 35,
+      "satoshis": 4646,
+      "feeSatoshis": 688,
+      "txid": "3a5faeddf0381a0ec6b542f7ac513b82267c1ee0f84e2b8c9b29c72206727898"
+    },
+    {
+      "name": "the evidence bundle an attestor saved on its own run passes the season audit from the file alone",
+      "result": "PASS",
+      "savedBy": "attestor 1, by scripts/prize-attest.mjs itself",
+      "season": 1,
+      "pagesSaved": 5,
+      "auditProblems": 0,
+      "serverContacted": false
+    },
+    {
+      "name": "a season result altered after the fact is refused by every attestor",
+      "result": "PASS",
+      "forgedProposals": 1,
+      "attestorProblems": [
+        "the amount is not rank share × prize base",
+        "season evidence: the published ranking is not the ranking the journal produces",
+        "the published season result changed after this attestor first saw it",
+        "the award does not commit to the published season result"
+      ]
+    }
+  ]
+}

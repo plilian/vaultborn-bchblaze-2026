@@ -1,0 +1,454 @@
+{
+  "network": "chipnet",
+  "started": "2026-11-16T18:06:21.104Z",
+  "fixtureWallet": "bchtest:qp3w6c2x3syvjpfn3tf5muffvlnggpfzuy7s6zr6z6",
+  "rows": [
+    {
+      "action": "premium",
+      "id": "8c1366152d8df8712e7e562c25cf52c7",
+      "txid": "bcca3285cbdaa2c2df2ed6349b6cc5b89040d90b9394f88000e4da2ec19daca8",
+      "satoshis": 4500,
+      "outputs": [
+        {
+          "role": "kingdom",
+          "script": "a9147a10b79ff555e46e322d24466e16b4cc74d9286387",
+          "address": "bchtest:ppappdul7427gm3j95jyvmskknx8fkfgvvmfyu6zm3",
+          "satoshis": 2250
+        },
+        {
+          "role": "development",
+          "script": "a91414e50f3c40b90e3d4e47283dc374d4b017f75a5387",
+          "address": "bchtest:pq2w2reugzusu02wgu5rmsm56jcp0a662vujx4g5q0",
+          "satoshis": 900
+        },
+        {
+          "role": "prize",
+          "script": "a914d090fa824aaca83aad83f2b69d5238418f44923087",
+          "address": "bchtest:prgfp75zf2k2sw4ds0etd82j8pqc73yjxq7nyq95ew",
+          "satoshis": 675
+        },
+        {
+          "role": "burn",
+          "script": "6a045642524e22010143b5bc285bcbbb1b0d26a4080de6eab469a19f60cff056d71d2914749c94a75f",
+          "satoshis": 675
+        }
+      ],
+      "sentAt": "2026-11-16T18:06:53.370Z",
+      "feeSatoshis": 366,
+      "confirmations": 3,
+      "blockHash": "00000000000013e2f2d10f6d91b855a49c775b8e13a68dad966ab980674dc0d8",
+      "blockHeight": 334227,
+      "event": {
+        "version": 1,
+        "kind": "premium",
+        "subject": "8c1366152d8df8712e7e562c25cf52c7",
+        "data": {
+          "seasonId": 1,
+          "actionHash": "609c56db3217df38ca7fc1029172f117e43956b851776ffc827da35407c06afb",
+          "allocation": {
+            "development": 900,
+            "burn": 675,
+            "prize": 675,
+            "kingdom": 2250
+          }
+        },
+        "digest": "43b5bc285bcbbb1b0d26a4080de6eab469a19f60cff056d71d2914749c94a75f"
+      },
+      "eventVout": 3,
+      "allocations": [
+        {
+          "script": "a9147a10b79ff555e46e322d24466e16b4cc74d9286387",
+          "satoshis": 2250,
+          "vout": 0,
+          "role": "kingdom"
+        },
+        {
+          "script": "a91414e50f3c40b90e3d4e47283dc374d4b017f75a5387",
+          "satoshis": 900,
+          "vout": 1,
+          "role": "development"
+        },
+        {
+          "script": "a914d090fa824aaca83aad83f2b69d5238418f44923087",
+          "satoshis": 675,
+          "vout": 2,
+          "role": "prize"
+        },
+        {
+          "script": "6a045642524e22010143b5bc285bcbbb1b0d26a4080de6eab469a19f60cff056d71d2914749c94a75f",
+          "satoshis": 675,
+          "vout": 3,
+          "role": "burn"
+        }
+      ],
+      "fulfillment": {
+        "status": "applied",
+        "result": {
+          "building": "hall",
+          "perks": {
+            "hall": {
+              "name": "Founders banner and a civic collection preset",
+              "at": 1794852589000
+            }
+          },
+          "queue": []
+        }
+      }
+    },
+    {
+      "action": "attack-paid",
+      "id": "921b470aa651bd97523b4b05354e383d",
+      "txid": "e9055762cb16374227d23cadddf96011b13b6841c309ea85f1e807bba2e40525",
+      "satoshis": 6000,
+      "outputs": [
+        {
+          "role": "battle",
+          "script": "a9142b183487fbaac5b6396e5675caeb767c8ccf8b8b87",
+          "address": "bchtest:pq43sdy8lw4vtd3edet8tjhtwe7genut3vmccvn7az",
+          "satoshis": 3000
+        },
+        {
+          "role": "development",
+          "script": "a914471c6190306e79c55ed5cab568079c7cb2f54c2187",
+          "address": "bchtest:ppr3ccvsxph8n3276h9t26q8n37t9a2vyy2kh4vfz8",
+          "satoshis": 1200
+        },
+        {
+          "role": "prize",
+          "script": "a914680afe6706d9847de2980d0d2b5ccc0456db9afa87",
+          "address": "bchtest:pp5q4ln8qmvcgl0znqxs626uesz9dku6lgrdafps5a",
+          "satoshis": 900
+        },
+        {
+          "role": "burn",
+          "script": "6a045642524e220103a32e32646959f1f785e1d37b430209b22359e519b0a03bbcbbfed4512941e1a2",
+          "satoshis": 900
+        }
+      ],
+      "sentAt": "2026-11-16T18:07:17.693Z",
+      "feeSatoshis": 366,
+      "confirmations": 3,
+      "blockHash": "00000000000013e2f2d10f6d91b855a49c775b8e13a68dad966ab980674dc0d8",
+      "blockHeight": 334227,
+      "event": {
+        "version": 1,
+        "kind": "attack-paid",
+        "subject": "921b470aa651bd97523b4b05354e383d",
+        "data": {
+          "seasonId": 1,
+          "actionHash": "2f73c2838b0b32e4bf2ed2408a64c9a0c3de09c81b6f4ee20658dd1274d5b8ed",
+          "allocation": {
+            "development": 1200,
+            "burn": 900,
+            "prize": 900,
+            "battle": 3000
+          }
+        },
+        "digest": "a32e32646959f1f785e1d37b430209b22359e519b0a03bbcbbfed4512941e1a2"
+      },
+      "eventVout": 3,
+      "allocations": [
+        {
+          "script": "a9142b183487fbaac5b6396e5675caeb767c8ccf8b8b87",
+          "satoshis": 3000,
+          "vout": 0,
+          "role": "battle"
+        },
+        {
+          "script": "a914471c6190306e79c55ed5cab568079c7cb2f54c2187",
+          "satoshis": 1200,
+          "vout": 1,
+          "role": "development"
+        },
+        {
+          "script": "a914680afe6706d9847de2980d0d2b5ccc0456db9afa87",
+          "satoshis": 900,
+          "vout": 2,
+          "role": "prize"
+        },
+        {
+          "script": "6a045642524e220103a32e32646959f1f785e1d37b430209b22359e519b0a03bbcbbfed4512941e1a2",
+          "satoshis": 900,
+          "vout": 3,
+          "role": "burn"
+        }
+      ],
+      "fulfillment": {
+        "status": "applied",
+        "result": {
+          "id": "b5",
+          "kind": "raid",
+          "attacker": "p1",
+          "defender": "p2",
+          "attackerName": "Riverhold",
+          "defenderName": "Ironhaven",
+          "at": 1794852600457,
+          "commitment": "9608dcb611cd1262b996a8b137193d764b99b88d08c9c7726636691f556daa1e",
+          "input": {
+            "attacker": {
+              "troops": {
+                "infantry": 32,
+                "shield": 15,
+                "archer": 22,
+                "cavalry": 10,
+                "siege": 4,
+                "mage": 4
+              },
+              "hero": "warden",
+              "tactic": "balanced",
+              "formation": "line",
+              "tech": {
+                "logistics": 0,
+                "fortification": 0,
+                "tactics": 0,
+                "signals": 0
+              },
+              "wall": 2,
+              "intel": 0
+            },
+            "defender": {
+              "troops": {
+                "infantry": 28,
+                "shield": 13,
+                "archer": 19,
+                "cavalry": 9,
+                "siege": 3,
+                "mage": 3
+              },
+              "hero": "warden",
+              "tactic": "balanced",
+              "formation": "line",
+              "tech": {
+                "logistics": 0,
+                "fortification": 0,
+                "tactics": 0,
+                "signals": 0
+              },
+              "wall": 2
+            },
+            "terrain": "plains"
+          },
+          "seed": "039c52ecbd2458d9b08dc699d9709f72df704665558c4d4f3a5c4fc9602d4ed2",
+          "paid": true,
+          "loot": {
+            "wood": 36,
+            "stone": 36,
+            "iron": 36,
+            "food": 36,
+            "crystal": 9
+          },
+          "winner": "attacker",
+          "losses": {
+            "attacker": {
+              "infantry": 9,
+              "shield": 3,
+              "archer": 8,
+              "cavalry": 4,
+              "siege": 1,
+              "mage": 1
+            },
+            "defender": {
+              "infantry": 9,
+              "shield": 3,
+              "archer": 6,
+              "cavalry": 4,
+              "siege": 1,
+              "mage": 1
+            }
+          },
+          "events": [
+            {
+              "round": 1,
+              "at": 0,
+              "phase": "Advance",
+              "attackerLoss": 3,
+              "defenderLoss": 2,
+              "attackerRemaining": 84,
+              "defenderRemaining": 73
+            },
+            {
+              "round": 2,
+              "at": 6000,
+              "phase": "Advance",
+              "attackerLoss": 2,
+              "defenderLoss": 2,
+              "attackerRemaining": 82,
+              "defenderRemaining": 71
+            },
+            {
+              "round": 3,
+              "at": 12000,
+              "phase": "Advance",
+              "attackerLoss": 3,
+              "defenderLoss": 4,
+              "attackerRemaining": 79,
+              "defenderRemaining": 67
+            },
+            {
+              "round": 4,
+              "at": 18000,
+              "phase": "Engagement",
+              "attackerLoss": 3,
+              "defenderLoss": 2,
+              "attackerRemaining": 76,
+              "defenderRemaining": 65
+            },
+            {
+              "round": 5,
+              "at": 24000,
+              "phase": "Engagement",
+              "attackerLoss": 4,
+              "defenderLoss": 4,
+              "attackerRemaining": 72,
+              "defenderRemaining": 61
+            },
+            {
+              "round": 6,
+              "at": 30000,
+              "phase": "Engagement",
+              "attackerLoss": 3,
+              "defenderLoss": 3,
+              "attackerRemaining": 69,
+              "defenderRemaining": 58
+            },
+            {
+              "round": 7,
+              "at": 36000,
+              "phase": "Rout",
+              "attackerLoss": 1,
+              "defenderLoss": 2,
+              "attackerRemaining": 68,
+              "defenderRemaining": 56
+            },
+            {
+              "round": 8,
+              "at": 42000,
+              "phase": "Rout",
+              "attackerLoss": 3,
+              "defenderLoss": 3,
+              "attackerRemaining": 65,
+              "defenderRemaining": 53
+            },
+            {
+              "round": 9,
+              "at": 48000,
+              "phase": "Rout",
+              "attackerLoss": 4,
+              "defenderLoss": 2,
+              "attackerRemaining": 61,
+              "defenderRemaining": 51
+            }
+          ],
+          "differential": 78,
+          "hash": "a1c7ecdfbf26ffe69af425e4ccc9411e571ea78fb0bca207974313cdd9987c52",
+          "treasury": {
+            "kind": "battle",
+            "payment": "921b470aa651bd97523b4b05354e383d",
+            "txid": "e9055762cb16374227d23cadddf96011b13b6841c309ea85f1e807bba2e40525",
+            "attacker": "p1",
+            "defender": "p2",
+            "winner": "attacker",
+            "recipient": "p1",
+            "escrowSatoshis": 3000,
+            "capturedSatoshis": 0,
+            "now": 1794852600457
+          }
+        }
+      }
+    },
+    {
+      "action": "sponsor-fund",
+      "id": "0f2a9b5259c92494f8efd0b278b1ae67",
+      "txid": "084a5528f775499a08453f131e4e2221c75714e1378f0c8ba9a0be86403a9bb3",
+      "satoshis": 8000,
+      "outputs": [
+        {
+          "role": "funding",
+          "script": "a9140ad8aa1ed84638e3ad53497a8c58971d97c4349487",
+          "address": "bchtest:pq9d32s7mprr3cad2dyh4rzcjuwe03p5jsauznnwhp",
+          "satoshis": 8000
+        },
+        {
+          "role": "event",
+          "script": "6a045642524e2201070974f14efe462b23310facf0b9535193366fad0989662b8d56e4d1b9b0e7d477",
+          "satoshis": 0
+        }
+      ],
+      "sentAt": "2026-11-16T18:07:36.256Z",
+      "feeSatoshis": 302,
+      "confirmations": 3,
+      "blockHash": "00000000000013e2f2d10f6d91b855a49c775b8e13a68dad966ab980674dc0d8",
+      "blockHeight": 334227,
+      "event": {
+        "version": 1,
+        "kind": "sponsor-fund",
+        "subject": "0f2a9b5259c92494f8efd0b278b1ae67",
+        "data": {
+          "seasonId": 1,
+          "actionHash": "228f8c062856a43b692a467349625193a69a03a96bc41051ed8277c86c9133b8",
+          "allocation": null
+        },
+        "digest": "0974f14efe462b23310facf0b9535193366fad0989662b8d56e4d1b9b0e7d477"
+      },
+      "eventVout": 1,
+      "allocations": [
+        {
+          "script": "a9140ad8aa1ed84638e3ad53497a8c58971d97c4349487",
+          "satoshis": 8000,
+          "vout": 0,
+          "role": "funding"
+        },
+        {
+          "script": "6a045642524e2201070974f14efe462b23310facf0b9535193366fad0989662b8d56e4d1b9b0e7d477",
+          "satoshis": 0,
+          "vout": 1,
+          "role": "event"
+        }
+      ]
+    },
+    {
+      "action": "claim",
+      "id": "602052b704a0e401a5493219af62f214",
+      "txid": "491597a3e95b6c9fff694ea5527abcbf4fac10b60e3da1705dfb05a99508673f",
+      "satoshis": 3255,
+      "feeSatoshis": 356,
+      "confirmations": 2,
+      "blockHash": "0000000095f302583329b16a8763b5e5f962605704e0a4fd3893592184008b10",
+      "blockHeight": 334233,
+      "event": {
+        "version": 1,
+        "kind": "claim",
+        "subject": "p1",
+        "data": {
+          "satoshis": 3255,
+          "address": "bchtest:qp3w6c2x3syvjpfn3tf5muffvlnggpfzuy7s6zr6z6",
+          "seasonId": 1
+        },
+        "digest": "7f196c63ada6d41e4e905418a2e45c5713f3d042d8c0ea9752efccbbfb9564a1"
+      },
+      "eventVout": 2
+    }
+  ],
+  "battle": {
+    "id": "b5",
+    "resultHash": "a1c7ecdfbf26ffe69af425e4ccc9411e571ea78fb0bca207974313cdd9987c52",
+    "recordHash": "9d012606ba36de11ad09607c19fd722eb8a40d5b6b80d15701c533045bb5b8a2",
+    "settlement": {
+      "txid": "121d6043929391405bb589aaf1aca3b2ad5b628012734e9e1940e55316365797",
+      "explorerUrl": "https://chipnet.imaginary.cash/tx/121d6043929391405bb589aaf1aca3b2ad5b628012734e9e1940e55316365797",
+      "blockHash": "000000004c1c432dade529bdba739b215d49d68edf0a668652430f2221750d1c",
+      "vout": 2,
+      "event": {
+        "version": 1,
+        "kind": "battle-settlement",
+        "subject": "b5",
+        "data": {
+          "recordHash": "9d012606ba36de11ad09607c19fd722eb8a40d5b6b80d15701c533045bb5b8a2",
+          "initiationTxid": "e9055762cb16374227d23cadddf96011b13b6841c309ea85f1e807bba2e40525"
+        },
+        "digest": "4be38d8899b3970f6cd0e1b259c32fb299408a38fd8ec31d837c590459a16e2d"
+      }
+    }
+  },
+  "finished": "2026-11-16T18:15:12.572Z"
+}

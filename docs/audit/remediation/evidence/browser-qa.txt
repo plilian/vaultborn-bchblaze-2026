@@ -1,0 +1,111 @@
+node scripts/browser-qa.mjs — original browser suite, Chromium 1243 headless, 19 November 2026, six consecutive runs with the final code.
+Before the helper changes of this date (a tab that must report itself selected, a navigation click that closes a covering dialog, a handler that closes the expired-checkout notice) the suite stopped in 6 of 11 runs at interface clicks: an announcement dialog covering the next button, or a tab click lost while the panel was redrawn. None of the stops was in a BCH step. The notice that is closed is logged below.
+The suite prepares checkouts only; it asserts no blockchain transfer.
+
+== run 1
+World selection, zoom, scout dispatch and mission resolution passed
+Chipnet intent prepared: Rush City Hall (20,000 sat)
+Chipnet intent prepared: City Hall premium upgrade (22,000 sat)
+Standard construction completion, paid upgrade/rush checkout, recruitment and city tabs passed
+Chipnet intent prepared: Protectorate offer to Stonevale (24,000 sat)
+Protectorate/paid attack quote, free raid, replay and two-session combat synchronization passed
+Political atlas, policy change, two-seat treaties, cinematic dispatch, cargo delivery and council ballots passed
+Chipnet intent prepared: War chest funding (10,000 sat)
+Chipnet intent prepared: Treaty compensation escrow (2,650 sat)
+Chipnet intent prepared: Enter claim for East Meadow (6,600 sat)
+Expired checkout notice closed: Enter claim for East Meadow EXPIRED CHIPNET Opens or enters a 60-minute contest.
+Coup mobilization, private allied intervention, sealed front replays and public three-front resolution passed
+Offline report presents recorded training once and remains reviewable in dispatches
+Alliance, treaties, vault, rankings, wallet proof, audio preferences, mobile controls and onboarding passed
+Browser checkout creates intents only. No blockchain transfer is asserted by this suite.
+exit code 0
+
+== run 2
+World selection, zoom, scout dispatch and mission resolution passed
+Chipnet intent prepared: Rush City Hall (20,000 sat)
+Chipnet intent prepared: City Hall premium upgrade (22,000 sat)
+Standard construction completion, paid upgrade/rush checkout, recruitment and city tabs passed
+Chipnet intent prepared: Protectorate offer to Stonevale (24,000 sat)
+Protectorate/paid attack quote, free raid, replay and two-session combat synchronization passed
+Political atlas, policy change, two-seat treaties, cinematic dispatch, cargo delivery and council ballots passed
+Chipnet intent prepared: War chest funding (10,000 sat)
+Chipnet intent prepared: Treaty compensation escrow (2,650 sat)
+Chipnet intent prepared: Enter claim for East Meadow (6,600 sat)
+Expired checkout notice closed: Enter claim for East Meadow EXPIRED CHIPNET Opens or enters a 60-minute contest.
+Coup mobilization, private allied intervention, sealed front replays and public three-front resolution passed
+Offline report presents recorded training once and remains reviewable in dispatches
+Alliance, treaties, vault, rankings, wallet proof, audio preferences, mobile controls and onboarding passed
+Browser checkout creates intents only. No blockchain transfer is asserted by this suite.
+exit code 0
+
+== run 3
+World selection, zoom, scout dispatch and mission resolution passed
+Chipnet intent prepared: Rush City Hall (20,000 sat)
+Chipnet intent prepared: City Hall premium upgrade (22,000 sat)
+Standard construction completion, paid upgrade/rush checkout, recruitment and city tabs passed
+Chipnet intent prepared: Protectorate offer to Stonevale (24,000 sat)
+Protectorate/paid attack quote, free raid, replay and two-session combat synchronization passed
+Political atlas, policy change, two-seat treaties, cinematic dispatch, cargo delivery and council ballots passed
+Chipnet intent prepared: War chest funding (10,000 sat)
+Chipnet intent prepared: Treaty compensation escrow (2,650 sat)
+Chipnet intent prepared: Enter claim for East Meadow (6,600 sat)
+Expired checkout notice closed: Enter claim for East Meadow EXPIRED CHIPNET Opens or enters a 60-minute contest.
+Coup mobilization, private allied intervention, sealed front replays and public three-front resolution passed
+Offline report presents recorded training once and remains reviewable in dispatches
+Alliance, treaties, vault, rankings, wallet proof, audio preferences, mobile controls and onboarding passed
+Browser checkout creates intents only. No blockchain transfer is asserted by this suite.
+exit code 0
+
+== run 4
+World selection, zoom, scout dispatch and mission resolution passed
+Chipnet intent prepared: Rush City Hall (20,000 sat)
+Chipnet intent prepared: City Hall premium upgrade (22,000 sat)
+Standard construction completion, paid upgrade/rush checkout, recruitment and city tabs passed
+Chipnet intent prepared: Protectorate offer to Stonevale (24,000 sat)
+Protectorate/paid attack quote, free raid, replay and two-session combat synchronization passed
+Political atlas, policy change, two-seat treaties, cinematic dispatch, cargo delivery and council ballots passed
+Chipnet intent prepared: War chest funding (10,000 sat)
+Chipnet intent prepared: Treaty compensation escrow (2,650 sat)
+Chipnet intent prepared: Enter claim for East Meadow (6,600 sat)
+Expired checkout notice closed: Enter claim for East Meadow EXPIRED CHIPNET Opens or enters a 60-minute contest.
+Coup mobilization, private allied intervention, sealed front replays and public three-front resolution passed
+Offline report presents recorded training once and remains reviewable in dispatches
+Alliance, treaties, vault, rankings, wallet proof, audio preferences, mobile controls and onboarding passed
+Browser checkout creates intents only. No blockchain transfer is asserted by this suite.
+exit code 0
+
+== run 5
+World selection, zoom, scout dispatch and mission resolution passed
+Chipnet intent prepared: Rush City Hall (20,000 sat)
+Chipnet intent prepared: City Hall premium upgrade (22,000 sat)
+Standard construction completion, paid upgrade/rush checkout, recruitment and city tabs passed
+Chipnet intent prepared: Protectorate offer to Stonevale (24,000 sat)
+Protectorate/paid attack quote, free raid, replay and two-session combat synchronization passed
+Political atlas, policy change, two-seat treaties, cinematic dispatch, cargo delivery and council ballots passed
+Chipnet intent prepared: War chest funding (10,000 sat)
+Chipnet intent prepared: Treaty compensation escrow (2,650 sat)
+Chipnet intent prepared: Enter claim for East Meadow (6,600 sat)
+Expired checkout notice closed: Enter claim for East Meadow EXPIRED CHIPNET Opens or enters a 60-minute contest.
+Coup mobilization, private allied intervention, sealed front replays and public three-front resolution passed
+Offline report presents recorded training once and remains reviewable in dispatches
+Alliance, treaties, vault, rankings, wallet proof, audio preferences, mobile controls and onboarding passed
+Browser checkout creates intents only. No blockchain transfer is asserted by this suite.
+exit code 0
+
+== run 6
+World selection, zoom, scout dispatch and mission resolution passed
+Chipnet intent prepared: Rush City Hall (20,000 sat)
+Chipnet intent prepared: City Hall premium upgrade (22,000 sat)
+Standard construction completion, paid upgrade/rush checkout, recruitment and city tabs passed
+Chipnet intent prepared: Protectorate offer to Stonevale (24,000 sat)
+Protectorate/paid attack quote, free raid, replay and two-session combat synchronization passed
+Political atlas, policy change, two-seat treaties, cinematic dispatch, cargo delivery and council ballots passed
+Chipnet intent prepared: War chest funding (10,000 sat)
+Chipnet intent prepared: Treaty compensation escrow (2,650 sat)
+Chipnet intent prepared: Enter claim for East Meadow (6,600 sat)
+Expired checkout notice closed: Enter claim for East Meadow EXPIRED CHIPNET Opens or enters a 60-minute contest.
+Coup mobilization, private allied intervention, sealed front replays and public three-front resolution passed
+Offline report presents recorded training once and remains reviewable in dispatches
+Alliance, treaties, vault, rankings, wallet proof, audio preferences, mobile controls and onboarding passed
+Browser checkout creates intents only. No blockchain transfer is asserted by this suite.
+exit code 0

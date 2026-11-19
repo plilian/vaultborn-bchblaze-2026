@@ -1,0 +1,54 @@
+# Offline economy and balance audit
+
+> **Historical record.** This file documents an earlier run under earlier prices, splits and contracts (before the final economy of 19 November 2026). It is kept as evidence of that run only. Current rules: [ECONOMY_DESIGN.md](ECONOMY_DESIGN.md).
+
+Run `node packages/economy-simulator/audit.mjs`; the deterministic result is in [AUDIT_SIMULATION_RESULTS.json](AUDIT_SIMULATION_RESULTS.json). `--quick` verifies a small grid without writing a replacement report. The audit only calculates in memory and writes a local JSON report. No wallets, RPC, relays, or chain executables are involved.
+
+The runtime `simulateBattle` resolves the same 12,000 composition and tactic cases under each of the classic and v2 field rules, with paired paid and intelligence markers. It also resolves 12,000 separate v2 commander cases with five variants each. The realm model executes **1,032 independent 90-day policy runs**: 420 seeds for 100 players, 72 for 1,000, and 24 for 10,000, each repeated with the same seed under both checkout policies. Both sets use v2 combat odds and current rental prices to isolate payment effects. The model captures 4,128 observations at days 1, 7, 30, and 90. The two policies share seven funded or free play styles with low, high, and declining attendance. These runs supplement the existing `npm run simulate` runtime-based test with 1,000 isolated 30-day histories. The models are separate so realm-scale approximations are not mistaken for server execution at a 10,000-player load.
+
+## Financial changes tested
+
+| Action | Classic checkout | Candidate checkout | Candidate balances at purchase |
+| --- | ---: | ---: | --- |
+| Rush, selected paid espionage, charter | 4,000 | 4,000 | 800 development, 546 seasonal, 200 burn, 2,454 kingdom |
+| Premium upgrade | 4,500 | 4,500 | 900 development, 546 seasonal, 225 burn, 2,829 kingdom |
+| Protectorate | 120,000 | 24,000 | 4,800 development, 2,400 seasonal, 1,200 burn, 15,600 kingdom |
+| Raid and territory conquest | 6,000 | 3,600 | 3,000 stake, 600 settlement reserve |
+| Standard territory claim | 4,000 | 2,600 | 2,000 stake, 600 settlement reserve |
+| Rare territory raffle | 7,400 | 5,200 | 3,700 stake, 1,500 settlement and expiry reserve |
+
+BCH is counted in exact satoshis. The 20/10/5/65 service template tops up spendable seasonal outputs to a 546-sat floor out of the kingdom share. A provable burn is not a spendable output. Competitive checkout puts the entire principal at stake, preserving the earlier amount at risk. The separate settlement reserve funds network costs, and the player's wallet still pays its funding transaction fee. The model includes an illustrative 350-sat wallet fee and a separate settlement fee. It does not forecast miner policies or treat leftover reserves as player money. Sponsorship debits the contributing agent's fixed initial bankroll during simulation; withdrawals draw from an agent's funded uncommitted treasury. Sum of circulation, pool balances, reserves, burn and paid network fees exactly equals the starting supply at every recorded horizon.
+
+Holding the attacker win rate at 35.3%, the classic equal-army observation, isolates the payout effects. With 90,000 sats explicitly committed by the defender, classic average attacker net is **+1,063 sats** after the assumed 350-sat funding fee. The candidate gives **−862 sats** after the same fee. The old 20% capture could take 18,000; the candidate caps capture at the smaller of 20% or the 3,000-sat stake. A verified eligible defender takes 1,500 sats on a candidate attacker loss; the attacker receives the other half. With zero committed defender funds, the candidate attacker EV is −1,921 sats at the same win probability. In both versions, a winning colluding pair can move value between accounts but cannot increase its aggregate balance: the candidate pair loses 950 sats per exchange and the classic pair loses 3,350. Lower friction makes attempted transfers cheaper, so verified-wallet checks, the once-per-pair-per-day settlement limit and alliance restrictions remain important. Distinct keys alone cannot prove that two accounts have different human owners.
+
+The UTXO sensitivity table uses 546, 900, and 2,454 sat inputs at 1/2/5 sats per estimated byte with at most 32 selected inputs and a 546-sat output floor. One 900-sat input and a 356-sat planned fee leaves 544, which is below that floor. Five equal inputs at the same rate plan 996 sats in fees and leave 3,504. Small government payouts benefit from combining eligible inputs, while the modeled 5-sat rate leaves no economical withdrawal from dust-sized inputs alone. These are optimistic examples before external wallet fees, congestion, unavailable inputs, or more than one change output; keep explicit minimums and reserve visibility.
+
+## Realm results
+
+Each number below is a mean across worlds, including means of each world's percentiles. Wealth includes the remaining simulation wallet and kingdom treasury, including committed balances, and excludes the development and prize pools. Seven fixed playing styles have deliberately different initial balances, so the simulation does not imply that real player wealth has this distribution.
+
+| Day-90 metric | 100 classic → candidate | 1,000 classic → candidate | 10,000 classic → candidate |
+| --- | ---: | ---: | ---: |
+| Median wealth (sats) | 19,853 → 23,982 | 15,981 → 23,178 | 14,467 → 21,223 |
+| Wealth Gini | .66 → .65 | .70 → .66 | .74 → .69 |
+| Top 10% share | 55.80% → 54.62% | 55.62% → 54.23% | 63.29% → 57.36% |
+| Seasonal payouts (sats) | 582,195 → 290,539 | 6,155,244 → 3,355,668 | 61,336,057 → 33,611,395 |
+
+In the 10,000-player runs, the top 1% wealth share moved from 13.86% to 9.07%, the top 10% alliance land share from 20.67% to 19.21%, and P10/P50/P90 wealth from 0/14,467/208,107 to 2,810/21,223/234,641 sats. P10/P50/P90 time to a rental or permanent acquisition was 48/83/194 hours under both policies. Observed army recovery was 0/24/64 hours by daily bucket in both policies; 0 means recovery in the same simulation day. Free and high-spending median military power finished at 3,750 and 3,754 respectively with either policy; the model grants no troop power in exchange for payment. The paired combat variants test the same separation against the resolver itself.
+
+At 10,000 players, the candidate reduced spent burn by 78.9% and seasonal rewards by 45.2%. Eligible paid raids grew 26.1%; total modeled transaction count grew 12.1%, and protective proposals grew from about 128 to 194. The realm still resolves fewer proposals than the checkout-liquidity estimate alone would suggest because the power, time, and slot rules gate access.
+
+Free combat and recovery remain available without BCH. Retain the reduced-burn model and bounded capture, then measure whether competition still funds worthwhile prizes: removing competition-derived contributions reduces modeled prize receipts, and sponsorship should remain explicitly funded without subsidizing missing revenue with invented credits. The 24,000-sat protectorate trial tests liquidity rather than coercion: the threshold remains a 1.6× military advantage, at most two active agreements per alliance, a short term, defenses and rebellions. There is no evidence for removing those protections. Network fees can increase in aggregate if players choose to use the cheaper actions more often even as checkout friction falls.
+
+## Progression and combat
+
+At equal unmodified army power, the v2 field rules moved overall attacker wins from 35.3% to 34.5% and Flank from 44.3% to 43.5% in the sampled roster mix. Assault moved from 27.3% to 26.5%. Across all five power bands, average total casualties fell from 63.03 to 61.91 troops. The defender retains terrain and wall effects, and matchup-specific results matter more than a global score. In the dedicated v2 level and equipment sample, 0 of 12,000 outcomes change when only the paid marker changes and 0 change when only the rarity label changes. Battle Commander levels 1 to 4 improve the equal-army attacker cohort from 34.6% to 37.0% (500 paired seeds). The [progression report](PROGRESSION_AND_STATS.md) covers each civilian commander's specialty. Different hero cohorts have distinct sampled rosters and opponents; compare each hero only with its own paired variants.
+
+The earned-resource recipes make rentals useful before reaching the permanent prerequisite or for a short campaign. Renting an Engineer for seven days costs 486 earned resource units, compared with 546 to recruit permanently. For the Battle Commander the costs are 716 and 767. In both examples two consecutive weekly rentals cost more than permanent recruitment. These totals count each resource as one unit for rough comparison. The three mastery upgrades total 1,488 resource units and level 4 requires 110 XP; even at the maximum daily mastery, the minimum is five days. Purchase and rarity labels grant no extra power. The realm model estimates acquisition timing from a construction-tier proxy; the game checks each commander's actual building prerequisite.
+
+## What the model does and does not represent
+
+- Actual building cost parameters, troop power, mastery caps, terrain, formations, tactics, and commander effects are imported or exercised in the separate authoritative battle layer. The large-agent realm compresses earned resources to a stock score and training to a representative unit cost, uses combat win rates derived from the engine, and settles elapsed outcomes on daily boundaries. Replays, ownership, and real match eligibility remain tested against the engine and server rather than inferred from this approximation.
+- Territory claims and control use scaled land supply, city/alliance holding caps, a multi-claim branch, and three-day rare expiry. Token actions approximate duplicate prevention and movement of an evidentiary collectible, without moving a live NFT or claiming actual token ownership. Private intelligence, political activity, sanctions and rebellion are modeled as bounded behavior rates; policy efficacy and visibility are covered by game engine tests.
+- Treasury conflicts model direct two-wallet raids, deterministic pair abuse checks, incoming limits and a funded transfer; the full server handles distinct wallet bindings, protected players, pending receipts, reorgs, access and signatures. Simulated dust and fee reserves are not guarantees of relay or settlement. Restoration still depends on the specific authoritative game decision when a blockchain rule cannot determine who won a battle.
+- Fixed groups of seven are a modeling topology, not a recommendation for an alliance cap. The cohort model cannot predict actual sponsor demand, whale spending, price volatility, real-identity fraud, operator response time, token market demand or public-network consensus behavior.

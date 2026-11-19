@@ -1,0 +1,42 @@
+# VaultBorn on a server that already has its own web server (nginx). Used by install-behind-nginx.sh.
+# The game listens on this machine only (127.0.0.1); the existing web server forwards the game's own host name to it.
+# Everything belongs to the Docker project "vaultborn": its own network and containers, with memory and CPU limits so
+# that it cannot crowd out other projects on the same machine.
+name: vaultborn
+services:
+  vaultborn:
+    build: ../..
+    image: vaultborn-game:mainnet
+    restart: unless-stopped
+    env_file: ../../.env.mainnet
+    environment:
+      HOST: 0.0.0.0
+      PORT: "4173"
+    ports:
+      - "127.0.0.1:${VAULTBORN_PORT:?set VAULTBORN_PORT to a free local port}:4173"
+    volumes:
+      # The database and the operational key files live here. Back this folder up.
+      - ../../var/mainnet:/app/var/mainnet
+    mem_limit: 512m
+    cpus: 1.0
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4173/api/health').then(r=>r.json()).then(b=>process.exit(b.ok&&b.network==='mainnet'?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+  # The owner-operated attestors: run by the same owner as the game, on the same machine. They are not independent,
+  # and the game tells its players so.
+  attestors:
+    # The same image as the game, built once.
+    image: vaultborn-game:mainnet
+    pull_policy: never
+    restart: unless-stopped
+    environment:
+      VAULTBORN_NETWORK: mainnet
+    command: ["node", "scripts/attestor-supervisor.mjs", "http://vaultborn:4173", "var/mainnet/attestors"]
+    depends_on:
+      - vaultborn
+    volumes:
+      - ../../var/mainnet/attestors:/app/var/mainnet/attestors
+    mem_limit: 384m
+    cpus: 0.5

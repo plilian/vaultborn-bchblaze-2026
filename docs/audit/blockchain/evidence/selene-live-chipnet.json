@@ -1,0 +1,285 @@
+{
+  "network": "chipnet",
+  "walletRelease": "Selene Wallet v2026.10.02",
+  "bridge": "Secure WebSocket route to existing loopback relay; wallet encrypted messages unchanged",
+  "events": [
+    {
+      "at": "2026-11-18T19:12:52.639Z",
+      "event": "PAIRED_AWAITING_FUNDING",
+      "address": "bchtest:qr2gdnwmfwacv0z2mgd86n8jyef774882vl4apsd0h"
+    },
+    {
+      "at": "2026-11-18T19:21:12.195Z",
+      "event": "FUNDING_CONFIRMED",
+      "txid": "602b9085529ec87398382081c02be43d822abd797f8b0e99038240cda43a2d6f",
+      "confirmations": 1
+    },
+    {
+      "at": "2026-11-18T19:24:55.929Z",
+      "event": "AUDIT_HARNESS_RESUMED",
+      "previousError": "TypeError: created.clone is not a function",
+      "sourceChanged": false
+    },
+    {
+      "at": "2026-11-18T19:25:05.065Z",
+      "event": "PAIRED_AWAITING_FUNDING",
+      "address": "bchtest:qr2gdnwmfwacv0z2mgd86n8jyef774882vl4apsd0h"
+    },
+    {
+      "at": "2026-11-18T19:25:05.381Z",
+      "event": "FUNDING_CONFIRMED",
+      "txid": "602b9085529ec87398382081c02be43d822abd797f8b0e99038240cda43a2d6f",
+      "confirmations": 1
+    },
+    {
+      "at": "2026-11-18T19:25:32.603Z",
+      "event": "REAL_GAME_INTENT_CREATED",
+      "id": "6477d2cc34e6e67deaa9f01b5b27522a"
+    },
+    {
+      "at": "2026-11-18T19:25:41.365Z",
+      "event": "WALLET_REVIEW_REQUESTED"
+    }
+  ],
+  "startedAt": "2026-11-18T19:12:40.044Z",
+  "building": "vault",
+  "releaseAssetManifestSha256": "8d6546567eeb05b4b87598db83ed09b923a6e3f354ffcdb8b7dc29308080cd15",
+  "address": "bchtest:qr2gdnwmfwacv0z2mgd86n8jyef774882vl4apsd0h",
+  "phase": "CONFIRMED_AND_APPLIED",
+  "funding": {
+    "network": "chipnet",
+    "action": "Disposable Selene funding for one current-policy payment",
+    "source": "bchtest:qplmjqhqt8rght6q4d94pj3xds8vmmhuwqnaa5xydl",
+    "address": "bchtest:qr2gdnwmfwacv0z2mgd86n8jyef774882vl4apsd0h",
+    "satoshis": 5000,
+    "txid": "602b9085529ec87398382081c02be43d822abd797f8b0e99038240cda43a2d6f",
+    "feeSatoshis": 254,
+    "broadcastAt": "2026-11-18T19:14:06.316Z",
+    "confirmations": 1,
+    "height": 337139,
+    "blockHash": "00000000be6e61e4197fcc1fa34f146df31196f9d8a765df1c980ccbabdbb0bc",
+    "verifiedAt": "2026-11-18T19:21:11.949Z"
+  },
+  "gameErrors": [],
+  "walletErrors": [],
+  "extraSigningAssets": [],
+  "intent": {
+    "id": "6477d2cc34e6e67deaa9f01b5b27522a",
+    "action": "premium",
+    "satoshis": 4500,
+    "outputs": [
+      {
+        "role": "kingdom",
+        "script": "a9142a11804826f91e492ef283a54b6d5cb060c2c18187",
+        "address": "bchtest:pq4prqzgymu3ujfw72p62jmdtjcxpskpsy6g7cfn49",
+        "satoshis": 2829
+      },
+      {
+        "role": "development",
+        "script": "a9147335127013c170f7f3b14476126ebcd2e99dd7b687",
+        "address": "bchtest:ppen2ynsz0qhpalnk9z8vynwhnfwn8whkc9f89gt4f",
+        "satoshis": 900
+      },
+      {
+        "role": "prize",
+        "script": "a914b4e02043c1189cbe335e1919c04d317a40dbb65087",
+        "address": "bchtest:pz6wqgzrcyvfe03ntcv3nszdx9aypkak2qn754ekqn",
+        "satoshis": 546
+      },
+      {
+        "role": "burn",
+        "script": "6a045642524e220101203214e69fdd8c81cb1f4854171f18822deb160b57c54fa6a2a1c019208e3e61",
+        "satoshis": 225
+      }
+    ]
+  },
+  "review": {
+    "feeSatoshis": 500,
+    "userPrompt": "VAULTBORN Chipnet · Vault Treasury premium upgrade · 4500 sats plus 500 fee",
+    "inputPaths": [
+      [
+        0,
+        "receive",
+        0
+      ]
+    ]
+  },
+  "status": "PASS",
+  "txid": "5d70026b034a2e0da374fa48e9d8902685d8ce9e47f3138d97c3cdcb8fb43b83",
+  "broadcastHttpStatus": 202,
+  "harnessInterruptions": [
+    {
+      "stage": "initial quote",
+      "reason": "Playwright Response has no clone method",
+      "applicationFailure": false,
+      "reusedSameIntent": true
+    },
+    {
+      "stage": "broadcast response",
+      "reason": "Audit helper initially expected 200; existing backend correctly returned successful 202",
+      "applicationFailure": false,
+      "transactionSubmitted": true
+    }
+  ],
+  "actualSigning": true,
+  "signingApprovalScreenshot": "selene-live/selene-sign-review.png",
+  "checkoutScreenshot": "selene-live/game-checkout.png",
+  "limitations": [
+    "Public relay reachability not tested: existing loopback relay and wss-to-ws bridge used.",
+    "Actual Selene release signing UI and cryptography used unchanged; physical device not tested.",
+    "Selene independent Electrum/history connections blocked; the game backend used real Chipnet."
+  ],
+  "lastPayment": {
+    "id": "6477d2cc34e6e67deaa9f01b5b27522a",
+    "playerId": "p1",
+    "action": "premium",
+    "payload": {
+      "type": "premium",
+      "building": "vault"
+    },
+    "network": "chipnet",
+    "state": "credited",
+    "direction": "incoming",
+    "address": "bchtest:pq4prqzgymu3ujfw72p62jmdtjcxpskpsy6g7cfn49",
+    "satoshis": 4500,
+    "feeSatoshis": 500,
+    "amountBch": "0.00004500",
+    "createdAt": 1795457369802,
+    "expiresAt": 1795459169802,
+    "txid": "5d70026b034a2e0da374fa48e9d8902685d8ce9e47f3138d97c3cdcb8fb43b83",
+    "receipt": {
+      "txid": "5d70026b034a2e0da374fa48e9d8902685d8ce9e47f3138d97c3cdcb8fb43b83",
+      "network": "chipnet",
+      "confirmations": 3,
+      "height": 337143,
+      "blockHash": "00000000974d776fc0fc202785971dd5eabf4c4551f46d5ecddf4e2e1ebc4e21",
+      "blockTime": 1795030032000,
+      "vout": 0,
+      "satoshis": 4500,
+      "address": "bchtest:pq4prqzgymu3ujfw72p62jmdtjcxpskpsy6g7cfn49",
+      "script": "a9142a11804826f91e492ef283a54b6d5cb060c2c18187",
+      "event": {
+        "version": 1,
+        "kind": "premium",
+        "subject": "6477d2cc34e6e67deaa9f01b5b27522a",
+        "data": {
+          "seasonId": 2,
+          "actionHash": "2c61a0ee514695efb8881f3b840aa50686485321dd7c4010470e512bfd49fe29",
+          "allocation": {
+            "development": 900,
+            "burn": 225,
+            "prize": 546,
+            "kingdom": 2829
+          },
+          "allocationPolicy": "separate-stake-v2"
+        },
+        "digest": "203214e69fdd8c81cb1f4854171f18822deb160b57c54fa6a2a1c019208e3e61"
+      },
+      "eventVout": 3,
+      "explorerUrl": "https://chipnet.imaginary.cash/tx/5d70026b034a2e0da374fa48e9d8902685d8ce9e47f3138d97c3cdcb8fb43b83",
+      "feeSatoshis": 500,
+      "allocations": [
+        {
+          "role": "kingdom",
+          "script": "a9142a11804826f91e492ef283a54b6d5cb060c2c18187",
+          "address": "bchtest:pq4prqzgymu3ujfw72p62jmdtjcxpskpsy6g7cfn49",
+          "satoshis": 2829,
+          "vout": 0
+        },
+        {
+          "role": "development",
+          "script": "a9147335127013c170f7f3b14476126ebcd2e99dd7b687",
+          "address": "bchtest:ppen2ynsz0qhpalnk9z8vynwhnfwn8whkc9f89gt4f",
+          "satoshis": 900,
+          "vout": 1
+        },
+        {
+          "role": "prize",
+          "script": "a914b4e02043c1189cbe335e1919c04d317a40dbb65087",
+          "address": "bchtest:pz6wqgzrcyvfe03ntcv3nszdx9aypkak2qn754ekqn",
+          "satoshis": 546,
+          "vout": 2
+        },
+        {
+          "role": "burn",
+          "script": "6a045642524e220101203214e69fdd8c81cb1f4854171f18822deb160b57c54fa6a2a1c019208e3e61",
+          "satoshis": 225,
+          "vout": 3
+        }
+      ]
+    },
+    "lastError": null,
+    "minConfirmations": 2,
+    "outputs": [
+      {
+        "role": "kingdom",
+        "script": "a9142a11804826f91e492ef283a54b6d5cb060c2c18187",
+        "address": "bchtest:pq4prqzgymu3ujfw72p62jmdtjcxpskpsy6g7cfn49",
+        "satoshis": 2829
+      },
+      {
+        "role": "development",
+        "script": "a9147335127013c170f7f3b14476126ebcd2e99dd7b687",
+        "address": "bchtest:ppen2ynsz0qhpalnk9z8vynwhnfwn8whkc9f89gt4f",
+        "satoshis": 900
+      },
+      {
+        "role": "prize",
+        "script": "a914b4e02043c1189cbe335e1919c04d317a40dbb65087",
+        "address": "bchtest:pz6wqgzrcyvfe03ntcv3nszdx9aypkak2qn754ekqn",
+        "satoshis": 546
+      },
+      {
+        "role": "burn",
+        "script": "6a045642524e220101203214e69fdd8c81cb1f4854171f18822deb160b57c54fa6a2a1c019208e3e61",
+        "satoshis": 225
+      }
+    ],
+    "event": {
+      "version": 1,
+      "kind": "premium",
+      "subject": "6477d2cc34e6e67deaa9f01b5b27522a",
+      "data": {
+        "seasonId": 2,
+        "actionHash": "2c61a0ee514695efb8881f3b840aa50686485321dd7c4010470e512bfd49fe29",
+        "allocation": {
+          "development": 900,
+          "burn": 225,
+          "prize": 546,
+          "kingdom": 2829
+        },
+        "allocationPolicy": "separate-stake-v2"
+      },
+      "digest": "203214e69fdd8c81cb1f4854171f18822deb160b57c54fa6a2a1c019208e3e61"
+    },
+    "explorerUrl": "https://chipnet.imaginary.cash/tx/5d70026b034a2e0da374fa48e9d8902685d8ce9e47f3138d97c3cdcb8fb43b83",
+    "title": "Vault Treasury premium upgrade",
+    "description": "Gold-trimmed treasury crest",
+    "fulfillment": {
+      "status": "applied",
+      "result": {
+        "building": "vault",
+        "perks": {
+          "hall": {
+            "name": "Founders banner and a civic collection preset",
+            "at": 1794852589000
+          },
+          "vault": {
+            "name": "Gold-trimmed treasury crest",
+            "at": 1795457369802
+          }
+        },
+        "queue": []
+      }
+    }
+  },
+  "entitlement": {
+    "name": "Gold-trimmed treasury crest",
+    "at": 1795457369802
+  },
+  "finishedAt": "2026-11-18T19:31:00.128Z",
+  "confirmations": 3,
+  "blockHash": "00000000974d776fc0fc202785971dd5eabf4c4551f46d5ecddf4e2e1ebc4e21",
+  "height": 337143,
+  "confirmedReceiptScreenshot": "selene-live/game-confirmed.png"
+}

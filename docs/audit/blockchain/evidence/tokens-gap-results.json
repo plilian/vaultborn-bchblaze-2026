@@ -1,0 +1,39 @@
+{
+  "executedAt": "2026-11-18T19:05:11.497Z",
+  "network": "offline synthetic transactions; no blockchain calls",
+  "scope": "Previously untested NFT traversal/history boundaries and read-only political refund recognition",
+  "sourceHashes": {
+    "packages/chain-observer/territory-token.mjs": "0e4f4e6120c96f92efb9351007eaa0f7310ba779f256359258c816aa6c3b51a9",
+    "apps/game-server/politics-protocol.mjs": "f914ec8defa1ee158edc0442dcca6ee1696e62f9d40a231cbbed18e368078f86"
+  },
+  "results": [
+    {
+      "scenario": "synthetic immutable token 15 verified transfers",
+      "status": "unspent",
+      "historyEntries": 16,
+      "current": {
+        "txid": "dce5a933f66e04bf0f604790bcf6bc14f6a8dfdec717b5aca36b8091ccf60155",
+        "vout": 0
+      },
+      "allTransferScriptsVmVerified": true
+    },
+    {
+      "scenario": "synthetic immutable token 16 verified transfers",
+      "status": "traversal-limit",
+      "historyEntries": 17,
+      "current": null,
+      "allTransferScriptsVmVerified": true
+    },
+    {
+      "scenario": "one valid NFT transfer after 256 unrelated address-history transactions",
+      "status": "unresolved",
+      "current": null
+    },
+    {
+      "scenario": "operator signer offline, matured political escrow with available synthetic refund observer",
+      "payoutsEnabled": false,
+      "refundLookups": 0,
+      "storedStatus": "funded"
+    }
+  ]
+}

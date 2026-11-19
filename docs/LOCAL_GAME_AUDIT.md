@@ -1,0 +1,38 @@
+# VaultBorn local game audit
+
+> **Historical record.** This file documents an earlier run under earlier prices, splits and contracts (before the final economy of 19 November 2026). It is kept as evidence of that run only. Current rules: [ECONOMY_DESIGN.md](ECONOMY_DESIGN.md).
+
+This audit extends the existing game and save format. It used a fresh in-memory preview, mocked financial observations, offline transaction validation, local browser sessions, and deterministic simulations. It did not spend, send, mine, or broadcast BCH on any network, publish a Nostr event, or deploy or submit the game. [Historical scope and receipts](STATUS.md) document separate runs from earlier work.
+
+## Already working
+
+The baseline suite passed 86 tests. Its loopback browser run played construction, research, scouting, city raids and animated replays, alliance and government screens, supporter flows, and mock checkouts. Existing engine and server tests also cover diplomacy, sanctions and trade, espionage and sabotage, rebellion and internal conflicts, territorial claims/conquest and rare leases, interval maintenance, treasury reconciliation, sponsor funding, council approvals, and exact wallet and CashTokens fixture validation. Bitcoin Cash settlement is already integrated through Chipnet configuration; this audit verified changes with local fixtures only.
+
+## Fixed and improved
+
+| Finding | Changes in the saved game and browser | Evidence |
+| --- | --- | --- |
+| The funding price included both prize/burn allocations and the competitive stake. A cheap winning raid could also capture disproportionate committed BCH. | New checkout versions retain the previous stake amount and disclose a separate network reserve. Successful capture is capped at both 20% of the commitment and the stake. A qualified defending winner receives half the stake; normal combat continues to use the same rules for free and paid participation. Previously quoted payments keep their original price and outputs. | [Transaction matrix](BLOCKCHAIN_TRANSACTION_MATRIX.md), `config/payments.mjs`, `tests/payments-audit.test.mjs` |
+| Service charges and protectorates created excess purchase friction in the model. | Services use 20% development, 10% seasonal, 5% provable burn, and 65% kingdom before the spendable output floor. A new protectorate costs 24,000 sats (was 120,000); responder rights, term and power checks remain. Sponsors directly fund the prize pool. | [Economy and tradeoffs](AUDIT_SIMULATION.md) |
+| Commander selection had little progression. The troop and building interface omitted the effect of changing an order. | Existing accounts keep all eight previous entitlements. New accounts recruit with earned resources or rent on 1-, 3- or 7-day contracts. Traits, gear, XP, mastery and injuries affect actual actions. Training capacity and upkeep include deployed units; rental end respects in-flight operations and previously stored goods. The Army, Commander, Construction and Research views show effective values, costs and prerequisites. | [Rules, stat definitions and simulation](PROGRESSION_AND_STATS.md) |
+| Exact enemy strength could be inferred without current scouting. Some choices lacked meaningful context. | The war room calculates your opening pressure when formations, commanders or tactics change, shows terrain and authorized observations, and models a loss range only from a fresh composition report. The atlas exposes potential yields and supply distance. Private garrison actions stay private; resolved public proofs still expose historical inputs required to verify the record. | `packages/game-engine/stats.mjs`, `packages/game-engine/progression.test.mjs`, `scripts/browser-qa.mjs` |
+| Cavalry dominated the sampled equal-power matchups. | New combat rules vary cavalry pressure by terrain and add fatigue after exchange three. Field rule versions preserve historical replays and pending campaigns. | [12,000 paired field scenarios](PROGRESSION_AND_STATS.md) |
+| Guest and wallet sessions did not provide portable identity. | A player can link a separate BCH and Nostr key pair, recover the same local account, and export signed binding history that an independent relying application can verify. Changing a key requires authorization; an offline proof has a freshness limit. | [Protocol and proof demo](DECENTRALIZED_IDENTITY.md) |
+
+The model covers 1,032 90-day realm runs using 100, 1,000 and 10,000 agents and observes days 1, 7, 30 and 90. See [raw economy results](AUDIT_SIMULATION_RESULTS.json) and [raw progression results](progression-simulation-results.json) for the assumptions, distributions and exact outcomes. These are simulated behavior and balances rather than a 10,000-session server benchmark. The separate real server load check exercised 48 concurrent sessions and 336 loopback HTTP requests with no failures.
+
+In the 10,000-player simulations, median wallet plus kingdom wealth rose from 14,467 to 21,223 sats and the richest tenth's share fell from 63.29% to 57.36%. Scheduled prizes paid about 45.2% less, while transaction volume increased 12.1%. The model therefore favors preserving the lower charges and limiting bankroll farming, while monitoring actual sponsorship and settlement costs before any future live rollout.
+
+## Reproduce
+
+The final pass recorded 104 passing automated tests. The wallet bundle built successfully, the gameplay and Council browser suites passed, and the identity browser run made no external requests. The 12,000-case progression benchmark reproduced the checked-in JSON exactly. Browser captures are written under `output/playwright/audit-final` and `output/identity-qa`.
+
+- Run `npm run preview:offline` and visit [the localhost game](http://127.0.0.1:4173/). Open **My City → Army** for the readiness ledger or **Commanders → Review commander** for fitting and mastery details. On the map, choose **Attack** and change the tactic to see opening pressure update. Open the profile menu to link identity.
+- Run `npm test`, `npm run test:browser`, `npm run test:identity:browser`, `npm run test:citadel`, and `npm run test:load` for deterministic rule, restart, browser and transaction fixture checks. The VM fixtures locally validate BCH signatures, CashTokens and existing political covenant conditions.
+- Run `npm run simulate:audit`, `npm run simulate:progression`, and `node scripts/identity-proof.mjs demo` for the models and standalone proof demo.
+
+## Remaining limits
+
+New checkouts, asset movements and covenant spends were never run on Chipnet, Regtest, testnet or Mainnet during this audit. A wallet operator must verify real relay, fee and dust behavior if later authorized. Ordinary vault, battle and some asset spending remain operator-signed. The political principal covenant constrains the BCH destinations and refund path, but the blockchain does not adjudicate a battle, vote or treaty breach. BCH receipts and CashTokens can prove a transaction or a collectible assignment; they do not move the authoritative game state to the blockchain. The separate current routes and future design commitments are in the [transaction matrix](BLOCKCHAIN_TRANSACTION_MATRIX.md).
+
+Public Nostr relay and hardware-wallet interoperability remain unverified. Identity attaches to a local authoritative account; the signed export proves the wallet/Nostr binding, not the game record's truth. Multiple wallets cannot prove multiple human owners. The simulator models, but cannot rule out, collusion, sponsor volatility, whale demand, or future network fees. A production multi-replica or 10,000-live-player deployment was not exercised. The existing roster uses animated portraits and battle sprites rather than fully jointed characters.
