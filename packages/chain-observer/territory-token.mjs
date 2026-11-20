@@ -84,16 +84,22 @@ function vmVerified(spend, sources) {
   return spend;
 }
 
-export function buildTerritoryGenesis(source, operatorPrivateKey) {
+// metadataScript (optional): a Bitcoin Cash Metadata Registry publication, OP_RETURN <'BCMR'> <sha256> <uri>, so that
+// wallets can show the category's name and picture. Without it the transaction is exactly as before.
+export function buildTerritoryGenesis(source, operatorPrivateKey, metadataScript) {
   const operator = walletFromPrivateKey(operatorPrivateKey);
   const coin = normalizeSource({ ...source, script:source.script ?? operator.script });
   if (coin.vout !== 0 || coin.script !== operator.script || coin.token || coin.satoshis < MINIMUM_BATON + MINIMUM_FEE) {
     throw new Error('Genesis needs an ordinary operator-owned BCH output at vout zero.');
   }
+  if (metadataScript != null && (typeof metadataScript !== 'string' || !/^6a0442434d5220[0-9a-f]{64}[0-9a-f]*$/.test(metadataScript) || metadataScript.length > 300)) {
+    throw new Error('The metadata output must be a BCMR publication.');
+  }
   const category = coin.txid;
   const baton = { script:operator.script, satoshis:coin.satoshis - MINIMUM_FEE,
     token:token(category, BATON_COMMITMENT, 'minting') };
-  const outputs = [baton, { script:opReturn([Buffer.from('VBTA'), Buffer.of(1, 0), fromHex(category)]), satoshis:0 }];
+  const outputs = [baton, { script:opReturn([Buffer.from('VBTA'), Buffer.of(1, 0), fromHex(category)]), satoshis:0 },
+    ...(metadataScript ? [{ script:metadataScript, satoshis:0 }] : [])];
   const signed = vmVerified(signSpend({ sources:[coin], outputs, privateKey:operatorPrivateKey, requireUtxos:true }), [coin]);
   return { ...signed, category, batonVout:0 };
 }

@@ -22,6 +22,9 @@ brag-output/brag-plan.md
 # Secrets and working folders (added by Push to GitHub)
 *.pem
 
+# Files the operator keeps on their own computer and server only.
+*.private.*
+
 # The three source pieces of the campaign music; the game serves them joined as packages/assets/frontier-saga.mp3.
 /music/
 

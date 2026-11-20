@@ -190,6 +190,9 @@ export function offlineContents(report) {
 }
 
 export function commandDispatch(payload,value,config) {
+  if (payload.type==='task-claim-all') return {art:'event-vault',kicker:'Campaign tasks',title:'Rewards claimed',
+    detail:`${number(value.claimed?.length??0)} task rewards. ${Object.values(value.collected??{}).some(Boolean)?'Your stores were credited.':'Your stores were full, so nothing was added.'}`,
+    resources:value.collected,sound:'reward',back:{mode:'next'}};
   if (payload.type==='task-claim') return {art:'event-vault',kicker:'Campaign task',title:'Reward claimed',
     detail:`${value.title}. ${Object.values(value.collected??{}).some(Boolean)?'Your stores were credited.':'Your stores were full, so nothing was added.'}`,
     resources:value.collected,sound:'reward',back:{mode:'next'}};

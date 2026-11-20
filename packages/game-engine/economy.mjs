@@ -12,6 +12,7 @@ import {nextPoliticalTradeEvents,politicalTradeCommand} from './political-trade.
 import {activeCommander, awardCommanderMastery, commanderEffects, commanderOwnership, ruleClock} from './progression.mjs'
 import {nextNpcEvent} from './npc.mjs'
 import {retireNpcs} from './npc-roster.mjs'
+import {gatherRegions} from './frontier-layout.mjs'
 
 export function deployedTroops(world,city) {
   return {claim:Object.values(city.territoryLocked??{}).reduce((total,roster)=>total+troopTotal(roster),0),
@@ -168,6 +169,8 @@ export function advance(world, now = Date.now()) {
   // Shields given under the earlier rules (starter and recovery shields) are lifted once: this season has none.
   const liftShields = !world.shieldsLifted && !balance.defeatShield
   if (liftShields) world.shieldsLifted = true
+  // All kingdoms share one map: any left in other regions move onto the main map's free places.
+  gatherRegions(world)
   for (const city of Object.values(world.cities)) {
     if (liftShields && city.shieldUntil > now) city.shieldUntil = now
     openFromDayOne(city, world, now)

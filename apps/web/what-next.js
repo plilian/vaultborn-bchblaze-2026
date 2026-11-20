@@ -7,6 +7,8 @@ const taskPlace = {
   'walls-3':{ modal:'building', id:'walls' }, train:{ page:'city', 'start-tab':'army' }, 'army-150':{ page:'city', 'start-tab':'army' },
   research:{ page:'city', 'start-tab':'research' }, scout:{ page:'war', 'start-tab':'intelligence' }, battle:{ page:'war', 'start-tab':'expeditions' },
   alliance:{ page:'alliance' }, commander:{ page:'city', 'start-tab':'heroes' }, territory:{ page:'war', 'start-tab':'territory' },
+  wallet:{ modal:'wallet' }, 'first-tx':{ modal:'building', id:'hall' }, 'bch-rush':{ modal:'building', id:'hall' }, 'bch-premium':{ modal:'building', id:'hall' },
+  'bch-intel':{ page:'war', 'start-tab':'intelligence' }, 'bch-territory':{ page:'war', 'start-tab':'territory' }, 'bch-politics':{ page:'politics' },
 };
 
 // "What next": the few useful things this kingdom can do right now, most useful first, each one click away.
@@ -22,6 +24,13 @@ export function whatNext({ own, state, guide, walletLinked }) {
       ['journal', 'See what happened while you were away', 'Attacks, scouting, losses and gains.', { modal:'offline-report' }],
     own.dailyReward?.status === 'available' &&
       ['gift', 'Claim daily supplies', 'A free shipment is waiting at your gates.', { modal:'daily' }],
+    // Bitcoin Cash, early: first the wallet, then a first payment, then a rush for whatever is being built.
+    !walletLinked &&
+      ['bch', 'Connect your BCH wallet', 'Free. Keeps your kingdom yours on any device and lets you pay and claim prizes.', { modal:'wallet' }],
+    state.chain?.enabled && !paidOnce(own) &&
+      ['bch', 'Make your first BCH transaction', 'Rush a construction or unlock a premium upgrade. You approve it in your wallet.', { modal:'bch' }],
+    state.chain?.enabled && paidOnce(own) && rushable(own) && own.paidConvenienceLeft > 0 &&
+      ['clock', 'Rush your construction with BCH', 'A rush halves the time it has left.', { modal:'building', id:rushable(own).key }],
     !busy('building') &&
       ['hammer', 'Upgrade a building', 'Your builders are idle. Higher buildings produce and protect more.', { page:'city', 'start-tab':'build' }],
     !busy('troop') &&
@@ -33,13 +42,14 @@ export function whatNext({ own, state, guide, walletLinked }) {
       ['book', 'Research a technology', 'The library is idle. Research makes every troop stronger.', { page:'city', 'start-tab':'research' }],
     own.spies > 0 && !scouting &&
       ['spy', 'Scout a rival', 'Know an army before you attack it.', { page:'war', 'start-tab':'intelligence' }],
-    !walletLinked &&
-      ['bch', 'Connect your BCH wallet', 'Keeps your kingdom yours on any device and lets you claim prizes.', { modal:'wallet' }],
     !own.alliance &&
       ['alliance', 'Join an alliance', 'Allies send aid and fight together.', { page:'alliance' }],
   ].filter(Boolean);
   return steps.length ? steps : [['trophy', 'Check the season standings', 'See where your kingdom stands.', { page:'rankings' }]];
 }
+
+const paidOnce = own => list(own?.tasks).some(task => task.id === 'first-tx' && task.done);
+const rushable = own => list(own?.queue).find(job => job.kind === 'building' && !job.rushed);
 
 export const claimableTasks = own => list(own?.tasks).filter(task => task.done && !task.claimed);
 const openTasks = own => list(own?.tasks).filter(task => !task.done);
@@ -63,14 +73,15 @@ export function whatNextContents(steps, own) {
   const ready = claimableTasks(own), tasks = openTasks(own), claimed = list(own?.tasks).filter(task => task.claimed);
   const taskRow = (task, action) => `<li>${icon(task.done ? 'gift' : 'quest')}<div><strong>${html(task.title)}</strong>
     ${task.goal && !task.done ? `<p>${number(task.progress)}/${number(task.goal)}</p>` : ''}${costs(task.reward)}</div>${action}</li>`;
-  return `${ready.length ? `<h3>Rewards to claim</h3><ol class="what-next-list">${ready.map(task =>
-      taskRow(task, command('Claim', 'gift', { type:'task-claim', task:task.id }, 'primary'))).join('')}</ol>
+  // Rewards ready first, then what to do right now, then the campaign tasks.
+  return `${ready.length ? `<h3>Rewards to claim</h3>${ready.length > 1 ? `<div class="buttons">${command('Claim all (' + number(ready.length) + ')', 'gift', { type:'task-claim-all' }, 'primary')}</div>` : ''}
+      <ol class="what-next-list">${ready.map(task => taskRow(task, command('Claim', 'gift', { type:'task-claim', task:task.id }, 'primary'))).join('')}</ol>
       <p class="quiet-text">Only resources that fit in your stores are added.</p>` : ''}
+    <h3>Do now</h3><ol class="what-next-list">${steps.slice(0, 4).map(([glyph, label, why, data]) =>
+      `<li>${icon(glyph)}<div><strong>${html(label)}</strong><p>${html(why)}</p></div>${btn('Go', 'arrow', { ...data, ...(data.page && { dismiss:'true' }) })}</li>`).join('')}</ol>
     ${tasks.length ? `<h3>Campaign tasks</h3><ol class="what-next-list">${tasks.slice(0, 4).map(task =>
       taskRow(task, btn('Go', 'arrow', { ...(taskPlace[task.id] ?? {}), ...(taskPlace[task.id]?.page && { dismiss:'true' }) }))).join('')}</ol>
       ${tasks.length > 4 ? `<p class="quiet-text">${number(tasks.length - 4)} more ${tasks.length - 4 === 1 ? 'task follows' : 'tasks follow'}.</p>` : ''}` : ''}
-    <h3>Do now</h3><ol class="what-next-list">${steps.slice(0, 4).map(([glyph, label, why, data]) =>
-      `<li>${icon(glyph)}<div><strong>${html(label)}</strong><p>${html(why)}</p></div>${btn('Go', 'arrow', { ...data, ...(data.page && { dismiss:'true' }) })}</li>`).join('')}</ol>
     ${claimed.length ? `<p class="quiet-text">${number(claimed.length)} of ${number(list(own?.tasks).length)} task rewards claimed.</p>` : ''}
     <div class="buttons">${btn('Open the game guide', 'journal', { modal:'codex' })}</div>`;
 }

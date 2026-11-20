@@ -36,6 +36,17 @@ test('the new chapter uses real kingdom orders, survives a save, and completes w
   assert.throws(() => lesson(world,'next'),{code:'tutorial_action_required'});
   const hall = act(world,'upgrade',{building:'hall'});
   assert.ok(hall.completesAt > now && hall.completesAt < now + 2 * MINUTE);
+  // Bitcoin Cash comes right after the first construction.
+  assert.equal(lesson(world,'next').onboarding.step,'discover-bch');
+  assert.equal(chapter(world).position,4);
+  assert.equal(lesson(world,'next').onboarding.step,'bch-wallet');
+  assert.equal(lesson(world,'pause').onboarding.status,'paused');
+  world = JSON.parse(JSON.stringify(world));
+  assert.equal(chapter(world).step,'bch-wallet');
+  assert.equal(lesson(world,'resume').onboarding.status,'active');
+  assert.equal(lesson(world,'next').onboarding.step,'bch-actions');
+  assert.equal(lesson(world,'next').onboarding.step,'stores');
+  assert.equal(lesson(world,'back').onboarding.step,'bch-actions');
   assert.equal(lesson(world,'next').onboarding.step,'stores');
   const grant = act(world,'collect');
   assert.deepEqual(grant.collected,dailyLevy);
@@ -76,16 +87,9 @@ test('the new chapter uses real kingdom orders, survives a save, and completes w
     shieldUntil:city.shieldUntil, battles:world.battles, marches:world.marches, notifications:world.notifications },before);
   world = JSON.parse(JSON.stringify(world));
   assert.deepEqual(chapter(world).drill,drill);
-  assert.equal(lesson(world,'next').onboarding.step,'discover-bch');
-  assert.equal(chapter(world).position,9);
-  assert.equal(lesson(world,'next').onboarding.step,'bch-wallet');
-  assert.equal(lesson(world,'pause').onboarding.status,'paused');
-  world = JSON.parse(JSON.stringify(world));
-  assert.equal(chapter(world).step,'bch-wallet');
-  assert.equal(lesson(world,'resume').onboarding.status,'active');
-  assert.equal(lesson(world,'next').onboarding.step,'bch-actions');
   assert.equal(lesson(world,'next').onboarding.step,'season-rewards');
-  assert.equal(lesson(world,'back').onboarding.step,'bch-actions');
+  assert.equal(chapter(world).position,12);
+  assert.equal(lesson(world,'back').onboarding.step,'drill');
   assert.equal(lesson(world,'next').onboarding.step,'season-rewards');
   assert.deepEqual(chapter(world).drill,drill);
   assert.deepEqual(world.cities[player].resources,before.resources);

@@ -6,6 +6,7 @@ import { dirname, resolve } from 'node:path';
 import { chromium } from 'playwright';
 import { createApp } from '../apps/game-server/index.mjs';
 import { createChain } from '../packages/chain-observer/index.mjs';
+import { coreCapacity } from '../packages/game-engine/frontier-layout.mjs';
 
 const storage = resolve('var');
 await mkdir(storage, { recursive:true });
@@ -32,7 +33,8 @@ const state = async page => (await page.request.get(origin+'/api/state')).json()
 const screenshot = (page,name) => page.screenshot({path:resolve(captures,name)});
 
 async function fillCore() {
-  for (let index=0;index<34;index++) {
+  // The main map holds coreCapacity kingdoms (clearings and its extra places); only then does a region open.
+  for (let index=0;index<coreCapacity+11;index++) {
     const response = await fetch(origin+'/api/session',{method:'POST',headers:{'content-type':'application/json'},
       body:JSON.stringify({entry:'new',includeState:false})});
     const result = await response.json();

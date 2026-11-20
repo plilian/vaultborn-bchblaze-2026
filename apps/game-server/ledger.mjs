@@ -1612,8 +1612,13 @@ export function createLedger({ store, chain, clock, quote, command, advance, not
     buckets.politicalEscrow=final.filter(row=>row.action==='political-escrow' && row.politicalStatus==='funded')
       .reduce((total,row)=>total+row.contract.principal,0);
     const settledTerritoryInputs = new Set(final.filter(row => row.territoryAnchor).flatMap(row => row.sources.map(source => source.txid)));
+    // A stake in a stake escrow contract (claim, attack on a territory, raffle entry) is one output that holds the stake and
+    // its settlement reserve. It counts for as long as no confirmed settlement has spent it.
+    const settledStakes = new Set(final.filter(row => row.settles).map(row => row.settles));
     buckets.territoryEscrow = sum(final.filter(row => row.territoryEscrow && !settledTerritoryInputs.has(row.txid))
-      .flatMap(row => row.receipt.allocations.filter(output => output.role === 'battle')));
+      .flatMap(row => row.receipt.allocations.filter(output => output.role === 'battle'))) +
+      sum(final.filter(row => territoryPayments.has(row.action) && row.escrow && !settledStakes.has(row.id))
+        .flatMap(row => row.receipt.allocations.filter(output => output.role === 'escrow')));
     const transactions = observed.slice(0, 100).map(row => {
       const view = toPublic(row);
       return {

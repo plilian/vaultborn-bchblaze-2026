@@ -1,8 +1,9 @@
 import { digest, simulateBattle } from './combat.mjs';
 import { award, credit, currentTactic, notify, requireRule } from './world.mjs';
 
-const lessons = ['welcome', 'homeland', 'construction', 'stores', 'troops', 'commander', 'tactics', 'drill',
-  'discover-bch', 'bch-wallet', 'bch-actions', 'season-rewards', 'frontier'];
+// Bitcoin Cash comes right after the first construction: while City Hall is being built, a rush can finish it sooner.
+const lessons = ['welcome', 'homeland', 'construction', 'discover-bch', 'bch-wallet', 'bch-actions', 'stores', 'troops',
+  'commander', 'tactics', 'drill', 'season-rewards', 'frontier'];
 const requirements = {
   construction: 'Queue a City Hall upgrade or another standard construction project.',
   stores: 'Claim your daily supplies in My City.',

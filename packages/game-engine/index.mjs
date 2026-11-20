@@ -4,7 +4,8 @@ import {clamp} from './combat.mjs'
 import {GameError, activeProtectorate, activeTreaty, allianceMembers, attackEligibility, cleanName, combatPower, config, createWorld,
   getCity, has, lastDay, productionPerHour, protectorateEligibility, quoteUpgrade, rankings, requireRule, addPlayer} from './world.mjs'
 import {advance, collect, convenience, dailyReward, market, research, train, upgrade} from './economy.mjs'
-import {claimTask, taskSnapshot} from './tasks.mjs'
+import {claimAllTasks, claimTask, taskSnapshot} from './tasks.mjs'
+export {taskSnapshot} from './tasks.mjs'
 import {counterspy, launchMission, raid, selection, shareIntel} from './military.mjs'
 import {ensureTerritories, territoryCommand} from './territories.mjs'
 import {kingdom} from './treasury.mjs'
@@ -190,6 +191,7 @@ function applyCommand(world,actorId,input,now,options) {
     case 'research': return research(world,actor,input,now)
     case 'collect': return collect(world,actor,now)
     case 'task-claim': return claimTask(world,actor,input,now)
+    case 'task-claim-all': return claimAllTasks(world,actor,input,now)
     case 'trade': return market(actor,input,now)
     case 'tutorial': return tutorialCommand(world,actor,input,now)
     // The greeting of a new kingdom was shown: it is not shown again, in any browser.

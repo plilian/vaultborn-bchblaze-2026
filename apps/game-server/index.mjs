@@ -7,7 +7,7 @@ import { promisify } from 'node:util';
 import { gzip } from 'node:zlib';
 import { extname, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { createWorld, addPlayer, advance, snapshot, command, quote } from '../../packages/game-engine/index.mjs';
+import { createWorld, addPlayer, advance, snapshot, command, quote, taskSnapshot } from '../../packages/game-engine/index.mjs';
 import { marketQuote, trainingQuote } from '../../packages/game-engine/economy.mjs';
 import { createChain, decodeAddress } from '../../packages/chain-observer/index.mjs';
 import { walletFromPublicKey } from '../../packages/chain-observer/primitives.mjs';
@@ -31,6 +31,12 @@ import { createWizardPairing } from './wizard-pair.mjs';
 import { verifiedBchMessageKey } from './bch-sign-in.mjs';
 import { awayThreshold, dismissKingdomChronicle, readKingdomChronicle } from './kingdom-chronicle.mjs';
 import { ADDRESS_PREFIX, ATTESTOR_ADJECTIVE, ATTESTOR_NOTE, ATTESTOR_OPERATION, NETWORK_ID, NETWORK_LABEL, NETWORK_PROFILE, REAL_VALUE, assertNetworkEnvironment, browserNetwork, networkEnv, networkEnvName } from '../../config/network.mjs';
+
+// Files named *.private.* stay on the operator's own computer and server; they are never published. When such a file
+// adds routes, the server serves them before its own.
+let privateRoutes = null;
+try { privateRoutes = (await import('./routes.private.mjs')).default; }
+catch (error) { if (error?.code !== 'ERR_MODULE_NOT_FOUND' || !String(error.message).includes('routes.private.mjs')) console.error('Private routes not loaded:', error.message); }
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.json': 'application/json', '.woff2': 'font/woff2', '.mp3': 'audio/mpeg', '.wav': 'audio/wav', '.mp4': 'video/mp4', '.vtt': 'text/vtt; charset=utf-8' };
@@ -200,6 +206,9 @@ export function createApp({ database = resolve(root, process.env.DOMINION_DB ?? 
   const listeners = new Set();
   const rate = new Map();
   // The last whole-wallet balance of each player, kept for a few seconds so that repeated renders do not query the indexer.
+  // What the blockchain campaign tasks need: a verified wallet, and the kinds of this kingdom's confirmed BCH payments.
+  const chainFacts = player => ({ wallet: Boolean(store.wallet(player)),
+    paid: [...new Set(store.payments(player).filter(row => row.direction !== 'outgoing' && row.state === 'credited' && row.txid).map(row => row.action))] });
   const walletTotals = new Map();
   // The BCH on every address of a wallet, read at most every 15 seconds per kingdom.
   async function wholeWallet(player, keys) {
@@ -271,6 +280,8 @@ export function createApp({ database = resolve(root, process.env.DOMINION_DB ?? 
         current = store.write(world);
       }
       const view = snapshot(world, player, now);
+      // Campaign tasks that need a wallet or a confirmed BCH payment are checked against what the server knows.
+      view.player = { ...view.player, tasks: taskSnapshot(world, world.cities[player], chainFacts(player)) };
       const vault = ledger.balances(player);
       const offlineReport = readKingdomChronicle(store,{world,view,player,vault,now},{visit});
       return { ...view, territories:territory.view(world,player,now), territoryRules:territory.rules(world,player,now),
@@ -430,6 +441,7 @@ export function createApp({ database = resolve(root, process.env.DOMINION_DB ?? 
       ...ledger.explorer(), territoryAssets:territoryAssets?.list().slice(-100).reverse() ?? [],
       source:simulatedChain?'simulated':chain.enabled?NETWORK_ID:'offline',
       territoryAuthority:territoryAssets?.authority() ?? null,
+      politicalAuthority:politicalAssets?.authority() ?? null,
     });
     const territoryId = url.pathname.match(/^\/api\/public\/territories\/([a-z0-9-]{1,80})$/)?.[1];
     if (req.method === 'GET' && territoryId) {
@@ -687,6 +699,7 @@ export function createApp({ database = resolve(root, process.env.DOMINION_DB ?? 
       const requestId = req.headers['idempotency-key'] ?? data.requestId ?? randomUUID();
       if (typeof requestId !== 'string' || !/^[\w-]{6,80}$/.test(requestId)) fail(400, 'Invalid command identifier.');
       delete data.requestId;
+      delete data.chainFacts;
       const input = canonical(data);
       const result = store.transaction(() => {
         const previous = store.previousCommand(player, requestId);
@@ -702,7 +715,8 @@ export function createApp({ database = resolve(root, process.env.DOMINION_DB ?? 
         advance(world, clock());
         if (data.type === 'claim-node') fail(402,'Open the territory’s ' + NETWORK_LABEL + ' claim window from the campaign map.');
         const outcome = ['territory-garrison','territory-fortify','territory-abandon','territory-aid'].includes(data.type) ?
-          territory.change(world,player,data,clock()) : command(world, player, data, clock(), { paid: false });
+          territory.change(world,player,data,clock()) : command(world, player,
+            data.type === 'task-claim' || data.type === 'task-claim-all' ? { ...data, chainFacts: chainFacts(player) } : data, clock(), { paid: false });
         registerNewBattles(store, world, previousBattle, null, null, clock());
         store.write(world);
         store.recordCommand(player, requestId, input, outcome, clock());
@@ -815,21 +829,25 @@ export function createApp({ database = resolve(root, process.env.DOMINION_DB ?? 
       if (req.method === 'HEAD') return res.end();
       return pipeline(createReadStream(file, { start, end }), res);
     }
+    // Wallets and token explorers read the collectibles' metadata file and its pictures from pages of their own.
+    const shared = pathname === '/.well-known/bitcoin-cash-metadata-registry.json' || /^\/art\/collectible-[a-z-]+\.png$/.test(pathname) || pathname === '/logo.png';
     res.writeHead(200, { 'Content-Type': types[extname(file)], 'Content-Length': page ? page.length : info.size,
       'Cache-Control': sessionRoute ? 'no-store' : asset ? 'public, max-age=3600' : media ? 'public, max-age=86400' : 'no-cache',
-      ...(media && { 'Accept-Ranges': 'bytes' }), ...(sessionRoute && { Vary: 'Cookie' }) });
+      ...(media && { 'Accept-Ranges': 'bytes' }), ...(sessionRoute && { Vary: 'Cookie' }), ...(shared && { 'Access-Control-Allow-Origin': '*' }) });
     if (req.method === 'HEAD') return res.end();
     if (page) return res.end(page);
     if (['.js', '.css'].includes(extname(file))) return res.end(await readFile(file));
     await pipeline(createReadStream(file), res);
   }
 
+  const operatorRoutes = privateRoutes?.({ database, store, clock, isSecure, readJson, json });
   const server = createServer(async (req, res) => {
     res.setHeader('Content-Security-Policy', `default-src 'self'; connect-src 'self' ${relayOrigins}; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'`);
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('Referrer-Policy', 'no-referrer');
     try {
       const url = new URL(req.url, 'http://dominion.local');
+      if (operatorRoutes && await operatorRoutes(req, res, url)) return;
       await (url.pathname.startsWith('/api/') ? api(req, res, url) : staticFile(req, res, url));
     } catch (error) {
       if (res.headersSent) return res.end();

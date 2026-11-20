@@ -55,6 +55,22 @@ const txLink = txid => txid ? `<a href="${chainLink(txid)}" target="_blank" rel=
 const records = (items, item, empty) => items.length ? `<ul class="citadel-list">${items.map(row => '<li>' + item(row) + '</li>').join('')}</ul>` : '<p>' + esc(empty) + '</p>';
 const splitAmounts = allocation => `Development ${sats(allocation.development)} · Seasonal Prizes ${sats(allocation.prize)}`;
 
+// The two collectible categories: whether the game's issuer for each is at work, and where it was created.
+function collectibles(ledger) {
+  const issuers = [['Territory deeds', ledger.territoryAuthority, ''], ['Treaty charters', ledger.politicalAuthority, link('Political archive', '/verify/politics')]];
+  const ready = authority => authority?.status === 'configured';
+  const state = authority => !ready(authority) ? 'Not set up' : authority.signingEnabled ? 'Issuer active' : 'Issuer read-only';
+  const assets = ledger.territoryAssets ?? [];
+  return block('CashTokens collectibles', stats(issuers.map(([label, authority]) => [label, state(authority)])) +
+    issuers.filter(([, authority]) => ready(authority)).map(([label, authority, more]) =>
+      `<p class="citadel-meta">${esc(label)}: category <span class="citadel-mono">${esc(authority.category)}</span>, created in ${txLink(authority.genesisTxid)}</p>${more}`).join('') +
+    records(assets, asset =>
+      `<h3>${esc(title(asset.kind))} · ${esc(asset.territoryId)}</h3><p class="citadel-meta">${esc(title(asset.state))} · ${txLink(asset.txid)}</p>
+      ${link('Territory record','/verify/territory/'+encodeURIComponent(asset.territoryId))}`,
+      ready(ledger.territoryAuthority) ? 'No territory collectible has been issued yet. The game issues one to the linked wallet when a kingdom claims, conquers or leases a territory.' :
+        'Confirmed game events queue collectibles when the dedicated issuer is configured.'));
+}
+
 function sponsorshipLedger(sponsorship, prizes) {
   if (!sponsorship) return '';
   const { confirmed, pending, policy } = sponsorship;
@@ -104,10 +120,7 @@ async function showLedger() {
       ${row.politics ? link('Political archive','/verify/politics'+(row.politicalRecord?'#'+encodeURIComponent(row.politicalRecord):'')) : ''}
       ${row.territory ? link('Territory record','/verify/territory/'+encodeURIComponent(row.territory)) : ''}</div></article>`,
       source==='offline'?'No receipts are available in this offline save.':'No transactions have been observed in this save.')) +
-    block('Territory CashTokens',records(ledger.territoryAssets ?? [],asset =>
-      `<h3>${esc(title(asset.kind))} · ${esc(asset.territoryId)}</h3><p class="citadel-meta">${esc(title(asset.state))} · ${txLink(asset.txid)}</p>
-      ${link('Territory record','/verify/territory/'+encodeURIComponent(asset.territoryId))}`,
-      'Confirmed game events queue collectibles when the dedicated issuer is configured.'));
+    collectibles(ledger);
 }
 
 async function showBattle() {

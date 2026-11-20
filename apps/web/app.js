@@ -271,7 +271,7 @@ function renderHeader() {
   const resourceRow = resources.map(id => `<div class="resource r-${id}">${icon(id)}<div><small>${title(id)}</small><b data-tooltip="${html(number(own.resources?.[id]))}">${compact.format(own.resources?.[id] ?? 0)}</b></div></div>`).join('');
   morph(dom.masthead, `
     <button class="brand" type="button" data-page="map" aria-label="VAULTBORN home"><img class="icon" src="/logo.webp" width="38" height="48" alt=""><span class="brand-copy"><strong>VAULTBORN</strong><small>Build · Defend · Conquer</small></span></button>
-    <div class="resource-bar" aria-label="City resources">${resourceRow}<div class="resource r-bch">${icon('bch')}<div><small>BCH</small><b data-tooltip="Wallet balance">${walletSats == null ? '—' : html(bch(walletSats))}</b></div></div></div>
+    <div class="resource-bar" aria-label="City resources">${resourceRow}<button type="button" class="resource r-bch bch-shortcut" data-modal="bch" aria-label="Use BCH" data-tooltip="Use BCH">${icon('bch')}<div><small>BCH</small><b>${walletSats == null ? '—' : html(bch(walletSats))}</b></div></button></div>
     <button class="season-tag" type="button" data-page="rankings">${icon('crown')}<span><strong>Season ${html(state.season?.number ?? state.season?.id ?? 'I')}</strong><small ${end ? `data-until="${html(end)}"` : ''}>${end ? duration(end - gameNow()) : 'Campaign standings'}</small></span></button>
     <button class="network wallet-shortcut" data-modal="wallet" type="button" data-tooltip="${html(activeAddress??'Connect ' + NETWORK_LABEL + ' wallet')}" aria-label="${html(activeAddress?'Wallet '+walletLabel(state.wallet):'Connect wallet')}"><i class="status-dot ${wizardState().status==='ready'?'':'off'}"></i><span>${html(walletLabel(state.wallet))}</span>${icon('down')}</button>
     <button class="round-icon next-shortcut" data-modal="next" type="button" aria-label="What next${rewardsReady ? ', ' + rewardsReady + ' rewards to claim' : ''}" data-tooltip="What next">${icon('compass')}${rewardsReady ? '<b class="bell-count">' + rewardsReady + '</b>' : ''}</button>
@@ -294,7 +294,8 @@ function renderCityDock() {
   morph(dom['city-dock'], `
     <div class="profile-title">${crest(own)}<div><span class="kicker">My city</span><h2>${html(own.name ?? 'Found a city')}</h2><span class="level-chip">LEVEL ${number(level(own))}${showTime ? ' · SHIELDED' : ''}</span><span class="progress"><i style="width:${Math.min(95,40+level(own)*9)}%"></i></span></div><img class="profile-art" src="${art(own)}" alt=""></div>
     <div class="stats">${stat('Power',number(own.power),'war')}${stat('Troops',number(armyCount(own)),'troops')}${stat('Defense',number(towerDefense(own)),'shield')}${stat('Income / h',total > 0 ? '+' + number(total) : '—','income','gain')}</div>
-    <div class="city-actions">${actions.map(([id,text,glyph]) => `<button class="city-action" data-page="city" data-start-tab="${id}" type="button">${icon(glyph)}${text}${icon('chevron')}</button>`).join('')}</div>
+    <div class="city-actions">${actions.map(([id,text,glyph]) => `<button class="city-action" data-page="city" data-start-tab="${id}" type="button">${icon(glyph)}${text}${icon('chevron')}</button>`).join('')}
+      <button class="city-action bch-action" data-modal="bch" type="button">${icon('bch')}Use BCH${icon('chevron')}</button></div>
     ${whatNextPanel(whatNext({ own, state:ui.state, guide:ui.guide, walletLinked:Boolean(walletAddress(ui.state.wallet)) }), own)}`);
 }
 

@@ -99,3 +99,21 @@
   background: none; border: 0; color: #aec0be; cursor: pointer; }
 .activity-hide .icon { width: 12px; height: 12px; }
 .activity-dock:not(.folded) .activity-tabs { margin-right: 24px; }
+/* The selected-place panel ends above the map controls (and the region list when it is shown), so nothing in it is hidden. */
+@media (min-width: 1081px) {
+  #theater .inspector { max-height: calc(100% - var(--dock) - 100px); }
+  #theater:has(#region-navigation:not([hidden])) .inspector { max-height: calc(100% - var(--dock) - 140px); }
+}
+/* Bitcoin Cash, easy to find: the BCH cell in the header and the gold button under My City open "Use BCH". */
+button.resource.bch-shortcut { font: inherit; color: inherit; background: none; border: 0; border-inline-end: 1px solid #28383c; cursor: pointer; text-align: start; }
+button.resource.bch-shortcut:hover, button.resource.bch-shortcut:focus-visible { background: #2a3a1f66; }
+.city-action.bch-action { color: #ffe7b0; background: linear-gradient(#5a4520, #3a2b12); border-color: #d3ac6e; }
+.bch-actions .bch-price { display: inline-flex; align-items: center; gap: 4px; margin-top: 3px; color: #e8be79; font-weight: 700; }
+.bch-actions .bch-price .icon { width: 13px; height: 13px; }
+/* On short screens My City scrolls inside its panel instead of running under the chat and the navigation. */
+@media (min-width: 1081px) {
+  .left-dock > .city-dock { min-height: 0; overflow-y: auto; scrollbar-width: thin; }
+}
+@media (max-height: 800px) and (min-width: 1081px) {
+  .what-next-task { display: none; }
+}

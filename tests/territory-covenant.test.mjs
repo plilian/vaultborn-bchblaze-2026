@@ -182,6 +182,7 @@ test('a raffle entry can only return to its entrant, with the unused reserve, an
   await app.ledger.reconcile();
   const entry=app.store.payment(intent.id);
   assert.equal(entry.fulfillment.status,'applied',entry.fulfillment.reason);
+  assert.equal(app.ledger.explorer().buckets.territoryEscrow,intent.satoshis,'the public ledger counts the entry while its escrow is unspent');
   const contract=compileTreasuryCovenant(entry.escrow);
   assert.deepEqual([contract.kind,contract.keys,contract.outcomes.length],['territory-uncontested',[],1]);
   assert.deepEqual(contract.outcomes[0].outputs.map(output => [output.address,output.satoshis]),[[walletOf(keys[0]).address,intent.satoshis-600]]);
@@ -195,6 +196,7 @@ test('a raffle entry can only return to its entrant, with the unused reserve, an
   await app.ledger.reconcile();
   const back=app.store.payments().find(item => item.settles === entry.id);
   assert.equal(back?.state,'credited');
+  assert.equal(app.ledger.explorer().buckets.territoryEscrow,0,'and no longer once its return has confirmed');
   assert.equal(paidTo(app,back.txid,walletOf(keys[0]).script),intent.satoshis-600);
   assert.equal(readTransaction(back.rawHex).transaction.inputs[0].unlockingBytecode[0],0x00,'no signature opens the return lane');
 });

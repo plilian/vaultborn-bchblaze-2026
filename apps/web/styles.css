@@ -391,11 +391,11 @@ img {
   bottom: 12px;
 }
 .world-city.minor {
-  --marker: 61px;
-  height: 62px;
+  --marker: 50px;
+  height: 52px;
 }
 .world-city.minor img {
-  height: 65px;
+  height: 54px;
   bottom: 0;
 }
 .world-city.minor .marker-label {
@@ -1923,11 +1923,11 @@ small.hint,
     bottom: 8px;
   }
   .world-city.minor {
-    --marker: 45px;
-    height: 51px;
+    --marker: 38px;
+    height: 43px;
   }
   .world-city.minor img {
-    height: 49px;
+    height: 41px;
   }
   .flag {
     width: 21px;

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://cashtokens.org/bcmr-v2.schema.json",
+  "version": {
+    "major": 1,
+    "minor": 0,
+    "patch": 0
+  },
+  "latestRevision": "2026-11-20T18:59:54.710Z",
+  "registryIdentity": {
+    "name": "VaultBorn",
+    "description": "Collectibles of VaultBorn, a strategy game on Bitcoin Cash.",
+    "uris": {
+      "icon": "https://vaultborn.parhamlilian.com/logo.png",
+      "web": "https://vaultborn.parhamlilian.com/"
+    }
+  },
+  "identities": {
+    "03d0dfced3215f8d04e32fba710615618398f7d93fae89bd79883e7d88cb557d": {
+      "2026-11-20T18:59:54.710Z": {
+        "name": "VaultBorn Territory Deed",
+        "description": "A collectible record of a territory claimed, conquered or leased in VaultBorn, a strategy game on Bitcoin Cash. Transferring it does not move the territory in the game.",
+        "token": {
+          "category": "03d0dfced3215f8d04e32fba710615618398f7d93fae89bd79883e7d88cb557d",
+          "symbol": "VBDEED",
+          "decimals": 0
+        },
+        "uris": {
+          "icon": "https://vaultborn.parhamlilian.com/art/collectible-territory-deed.png",
+          "web": "https://vaultborn.parhamlilian.com/"
+        }
+      }
+    },
+    "6dd83cb9cdec938b6bd3d528b8296f45ae512befbd22fc2494acc907d0a43d04": {
+      "2026-11-20T18:59:54.710Z": {
+        "name": "VaultBorn Treaty Charter",
+        "description": "A collectible record of a treaty sealed between kingdoms in VaultBorn, a strategy game on Bitcoin Cash. Transferring it does not change the treaty in the game.",
+        "token": {
+          "category": "6dd83cb9cdec938b6bd3d528b8296f45ae512befbd22fc2494acc907d0a43d04",
+          "symbol": "VBCHARTER",
+          "decimals": 0
+        },
+        "uris": {
+          "icon": "https://vaultborn.parhamlilian.com/art/collectible-treaty-charter.png",
+          "web": "https://vaultborn.parhamlilian.com/"
+        }
+      }
+    }
+  }
+}

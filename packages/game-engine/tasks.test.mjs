@@ -22,4 +22,10 @@ test('a campaign task pays its reward once, only when reached, and a milestone r
   const tasks = snapshot(world, 'tasker', T).player.tasks
   assert.deepEqual(tasks.filter(task => task.done && !task.claimed).map(task => task.id), ['hall-2', 'hall-3'])
   assert.equal(tasks.find(task => task.id === 'daily').claimed, true)
+  // Blockchain tasks count only facts the server supplies; claim all takes every ready reward at once.
+  assert.throws(() => command(world, 'tasker', {type: 'task-claim', task: 'first-tx'}, T), /Finish this task first/)
+  const facts = {wallet: true, paid: ['rush']}
+  const all = command(world, 'tasker', {type: 'task-claim-all', chainFacts: facts}, T)
+  assert.deepEqual(all.claimed, ['hall-2', 'wallet', 'first-tx', 'bch-rush', 'hall-3'])
+  assert.throws(() => command(world, 'tasker', {type: 'task-claim-all', chainFacts: facts}, T), /No task reward is ready/)
 })

@@ -48,6 +48,10 @@ export function createWalletCheckout({ store, chain, ledger, clock, notify, fail
     const intent = spendable(player, id);
     const keys = candidates(body);
     const outputs = intent.outputs?.map(({script,satoshis}) => ({script,satoshis})) ?? [{ script:intent.script, satoshis:intent.satoshis }];
+    // Everything this payment sends. For a service that is more than its price: the reward share carries its network
+    // reserve, and a political operation the fee of its proof record. The network fee is counted on top of all of it;
+    // counted on top of the price alone, the reserves would be taken out of the fee and the network would refuse the payment.
+    const spend = outputs.reduce((total, output) => total + output.satoshis, 0);
     let funds;
     try { funds = await chain.walletCoins(keys, { unconfirmed: true }); }
     catch { fail(503, 'Wallet funds could not be indexed on ' + NETWORK_LABEL + '. Check the connection and retry.'); }
@@ -69,10 +73,10 @@ export function createWalletCheckout({ store, chain, ledger, clock, notify, fail
         sources.push(coin);
         sum += coin.satoshis;
         feeSatoshis = estimated + sources.length * 145;
-        if (sum >= intent.satoshis + feeSatoshis) break;
+        if (sum >= spend + feeSatoshis) break;
       }
-      if (!sources.length || sum < intent.satoshis + feeSatoshis) {
-        const needed = intent.satoshis + (feeSatoshis ?? estimated + 145);
+      if (!sources.length || sum < spend + feeSatoshis) {
+        const needed = spend + (feeSatoshis ?? estimated + 145);
         const total = free.reduce((all, coin) => all + coin.satoshis, 0);
         if (free.length > MOST_INPUTS && total >= needed) fail(409, 'This wallet holds its BCH in too many small amounts for one payment. Send it to yourself once in the wallet to combine it, then try again.');
         if (occupied.size && funds.reduce((all, coin) => all + coin.satoshis, 0) >= needed) fail(409, 'Part of this wallet\'s BCH is in a payment you signed a moment ago. Try again in a few minutes.');
@@ -83,7 +87,7 @@ export function createWalletCheckout({ store, chain, ledger, clock, notify, fail
         const { walletPlan, ...withdrawn } = other;
         store.savePayment(withdrawn);
       }
-      const unsignedChange = sum - intent.satoshis - feeSatoshis;
+      const unsignedChange = sum - spend - feeSatoshis;
       const change = keys.find(key => key.path === 'change') ?? sources[0];
       const paymentOutputs = [...outputs];
       if (unsignedChange >= 546) paymentOutputs.push({ script: change.script, satoshis: unsignedChange });
@@ -101,7 +105,8 @@ export function createWalletCheckout({ store, chain, ledger, clock, notify, fail
         sourceOutputs:sources.map(({ script,satoshis,txid,vout }) => ({ lockingBytecode:script, valueSatoshis:`<bigint: ${satoshis}n>`,
           outpointTransactionHash:txid, outpointIndex:vout, unlockingBytecode:'', sequenceNumber:0xffffffff })),
         inputPaths:sources.map(({path,index}, input) => [input,path,index]),
-        userPrompt: 'VAULTBORN ' + NETWORK_LABEL + ' · ' + current.title + ' · ' + current.satoshis + ' sats plus ' + feeSatoshis + ' fee',
+        userPrompt: 'VAULTBORN ' + NETWORK_LABEL + ' · ' + current.title + ' · ' + current.satoshis + ' sats plus ' +
+          (spend > current.satoshis ? (spend - current.satoshis) + ' network reserve plus ' : '') + feeSatoshis + ' fee',
       };
     });
   }

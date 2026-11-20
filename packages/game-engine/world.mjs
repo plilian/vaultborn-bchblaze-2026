@@ -6,7 +6,7 @@ import {armyPower, clamp, seeded, troopTotal, unitIds} from './combat.mjs'
 import {diplomacyRelationship} from './diplomacy.mjs'
 import {governmentCommander,governmentMorale} from './government.mjs'
 import {battleCommander, commanderEffects, newCommanderBook, ruleClock} from './progression.mjs'
-import {allocateSettlementPlot, frontierWarden} from './frontier-layout.mjs'
+import {allocateSettlementPlot, frontierWarden, gatherRegions} from './frontier-layout.mjs'
 
 export const mapResources = map => Object.fromEntries(resources.map((resource, index) => [resource, map(resource, index)]))
 export const has = (table, id) => typeof id === 'string' && Object.hasOwn(table, id)
@@ -104,14 +104,19 @@ export const award = (city, milestone, now) => {
   achievements[milestone] ??= now
 }
 
+// A new kingdom's head start: on its first day, buildings up to level 3 go up three times as fast, so the first minutes
+// are spent playing rather than waiting. Later levels, and older kingdoms, are not affected.
+export const headStart = (city, level, now) => Number.isFinite(city.onboarding?.startedAt) && now < city.onboarding.startedAt + DAY && level <= 3
+
 export function quoteUpgrade(city, building, now=ruleClock(city)) {
   requireRule(has(buildings, building), 'invalid_building', 'Select a valid building.', 400)
   const level = city.buildings[building]
   const profile = buildings[building]
   const cost = roundCost(profile.cost, economy.upgradeCurve ** (level - 1))
+  const fast = headStart(city, level, now)
   const duration = Math.round(profile.time * (level > 1 ? economy.buildTimeScale ?? 1 : 1) * economy.buildTimeCurve ** (level - 1) *
-    constructionTimeFactor(city,now))
-  return {building, name: profile.name, level, nextLevel: Math.min(level + 1, economy.levelMax), cost, duration,
+    constructionTimeFactor(city,now) * (fast ? 1 / 3 : 1))
+  return {building, name: profile.name, level, nextLevel: Math.min(level + 1, economy.levelMax), cost, duration, ...(fast && {headStart: true}),
     eligible: level < economy.levelMax && (building === 'hall' || level < city.buildings.hall),
     reason: level >= economy.levelMax ? 'Maximum building level reached.' : building !== 'hall' && level >= city.buildings.hall ? 'Upgrade City Hall first.' : ''}
 }
@@ -208,6 +213,7 @@ export function addPlayer(world, input, now = world.now) {
   const playerName = cleanName(input.name, named.owner)
   const cityName = cleanName(input.cityName ?? input.name, named.name)
   const faction = has(factions, input.faction) ? input.faction : 'emerald'
+  gatherRegions(world)
   const {plot,opened} = allocateSettlementPlot(world)
   const district = seeded(world.seed + ':' + plot.x + ':' + plot.y)
   const terrain = Object.keys(terrains)[Math.floor(district() * Object.keys(terrains).length)]

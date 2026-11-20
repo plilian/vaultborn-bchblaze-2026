@@ -6,6 +6,7 @@ import { territoryAtlas, territoryAssets, territoryDetail } from './territory-fi
 import { comparison, raidStandards, squadDetail, timeLabel } from './strategy-stats.js';
 import { achievementDialog, dailyContents, eventDispatch, eventHero, offlineContents, tradeBalances, tradeHistory } from './campaign-ledger.js';
 import { whatNext, whatNextContents } from './what-next.js';
+import { bchActionsContents } from './bch-actions.js';
 import { renderIdentity } from './decentralized-identity.js';
 import { guideLink, renderCodex } from './game-guide.js';
 import { battleReport } from './battle-report.js';
@@ -500,7 +501,7 @@ function buildingDialog(ctx,id) {
     <div class="upgrade-preview">${image('/art/' + id + '-' + Math.min(upgrade.level,3) + '.webp','building-image')}${upgrade.effects?.next ? icon('arrow')+image('/art/' + id + '-' + Math.min(upgrade.nextLevel,3) + '.webp','building-image') : ''}</div>
     <p>Level ${upgrade.level}${upgrade.effects?.next?' → Level '+upgrade.nextLevel:''}. ${html(def.description)}</p>
     ${comparison(upgrade.effects?.current,upgrade.effects?.next,'Building effects')}
-    <dl class="kv"><dt>Standard build time</dt><dd>${duration(upgrade.duration)}</dd>${current ? '<dt>Construction finishes</dt><dd>' + timer(current.completesAt,ctx.gameNow) + '</dd>' : ''}</dl>
+    <dl class="kv"><dt>Standard build time</dt><dd>${duration(upgrade.duration)}${upgrade.headStart ? ' · first-day head start, 3× faster' : ''}</dd>${current ? '<dt>Construction finishes</dt><dd>' + timer(current.completesAt,ctx.gameNow) + '</dd>' : ''}</dl>
     ${costs(upgrade.cost)}
     ${!upgrade.eligible ? '<p class="quiet-text">'+html(upgrade.reason)+'</p>' : busy ? '<p class="quiet-text">A construction project is already active.</p>' : ''}
     <div class="buttons">${command('Start standard upgrade','hammer',{type:'upgrade',building:id},'primary',!upgrade.eligible || busy || !hasCost(ctx.own,upgrade.cost))}</div>
@@ -960,6 +961,7 @@ export function renderDialog(ctx) {
     case 'daily': return modal('Daily supplies',dailyContents(ctx.own.dailyReward,ctx.gameNow,command('Claim daily supplies','gift',{type:'collect'},'primary')));
     case 'dispatch': return modal(ctx.ui.dialog.presentation?.title??'Kingdom dispatch',achievementDialog(ctx.ui.dialog.presentation));
     case 'offline-report': return modal('While you were away',offlineContents(ctx.ui.state.offlineReport));
+    case 'bch': return modal('Use BCH',bchActionsContents(ctx));
     case 'next': return modal('What next',whatNextContents(whatNext({own:ctx.own,state:ctx.ui.state,guide:ctx.ui.guide,walletLinked:Boolean(ctx.ui.state.wallet?.address)}),ctx.own));
     case 'attack': return attackDialog(ctx,id)+guideLink('raids','Learn about raid rules');
     case 'expedition': return expeditionDialog(ctx,id)+guideLink('raids','Learn about expeditions');
