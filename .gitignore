@@ -22,20 +22,16 @@ brag-output/brag-plan.md
 # Secrets and working folders (added by Push to GitHub)
 *.pem
 
-# >>> Owner-only files: kept on the owner's computer, never in this repository (written by Push to GitHub) >>>
-/apps/launcher/
-/Launch VaultBorn Mainnet.cmd
-/Start VaultBorn.cmd
-/tests/launcher.test.mjs
-/tests/support/launcher-flow.mjs
-/tests/support/launcher-guards.mjs
-/tests/support/launcher-server.mjs
-/scripts/test-launcher-browser.mjs
-/docs/audit/remediation/evidence/launcher-wallet-sdk.json
-/Push to GitHub.cmd
-/scripts/push-to-github.mjs
-/scripts/test-push-to-github.mjs
-/docs/HACKATHON_CHECKLIST.md
-/xo/FEEDBACK_NOTES.md
-/progress.md
-# <<< Owner-only files <<<
+# Older screenshots that no document uses (the browser tests write theirs to output/).
+/docs/screenshots/battle-report.png
+/docs/screenshots/city-390x844.png
+/docs/screenshots/payment-intent.png
+/docs/screenshots/vaultborn-battle-replay.png
+/docs/screenshots/vaultborn-council-desktop.png
+/docs/screenshots/vaultborn-politics-conflict.png
+/docs/screenshots/vaultborn-politics-government.png
+/docs/screenshots/vaultborn-politics-mobile.png
+/docs/screenshots/vaultborn-politics-peace.png
+/docs/screenshots/world-1440x900.png
+/docs/screenshots/world-1920x1080.png
+/docs/screenshots/world-390x844.png

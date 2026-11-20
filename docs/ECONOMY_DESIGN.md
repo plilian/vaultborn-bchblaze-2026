@@ -84,4 +84,4 @@ A server runs on exactly one network: Chipnet (test coins) or Mainnet (real BCH)
 
 ## 9. What remains trust
 
-The attestors must be independent of the developer and of each other: a colluding game key and attestor majority could sign a false raid outcome (limited to S per raid) or a false prize. Battles are verified by replay, but building, research and mission scores are checked against the rules only; player commands are not signed.
+In this deployment the attestors are run by the VaultBorn team. A colluding game key and attestor majority could sign a false raid outcome (limited to S per raid) or a false prize. Battles are verified by replay, but building, research and mission scores are checked against the rules only; player commands are not signed.

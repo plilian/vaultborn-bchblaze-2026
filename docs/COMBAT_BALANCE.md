@@ -10,7 +10,7 @@ The server resolves nine exchanges over a 54-second replay timeline. A battle re
 - Each round computes damage for both armies from the same pre-round state. Unit multipliers depend on opposing troop composition. A Spearhead favors infantry and cavalry, a Screen favors archers and mages, and a Battle Line is neutral.
 - Assault front-loads damage and exposes its troops. Flank responds to Assault and increases cavalry pressure. Siege improves siege-weapon pressure and reduces fortification effects. A War Mage pulses every third round. Commander and Warden Hero modifiers are bounded to early exchanges.
 - Terrain and walls contribute to defender pressure and survival. Seeded attack variance ranges from 0.88× to 1.12× with a reciprocal defender factor.
-- Per-unit losses are limited to 48% of each force. Losing cities receive four hours of recovery protection. Normal battles transfer only bounded earned resources and may transfer a landmark below the receiving cap. Skill and timing affect both free and paid battles.
+- Per-unit losses are limited to 48% of each force. There is no protection shield after a defeat this season; the daily raid limits and the eight-hour pause between the same two kingdoms apply instead. Normal battles transfer only bounded earned resources and may transfer a landmark below the receiving cap. Skill and timing affect both free and paid battles.
 
 ### Unit counter matrix
 

@@ -17,7 +17,7 @@ The game is free to play; every paid action is a Bitcoin Cash transaction that y
 [![Node](https://img.shields.io/badge/node-%E2%89%A5%2024-339933?logo=nodedotjs&logoColor=white)](#run-it-yourself)
 [![License](https://img.shields.io/badge/license-all%20rights%20reserved-B22222)](LICENSE)
 
-### [▶ Play now at vaultborn.parhamlilian.com](https://vaultborn.parhamlilian.com)
+### [▶ Play now at vaultborn.parhamlilian.com](https://vaultborn.parhamlilian.com) · [▶ Watch the trailer](brag-output/brag-narrated.mp4)
 
 <a href="https://vaultborn.parhamlilian.com"><img src="docs/images/landing.jpg" alt="The VaultBorn start page" width="100%"></a>
 
@@ -57,7 +57,7 @@ The free game needs no wallet. Bitcoin Cash comes in only when you choose a paid
     <td><img src="docs/images/connect-wallet.jpg" alt="Connecting a wallet"><br><sub><b>Your wallet is your key.</b> Pair Selene or another WizardConnect wallet by scanning one code.</sub></td>
   </tr>
   <tr>
-    <td><img src="docs/images/season.jpg" alt="The season page"><br><sub><b>Seasons.</b> Join the season, follow the rankings and the prize pool.</sub></td>
+    <td><img src="docs/images/season.jpg" alt="The season page"><br><sub><b>Seasons.</b> Every kingdom is in the season from day one: follow the rankings and the prize pool.</sub></td>
     <td align="center"><img src="docs/images/mobile.jpg" alt="VaultBorn on a phone" width="46%"><br><sub><b>On a phone.</b> The same game, laid out for a small screen.</sub></td>
   </tr>
 </table>
@@ -111,7 +111,7 @@ Territory deeds and treaty charters can be issued as CashTokens collectibles. Te
 <details>
 <summary><b>Mainnet transactions (proof)</b></summary>
 
-The Mainnet launch of the game was recorded on chain in transaction [`7e5d53bb…a74db7cc`](https://blockchair.com/bitcoin-cash/transaction/7e5d53bbf8586c6474982f1e6c1e11a26d5444e607c0221c85a7cf1ea74db7cc) (block 978,040). Its data output carries the SHA-256 hash of the [launch manifest](docs/mainnet/launch-manifest.json): the game's public key, the three attestor keys, the 2-of-3 threshold, the price book and the contract versions. The first game payments followed in block 978,066: a territory claim ([`29dc9fc2…`](https://blockchair.com/bitcoin-cash/transaction/29dc9fc2022f0acc2391eb50646f93fd7558058d6ae3499a996c5d07f1064483), 6,600 sat into a stake escrow) and a War Chest deposit ([`3364cea4…`](https://blockchair.com/bitcoin-cash/transaction/3364cea414af757ad4e34ba78c24aa61b34f6e2208893c716037ff88fdb9eb46), 10,000 sat into a War Chest contract). The list, and how to check every one offline with `npm run verify:mainnet`, is in [docs/MAINNET_TRANSACTIONS.md](docs/MAINNET_TRANSACTIONS.md). Anyone can compare it with the rules the game runs.
+The Mainnet launch of the game was recorded on chain in transaction [`7e5d53bb…a74db7cc`](https://blockchair.com/bitcoin-cash/transaction/7e5d53bbf8586c6474982f1e6c1e11a26d5444e607c0221c85a7cf1ea74db7cc) (block 978,040). Its data output carries the SHA-256 hash of the [launch manifest](docs/mainnet/launch-manifest.json): the game's public key, the three attestor keys, the 2-of-3 threshold, the price book and the contract versions. The first game payments followed in block 978,066: a territory claim ([`29dc9fc2…`](https://blockchair.com/bitcoin-cash/transaction/29dc9fc2022f0acc2391eb50646f93fd7558058d6ae3499a996c5d07f1064483), 6,600 sat into a stake escrow) and a War Chest deposit ([`3364cea4…`](https://blockchair.com/bitcoin-cash/transaction/3364cea414af757ad4e34ba78c24aa61b34f6e2208893c716037ff88fdb9eb46), 10,000 sat into a War Chest contract). In block 978,094 the claim settled: two of the three attestors signed the escrow's return lane and the 6,000 sat stake went back to the claimant's wallet ([`1022549a…`](https://blockchair.com/bitcoin-cash/transaction/1022549ae29f30d57b3327f6f381f553375a5227c197390b0564fd4a6f7a8505)). The list, and how to check every one offline with `npm run verify:mainnet`, is in [docs/MAINNET_TRANSACTIONS.md](docs/MAINNET_TRANSACTIONS.md). Anyone can compare it with the rules the game runs.
 </details>
 
 ## BCH BLAZE 2026
@@ -121,10 +121,10 @@ VaultBorn is entered in the BCH BLAZE 2026 hackathon:
 | Track or bounty | What VaultBorn brings | Where |
 | --- | --- | --- |
 | **Mainnet Track** | Live on Mainnet at [vaultborn.parhamlilian.com](https://vaultborn.parhamlilian.com). Paid actions are wallet-signed Bitcoin Cash Mainnet transactions through WizardConnect; the home page carries the BLAZE banner. | [Mainnet transactions (proof)](docs/MAINNET_TRANSACTIONS.md), [docs/MAINNET.md](docs/MAINNET.md), [config/blaze.json](config/blaze.json) |
-| **Build with XO** | A treaty and protectorate compensation escrow as an XO template, with an engine test and a Chipnet runner. | [xo/](xo/README.md) |
-| **Decentralized Identity** | A kingdom bound to both a BCH key and a Nostr key, published to and discovered from Nostr relays, and verifiable by anyone. | [docs/DECENTRALIZED_IDENTITY.md](docs/DECENTRALIZED_IDENTITY.md) |
+| **Build with XO** | A treaty and protectorate compensation escrow as an XO template, tested in the XO engine, with a Chipnet runner. | [xo/](xo/README.md) |
+| **Decentralized Identity** | A kingdom bound to both a BCH key and a Nostr key, published to and discovered from public Nostr relays, and verifiable by anyone. | [docs/DECENTRALIZED_IDENTITY.md](docs/DECENTRALIZED_IDENTITY.md), [public-relay run](docs/IDENTITY_PUBLIC_RELAY_RUN.json) |
 
-The game runs at **[vaultborn.parhamlilian.com](https://vaultborn.parhamlilian.com)** on Bitcoin Cash Mainnet. The BLAZE banner at the top of its home page links to the [presentation](https://docs.google.com/presentation/d/1CPrmv3eMdY-d4T-1jlzeaIJjqFChHq8enlrpVClCOv8/edit?usp=sharing) and to this repository, and shows the CashTokens address for EMBER2026 community-choice tokens. VaultBorn was first developed under the name *BCH Dominion*.
+The game runs at **[vaultborn.parhamlilian.com](https://vaultborn.parhamlilian.com)** on Bitcoin Cash Mainnet. The BLAZE banner at the top of its home page links to the [presentation](https://docs.google.com/presentation/d/1CPrmv3eMdY-d4T-1jlzeaIJjqFChHq8enlrpVClCOv8/edit?usp=sharing) and to this repository, and shows the CashTokens address for EMBER2026 community-choice tokens. The trailer is [brag-output/brag-narrated.mp4](brag-output/brag-narrated.mp4) (also on the home page). Where everything stands, with the evidence for each part: [docs/STATUS.md](docs/STATUS.md). VaultBorn was first developed under the name *BCH Dominion*.
 
 ## How it is built
 
@@ -195,11 +195,13 @@ One server runs on one network, chosen by `VAULTBORN_NETWORK`: `chipnet` (defaul
 npm test                  # 265 unit and integration tests: rules, ledger, contracts in the BCH virtual machine, identity, server set-up
 npm run test:browser      # the game in a real browser: map, raids, politics, wallet proof, mobile layout
 npm run test:wallet:connect   # connecting a wallet with the official WizardConnect wallet SDK
-npm run test:xo           # the XO treaty escrow on a local chain
+npm run verify:mainnet    # the Mainnet transactions, checked offline
+npm --prefix xo ci        # once: the XO engine and its tools (builds a native SQLite module; on Windows this needs the C++ build tools)
+npm run test:xo           # the XO treaty escrow template in the XO engine, on a local chain
 npm run simulate          # economy and balance simulations
 ```
 
-Recorded evidence lives in [docs/audit/](docs/audit) and in the `docs/*_RECEIPTS.json` and `docs/*_CHIPNET*.json` files: Chipnet transactions of payments, territory contests, political escrows and CashTokens, Regtest runs of the contracts, and the browser and wallet test results. [docs/STATUS.md](docs/STATUS.md) says what has and has not been run on a public network.
+[docs/STATUS.md](docs/STATUS.md) lists what runs where, with the evidence: the Mainnet transactions ([docs/MAINNET_TRANSACTIONS.md](docs/MAINNET_TRANSACTIONS.md)), the identity run on public Nostr relays ([docs/IDENTITY_PUBLIC_RELAY_RUN.json](docs/IDENTITY_PUBLIC_RELAY_RUN.json)), Chipnet transactions of payments, territory contests, political escrows and CashTokens (`docs/*_RECEIPTS.json`, `docs/*_CHIPNET*.json`), Regtest runs of the contracts, and the browser and wallet test results ([docs/audit/](docs/audit)). The dated audit reports in `docs/audit/` record the state on the day each was written.
 
 ## Repository map
 
@@ -224,10 +226,10 @@ Stated plainly, as they are:
 
 - **Credit is not a refund.** A paid service that cannot be delivered when its payment confirms becomes a credit for the same service in the game. No BCH is sent back.
 - **The attestors are run by the VaultBorn team** in this deployment, so raid and prize outcomes rest on the team's signatures until other people run attestors.
-- **No external audit.** The contracts have passed the Bitcoin Cash virtual machine, a private Regtest node and Chipnet runs; see [docs/MAINNET.md](docs/MAINNET.md) for what has run on a public network.
-- **Wallet support.** Pairing and the wallet proof were tested with the official WizardConnect wallet SDK and against Selene's published signing rules; behaviour with every wallet app is not guaranteed.
+- **No third-party audit yet.** The contracts run in the Bitcoin Cash virtual machine, on a Regtest node, on Chipnet (earlier versions) and on Mainnet; see [docs/STATUS.md](docs/STATUS.md).
+- **Wallets.** The game speaks WizardConnect. The Mainnet payments so far were signed in Selene; pairing and the wallet proof are also tested with the official WizardConnect wallet SDK.
 
-Security notes and how to report a problem: [SECURITY.md](SECURITY.md).
+Security notes, and how to report a problem privately: [SECURITY.md](SECURITY.md).
 
 ## License
 

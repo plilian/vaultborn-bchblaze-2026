@@ -1,6 +1,6 @@
 # Territory lifecycle on public Chipnet
 
-> **Historical record.** This file documents an earlier run under earlier prices, splits and contracts (before the final economy of 19 November 2026). It is kept as evidence of that run only. Current rules: [ECONOMY_DESIGN.md](ECONOMY_DESIGN.md).
+> **Record of an earlier run,** under earlier prices, splits and contracts (before the final economy of 19 November 2026), kept as evidence of that run. What it says had not run yet describes that day: VaultBorn has since gone live on Bitcoin Cash Mainnet (payments signed in Selene through WizardConnect, a contract settlement signed by the attestors), and the identity proof has run on public Nostr relays. Current rules: [ECONOMY_DESIGN.md](ECONOMY_DESIGN.md) · current state and evidence: [STATUS.md](STATUS.md).
 
 The run used two independently linked, disposable Chipnet wallets and an isolated game database. It tested a contested claim with two genuine entrant payments, a successful territorial conquest, a paid rare draw, and the expiry of the resulting lease. The test advanced the game clock at the claim and lease deadlines. The test used a shorter, fixed block schedule for the rare draw. Transaction confirmations and the randomness block came from public Chipnet.
 

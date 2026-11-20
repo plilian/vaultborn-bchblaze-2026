@@ -1,5 +1,5 @@
 {
-  "name": "bch-dominion",
+  "name": "vaultborn",
   "version": "0.1.0",
   "private": true,
   "license": "SEE LICENSE IN LICENSE",
@@ -21,7 +21,7 @@
     "test:identity:browser": "node scripts/test-identity-browser.mjs",
     "test:wallet:browser": "node scripts/test-wallet-polish.mjs",
     "test:wallet:selene": "node scripts/test-selene-browser.mjs",
-    "test:wallet:connect": "node scripts/test-wallet-connect-browser.mjs docs/audit/remediation/evidence/wallet-connect-browser.json",
+    "test:wallet:connect": "node scripts/test-wallet-connect-browser.mjs docs/audit/remediation/evidence/wizardconnect-browser.json",
     "test:onboarding:browser": "node scripts/test-onboarding-browser.mjs",
     "test:guide:browser": "node scripts/test-guide-ux-browser.mjs",
     "preview:wallet": "node scripts/offline-preview.mjs --wallet",

@@ -1,0 +1,17 @@
+{
+  "suite": "connect wallet (start page and game) with the WizardConnect wallet SDK",
+  "at": "2026-11-20T10:00:53.628Z",
+  "note": "The official WizardConnect wallet SDK applying Selene's signing rule, over a relay inside the test. Payments made with Selene itself on Mainnet are in docs/MAINNET_TRANSACTIONS.md.",
+  "passed": [
+    "the start page offers \"Connect wallet\" beside \"Play now\"",
+    "connecting from the start page pairs, verifies and enters the game, with one approval that sends nothing",
+    "the new kingdom holds that wallet, and the wallet is still connected inside the game without a second approval",
+    "the balance shown is the whole wallet: the game asks for its receiving and change addresses, public keys only",
+    "the same wallet in another browser opens the same kingdom instead of a new one",
+    "inside the game, pairing a wallet verifies it at once: nothing to copy, paste or find",
+    "a wallet that refuses the check is told so, with one button to try again",
+    "a pay button without a connected wallet opens the wallet dialog, and once the wallet connects the checkout follows by itself",
+    "no page raised a script error"
+  ],
+  "failed": null
+}

@@ -1,6 +1,6 @@
 # CashTokens, escrow, and seasonal rewards
 
-> **Historical audit (18 November 2026),** written before the remediation and the Mainnet launch. VaultBorn has since gone live on Bitcoin Cash Mainnet with real, confirmed transactions; see [MAINNET.md](../../MAINNET.md) and [MAINNET_TRANSACTIONS.md](../../MAINNET_TRANSACTIONS.md).
+> **Dated report (18 November 2026),** written before the Mainnet launch. Its findings are kept as they were written; its statements about what had not yet run, and about Mainnet readiness, describe that day. VaultBorn has since gone live on Bitcoin Cash Mainnet, with wallet-signed payments and a contract settlement signed by the attestors. Current state and evidence: [STATUS.md](../../STATUS.md) · [MAINNET_TRANSACTIONS.md](../../MAINNET_TRANSACTIONS.md).
 
 Audit date: 18 November 2026. Review and evidence collection only; no implementation was changed. The token workstream reused existing territory and political evidence and used read-only chain observations plus narrowly scoped synthetic probes. The shared audit separately executed the current-policy sponsorship and reward flow described below; no old mint, transfer, or political refund was repeated.
 

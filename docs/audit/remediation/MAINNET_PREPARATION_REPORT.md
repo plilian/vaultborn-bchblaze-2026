@@ -2,7 +2,7 @@
 
 Date: 19 November 2026. This is the single report of this pass. `FINAL_ECONOMY_REPORT.md` remains the reference for the economy itself; this report supersedes its sections on open issues and Mainnet readiness.
 
-> **Update, 20 November 2026:** this report describes the state before launch. VaultBorn has since gone live on Bitcoin Cash Mainnet at https://vaultborn.parhamlilian.com, with real, confirmed transactions; see [../../MAINNET_TRANSACTIONS.md](../../MAINNET_TRANSACTIONS.md).
+> **Dated report (19 November 2026),** written before the Mainnet launch. Its findings are kept as they were written; its statements about what had not yet run, and about Mainnet readiness, describe that day. VaultBorn has since gone live on Bitcoin Cash Mainnet, with wallet-signed payments and a contract settlement signed by the attestors. Current state and evidence: [STATUS.md](../../STATUS.md) · [MAINNET_TRANSACTIONS.md](../../MAINNET_TRANSACTIONS.md).
 
 **Where things stand.** The remaining issues are fixed, the game's content matches the final economy, and the whole project can now be configured for Bitcoin Cash Mainnet. **Nothing was launched:** no Mainnet transaction was built for broadcast, no real BCH moved, no wallet was contacted and nothing was deployed. The server refuses to start on Mainnet until you write your authorisation into its configuration.
 

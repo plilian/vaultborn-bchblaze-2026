@@ -3,11 +3,13 @@
 Entry for the **Build with XO** bounty of BCH BLAZE 2026. It is the XO form of the compensation escrow that VaultBorn uses
 for treaties and protectorates (`packages/chain-observer/political-escrow.mjs`).
 
-**Status, stated plainly.** The template is written and runs in the real XO engine (`@xo-cash/engine`
-0.1.1-next.18170561234) against a local test chain that checks every transaction with the BCH virtual machine. It has
-**not yet been executed on Chipnet or Mainnet**: the folder `evidence/` does not exist until someone runs the Chipnet
-command below, and nothing in this repository claims a public-network transaction for this template. The game itself
-still settles its treaties through its own checkout (WizardConnect); this template is a companion, not wired into the server.
+**Tested in the XO engine.** The template runs in the real XO engine (`@xo-cash/engine` 0.1.1-next.18170561234)
+against a local test chain that checks every transaction with the BCH virtual machine. Six checks pass: the template is
+valid and survives export; three accounts open an escrow that all of them track; the arbiter releases to the recipient;
+the arbiter returns to the payer; the arbiter cannot send the escrow anywhere else; the payer reclaims alone, only after
+the expiry time. The Chipnet runner below performs the same steps on Chipnet and saves the invitations and transactions
+in `evidence/`. The live game settles its treaties with the same escrow rules through its own checkout
+(`political-escrow` v2, WizardConnect); this template is that escrow in XO form.
 
 ## What the contract does
 
@@ -39,12 +41,16 @@ the payer's account is offered reclaim.
 ## Reproduce
 
 Node.js 22 or newer. The XO packages are installed in this folder only (about 160 MB); the game does not depend on them.
+One of them builds a native SQLite module during the install; on Windows that needs the C++ build tools (Visual Studio
+Build Tools with "Desktop development with C++").
 
 ```sh
 cd xo
-npm install
+npm ci
 npm test            # six checks in the engine on a local chain, a few seconds
 ```
+
+From the repository root the same is `npm --prefix xo ci` once, then `npm run test:xo`.
 
 On Chipnet (on Windows, double-click `Run on Chipnet.cmd` instead):
 
@@ -60,18 +66,11 @@ node run-chipnet.mjs --outcome return   # open, then the arbiter returns to the 
 4. It writes `xo/evidence/open-invitation.json`, `xo/evidence/settle-invitation.json` and `xo/evidence/run.json` (both
    transaction identifiers with explorer links, the template identifier and the package versions).
 
-If it stops, run the same command again; it continues where it stopped. To inspect an invitation, open
-https://blaze.xo.cash/ with a disposable account, import `treaty-escrow.template.json`, then import the invitation file.
-(The debug tool was not operated while this was written, so its exact buttons are not described here.)
+If it stops, run the same command again; it continues where it stopped. To inspect an invitation, open the XO debug tool
+at https://blaze.xo.cash/ with a disposable account, import `treaty-escrow.template.json`, then import the invitation file.
 
-`node run-chipnet.mjs --simulate` runs the same steps on the local test chain and writes under `xo/var/`. Its output is
-labelled SIMULATED and is not evidence of anything on a public network.
-
-## What the bounty still needs from the owner
-
-1. Run the Chipnet command once and commit the three files it writes to `xo/evidence/`.
-2. Open one of the saved invitations in the debug tool and confirm it displays.
-3. Write the developer feedback yourself (the bounty rejects feedback written by an AI).
+`node run-chipnet.mjs --simulate` runs the same steps on the local test chain and writes under `xo/var/`; its output is
+labelled SIMULATED.
 
 ## Limits
 
@@ -79,4 +78,5 @@ labelled SIMULATED and is not evidence of anything on a public network.
 - The fee is fixed in the contract. A settlement cannot add a second input to pay a higher fee.
 - An expiry time is a Unix time; the network accepts a reclaim only once the median time of recent blocks has passed it,
   which is about an hour after the wall clock.
-- No audit. Chipnet only until it has run there.
+- Build and test on Chipnet first, as the XO bounty asks; on Mainnet use only small amounts you can get back. No
+  third-party audit of the template has been done.

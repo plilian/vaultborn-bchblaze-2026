@@ -1,14 +1,14 @@
 # Running VaultBorn on Bitcoin Cash Mainnet
 
-Status on 20 November 2026: **live on Mainnet** at https://vaultborn.parhamlilian.com since the launch record in block 978,040 (19 November). The first real game payments, a territory claim and a War Chest deposit, confirmed in block 978,066. All of them, with an offline check, are listed in [MAINNET_TRANSACTIONS.md](MAINNET_TRANSACTIONS.md). The server refuses to start on Mainnet until the owner writes the authorisation into the configuration (step 7).
+Status on 20 November 2026: **live on Mainnet** at https://vaultborn.parhamlilian.com since the launch record in block 978,040 (19 November). The first real game payments, a territory claim and a War Chest deposit, confirmed in block 978,066, and the claim's escrow settled in block 978,094 with the signatures of two of the three attestors. All of them, with an offline check, are listed in [MAINNET_TRANSACTIONS.md](MAINNET_TRANSACTIONS.md). The server refuses to start on Mainnet until the owner writes the authorisation into the configuration (step 7).
 
-**Tested on Mainnet.** The game is live on Bitcoin Cash Mainnet and real transactions have been signed in a real wallet (Selene, through WizardConnect) and confirmed: the launch record (block 978,040), a territory claim into `stake-escrow-v3` and a War Chest deposit into `war-chest-v4` (block 978,066). See [MAINNET_TRANSACTIONS.md](MAINNET_TRANSACTIONS.md). Every contract path (raid captures, settlements, exits) is also covered in the BCH virtual machine and on a Bitcoin Cash Node Regtest chain. Anyone running their own copy should do the Chipnet rehearsal in step 0 first.
+**Tested on Mainnet.** The game is live on Bitcoin Cash Mainnet and real transactions have been signed in a real wallet (Selene, through WizardConnect) and confirmed: the launch record (block 978,040), a territory claim into `stake-escrow-v3` and a War Chest deposit into `war-chest-v4` (block 978,066), and the claim's settlement, opened by two of the three attestors without the game key (block 978,094). See [MAINNET_TRANSACTIONS.md](MAINNET_TRANSACTIONS.md). Every contract path (raid captures, settlements, exits) is also covered in the BCH virtual machine and on a Bitcoin Cash Node Regtest chain. Anyone running their own copy should do the Chipnet rehearsal in step 0 first.
 
 ## The launcher (the short way)
 
 The owner starts Mainnet with a small local launcher, a page that runs on the owner's computer only. It is an owner's tool and is kept outside the public repository. It does by itself what the manual route below does by hand: it connects the owner's Developer Wallet with WizardConnect, shows its Mainnet balance, lists the funding (nothing is mandatory except the network fee of one public launch record), and sends one launch transaction to the wallet for approval; nothing is broadcast before the owner approves it there. It then waits for confirmations, creates and checks the operational keys, writes `.env.mainnet`, and starts the game and its attestors, on that computer or on a Linux server that stays online. It never asks for a seed phrase or a private key of the owner's wallet. The launch record is a public data output that carries the hash of the keys and rules the game was launched with.
 
-The attestors the launcher runs are **owner-operated**. They do every check an attestor does, but they are not independent: you hold the game key and all three attestor keys, and the game tells its players so. Everything below is the manual route and the background.
+The attestors the launcher runs are run by the VaultBorn team: they do every check an attestor does, and the owner holds the game key and all three attestor keys; the game's rules say so. Everything below is the manual route and the background.
 
 ## How the network is chosen
 
@@ -59,7 +59,7 @@ No contract has to be deployed or funded in advance. Every contract output is cr
 
 ## Steps
 
-**0. Rehearse on Chipnet first.** `node scripts/chipnet-covenant-fixture.mjs var/covenant-keys.json`, fund the two printed addresses from a Chipnet faucet, then run `scripts/chipnet-covenants-e2e.mjs` as described in its header. Pair Selene (Chipnet mode) with the local game and make one payment. This is the first time these contracts and wallet payments meet a public network.
+**0. Rehearse on Chipnet first.** `node scripts/chipnet-covenant-fixture.mjs var/covenant-keys.json`, fund the two printed addresses from a Chipnet faucet, then run `scripts/chipnet-covenants-e2e.mjs` as described in its header. Pair Selene (Chipnet mode) with the local game and make one payment. This rehearses on test coins what the live launch did on Mainnet.
 
 **1. Keys.** On the server: `VAULTBORN_NETWORK=mainnet node scripts/network-keys.mjs new var/mainnet/game.key`. Each attestor does the same on their own machine (see `ATTESTOR_GUIDE.md`) and sends you the public key only.
 
@@ -69,7 +69,7 @@ No contract has to be deployed or funded in advance. Every contract output is cr
 
 **4. Attestors.** Each attestor installs the project, sets `VAULTBORN_NETWORK=mainnet` and schedules `scripts/prize-attest.mjs` against your public address (`infrastructure/mainnet/attestor.service` and `.timer`).
 
-**5. Server and site.** Docker: set `DOMAIN` and run `docker compose -f infrastructure/mainnet/compose.yaml up -d` (game server plus a TLS proxy). On a server where nginx already serves other sites, use `DOMAIN=play.example.org bash infrastructure/mainnet/install-behind-nginx.sh` instead: the game then listens on the server itself only (127.0.0.1), runs as its own Docker project, and gets one nginx site file and one certificate of its own; no existing site is edited, nginx is only reloaded after its configuration test has passed, and a failed step takes its additions out again (`… install-behind-nginx.sh remove` takes the game off the server). That script has been exercised against a simulated server (`tests/server-install.test.mjs`), not audited on real ones: read it before you run it. Without Docker: `infrastructure/mainnet/vaultborn.service`. Schedule `infrastructure/mainnet/backup.sh`.
+**5. Server and site.** Docker: set `DOMAIN` and run `docker compose -f infrastructure/mainnet/compose.yaml up -d` (game server plus a TLS proxy). On a server where nginx already serves other sites, use `DOMAIN=play.example.org bash infrastructure/mainnet/install-behind-nginx.sh` instead: the game then listens on the server itself only (127.0.0.1), runs as its own Docker project, and gets one nginx site file and one certificate of its own; no existing site is edited, nginx is only reloaded after its configuration test has passed, and a failed step takes its additions out again (`… install-behind-nginx.sh remove` takes the game off the server). That script installed the live game at vaultborn.parhamlilian.com on a server shared with other sites, and its tests run it against a simulated server (`tests/server-install.test.mjs`); read it before you run it on yours. Without Docker: `infrastructure/mainnet/vaultborn.service`. Schedule `infrastructure/mainnet/backup.sh`.
 
 **6. Optional collectibles.** Fund the issuer address, then `scripts/token-genesis.mjs` (dry run first, `--broadcast` when you agree) and add the printed lines to `.env.mainnet`.
 
@@ -91,4 +91,5 @@ No contract has to be deployed or funded in advance. Every contract output is cr
 - **A service credit is not a BCH refund.** A paid service that cannot be delivered when its payment confirms becomes a credit for the same kind of service, kept in the game server's database. No BCH is returned, and the credit cannot be withdrawn, transferred or exchanged. It is honoured only while the game server runs and keeps that database.
 
 
-Attestor independence cannot be proven by code. A colluding game key and attestor majority could sign a false raid outcome (limited to the stake of each raid) or a false prize. Battle outcomes are verified by replay; building, research and mission scores are checked against the rules but player commands are not signed. No external audit of the contracts has been done.
+- **Attestors.** In this deployment they are run by the VaultBorn team. Who runs an attestor cannot be proven by code: a colluding game key and attestor majority could sign a false raid outcome (limited to the stake of each raid) or a false prize. Battle outcomes are verified by replay; building, research and mission scores are checked against the rules but player commands are not signed.
+- **Audit.** No third-party audit of the contracts has been done.

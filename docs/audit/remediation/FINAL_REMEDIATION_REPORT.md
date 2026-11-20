@@ -1,5 +1,7 @@
 # VaultBorn — Final remediation report: one War Chest, 50/20/20/10, automatic prizes
 
+> **Dated report (19 November 2026),** written before the Mainnet launch. Its findings are kept as they were written; its statements about what had not yet run, and about Mainnet readiness, describe that day. VaultBorn has since gone live on Bitcoin Cash Mainnet, with wallet-signed payments and a contract settlement signed by the attestors. Current state and evidence: [STATUS.md](../../STATUS.md) · [MAINNET_TRANSACTIONS.md](../../MAINNET_TRANSACTIONS.md).
+
 > **Superseded on 19 November 2026 by `FINAL_ECONOMY_REPORT.md`** (final price book, matched-stakes raids, one War Chest). Kept for history; prices, raid rules and custody described below are no longer current.
 
 > **Updated by [`ECONOMY_SECURITY_GAPS_REPORT.md`](ECONOMY_SECURITY_GAPS_REPORT.md).** The War Chest contract, the capture and withdrawal figures, the attestor rules and open items 2, 3, 5, 6, 11 and 12 below have changed.

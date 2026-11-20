@@ -13,7 +13,7 @@ const script = new URL('../scripts/verify-mainnet-proof.mjs', import.meta.url);
 test('the Mainnet proof verifies offline', () => {
   const out = execFileSync(process.execPath, [fileURLToPath(script)], { encoding: 'utf8' });
   assert.match(out, /All checks passed\./);
-  assert.equal((out.match(/^ok /gm) ?? []).length, 17);
+  assert.equal((out.match(/^ok /gm) ?? []).length, 26);
   assert.doesNotMatch(out, /FAIL/);
 });
 

@@ -1,6 +1,6 @@
 # VAULTBORN Chipnet verification
 
-> **Historical record.** This file documents an earlier run under earlier prices, splits and contracts (before the final economy of 19 November 2026). It is kept as evidence of that run only. Current rules: [ECONOMY_DESIGN.md](ECONOMY_DESIGN.md).
+> **Record of an earlier run,** under earlier prices, splits and contracts (before the final economy of 19 November 2026), kept as evidence of that run. What it says had not run yet describes that day: VaultBorn has since gone live on Bitcoin Cash Mainnet (payments signed in Selene through WizardConnect, a contract settlement signed by the attestors), and the identity proof has run on public Nostr relays. Current rules: [ECONOMY_DESIGN.md](ECONOMY_DESIGN.md) · current state and evidence: [STATUS.md](STATUS.md).
 
 The published evidence below comes from public Bitcoin Cash Chipnet. Testers used disposable keys with pre-funded Chipnet BCH and a separate local game database. The running save was preserved. Both the incoming observer and the operator payout path required two confirmations.
 
@@ -21,7 +21,7 @@ The campaign clock was moved forward only inside the isolated test to finalize s
 - [Full transaction receipts](VAULTBORN_CHIPNET_RECEIPTS.json)
 - [Verifiable battle archive](VAULTBORN_VERIFIABLE_BATTLE.json)
 
-The public Riften relay attempt from this environment timed out opening its WebSocket. The browser then used the official WizardConnect dapp and wallet SDKs over a temporary loopback relay. The independent wallet fixture approved the full outputs and fee, returned a valid signature, and the browser sent it to the verifier. The server derived the TXID and broadcast it to public Chipnet. The settled transaction in block 334369 fulfilled City Hall’s upgrade. The fixture reported a WebSocket error during teardown after saving the receipt. A subsequent pairing-only run verified the corrected disconnect sequence. Commercial wallet applications still need interoperability testing. [WizardConnect evidence](VAULTBORN_WIZARD_RECEIPT.json)
+The test environment of that run could not open a WebSocket to the public Riften relay, so the browser used the official WizardConnect dapp and wallet SDKs over a temporary loopback relay. The independent wallet fixture approved the full outputs and fee, returned a valid signature, and the browser sent it to the verifier. The server derived the TXID and broadcast it to public Chipnet. The settled transaction in block 334369 fulfilled City Hall’s upgrade. The fixture reported a WebSocket error during teardown after saving the receipt. A subsequent pairing-only run verified the corrected disconnect sequence. Commercial wallet applications still need interoperability testing. [WizardConnect evidence](VAULTBORN_WIZARD_RECEIPT.json)
 
 ```sh
 node scripts/verify-battle.mjs docs/VAULTBORN_VERIFIABLE_BATTLE.json --chipnet

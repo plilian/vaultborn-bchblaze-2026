@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { verifyBattle } from '../apps/game-server/battle-records.mjs';
 import { createChain } from '../packages/chain-observer/index.mjs';
 import { eventOutput, protocolHash } from '../packages/chain-observer/vaultborn.mjs';
+import { NETWORK_LABEL } from '../config/network.mjs';
 
 const source = process.argv[2];
 if (!source) throw new Error('Supply a battle JSON file, or its local /verify/battle/<id>?format=json URL.');
@@ -22,11 +23,12 @@ if (recordHash) {
   eventOutput(event);
 }
 console.log('Local combat replay verified for ' + record.battle.id + ' with result ' + record.battle.hash);
-if (process.argv.includes('--chipnet')) {
+// --chain checks the recorded transactions on the network chosen by VAULTBORN_NETWORK; --chipnet is its earlier name.
+if (process.argv.includes('--chain') || process.argv.includes('--chipnet')) {
   const chain = createChain();
   for (const [label, receipt] of [['initiation', record.initiation], ['settlement', settlement]]) {
     if (!receipt) {
-      console.log('No confirmed Chipnet ' + label + ' recorded.');
+      console.log('No confirmed ' + NETWORK_LABEL + ' ' + label + ' recorded.');
       continue;
     }
     const live = await chain.verifyPublishedTransaction(receipt.txid);
@@ -37,6 +39,6 @@ if (process.argv.includes('--chipnet')) {
     assert.equal(output?.script, expected.script);
     assert.equal(output?.satoshis, expected.satoshis);
     if (label === 'settlement') assert.equal(receipt.event.digest, event.digest);
-    console.log('Chipnet ' + label + ' verified at output ' + receipt.vout + ' of ' + receipt.txid);
+    console.log(NETWORK_LABEL + ' ' + label + ' verified at output ' + receipt.vout + ' of ' + receipt.txid);
   }
 }

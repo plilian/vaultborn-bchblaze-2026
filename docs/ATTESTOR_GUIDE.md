@@ -1,6 +1,6 @@
 # VaultBorn attestor guide
 
-An attestor is an independent person or organisation that checks game outcomes before money moves. Without attestor signatures no War Chest can be captured, no contested stake can be settled and no prize can be paid. The game operator cannot do any of this alone. You must not be the operator, and you should not share a machine or a key with another attestor.
+An attestor is a person or organisation that checks game outcomes before money moves. Without attestor signatures no War Chest can be captured, no contested stake can be settled and no prize can be paid. The game key cannot do any of this alone. In the live deployment the three attestors are run by the VaultBorn team; this guide is for anyone who runs one. An attestor run by someone other than the operator, on its own machine with its own key, makes outcomes rest on more than one party.
 
 ## What you sign, and what you check first
 

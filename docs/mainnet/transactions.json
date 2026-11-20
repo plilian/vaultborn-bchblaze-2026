@@ -2,7 +2,7 @@
   "network": "mainnet",
   "game": "VaultBorn",
   "site": "https://vaultborn.parhamlilian.com",
-  "checkedAtBlock": 978087,
+  "checkedAtBlock": 978155,
   "note": "Raw transactions, block headers and Merkle branches as served by public Fulcrum servers (bch.imaginary.cash, fulcrum.greyh.at). scripts/verify-mainnet-proof.mjs checks them offline.",
   "transactions": [
     {
@@ -73,6 +73,27 @@
       "position": 82,
       "rawHex": "0200000001bd15d77421da2006cef8d3551f3350e6bfed02602183ba4d2c9e9ada0ae761e5000000006441b98662afbb672b9827fa7a1e6860b047d74dfc6005f72512eda0c9ba94a979994868d4d8c257a37383dc76a56884c678f1fe3114c8fe2a8d2ed04fd5729c81ca612103666a4da48cc6245d777efacd514b939f2ae761cdc81e9909fc9214604bfe3271ffffffff03102700000000000023aa20c932436248a0cfd9ba81c59729c0a605a3ba8d8912a66977bc9e373d5c836983870000000000000000296a045642524e22011fdc07a991cc8b0821edd36c51076c10366568fd2d2998ce414d0c6b6815cf859bf6870000000000001976a914e6c706602915c6c0cce49933de548f5f5adffe2a88ac00000000",
       "explorer": "https://blockchair.com/bitcoin-cash/transaction/3364cea414af757ad4e34ba78c24aa61b34f6e2208893c716037ff88fdb9eb46"
+    },
+    {
+      "name": "settle",
+      "title": "Stake returned: Silver Mine claim",
+      "summary": "The Silver Mine claim settled: two of the three attestors signed the return lane of its stake-escrow-v3 contract, 6,000 satoshis went back to the claimant\u2019s wallet fixed in the contract, and the 600-satoshi settlement reserve paid the network fee. With a VaultBorn event record (VBRN) naming the claim.",
+      "txid": "1022549ae29f30d57b3327f6f381f553375a5227c197390b0564fd4a6f7a8505",
+      "blockHeight": 978094,
+      "blockHash": "000000000000000002271606a69ccc95f2abacf82ae3c27adfbec39791592836",
+      "blockHeader": "00a0e626927823bee69d98b3f4db8984763cfd64da15b76fccc250000000000000000000b864ad87d77cc18fbb8e54e31c407393a8b6b7fd2f896cf1fd0f826b5477ce12c78cff6a6e520218ff03b309",
+      "merkleBranch": [
+        "0f6df1b2b98f42a92296b2ad92a92ea58fb92277931ce8de9f113cab6f44768a",
+        "9fcec6fa23a84ec4ab84de7566b6d6272ab679717a1508bdedc32ce8974bf476",
+        "39818c634984595b75b319c54e05874b9589e4202aeac96f9c9ff1cbc014f549",
+        "fbfeecbed2590cb5c5112871adb41e6d58010364ed25b38d8f0aa778cb93084a",
+        "d4bff712a72b2e638bbdd5c36c542e8ce1e641bf80f568f7b3a90f7491850206",
+        "72722cf5e61fe1dcc346634ba43af69b38df31832145f404aeef80940f240afd",
+        "eabf0f129defc29a4a323bc3a24701db1eba0b133f215eba57087f370f9057c6"
+      ],
+      "position": 5,
+      "rawHex": "0200000001834406f1075d6c999a49e36a8d055875fd936f6450eb9123cc0a2f02c29fdc2900000000fd8d0141a513740257f382c36ed0fcd43968d017b3f04177f05f9feb0253b25d61fb478795d4d7922eeba63b25ea7955e2a82ceb1af3bf468bd89947c2ae7e7274baaad3610041fb1c79742899f8a72fb7ed5a342095712c81da81e733cf9ae67cf4c3541b6bcfead3ff1285fcb41c336dd146cb82c9deab5681aadf5036d0536a74f3ae4d785a61004d0401064245ea2df681751976a914415fde1f116c1b5bbad996ffa35ef8bbbebed10b88ac78529c637704c685086bb175c0cd882103666a4da48cc6245d777efacd514b939f2ae761cdc81e9909fc9214604bfe3271adc0ccc0c602580294a26700cd886b21021e13ddba8f3bb9d6bed28c3dbc69c967a2374d020315cb014c63058b69d7411eac7c21025f9a40a2bd7594c4c028c18612804dc17fcba84f08c3cab121d16d90d9508fd8ac937c2102d2bb3ea5026c1ce25cc5c3e6e0f5cbdffe5e59a9c92bf3587c4ac47fb020d750ac9352a269c0009d6c6300cc02b80b9d51cc02b80b9dc452a06352cc009d68c453a16700cc0270179dc451a06351cc009d68c452a16868feffffff0270170000000000001976a914415fde1f116c1b5bbad996ffa35ef8bbbebed10b88ac0000000000000000296a045642524e22012195450dbec6ccd538aa62b4220b06c7b167d9cbcddfc45cfc8dee6206d2fa82b000000000",
+      "explorer": "https://blockchair.com/bitcoin-cash/transaction/1022549ae29f30d57b3327f6f381f553375a5227c197390b0564fd4a6f7a8505"
     }
   ]
 }

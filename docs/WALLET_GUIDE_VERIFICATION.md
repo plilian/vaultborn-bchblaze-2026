@@ -1,5 +1,7 @@
 # Wallet and guide verification
 
+> **Record of 18 November 2026.** Since then Selene has been used with the live game on Bitcoin Cash Mainnet through WizardConnect: the payments it signed are in [MAINNET_TRANSACTIONS.md](MAINNET_TRANSACTIONS.md). Current state and evidence: [STATUS.md](STATUS.md).
+
 ## Selene interoperability: executed 18 November 2026
 
 `npm run test:wallet:selene` passed using the actual **Selene Wallet v2026.10.02 web release**, with its JavaScript, CSS, and HTML unchanged. Selene created a disposable, unfunded wallet in an isolated browser context. The test used Selene's actual Debug Options UI to select Chipnet, submitted VaultBorn's pairing URI in its WizardConnect screen, approved the connection in Selene, received its derived Chipnet address, recovered that same address after reloading VaultBorn, and disconnected. Desktop VaultBorn and the 430-pixel Selene view were captured and inspected.

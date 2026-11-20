@@ -1,0 +1,113 @@
+{
+  "run": "BCH + Nostr identity proof on public Nostr relays",
+  "at": "2026-11-20T09:52:39.116Z",
+  "steps": "The steps of `node scripts/identity-proof.mjs demo wss://nos.lol wss://nostr.mom`: two disposable keys are made, the BCH key and the Nostr key are linked in one signed binding event (kind 7428), the event is published to both relays, read back from each relay separately and verified from the relay data alone, and then both keys answer a challenge from a separate relying application.",
+  "how": "Run in a Chromium browser on the owner's computer (the cloud workspace used for this work cannot open WebSockets to public relays). The browser loaded this repository's own modules (packages/decentralized-identity/index.mjs, packages/chain-observer/primitives.mjs, config/network.mjs) from GitHub at commit 033129902fd13ba94034e40026d39419abfbf2d3 through jsDelivr, with @noble/curves 2.0.1, @noble/hashes 2.0.1, @bitauth/libauth 3.0.0 and buffer 6.0.3 from esm.sh (the versions in package-lock.json). The code that strings the steps together is the demo branch of scripts/identity-proof.mjs, with crypto.getRandomValues in place of node:crypto.",
+  "network": "chipnet (the default of scripts/identity-proof.mjs; the address in the binding is a test-network address). No BCH transaction, no account and no game data are involved.",
+  "keys": "two disposable keys made for this run and discarded",
+  "relays": [
+    "wss://nos.lol",
+    "wss://nostr.mom"
+  ],
+  "identity": "nostr:9c76705e330a54993f089321f0c0d75ee1ec5898d8d58e3faf38b700e11e1806",
+  "event": "9edc68bb56e3759472c1f959d7d405ee82968720338e6f399cb35985f40c36de",
+  "wallet": "bchtest:qqzmcsx0tm3382cldactzp5mtq8xgpqvtsx5vwqayy",
+  "published": [
+    {
+      "relay": "wss://nos.lol",
+      "published": [
+        {
+          "id": "9edc68bb56e3759472c1f959d7d405ee82968720338e6f399cb35985f40c36de",
+          "accepted": true,
+          "message": ""
+        }
+      ]
+    },
+    {
+      "relay": "wss://nostr.mom",
+      "published": [
+        {
+          "id": "9edc68bb56e3759472c1f959d7d405ee82968720338e6f399cb35985f40c36de",
+          "accepted": true,
+          "message": ""
+        }
+      ]
+    }
+  ],
+  "discovered": [
+    {
+      "relay": "wss://nos.lol",
+      "binding": {
+        "identity": "nostr:9c76705e330a54993f089321f0c0d75ee1ec5898d8d58e3faf38b700e11e1806",
+        "revision": 1,
+        "realm": "vaultborn:demo",
+        "account": "relay-example",
+        "wallet": "bchtest:qqzmcsx0tm3382cldactzp5mtq8xgpqvtsx5vwqayy",
+        "bchKey": "027979f148550b5354626abc81e7ded7a8b2b5dfdbc933bf6ad2d6bb8ede7e1664",
+        "nostrKey": "9c76705e330a54993f089321f0c0d75ee1ec5898d8d58e3faf38b700e11e1806",
+        "head": "9edc68bb56e3759472c1f959d7d405ee82968720338e6f399cb35985f40c36de",
+        "status": "active",
+        "createdAt": 1795168356
+      }
+    },
+    {
+      "relay": "wss://nostr.mom",
+      "binding": {
+        "identity": "nostr:9c76705e330a54993f089321f0c0d75ee1ec5898d8d58e3faf38b700e11e1806",
+        "revision": 1,
+        "realm": "vaultborn:demo",
+        "account": "relay-example",
+        "wallet": "bchtest:qqzmcsx0tm3382cldactzp5mtq8xgpqvtsx5vwqayy",
+        "bchKey": "027979f148550b5354626abc81e7ded7a8b2b5dfdbc933bf6ad2d6bb8ede7e1664",
+        "nostrKey": "9c76705e330a54993f089321f0c0d75ee1ec5898d8d58e3faf38b700e11e1806",
+        "head": "9edc68bb56e3759472c1f959d7d405ee82968720338e6f399cb35985f40c36de",
+        "status": "active",
+        "createdAt": 1795168356
+      }
+    }
+  ],
+  "agreed": true,
+  "authenticated": true,
+  "independentReadBack": {
+    "how": "Fresh connections to each relay with a plain NIP-01 REQ {kinds:[7428], '#d':[identity], limit:96} (no library code), answered with EVENT then EOSE. The event each relay returned was then verified offline in Node 24 with verifyIdentityHistory from packages/decentralized-identity.",
+    "result": [
+      {
+        "relay": "wss://nos.lol",
+        "eventId": "9edc68bb56e3759472c1f959d7d405ee82968720338e6f399cb35985f40c36de",
+        "verified": {
+          "identity": "nostr:9c76705e330a54993f089321f0c0d75ee1ec5898d8d58e3faf38b700e11e1806",
+          "head": "9edc68bb56e3759472c1f959d7d405ee82968720338e6f399cb35985f40c36de",
+          "status": "active"
+        }
+      },
+      {
+        "relay": "wss://nostr.mom",
+        "eventId": "9edc68bb56e3759472c1f959d7d405ee82968720338e6f399cb35985f40c36de",
+        "verified": {
+          "identity": "nostr:9c76705e330a54993f089321f0c0d75ee1ec5898d8d58e3faf38b700e11e1806",
+          "head": "9edc68bb56e3759472c1f959d7d405ee82968720338e6f399cb35985f40c36de",
+          "status": "active"
+        }
+      }
+    ]
+  },
+  "checkItYourself": "node scripts/identity-proof.mjs discover nostr:9c76705e330a54993f089321f0c0d75ee1ec5898d8d58e3faf38b700e11e1806 wss://nos.lol wss://nostr.mom   (exits 0 and prints \"agreed\": true while both relays keep the event)",
+  "signedEvent": {
+    "content": "{\"payload\":{\"version\":1,\"operation\":\"link\",\"identity\":\"nostr:9c76705e330a54993f089321f0c0d75ee1ec5898d8d58e3faf38b700e11e1806\",\"revision\":1,\"previous\":null,\"realm\":\"vaultborn:demo\",\"account\":\"relay-example\",\"wallet\":\"bchtest:qqzmcsx0tm3382cldactzp5mtq8xgpqvtsx5vwqayy\",\"bchKey\":\"027979f148550b5354626abc81e7ded7a8b2b5dfdbc933bf6ad2d6bb8ede7e1664\",\"nostrKey\":\"9c76705e330a54993f089321f0c0d75ee1ec5898d8d58e3faf38b700e11e1806\",\"nonce\":\"4737b61bd29c7d2f9f68b3d6a36ede69b8f8cc7dbc0cc877053250e95cbea5fd\",\"issuedAt\":1795168356,\"expiresAt\":1795168656},\"bchSignature\":\"f23ff6ca202914bbb2f304cd9f1ba2bc951b91eff71047cb6db46641f464d44d26687d73f938c1fbf9d938ab92351a807d96014648028e8d360b044142bd4201\",\"priorBchSignature\":null,\"priorNostrEvent\":null}",
+    "created_at": 1795168356,
+    "id": "9edc68bb56e3759472c1f959d7d405ee82968720338e6f399cb35985f40c36de",
+    "kind": 7428,
+    "pubkey": "9c76705e330a54993f089321f0c0d75ee1ec5898d8d58e3faf38b700e11e1806",
+    "sig": "391e6a2b5a74f1e818b0c3a3f088facc028126a45995bd7b7eb47c6a2c731d21652f651687cb2a798c6fe3ccafcd39a5bd5234a2ebcbdd35e31644333b45717c",
+    "tags": [
+      [
+        "d",
+        "nostr:9c76705e330a54993f089321f0c0d75ee1ec5898d8d58e3faf38b700e11e1806"
+      ],
+      [
+        "t",
+        "vaultborn-identity-v1"
+      ]
+    ]
+  }
+}

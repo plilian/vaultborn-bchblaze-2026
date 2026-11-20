@@ -1,6 +1,6 @@
 # Chipnet verification report
 
-> **Historical record.** This file documents an earlier run under earlier prices, splits and contracts (before the final economy of 19 November 2026). It is kept as evidence of that run only. Current rules: [ECONOMY_DESIGN.md](ECONOMY_DESIGN.md).
+> **Record of an earlier run,** under earlier prices, splits and contracts (before the final economy of 19 November 2026), kept as evidence of that run. What it says had not run yet describes that day: VaultBorn has since gone live on Bitcoin Cash Mainnet (payments signed in Selene through WizardConnect, a contract settlement signed by the attestors), and the identity proof has run on public Nostr relays. Current rules: [ECONOMY_DESIGN.md](ECONOMY_DESIGN.md) · current state and evidence: [STATUS.md](STATUS.md).
 
 This report records the historical BCH Dominion payment protocol. Its original fixture commands match the pre-VAULTBORN checkout and fee schedule. For the current implementation and current receipts, see [VAULTBORN Chipnet verification](VAULTBORN_CHIPNET.md).
 
@@ -79,4 +79,4 @@ Chipnet rush and Founder NFT test passed.
 - An outgoing withdrawal retained one confirmation in the application while public Chipnet had already mined further blocks. The ledger now reconciles the confirming state and the same signed withdrawal completed after restart without issuing another transfer.
 - Live evidence uses the Electrum transport. The optional BCHN RPC path was implemented without a live BCHN integration run. Reorg cases were exercised in deterministic tests.
 - The Founder badge was minted and its current holder was independently verified. Automated season-triggered badge issuance and full transfer history remain outside this flow.
-- XO has no executed invitation and no verified template. The test scope was Chipnet only.
+- The XO template came later; it is described in [xo/README.md](../xo/README.md).

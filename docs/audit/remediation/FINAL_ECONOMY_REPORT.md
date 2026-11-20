@@ -1,5 +1,7 @@
 # VaultBorn — Final BCH economy, matched-stakes PvP and security remediation
 
+> **Dated report (19 November 2026),** written before the Mainnet launch. Its findings are kept as they were written; its statements about what had not yet run, and about Mainnet readiness, describe that day. VaultBorn has since gone live on Bitcoin Cash Mainnet, with wallet-signed payments and a contract settlement signed by the attestors. Current state and evidence: [STATUS.md](../../STATUS.md) · [MAINNET_TRANSACTIONS.md](../../MAINNET_TRANSACTIONS.md).
+
 > **Later update (19 November 2026):** the open issues and the Mainnet readiness of this report were taken further in `MAINNET_PREPARATION_REPORT.md` (service credit, recoverable proof reserve `record-reserve-v2`, exact withdrawals, Mainnet configuration). The economy described here is unchanged. VaultBorn has since gone live on Bitcoin Cash Mainnet; see [../../MAINNET_TRANSACTIONS.md](../../MAINNET_TRANSACTIONS.md).
 
 Date: 19 November 2026. This is the single report of this pass. It supersedes `FINAL_ECONOMY_AND_SECURITY_GAPS.md`, `ECONOMY_SECURITY_GAPS_REPORT.md`, `FINAL_REMEDIATION_REPORT.md`, `CUSTODY_PROOF_AND_STATUS.md` and `REMEDIATION_REPORT.md` wherever they differ.

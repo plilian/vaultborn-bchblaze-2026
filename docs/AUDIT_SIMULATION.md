@@ -1,6 +1,6 @@
 # Offline economy and balance audit
 
-> **Historical record.** This file documents an earlier run under earlier prices, splits and contracts (before the final economy of 19 November 2026). It is kept as evidence of that run only. Current rules: [ECONOMY_DESIGN.md](ECONOMY_DESIGN.md).
+> **Record of an earlier run,** under earlier prices, splits and contracts (before the final economy of 19 November 2026), kept as evidence of that run. What it says had not run yet describes that day: VaultBorn has since gone live on Bitcoin Cash Mainnet (payments signed in Selene through WizardConnect, a contract settlement signed by the attestors), and the identity proof has run on public Nostr relays. Current rules: [ECONOMY_DESIGN.md](ECONOMY_DESIGN.md) · current state and evidence: [STATUS.md](STATUS.md).
 
 Run `node packages/economy-simulator/audit.mjs`; the deterministic result is in [AUDIT_SIMULATION_RESULTS.json](AUDIT_SIMULATION_RESULTS.json). `--quick` verifies a small grid without writing a replacement report. The audit only calculates in memory and writes a local JSON report. No wallets, RPC, relays, or chain executables are involved.
 

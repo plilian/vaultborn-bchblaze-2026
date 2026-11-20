@@ -1,6 +1,6 @@
 # Contracts and security audit
 
-> **Historical audit (18 November 2026),** written before the remediation and the Mainnet launch. VaultBorn has since gone live on Bitcoin Cash Mainnet with real, confirmed transactions; see [MAINNET.md](../../MAINNET.md) and [MAINNET_TRANSACTIONS.md](../../MAINNET_TRANSACTIONS.md).
+> **Dated report (18 November 2026),** written before the Mainnet launch. Its findings are kept as they were written; its statements about what had not yet run, and about Mainnet readiness, describe that day. VaultBorn has since gone live on Bitcoin Cash Mainnet, with wallet-signed payments and a contract settlement signed by the attestors. Current state and evidence: [STATUS.md](../../STATUS.md) · [MAINNET_TRANSACTIONS.md](../../MAINNET_TRANSACTIONS.md).
 
 Audit date: 18 November 2026. This report inspects the existing code and reuses prior evidence. No implementation was changed. New execution was limited to genuine coverage gaps on the existing isolated BCHN Regtest chain. No Chipnet or Mainnet transaction was sent by this contract workstream.
 

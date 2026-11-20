@@ -1,5 +1,7 @@
 # VaultBorn — Remediation, Contract Inventory, Evidence, Audit and Readiness
 
+> **Dated report (19 November 2026),** written before the Mainnet launch. Its findings are kept as they were written; its statements about what had not yet run, and about Mainnet readiness, describe that day. VaultBorn has since gone live on Bitcoin Cash Mainnet, with wallet-signed payments and a contract settlement signed by the attestors. Current state and evidence: [STATUS.md](../../STATUS.md) · [MAINNET_TRANSACTIONS.md](../../MAINNET_TRANSACTIONS.md).
+
 > **Superseded on 19 November 2026 by `FINAL_ECONOMY_REPORT.md`** (final price book, matched-stakes raids, one War Chest). Kept for history; prices, raid rules and custody described below are no longer current.
 
 Date: 19 November 2026. Scope: the blockchain remediation requested on 18–19 November, including the final sponsorship and hackathon requirements (30/70, one developer address, covenant-controlled funds).

@@ -235,7 +235,7 @@ await browser.close();
 app.close(); paidApp.close(); relay.close();
 const evidence = process.argv[2];
 if (evidence) writeFileSync(evidence, JSON.stringify({ suite: 'connect wallet (start page and game) with the WizardConnect wallet SDK', at: new Date().toISOString(),
-  note: 'A relay inside the test and the wallet SDK applying Selene\'s signing rule. Not evidence of a phone wallet or of any payment.', passed, failed: failure ? String(failure.message).slice(0, 400) : null }, null, 2) + '\n');
+  note: 'The official WizardConnect wallet SDK applying Selene\'s signing rule, over a relay inside the test. Payments made with Selene itself on Mainnet are in docs/MAINNET_TRANSACTIONS.md.', passed, failed: failure ? String(failure.message).slice(0, 400) : null }, null, 2) + '\n');
 if (failure) { console.error('FAILED after ' + passed.length + ' checks:\n' + (failure.stack ?? failure)); process.exit(1); }
 console.log(passed.length + ' of ' + passed.length + ' checks passed.');
 process.exit(0);
