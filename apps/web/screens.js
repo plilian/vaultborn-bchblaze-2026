@@ -645,6 +645,10 @@ function receiptLink(item,txid) {
 }
 function walletTray(intent) {
   const state = wizardState();
+  // Resting: paired, but the wallet has not answered this page. Whether it only sleeps or has dropped the pairing cannot
+  // be told apart from here, so the player is told both and can connect again in place.
+  const resting = Boolean(state.asleep || state.unanswered);
+  const waitingUnanswered = state.status === 'signing' && state.unanswered && !state.proving;
   const selector = `<div class="wallet-selection">
     ${state.canReconnect?btn('Reconnect wallet','bch',{'wallet-reconnect':'true'},'primary'):''}
     ${btn('Selene Wallet','bch',{'wallet-pair':'Selene Wallet'},'primary')}
@@ -663,9 +667,12 @@ function walletTray(intent) {
     state.status === 'broadcasting' ? '<p role="status">Submitting the signed transaction to ' + NETWORK_LABEL + '…</p>' :
     state.status === 'ready' || state.status === 'signing' ?
       `<p>${tag(state.walletName ?? 'Wallet paired','success')}${state.address?' '+html(walletLabel(null)):''}</p>
-      ${state.asleep && state.status==='ready' ? '<p class="quiet-text">Connected. Your wallet app is closed or asleep right now; a request reaches it as soon as you open the wallet app.</p>' : ''}<div class="buttons">
+      ${state.asleep && state.status==='ready' ? '<p class="quiet-text">Your wallet app has not answered since you came back: it is closed or asleep. Open it first. If VaultBorn is no longer listed there under WizardConnect, the wallet is disconnected: connect it again' + (intent ? ', and this payment continues by itself.' : '.') + '</p>' : ''}
+      ${waitingUnanswered ? '<p class="form-error" role="alert">Your wallet has not answered. Open the wallet app now. If this request does not appear there, the wallet is no longer connected to VaultBorn: connect it again, and this payment continues by itself.</p>' : ''}<div class="buttons">
         ${intent && state.status === 'ready' ? btn('Approve with wallet','bch',{'wallet-approve':intent.id},'primary') : ''}
-        ${state.status === 'signing' ? btn('Cancel approval','close',{'wallet-cancel':'true'}) : btn('Disconnect wallet','close',{'wallet-close':'true'})}
+        ${state.status === 'signing' ? btn('Cancel approval','close',{'wallet-cancel':'true'}) : ''}
+        ${resting && !state.proving ? btn('Reconnect wallet','bch',{'wallet-repair':intent?.id ?? ''},waitingUnanswered ? 'primary' : '') : ''}
+        ${state.status === 'signing' ? '' : btn('Disconnect wallet','close',{'wallet-close':'true'})}
         ${state.status === 'signing' ? '<span role="status">' + (state.proving ? 'Approve the request in your wallet. It proves the wallet is yours; it sends nothing and spends nothing.' : 'Waiting for approval in your wallet…') + '</span>' : ''}</div>` :
       selector;
   return well('WizardConnect', tray + (state.error ? '<p class="form-error">' + html(state.error) + '</p>' : ''));

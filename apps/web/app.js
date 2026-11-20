@@ -5,7 +5,7 @@ import { activeWork, renderPage, renderDialog, formAnswer } from './screens.js';
 import { battleCampNames, battleTimeline, mountBattleMotion } from './battle-motion.js';
 import { raidSpoils } from './battle-report.js';
 import { claimableTasks, whatNext, whatNextPanel } from './what-next.js';
-import { adoptWizardSession, approveWizard, cancelWizardApproval, closeWizard, connectWizard, proveWizard, walletAddress, walletKeys, walletLabel, wizardState } from './ritual-wallet.js';
+import { adoptWizardSession, approveWizard, cancelWizardApproval, closeWizard, connectWizard, proveWizard, reconnectWizard, walletAddress, walletKeys, walletLabel, wizardState } from './ritual-wallet.js';
 import { openCitadel, setCitadelPayments } from './citadel.js';
 import { presentTerritoryNews } from './territory-outcomes.js';
 import { territoryMarker } from './territory-field.js';
@@ -163,6 +163,7 @@ async function verifyWallet({ again = false } = {}) {
     notify('Wallet connected and verified.');
     void inspectWalletAssets();
     continuePendingPayment();
+    resumeApproval();
   } catch (error) {
     ui.walletProof = { error: error.message, ...(error.code === 'wallet-other-kingdom' && error.again && { openOther: error.again }) };
     notify(error.message, true);
@@ -1137,6 +1138,30 @@ async function startPayment(payload) {
     showDialog('payment', { id: intent.id, intent });
   });
 }
+// The checkout's wallet step: the wallet is asked to approve the payment.
+function approvePayment(id) {
+  const intent = list(ui.state.payments).find(payment => payment.id === id) ?? ui.dialog?.intent;
+  if (intent) void approveWizard(intent, api).then(result => {
+    if (result.state) setState(result.state);
+    renderAll(true);
+  }).catch(error => { if (error?.code !== 'wallet-reconnecting' && !requireWallet(error)) presentOrderFailure(error.message); });
+}
+// The wallet stopped answering its pairing: it is connected again, in place. A checkout that was waiting for it is
+// remembered and goes on by itself once the wallet is back.
+function repairWallet(paymentId) {
+  const session = wizardState();
+  ui.resumeApproval = paymentId || null;
+  const choice = /selene/i.test((session.walletName ?? '') + ' ' + (session.walletChoice ?? '')) ? 'Selene Wallet' : 'WizardConnect wallet';
+  void reconnectWizard(choice, { player:playerCity().id, testRelay:ui.state.chain.testWizardRelay });
+}
+function resumeApproval() {
+  const id = ui.resumeApproval;
+  if (!id) return;
+  if (ui.dialog?.mode !== 'payment' || ui.dialog.id !== id) { ui.resumeApproval = null; return; }
+  if (wizardState().status !== 'ready' || !walletLive()) return;
+  ui.resumeApproval = null;
+  approvePayment(id);
+}
 // The wallet asked for by a payment is now connected and linked: the payment goes on to its checkout.
 function continuePendingPayment() {
   if (!ui.pendingPayment || ui.dialog?.mode !== 'wallet' || ui.busy || !walletLive()) return;
@@ -1396,13 +1421,8 @@ document.addEventListener('click', event => {
       location.replace('/');
     }).catch(()=>{ui.signingOut=false;if(el.isConnected)el.disabled=false;});
   }
-  if (data.walletApprove) {
-    const intent = list(ui.state.payments).find(payment => payment.id === data.walletApprove) ?? ui.dialog?.intent;
-    if (intent) void approveWizard(intent, api).then(result => {
-      if (result.state) setState(result.state);
-      renderAll(true);
-    }).catch(error => { if (!requireWallet(error)) presentOrderFailure(error.message); });
-  }
+  if (data.walletApprove) approvePayment(data.walletApprove);
+  if ('walletRepair' in data && ui.state?.chain?.walletConnect) repairWallet(data.walletRepair);
   if ('walletProve' in data) void verifyWallet({ again:true });
   if (data.mapFocus) {
     const focal = cities().find(city => city.id === data.mapFocus);
@@ -1464,6 +1484,7 @@ document.addEventListener('click', event => {
 document.addEventListener('vaultborn-wallet-status', () => {
   if (wizardState().status === 'ready') void verifyWallet();
   continuePendingPayment();
+  resumeApproval();
   if (wizardState().status === 'closed') { provedFor = null; ui.walletProof = null; }
   if (ui.dialog?.mode === 'wallet' || ui.dialog?.mode === 'payment') refreshDialog();
   if(ui.state) renderHeader();

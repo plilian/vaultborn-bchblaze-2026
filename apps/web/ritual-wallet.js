@@ -6,6 +6,12 @@ let pending;
 let phase = { status: 'closed' };
 let packagePromise;
 let generation = 0;
+// When the wallet last sent anything to this page: an answer, a readiness notice, or the reply to a ping.
+let heardAt = 0;
+// A request that has had no answer of any kind from the wallet for this long, while the page was in view, is shown as
+// unanswered: the wallet app is closed, or it no longer knows this pairing and the player has to connect again.
+const UNANSWERED_AFTER = 15;
+const RECONNECTING = 'The wallet is being connected again.';
 const load = () => packagePromise ??= import('./vendor/wizardconnect.js');
 // A pairing stays until the player disconnects it or signs out. It is kept in this browser's own storage, so it
 // survives other pages, new tabs and a restart of the browser. It is a relay session, not a BCH key: every use of it
@@ -93,6 +99,12 @@ export async function connectWizard(walletChoice='WizardConnect wallet', { testR
         address:encodeCashAddress({prefix:NETWORK.prefix,type:'p2pkh',payload:hash160(key)}).address,
         publicKey:binToHex(key), code:null, uri:null, error:null, canReconnect:false,waitingApproval:false,asleep:false });
     });
+    // Anything the wallet sends shows that it is there and still knows this pairing.
+    manager.on('messagereceived', message => {
+      if (current!==generation || message?.action==='disconnect') return;
+      heardAt=Date.now();
+      if ((phase.asleep || phase.unanswered) && ['ready','signing'].includes(phase.status)) update({asleep:false,unanswered:false});
+    });
     // A phone wallet that is locked or in the background stops answering. That is not a disconnection: the pairing is
     // kept, the wallet is shown as resting, and a request sent meanwhile reaches it when the player opens the wallet.
     manager.on('reconnecting', () => {
@@ -177,6 +189,15 @@ async function pairThroughServer({ current, walletChoice, player, testRelay, qrI
   } finally { document.removeEventListener('visibilitychange', nudge); }
 }
 
+// The wallet no longer answers this pairing: it is given up here and a new one is started. A request that was waiting
+// for the wallet is withdrawn first; nothing was signed, so nothing is lost.
+export async function reconnectWizard(walletChoice, options) {
+  if (phase.status === 'broadcasting') return;
+  pending?.abort(RECONNECTING);
+  await closeWizard();
+  return connectWizard(walletChoice, options);
+}
+
 export async function closeWizard() {
   if (phase.status === 'broadcasting') return;
   const closing = ++generation;
@@ -214,7 +235,15 @@ export async function approveWizard(intent, api, { receive = 20, change = 20, ti
   const controller = new AbortController();
   pending = controller;
   const deadline = setTimeout(() => controller.abort('Your wallet did not answer. Open the wallet app and try again. If this game is no longer listed under WizardConnect in the wallet, disconnect here and connect once more.'), Math.max(timeoutMs, 180_000));
-  update({ status:'signing', error:null });
+  update({ status:'signing', error:null, unanswered:false });
+  // Seconds this page was in view since the request began without a word from the wallet.
+  const askedAt = Date.now();
+  let inView = 0;
+  const watch = setInterval(() => {
+    if (heardAt >= askedAt || phase.status !== 'signing') return;
+    if (globalThis.document?.visibilityState !== 'hidden') inView += 1;
+    if (inView >= UNANSWERED_AFTER && !phase.unanswered) update({ unanswered:true });
+  }, 1000);
   try {
     const { binToHex } = await load();
     await relayReady(controller.signal);
@@ -232,11 +261,13 @@ export async function approveWizard(intent, api, { receive = 20, change = 20, ti
     update({status:'broadcasting'});
     return await api(prefix + 'broadcast', { signedTransaction:response.signedTransaction });
   } catch (error) {
+    if (controller.signal.reason === RECONNECTING) throw Object.assign(new Error(RECONNECTING), { code:'wallet-reconnecting' });
     throw typeof error === 'string' ? new Error(error) : error;
   } finally {
     clearTimeout(deadline);
+    clearInterval(watch);
     pending = null;
-    if (phase.status === 'signing' || phase.status === 'broadcasting') update({ status:relay ? 'ready' : 'closed' });
+    if (phase.status === 'signing' || phase.status === 'broadcasting') update({ status:relay ? 'ready' : 'closed', unanswered:false });
   }
 }
 

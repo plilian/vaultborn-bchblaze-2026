@@ -40,8 +40,8 @@ relay.on('connection', socket => {
 });
 
 // ---- A wallet: an HD account with no coins at all. Connecting must not need any. ----
-function makeWallet(name) {
-  const account = deriveHdPath(deriveHdPrivateNodeFromSeed(randomBytes(32)), "m/44'/145'/0'");
+function makeWallet(name, seed = randomBytes(32)) {
+  const account = deriveHdPath(deriveHdPrivateNodeFromSeed(seed), "m/44'/145'/0'");
   const branch = path => deriveHdPathRelative(account, String(path));
   const child = (path, index) => deriveHdPathRelative(branch(path), String(index));
   const keyAt = (pathName, index) => hex(child(pathName === 'change' ? 1 : 0, index).privateKey);
@@ -78,9 +78,17 @@ await once(app.server, 'listening');
 const origin = 'http://127.0.0.1:' + app.server.address().port;
 // A second game whose checkout is open (a stub chain that answers but has no coins): used to check what a pay button does.
 const stubKey = () => randomBytes(32).toString('hex');
+// Coins this stub chain reports for a wallet, so that a checkout can build its payment. They exist nowhere else.
+const stubCoins = new Map();
+const giveCoin = (script, satoshis) => {
+  const raw = hex(encodeTransaction({ version: 2, locktime: 0, inputs: [{ outpointTransactionHash: randomBytes(32), outpointIndex: 0, sequenceNumber: 0xffffffff, unlockingBytecode: new Uint8Array() }],
+    outputs: [{ lockingBytecode: fromHex(script), valueSatoshis: BigInt(satoshis) }] }));
+  stubCoins.set(readTransaction(raw).txid, { raw, script, satoshis });
+};
 const paidChain = createChain({ treasuryPrivateKey: stubKey(), developmentAddress: walletFromPrivateKey(stubKey()).address,
   prizeAttestors: [walletFromPrivateKey(stubKey()).publicKey], transport: {
-    withClient: work => work({ tip: 36008, block: async () => '01' + '00'.repeat(79), history: async () => [], listUnspent: async () => [] }) } });
+    withClient: work => work({ tip: 36008, block: async () => '01' + '00'.repeat(79), history: async () => [], raw: async txid => stubCoins.get(txid)?.raw ?? null,
+      listUnspent: async script => [...stubCoins].filter(([, coin]) => coin.script === script).map(([txid, coin]) => ({ txid, vout: 0, satoshis: coin.satoshis, height: 36000 })) }) } });
 const noAssets = { enabled: false, list: () => [], authority: () => null, close: () => {} };
 const paidApp = createApp({ database: ':memory:', chain: paidChain, localDemo: false, testWizardRelay: relayUrl, territoryAssets: noAssets, politicalAssets: noAssets });
 paidApp.server.listen(0, '127.0.0.1');
@@ -191,10 +199,17 @@ try {
     assert.equal((await state(game)).wallet, null);
     await game.context().close();
   });
+  const daveSeed = randomBytes(32);
+  const dave = makeWallet('Test wallet D (SDK)', daveSeed);
+  const game = await visitor();
+  const box = game.locator('dialog#dialog');
+  const fund = async () => {
+    await game.getByRole('navigation', { name: 'Main navigation' }).getByRole('button', { name: 'Vault', exact: true }).click();
+    await game.locator('#campaign').getByRole('button', { name: 'Fund War Chest', exact: true }).click();
+    await box.getByRole('checkbox').check();
+    await box.getByRole('button', { name: 'Create payment intent', exact: true }).click();
+  };
   await check('a pay button without a connected wallet opens the wallet dialog, and once the wallet connects the checkout follows by itself', async () => {
-    const dave = makeWallet('Test wallet D (SDK)');
-    const game = await visitor();
-    const box = game.locator('dialog#dialog');
     await game.goto(paidOrigin + '/play');
     await box.getByRole('heading', { name: 'Found a city', exact: true }).waitFor({ timeout: 60_000 });
     await box.getByLabel('Commander name', { exact: true }).fill('Warden Dave');
@@ -204,12 +219,6 @@ try {
     await box.getByRole('button', { name: 'Skip', exact: true }).click();
     await box.getByRole('heading', { name: 'Connect your wallet', exact: true }).waitFor();
     await box.getByRole('button', { name: 'Not now', exact: true }).click();
-    const fund = async () => {
-      await game.getByRole('navigation', { name: 'Main navigation' }).getByRole('button', { name: 'Vault', exact: true }).click();
-      await game.locator('#campaign').getByRole('button', { name: 'Fund War Chest', exact: true }).click();
-      await box.getByRole('checkbox').check();
-      await box.getByRole('button', { name: 'Create payment intent', exact: true }).click();
-    };
     await fund();
     await box.getByRole('heading', { name: 'Chipnet wallet', exact: true }).waitFor();
     assert.match(await box.innerText(), /Connect your wallet first/);
@@ -227,6 +236,42 @@ try {
     await box.getByRole('heading', { name: 'War chest funding', exact: true }).waitFor();
     assert.equal(await box.getByRole('button', { name: 'Approve with wallet', exact: true }).count(), 1);
     assert.deepEqual(dave.seen.errors, []);
+  });
+  await check('a wallet that no longer knows the pairing: the checkout says so, connects it again in place, and the payment then continues by itself', async () => {
+    giveCoin(dave.first.script, 30_000);
+    const before = dave.seen.requests.length;
+    // The wallet app was closed and has forgotten the pairing, without a word; the player comes back to the game later.
+    for (const id of Object.keys(dave.manager.getConnections())) dave.manager.doDisconnect(id, false);
+    await game.reload();
+    await game.locator('.wallet-shortcut').first().waitFor({ timeout: 60_000 });
+    // The campaign guide of a new kingdom opens again on a return; it is put aside here.
+    const guide = game.locator('#campaign-guide');
+    await guide.getByRole('button', { name: 'Skip', exact: true }).click({ timeout: 20_000 });
+    await guide.getByRole('button', { name: 'Skip tutorial', exact: true }).click();
+    await box.getByRole('heading', { name: 'First banner raised' }).first().waitFor({ timeout: 20_000 });
+    await box.getByRole('button', { name: 'Continue', exact: true }).click();
+    await fund();
+    await box.getByRole('heading', { name: 'War chest funding', exact: true }).waitFor({ timeout: 30_000 });
+    // The wallet is still shown, but as one that has not answered, with the way to connect it again.
+    await box.getByText(/has not answered since you came back/).waitFor({ timeout: 30_000 });
+    assert.equal(await box.getByRole('button', { name: 'Reconnect wallet', exact: true }).count(), 1);
+    // The player tries to pay anyway: after a short while without any answer the checkout says what to do.
+    await box.getByRole('button', { name: 'Approve with wallet', exact: true }).click();
+    await box.getByRole('alert').filter({ hasText: 'Your wallet has not answered' }).waitFor({ timeout: 60_000 });
+    assert.equal(dave.seen.requests.length, before, 'the wallet that forgot the pairing received nothing');
+    await box.getByRole('button', { name: 'Reconnect wallet', exact: true }).click();
+    // The same wallet (same seed), opened again, pairs in place ...
+    const back = makeWallet('Test wallet D (SDK)', daveSeed);
+    back.manager.connect(await box.getByRole('link', { name: 'Open in wallet' }).getAttribute('href'));
+    // ... and the payment that was waiting reaches it by itself: no second press, no new wallet check.
+    for (let waited = 0; !back.seen.requests.length && waited < 90_000; waited += 250) await new Promise(done => setTimeout(done, 250));
+    assert.deepEqual(back.seen.errors, []);
+    assert.equal(back.seen.requests.length, 1);
+    assert.match(back.seen.requests[0].prompt, /War chest funding · \d+ sats plus \d+ fee/);
+    assert.equal(back.seen.requests[0].broadcast, false);
+    // The signed payment comes back to the game.
+    for (let waited = 0; !(await state(game)).payments.some(item => item.txid) && waited < 30_000; waited += 500) await new Promise(done => setTimeout(done, 500));
+    assert.ok((await state(game)).payments.some(item => item.action === 'war-chest' && item.txid), 'the checkout received the signed payment');
     await game.context().close();
   });
   await check('no page raised a script error', async () => { assert.deepEqual(pageErrors, []); });
