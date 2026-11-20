@@ -4,9 +4,16 @@
   "source": "Original art directed from the project reference boards",
   "audio": [
     {
+      "path": "frontier-saga.mp3",
+      "title": "Legionnaire (2022 Remaster), Age of Wonder, Song Of The Forge",
+      "use": "Campaign music (about 12 minutes, the three pieces joined with short crossfades)",
+      "attribution": "Music by Scott Buckley, released under CC BY 4.0, www.scottbuckley.com.au",
+      "license": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)"
+    },
+    {
       "path": "frontier-score.mp3",
       "title": "March of the Riverwardens",
-      "use": "Campaign music",
+      "use": "Earlier campaign music, kept in the repository",
       "attribution": "VAULTBORN original score",
       "production": "scripts/render-score.py"
     },

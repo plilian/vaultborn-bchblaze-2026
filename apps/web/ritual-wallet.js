@@ -10,7 +10,9 @@ const load = () => packagePromise ??= import('./vendor/wizardconnect.js');
 // A pairing stays until the player disconnects it or signs out. It is kept in this browser's own storage, so it
 // survives other pages, new tabs and a restart of the browser. It is a relay session, not a BCH key: every use of it
 // still needs the player's approval in the wallet.
-const sessionStore = () => { try { return localStorage; } catch { return undefined; } };
+const memoryStore = new Map();
+const pageStore = { getItem: key => memoryStore.get(key) ?? null, setItem: (key, value) => memoryStore.set(key, String(value)), removeItem: key => memoryStore.delete(key) };
+const sessionStore = () => { try { return localStorage ?? pageStore; } catch { return pageStore; } };
 const sessionName = (player, testRelay) => 'vaultborn-wizard-v1:' + player + ':' + (testRelay ?? NETWORK.id);
 
 export const wizardState = () => phase;
@@ -37,6 +39,7 @@ export async function connectWizard(walletChoice='WizardConnect wallet', { testR
   try {
     const { initiateDappRelay, DappConnectionManager, qrImage, decodeHdPublicKey, encodeCashAddress, hash160, binToHex } = await load();
     if (current !== generation) return;
+    if (!resume && await pairThroughServer({ current, walletChoice, player, testRelay, qrImage })) return;
     // A relay key is scoped to the current kingdom, endpoint and tab. It is not a BCH spending key.
     let session=false;
     // Storage can be unavailable in a private browsing context; the pairing then lasts for this page only.
@@ -136,6 +139,44 @@ export async function connectWizard(walletChoice='WizardConnect wallet', { testR
   }
 }
 
+// A new pairing is held by the game server: it answers the wallet at once, while this page may be paused behind the
+// wallet app, so the wallet shows "Connect" at the first try. When the player comes back, this page takes over the same
+// relay session and asks for the wallet check as before. False if the server cannot pair.
+async function pairThroughServer({ current, walletChoice, player, testRelay, qrImage }) {
+  const post = async (path, body) => {
+    const response = await fetch('/api/identity/wizard/' + path, { method:'POST', credentials:'same-origin', cache:'no-store',
+      headers:{ 'Content-Type':'application/json' }, body:JSON.stringify(body) });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok) throw Object.assign(new Error(payload.error ?? 'WizardConnect could not start.'), { status:response.status });
+    return payload.result;
+  };
+  let started;
+  try { started = await post('pair', {}); }
+  catch (error) { if (error.status === 404) return false; throw error; }
+  const code = await qrImage(started.qrUri, { color:{ dark:'#152326',light:'#fff3d2' }, width:230, margin:2 });
+  if (current !== generation) return true;
+  update({ status:'pairing', uri:started.uri, code });
+  let wake;
+  const nudge = () => { if (document.visibilityState === 'visible') wake?.(); };
+  document.addEventListener('visibilitychange', nudge);
+  try {
+    for (;;) {
+      await new Promise(done => { wake = done; setTimeout(done, 1500); });
+      if (current !== generation) return true;
+      let state;
+      try { state = await post('pair/status', { id:started.id }); } catch { continue; }
+      if (current !== generation) return true;
+      if (state.status === 'approving' && !phase.waitingApproval) update({ waitingApproval:true });
+      if (state.status === 'failed') { phase = { status:'closed', error:state.error }; update({}); return true; }
+      if (state.status !== 'connected') continue;
+      if (state.session) sessionStore().setItem(sessionName(player, testRelay), state.session);
+      phase = { status:'closed', walletChoice };
+      await connectWizard(walletChoice, { testRelay, player, resume:true });
+      return true;
+    }
+  } finally { document.removeEventListener('visibilitychange', nudge); }
+}
+
 export async function closeWizard() {
   if (phase.status === 'broadcasting') return;
   const closing = ++generation;
@@ -165,8 +206,9 @@ function offeredKeys(binToHex, receive, change) {
     }).filter(Boolean));
 }
 
-// The game looks at 8 receiving and 4 change addresses and waits 90 seconds for the approval; a caller may ask for more.
-export async function approveWizard(intent, api, { receive = 8, change = 4, timeoutMs = 90_000 } = {}) {
+// The game looks at the same 20 receiving and 20 change addresses as the wallet balance it shows, and waits 90 seconds
+// for the approval.
+export async function approveWizard(intent, api, { receive = 20, change = 20, timeoutMs = 90_000 } = {}) {
   if (phase.status !== 'ready' || !manager) throw new Error('Connect your wallet first.');
   if (pending) throw new Error('A wallet approval is already in progress.');
   const controller = new AbortController();

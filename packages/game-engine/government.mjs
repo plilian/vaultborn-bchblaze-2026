@@ -311,7 +311,7 @@ function openConflict(world,actor,input,now,openedBy=null) {
   }
   history(world,'conflict-opened',{actor:actor.id,target:defender.id,conflict:id,category:kind},now);
   notify(world,actor.id,conflictKinds[kind] + ' mobilization entered its first stage.',now,'politics');
-  if (!local) notify(world,defender.id,actor.name + ' opened ' + conflictKinds[kind].toLowerCase() + ' preparations.',now,'politics');
+  if (!local) notify(world,defender.id,actor.name + ' opened ' + conflictKinds[kind].toLowerCase() + ' preparations.',now,'politics',{title:'Conflict opened against you',threat:true});
   return conflict;
 }
 

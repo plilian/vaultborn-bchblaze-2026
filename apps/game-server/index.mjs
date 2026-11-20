@@ -27,6 +27,7 @@ import { createTerritoryProtocol } from './territory-protocol.mjs';
 import { createTerritoryAssets } from '../../packages/chain-observer/territory-assets.mjs';
 import { createPoliticsProtocol } from './politics-protocol.mjs';
 import { createIdentity } from './identity.mjs';
+import { createWizardPairing } from './wizard-pair.mjs';
 import { verifiedBchMessageKey } from './bch-sign-in.mjs';
 import { awayThreshold, dismissKingdomChronicle, readKingdomChronicle } from './kingdom-chronicle.mjs';
 import { ADDRESS_PREFIX, ATTESTOR_ADJECTIVE, ATTESTOR_NOTE, ATTESTOR_OPERATION, NETWORK_ID, NETWORK_LABEL, NETWORK_PROFILE, REAL_VALUE, assertNetworkEnvironment, browserNetwork, networkEnv, networkEnvName } from '../../config/network.mjs';
@@ -194,10 +195,36 @@ export function createApp({ database = resolve(root, process.env.DOMINION_DB ?? 
     store.close?.(); throw new Error('This database holds payments of another network. Use a separate database per network.');
   }
   const identity = createIdentity({store,clock,fail});
+  // The server answers the wallet itself while the player is in the wallet app (see wizard-pair.mjs).
+  const wizardPairing = walletConnect ? createWizardPairing({ testRelay: testWizardRelay }) : null;
   const listeners = new Set();
   const rate = new Map();
   // The last whole-wallet balance of each player, kept for a few seconds so that repeated renders do not query the indexer.
   const walletTotals = new Map();
+  // The BCH on every address of a wallet, read at most every 15 seconds per kingdom.
+  async function wholeWallet(player, keys) {
+    if (!walletRead || !chain.walletBalances) throw new Error('Balance service offline.');
+    const id = keys.map(key => key.script).join(',');
+    const cached = walletTotals.get(player);
+    if (cached && cached.id === id && clock() - cached.at < 15_000) return cached.result;
+    const amounts = await chain.walletBalances(keys.map(key => key.script));
+    const funded = keys.map((key, index) => ({ address: key.address, path: key.path, index: key.index, satoshis: amounts[index] })).filter(item => item.satoshis > 0);
+    const result = { totalSatoshis: funded.reduce((total, item) => total + item.satoshis, 0), checked: keys.length, funded };
+    walletTotals.set(player, { id, at: clock(), result });
+    if (walletTotals.size > 2_000) walletTotals.delete(walletTotals.keys().next().value);
+    return result;
+  }
+  // CashTokens on the linked address and on every other funded address of the wallet (at most 12 addresses).
+  async function walletTokens(address, whole) {
+    const addresses = [...new Set([address, ...(whole?.funded ?? []).map(item => item.address)])].slice(0, 12);
+    const lists = await Promise.allSettled(addresses.map(item => chain.listCashTokens(item)));
+    if (lists.every(item => item.status === 'rejected')) throw lists[0].reason;
+    const seen = new Set();
+    return lists.flatMap(item => item.status === 'fulfilled' ? item.value : []).filter(token => {
+      const key = token.txid + ':' + token.vout;
+      return !seen.has(key) && seen.add(key);
+    });
+  }
   let currentRevision = store.read().revision;
   const notify = (revision = store.read().revision) => {
     currentRevision = revision;
@@ -370,7 +397,7 @@ export function createApp({ database = resolve(root, process.env.DOMINION_DB ?? 
       if (url.pathname==='/api/identity/wizard/verify') res.once('finish',()=>notify());
       return identity.handle(req,res,url.pathname,{readJson,json,stateFor,session:()=>currentSession(req),
         origin:site,browser:create=>proofCookie(req,res,create),
-        linkWallet,
+        linkWallet,pairing:wizardPairing,
         // A wallet nobody has used here before starts a new kingdom, under the same limits as "Play now".
         createKingdom() {
           limit(req,true);
@@ -620,10 +647,13 @@ export function createApp({ database = resolve(root, process.env.DOMINION_DB ?? 
       }
       if (!wallet) fail(409, 'Choose a ' + NETWORK_LABEL + ' receiving address to inspect.');
       if (!walletRead) fail(503, 'The ' + NETWORK_LABEL + ' balance service is offline.');
-      const [balance, tokens] = await Promise.allSettled([chain.localWalletBalance(wallet.address), chain.listCashTokens(wallet.address)]);
-      if (balance.status === 'rejected' && tokens.status === 'rejected') fail(503, '' + NETWORK_LABEL + ' wallet data is currently unavailable.');
+      // The linked wallet is read whole (every address it shared), also when it is not connected right now.
+      const known = wallet.address === linked?.address ? store.walletAddresses(player) : null;
+      const whole = known?.some(key => key.address === wallet.address) ? await wholeWallet(player, known).catch(() => null) : null;
+      const [balance, tokens] = await Promise.allSettled([chain.localWalletBalance(wallet.address), walletTokens(wallet.address, whole)]);
+      if (balance.status === 'rejected' && tokens.status === 'rejected' && !whole) fail(503, '' + NETWORK_LABEL + ' wallet data is currently unavailable.');
       return json(res, 200, { wallet, verified:wallet.address===linked?.address, balance: balance.status === 'fulfilled' ? balance.value : null,
-        tokens: tokens.status === 'fulfilled' ? tokens.value : null });
+        tokens: tokens.status === 'fulfilled' ? tokens.value : null, ...(whole && { whole }) });
     }
     if (req.method === 'POST' && url.pathname === '/api/wallet/balance') {
       // The whole wallet: an HD wallet keeps change and later payments on other addresses than the first receiving one.
@@ -638,17 +668,11 @@ export function createApp({ database = resolve(root, process.env.DOMINION_DB ?? 
         if (!keys.some(item => item.script === wallet.script)) keys.push({ address: wallet.address, script: wallet.script, path: key.path, index: key.index });
       }
       if (!walletRead || !chain.walletBalances) fail(503, 'The ' + NETWORK_LABEL + ' balance service is offline.');
-      const id = keys.map(key => key.script).join(',');
-      const cached = walletTotals.get(player);
-      if (cached && cached.id === id && clock() - cached.at < 15_000) return json(res, 200, cached.result);
-      let amounts;
-      try { amounts = await chain.walletBalances(keys.map(key => key.script)); }
+      // Kept for this kingdom only when the keys are those of its linked wallet.
+      const linked = store.wallet(player);
+      if (linked && keys.some(key => key.address === linked.address)) store.saveWalletAddresses(player, keys);
+      try { return json(res, 200, await wholeWallet(player, keys)); }
       catch { fail(503, NETWORK_LABEL + ' wallet data is currently unavailable.'); }
-      const funded = keys.map((key, index) => ({ address: key.address, path: key.path, index: key.index, satoshis: amounts[index] })).filter(item => item.satoshis > 0);
-      const result = { totalSatoshis: funded.reduce((total, item) => total + item.satoshis, 0), checked: keys.length, funded };
-      walletTotals.set(player, { id, at: clock(), result });
-      if (walletTotals.size > 2_000) walletTotals.delete(walletTotals.keys().next().value);
-      return json(res, 200, result);
     }
     if (req.method === 'GET' && url.pathname === '/api/events') {
       if (listeners.size >= 160) fail(503, 'Live connection capacity reached.');
@@ -846,6 +870,7 @@ export function createApp({ database = resolve(root, process.env.DOMINION_DB ?? 
 
   server.on('close', () => {
     clearInterval(timer);
+    wizardPairing?.close();
     const cleanup = () => { store.close(); void territoryAssets?.close(); void politicalAssets?.close(); };
     if (activeReconciliation) void activeReconciliation.then(cleanup);
     else cleanup();

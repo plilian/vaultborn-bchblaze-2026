@@ -273,7 +273,16 @@ export function createIdentity({ store, clock, fail }) {
     return player;
   }
 
-  async function handle(req,res,path,{readJson,json,session:currentSession,browser,origin,newSession,stateFor,linkWallet,createKingdom}) {
+  async function handle(req,res,path,{readJson,json,session:currentSession,browser,origin,newSession,stateFor,linkWallet,createKingdom,pairing}) {
+    // Pairing through the server: start it, then ask how far it got. Bound to this browser's session or proof cookie.
+    if (req.method==='POST' && (path==='/api/identity/wizard/pair' || path==='/api/identity/wizard/pair/status')) {
+      if (!pairing) fail(404,'Wallet pairing is not available on this server.');
+      const data=await readJson(req);
+      const session=currentSession();
+      const token=session ? session.token : browser(true);
+      if (path==='/api/identity/wizard/pair') return json(res,200,{result:guarded(()=>pairing.start({token}))});
+      return json(res,200,{result:pairing.status(typeof data.id==='string' ? data.id : '',token)});
+    }
     if (req.method==='GET') {
       const publicMatch=identityRoute.exec(path);
       if (publicMatch) return json(res,200,guarded(()=>publicIdentity(publicMatch[1])));

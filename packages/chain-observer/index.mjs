@@ -981,13 +981,16 @@ export function createChain({
     });
   }
 
-  async function walletCoins(keys) {
+  // With `unconfirmed`, coins still in the mempool (such as the change of a payment made a minute ago) may be used too,
+  // after every confirmed one: the payment that spends them is credited only once it has its own confirmations.
+  async function walletCoins(keys, { unconfirmed = false } = {}) {
     return observer.withClient(async client => {
       if (!client.listUnspent) throw new Error('The wallet checkout needs a ' + NETWORK_LABEL + ' UTXO indexer.');
       const groups = await Promise.all(keys.map(async key => ({ ...key, coins: await client.listUnspent(key.script) })));
       const gathered = groups.flatMap(({ coins, ...key }) => coins.map(source => ({ ...key, ...source })));
-      const verified = await Promise.all(gathered.sort((a, b) => b.satoshis - a.satoshis).slice(0, 32).map(async source => {
-        if (!HEX64.test(source.txid) || source.satoshis < Number(DUST) || source.height <= 0) return null;
+      const order = (a, b) => (a.height > 0 ? 0 : 1) - (b.height > 0 ? 0 : 1) || b.satoshis - a.satoshis;
+      const verified = await Promise.all(gathered.sort(order).slice(0, 32).map(async source => {
+        if (!HEX64.test(source.txid) || source.satoshis < Number(DUST) || (source.height <= 0 && !unconfirmed)) return null;
         const { transaction } = readTransaction(await client.raw(source.txid), source.txid);
         if (!outputMatches(transaction.outputs[source.vout], source.script, source.satoshis)) return null;
         const coinbase = transaction.inputs.length === 1 && /^0+$/.test(hex(transaction.inputs[0].outpointTransactionHash));

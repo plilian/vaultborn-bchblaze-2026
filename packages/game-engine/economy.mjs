@@ -1,7 +1,7 @@
 import {DAY, HOUR, buildings, dailyLevy, economy, resources, resourceValues, tech} from '../../config/economy.mjs'
 import {balance, heroes, units} from '../../config/balance.mjs'
 import {troopTotal} from './combat.mjs'
-import {openFromDayOne, activeProtectorate, activity, award, credit, creditableResources, getCity, has, lastDay, limitHistory, mapResources, marketRate, notify, points, productionPerHour,
+import {openFromDayOne, replacePlaceholderNames, activeProtectorate, activity, award, credit, creditableResources, getCity, has, lastDay, limitHistory, mapResources, marketRate, notify, points, productionPerHour,
   quoteUpgrade, rankings, requireRule, roundCost, stockCapacity, subtract, trainingSlots, trainingTimeFactor, troopCap} from './world.mjs'
 import {completeMission} from './military.mjs'
 import {nextGovernanceEvents} from './politics.mjs'
@@ -171,6 +171,7 @@ export function advance(world, now = Date.now()) {
   for (const city of Object.values(world.cities)) {
     if (liftShields && city.shieldUntil > now) city.shieldUntil = now
     openFromDayOne(city, world, now)
+    replacePlaceholderNames(world, city)
     city.conveniences = lastDay(city.conveniences,now)
     city.aid = lastDay(city.aid,now)
     for (const [target,intel] of Object.entries(city.intel)) if (intel.expiresAt <= now - DAY) delete city.intel[target]

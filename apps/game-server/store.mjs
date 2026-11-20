@@ -40,6 +40,9 @@ export function openStore(filename, initialWorld) {
       nonce TEXT PRIMARY KEY, expires INTEGER NOT NULL, body TEXT NOT NULL
     );
     CREATE INDEX IF NOT EXISTS identity_challenges_expiry ON identity_challenges(expires);
+    CREATE TABLE IF NOT EXISTS wallet_keys (
+      player TEXT PRIMARY KEY, body TEXT NOT NULL
+    );
     CREATE TABLE IF NOT EXISTS kingdom_chronicles (
       player TEXT PRIMARY KEY, body TEXT NOT NULL
     );
@@ -118,6 +121,15 @@ export function openStore(filename, initialWorld) {
     },
     wallet(player) {
       return db.prepare('SELECT address, verified_at AS verifiedAt FROM wallets WHERE player=?').get(player) ?? null;
+    },
+    // The addresses of the linked HD wallet (from public keys its owner's wallet shared), so its whole balance can be read
+    // when the wallet is not connected at that moment.
+    walletAddresses(player) {
+      const row = db.prepare('SELECT body FROM wallet_keys WHERE player=?').get(player);
+      return row ? JSON.parse(row.body) : null;
+    },
+    saveWalletAddresses(player, keys) {
+      db.prepare('INSERT INTO wallet_keys VALUES (?, ?) ON CONFLICT(player) DO UPDATE SET body=excluded.body').run(player, JSON.stringify(keys));
     },
     walletKey(player) {
       return db.prepare('SELECT address, public_key AS publicKey FROM wallets WHERE player=?').get(player) ?? null;

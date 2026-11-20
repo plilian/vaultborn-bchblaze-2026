@@ -56,3 +56,46 @@
 }
 @media (prefers-reduced-motion: reduce) { .campaign-guide, .campaign-arrived :is(.masthead, .dock) { animation: none; } }
 .reduced .campaign-guide, .reduced .campaign-arrived :is(.masthead, .dock) { animation: none; }
+
+/* What next: the most useful things to do now. */
+.what-next { margin-top: 8px; padding-top: 7px; border-top: 1px solid #79614366; display: grid; gap: 5px; }
+.what-next h3 { display: flex; align-items: center; gap: 6px; margin: 0 0 2px; font-size: calc(11px * var(--ui-text)); letter-spacing: .08em; text-transform: uppercase; color: #e8be79; }
+.what-next h3 .icon { width: 14px; height: 14px; }
+.what-next-step { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 34px; padding: 6px 10px; text-align: start; color: #d8ffee;
+  background: linear-gradient(#1f4a3e, #12302a); border: 1px solid #58a584; border-radius: 4px; font-size: calc(12px * var(--ui-text)); font-weight: 750; cursor: pointer; }
+.what-next-step:hover, .what-next-step:focus-visible { filter: brightness(1.15); border-color: #8fd8b5; }
+.what-next-step .icon { width: 15px; height: 15px; flex: none; }
+.what-next-step .icon:last-child { margin-inline-start: auto; width: 12px; height: 12px; }
+.what-next-more { margin-inline-start: auto; padding: 0; letter-spacing: 0; text-transform: none; background: none; border: 0; color: #c0b092; font-size: calc(11px * var(--ui-text)); text-decoration: underline; cursor: pointer; }
+.what-next-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.what-next-list li { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; padding: 9px 10px; border: 1px solid #79614366; background: #10202480; }
+.what-next-list li > .icon { width: 22px; height: 22px; color: #e8be79; }
+.what-next-list p { margin: 2px 0 0; color: #c0b092; }
+/* Phones: one more round button (What next) fits in the top row. */
+@media (max-width: 760px) {
+  .masthead { grid-template-columns: minmax(0,1fr) auto auto auto auto auto; column-gap: 4px; }
+  .masthead .round-icon { width: 32px; min-width: 32px; }
+  #masthead.masthead .wallet-shortcut { max-width: 76px; }
+  .masthead .brand { min-width: 0; max-width: 100%; overflow: hidden; }
+  #masthead .brand strong { font-size: calc(14px * var(--ui-text)); letter-spacing: .02em; }
+}
+.what-next-step.reward { color: #ffe7b0; background: linear-gradient(#5a4520, #3a2b12); border-color: #d3ac6e; }
+.what-next-task { display: flex; align-items: center; gap: 7px; width: 100%; padding: 3px 2px; background: none; border: 0; color: #c0b092; text-align: start;
+  font-size: calc(11px * var(--ui-text)); cursor: pointer; }
+.what-next-task:hover, .what-next-task:focus-visible { color: #f0dba9; }
+.what-next-task .icon { width: 13px; height: 13px; flex: none; color: #e8be79; }
+.what-next-task small { margin-inline-start: auto; color: #e8be79; }
+.what-next-list .costs { margin-top: 4px; }
+#dialog h3 + .what-next-list { margin-top: 6px; }
+/* The chat panel folded into one line. */
+.activity-dock { position: relative; }
+.activity-dock.folded { padding: 0; }
+.activity-toggle { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 40px; padding: 8px 12px; background: none; border: 0; color: #d6c59c;
+  font-size: calc(12px * var(--ui-text)); font-weight: 750; text-align: start; cursor: pointer; }
+.activity-toggle:hover, .activity-toggle:focus-visible { color: #fff; }
+.activity-toggle .icon { width: 15px; height: 15px; flex: none; }
+.activity-toggle .icon:last-child { margin-inline-start: auto; width: 12px; height: 12px; transform: rotate(-90deg); }
+.activity-hide { position: absolute; top: 4px; right: 4px; z-index: 1; width: 22px; height: 22px; padding: 0; display: grid; place-items: center;
+  background: none; border: 0; color: #aec0be; cursor: pointer; }
+.activity-hide .icon { width: 12px; height: 12px; }
+.activity-dock:not(.folded) .activity-tabs { margin-right: 24px; }

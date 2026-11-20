@@ -45,8 +45,11 @@ function recordedEvents({world,view,player,now},previous) {
     const loss=troopTotal(battle.losses?.[side]??{});
     const name=battle.conquest?.name;
     const place=name?' at '+name:' against '+rival;
-    events.push({id:battle.id,kind:'battle',at:battle.at,title:won?'Victory':'Defeat',
+    // An attack on this kingdom, and any battle it lost, is reported with the threats and losses.
+    const attacked=side==='defender'&&battle.attacker!==player;
+    events.push({id:battle.id,kind:'battle',at:battle.at,title:attacked?(won?'Attack repelled':'Raided by '+rival):won?'Victory':'Defeat',
       detail:`${won?'Victory':'Defeat'}${place}. ${loss} ${loss===1?'troop':'troops'} lost.`,battleId:battle.id,
+      ...((attacked||!won)&&{threat:true}),troopsLost:loss,
       ...(battle.territoryId&&{territoryId:battle.territoryId}), ...(battle.kind==='raid'&&battle.loot&&{resources:side==='attacker'?battle.loot:
         Object.fromEntries(resources.map(resource=>[resource,-battle.loot[resource]]))})});
     battles.add(battle.id);
@@ -73,7 +76,7 @@ function recordedEvents({world,view,player,now},previous) {
       if (notices.some(notice=>notice.territoryId===site.id&&notice.at===entry.at&&
         notice.title===(gain?'Territory gained':'Territory lost'))) continue;
       events.push({id:`site-${site.id}-${entry.version}`,kind:'territory',at:entry.at,
-        title:gain?'Territory gained':'Territory lost',detail:site.name,territoryId:site.id});
+        title:gain?'Territory gained':'Territory lost',detail:site.name,territoryId:site.id,...(!gain&&{threat:true})});
     }
   }
   for (const record of world.territorySettlements??[]) {

@@ -24,7 +24,7 @@ export function propose(world, sponsor, input, now) {
   const pact = {id: 'pact' + (++world.seq), defender: defender.id, overlord: sponsor.id, alliance: sponsor.alliance, status: 'pending', createdAt: now,
     respondBy: now + economy.protectorateResponseTime, tribute: economy.protectorateTribute, rebellion: null, upkeepAt: 0}
   world.governance.unshift(pact)
-  notify(world, defender.id, sponsor.name + ' proposed a temporary protectorate. Choose a diplomatic response before the deadline.', now, 'politics')
+  notify(world, defender.id, sponsor.name + ' proposed a temporary protectorate. Choose a diplomatic response before the deadline.', now, 'politics', {title:'Protectorate demanded', threat:true})
   activity(world, 'protectorate', sponsor.name + ' proposed terms to ' + defender.name + '.', now)
   return pact
 }
@@ -191,7 +191,7 @@ export function launchRebellion(world, actor, input, now) {
   rebellion.resolveAt = now + economy.rebellionResponseTime
   if (rebellion.commander==='queen') awardCommanderMastery(actor,'queen','rebellion',now)
   recordGovernmentEvent(world,'rebellion',{actor:actor.id,target:pact.overlord,id:pact.id+':'+rebellion.resolveAt},now)
-  notify(world,pact.overlord,actor.name + ' is mustering a rebellion. Reinforce or offer release before the battle.',now,'rebellion')
+  notify(world,pact.overlord,actor.name + ' is mustering a rebellion. Reinforce or offer release before the battle.',now,'rebellion',{title:'Rebellion mustering',threat:true})
   activity(world,'rebellion',actor.name + ' has raised the horn of independence.',now)
   return rebellion
 }

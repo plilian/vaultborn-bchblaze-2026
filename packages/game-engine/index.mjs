@@ -4,6 +4,7 @@ import {clamp} from './combat.mjs'
 import {GameError, activeProtectorate, activeTreaty, allianceMembers, attackEligibility, cleanName, combatPower, config, createWorld,
   getCity, has, lastDay, productionPerHour, protectorateEligibility, quoteUpgrade, rankings, requireRule, addPlayer} from './world.mjs'
 import {advance, collect, convenience, dailyReward, market, research, train, upgrade} from './economy.mjs'
+import {claimTask, taskSnapshot} from './tasks.mjs'
 import {counterspy, launchMission, raid, selection, shareIntel} from './military.mjs'
 import {ensureTerritories, territoryCommand} from './territories.mjs'
 import {kingdom} from './treasury.mjs'
@@ -68,7 +69,7 @@ export function snapshot(world, actorId, now = world.now) {
     scoutPoints:actor.scoutPoints, spies:actor.spies, counterspyUntil:actor.counterspyUntil, counterspyCooldown:actor.counterspyCooldown,
     sabotageUntil:actor.sabotageUntil, reputation:actor.reputation, influence:actor.influence, score:actor.score, contribution:actor.contribution,
     tutorial:actor.tutorial, guideOpen:actor.tutorialOpen ?? !actor.tutorial, onboarding:onboardingSnapshot(actor), welcome:actor.welcome === 'pending', collectAvailableAt:actor.lastCollect ? actor.lastCollect + DAY : 0, immunityUntil:actor.immunityUntil,
-    dailyReward:dailyReward(actor,now), marketHistory:actor.marketHistory ?? [],
+    dailyReward:dailyReward(actor,now), tasks:taskSnapshot(world,actor), marketHistory:actor.marketHistory ?? [],
     founding:!!actor.founding, production:stats.economy.production,capacity:stats.economy.capacity,troopCapacity:stats.military.capacity,stats,
     attacksLeft:Math.max(0,balance.attacksDaily - world.marches.filter(march => (march.attacker===actor.id || march.contributors?.includes(actor.id)) && march.kind === 'raid' && march.at > now - DAY).length),
     paidConvenienceLeft:Math.max(0,economy.paidConvenienceDaily - lastDay(actor.conveniences,now).length),
@@ -188,6 +189,7 @@ function applyCommand(world,actorId,input,now,options) {
     }
     case 'research': return research(world,actor,input,now)
     case 'collect': return collect(world,actor,now)
+    case 'task-claim': return claimTask(world,actor,input,now)
     case 'trade': return market(actor,input,now)
     case 'tutorial': return tutorialCommand(world,actor,input,now)
     // The greeting of a new kingdom was shown: it is not shown again, in any browser.

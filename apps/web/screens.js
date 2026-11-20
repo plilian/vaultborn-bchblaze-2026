@@ -5,6 +5,7 @@ import { walletAddress, walletLabel, wizardState } from './ritual-wallet.js';
 import { territoryAtlas, territoryAssets, territoryDetail } from './territory-field.js';
 import { comparison, raidStandards, squadDetail, timeLabel } from './strategy-stats.js';
 import { achievementDialog, dailyContents, eventDispatch, eventHero, offlineContents, tradeBalances, tradeHistory } from './campaign-ledger.js';
+import { whatNext, whatNextContents } from './what-next.js';
 import { renderIdentity } from './decentralized-identity.js';
 import { guideLink, renderCodex } from './game-guide.js';
 import { battleReport } from './battle-report.js';
@@ -351,8 +352,10 @@ function warPage(ctx) {
   return heading('War Room','war','Campaign operations')+`<div class="page-body">${tabbar(warTabs,tab)}${body}</div>`;
 }
 
+// Checkouts that closed before any BCH was sent are left out: there was no transaction.
+const neverPaid = item => ['expired','rejected','voided'].includes(item.state ?? item.status) && !item.txid && item.direction !== 'outgoing';
 function paymentRows(ctx) {
-  const payments = list(ctx.ui.state.payments);
+  const payments = list(ctx.ui.state.payments).filter(item => !neverPaid(item));
   return payments.length ? payments.map(item => {
     const state = item.state ?? item.status;
     return row(item.title ?? title(item.action),bch(item.satoshis ?? item.amount) + ' BCH · ' + (item.attestation && !item.attestation.complete && state === 'created' ? 'Awaiting prize attestors · ' + item.attestation.signed.length + ' of ' + item.attestation.attestors.length + ' signed' : statusLabel[state] ?? title(state)),
@@ -742,7 +745,8 @@ function paymentDialog(ctx,id) {
       fulfillment?.status === 'review' ? '<p class="form-error">Payment verified. Fulfillment needs review. ' + html(fulfillment.reason) + '</p>' :
       fulfillment?.status === 'applied' ? '<p>' + tag('Done','success') + '</p>' : ''}
     ${fulfillment?.result?.events ? '<div class="buttons">' + btn('Open battle report','war',{modal:'battle',id:fulfillment.result.id},'primary') + '</div>' : ''}
-    ${typeof intent.lastError === 'string' ? '<p class="form-error">' + html(intent.lastError) + '</p>' : ''}
+    ${neverPaid(intent) ? '<p>Not paid. No BCH was sent for this order, so nothing was spent. You can start it again any time.</p>' :
+      typeof intent.lastError === 'string' ? '<p class="form-error">' + html(intent.lastError) + '</p>' : ''}
     ${submittable ? !ctx.ui.state.chain?.enabled ? '<p>' + NETWORK_LABEL + ' checkout is currently offline. You can keep this receipt for reference.</p>' :
       '<p>Approve it in your wallet. This window updates by itself.</p>' +
       (ctx.ui.state.chain?.walletConnect?walletTray(intent):'<p>Wallet pairing is disabled on this server.</p>') : ''}
@@ -814,7 +818,7 @@ function walletAssets(ctx) {
     ${current?.whole ? `<p class="quiet-text">Whole wallet: ${number(current.whole.checked)} addresses checked${current.whole.funded.length ? ', funds on ' + current.whole.funded.length : ''}.</p>
       ${current.whole.funded.length ? `<details><summary>Where your BCH is</summary>${current.whole.funded.map(item => row(bch(item.satoshis) + ' BCH · ' + (item.path === 'change' ? 'change' : 'receiving') + ' address ' + number(item.index), item.address)).join('')}</details>` : ''}` :
       current ? '<p class="quiet-text">This is the receiving address only. Connect your wallet to see the whole wallet.</p>' : ''}
-    ${current ? `<details><summary>CashTokens for this address</summary>${tokens == null ? empty('CashTokens index lookup unavailable.') : !tokens.length ? empty('No confirmed CashTokens found for this address.') : tokens.map(token =>
+    ${current ? `<details><summary>${current.whole ? 'CashTokens in your wallet' : 'CashTokens for this address'}</summary>${tokens == null ? empty('CashTokens index lookup unavailable.') : !tokens.length ? empty(current.whole ? 'No confirmed CashTokens found in your wallet.' : 'No confirmed CashTokens found for this address.') : tokens.map(token =>
         `<div class="row"><div>${tag(token.capability == null ? 'Fungible token' : 'NFT', 'success')}
           <dl class="kv"><dt>Category</dt><dd class="transaction-id">${html(token.category)}</dd>
           <dt>Output</dt><dd class="transaction-id">${html(token.txid)}:${number(token.vout)}</dd>
@@ -892,7 +896,8 @@ function profileDialog(ctx) {
       checkbox('High contrast','highContrast',settings.highContrast) +
       checkbox('Mute audio','muted',settings.muted ?? false) +
       slider('Music volume','musicVolume',settings.musicVolume ?? 42) +
-      slider('Effects volume','sfxVolume',settings.sfxVolume ?? 65),submit('Save settings','settings','primary')))}`);
+      slider('Effects volume','sfxVolume',settings.sfxVolume ?? 65),submit('Save settings','settings','primary'))+
+      '<p class="quiet-text">Music: Legionnaire, Age of Wonder and Song Of The Forge by Scott Buckley (<a href="https://www.scottbuckley.com.au" target="_blank" rel="noopener noreferrer">scottbuckley.com.au</a>), <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.</p>')}`);
 }
 function tutorialDialog(ctx) {
   const { own } = ctx;
@@ -955,6 +960,7 @@ export function renderDialog(ctx) {
     case 'daily': return modal('Daily supplies',dailyContents(ctx.own.dailyReward,ctx.gameNow,command('Claim daily supplies','gift',{type:'collect'},'primary')));
     case 'dispatch': return modal(ctx.ui.dialog.presentation?.title??'Kingdom dispatch',achievementDialog(ctx.ui.dialog.presentation));
     case 'offline-report': return modal('While you were away',offlineContents(ctx.ui.state.offlineReport));
+    case 'next': return modal('What next',whatNextContents(whatNext({own:ctx.own,state:ctx.ui.state,guide:ctx.ui.guide,walletLinked:Boolean(ctx.ui.state.wallet?.address)}),ctx.own));
     case 'attack': return attackDialog(ctx,id)+guideLink('raids','Learn about raid rules');
     case 'expedition': return expeditionDialog(ctx,id)+guideLink('raids','Learn about expeditions');
     case 'npc-court': return npcCourtDialog(ctx,id);
@@ -984,9 +990,10 @@ export function renderDialog(ctx) {
     // A new kingdom must be named before the game opens: this dialog cannot be closed.
     case 'found': return lockedModal('Found a city',eventHero('event-season','Your founding charter','Claim your banner')+
       '<p class="founding-hint">Choose a name and a banner for your city. You’ll begin with a protected Starter Territory and a garrison.</p>'+form('found',
-      // Empty until the player writes a name: the placeholder names are not taken for an answer.
+      // Each kingdom starts with names of its own; the player may keep them or write new ones.
       input('Commander name','name',ctx.own.owner === 'New Commander' ? '' : ctx.own.owner,'text','maxlength="30" minlength="2" placeholder="Your name as commander"') +
       input('Settlement name','cityName',ctx.own.name === 'New Settlement' ? '' : ctx.own.name,'text','maxlength="30" minlength="2" placeholder="Name your city"') +
+      '<p class="founding-hint">Keep these names or write your own.</p>' +
       dropdown('Faction','faction',configs(ctx.ui.state.config.factions),ctx.own.faction), submit('Found city','city','primary')) +
       '<div class="buttons">'+btn('Sign in to an existing kingdom','bch',{modal:'wallet'})+'</div>');
     case 'wallet': return walletDialog(ctx)+guideLink('blockchain','Learn about your wallet');

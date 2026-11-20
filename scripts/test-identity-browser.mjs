@@ -99,9 +99,9 @@ try {
       const {left,right,top,bottom}=node.getBoundingClientRect();
       return {name:node.getAttribute('aria-label'),left,right,top,bottom};
     }));
-    assert.equal(boxes.length,6);
+    assert.equal(boxes.length,7);
     const visible=boxes.filter(box=>box.right>box.left && box.bottom>box.top);
-    assert.equal(visible.length,5,'Mobile header exposes brand, wallet, guide, inbox and profile.');
+    assert.equal(visible.length,6,'Mobile header exposes brand, wallet, what next, guide, inbox and profile.');
     for (const box of visible) {
       assert.ok(box.left>=0 && box.right<=page.viewportSize().width,`${box.name} stays inside the viewport.`);
       for (const other of visible) if (other!==box) {
@@ -112,7 +112,7 @@ try {
     await page.getByRole('button',{name:'VAULTBORN home',exact:true}).click();
     await page.waitForFunction(()=>JSON.parse(window.render_game_to_text()).mode==='map');
     for (const [selector,title] of [
-      ['#masthead .wallet-shortcut','Chipnet wallet'],['#masthead .codex-shortcut','Game guide'],
+      ['#masthead .wallet-shortcut','Chipnet wallet'],['#masthead .next-shortcut','What next'],['#masthead .codex-shortcut','Game guide'],
       ['#masthead [aria-label^="Notifications"]','Notifications'],['#masthead [aria-label="Profile and settings"]','Profile & settings'],
     ]) {
       await page.locator(selector).click();

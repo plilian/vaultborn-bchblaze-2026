@@ -48,7 +48,7 @@ export function configureGameAudio(next = {}) {
   if(sfxBus) sfxBus.gain.value=settings.muted?0:settings.sfxVolume;
 }
 
-const source={frontier:'/art/frontier-score.mp3',battle:'/art/battle-score.mp3'};
+const source={frontier:'/art/frontier-saga.mp3',battle:'/art/battle-score.mp3'};
 function getTrack(name) {
   if(!tracks.has(name)) {
     const track=new Audio(source[name]);

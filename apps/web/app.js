@@ -3,6 +3,8 @@ import { activateGameAudio, configureGameAudio, playGameCue, setBattleAudio } fr
 import { art, bch, btn, command, compact, crest, duration, faction, factionIcons, formatDate, html, list, nav, number, resources, setPaymentsInFlight, stat, tag, title } from './view.js';
 import { activeWork, renderPage, renderDialog, formAnswer } from './screens.js';
 import { battleCampNames, battleTimeline, mountBattleMotion } from './battle-motion.js';
+import { raidSpoils } from './battle-report.js';
+import { claimableTasks, whatNext, whatNextPanel } from './what-next.js';
 import { adoptWizardSession, approveWizard, cancelWizardApproval, closeWizard, connectWizard, proveWizard, walletAddress, walletKeys, walletLabel, wizardState } from './ritual-wallet.js';
 import { openCitadel, setCitadelPayments } from './citadel.js';
 import { presentTerritoryNews } from './territory-outcomes.js';
@@ -12,7 +14,7 @@ import { politicalOutcomePage, presentPoliticalNews } from './political-outcomes
 import { attachIdentityControls, enterIdentity } from './decentralized-identity.js';
 import { raidDossier } from './strategy-stats.js';
 import { constrainCamera, moveCamera } from './world-camera.js';
-import { commandDispatch, marketQuoteView, paymentDispatch, trainingOrderView } from './campaign-ledger.js';
+import { commandDispatch, confirmedDispatch, marketQuoteView, noticeDispatch, paymentDispatch, trainingOrderView } from './campaign-ledger.js';
 import { guideSteps, guideStepTargets, renderGuide } from './first-campaign.js';
 import { filterCodex } from './game-guide.js';
 import './game-tooltips.js';
@@ -43,18 +45,6 @@ let replayController;
 let mapPaintActors = '';
 let regionPaint = '';
 const sponsorImpressions = new Set();
-const guideMemory = 'vaultborn-first-campaign';
-
-function readGuideMemory() {
-  try { return sessionStorage.getItem(guideMemory); } catch { return null; }
-}
-
-function rememberGuide(player) {
-  try {
-    if (player) sessionStorage.setItem(guideMemory, player);
-    else sessionStorage.removeItem(guideMemory);
-  } catch { /* The guide remains available from the profile if storage is blocked. */ }
-}
 const cityMenu = document.createElement('div');
 cityMenu.className = 'select-menu world-context-menu';
 cityMenu.popover = 'auto';
@@ -189,6 +179,14 @@ function requireWallet(error) {
   return true;
 }
 
+// A game event popup waits while another dialog is open, and shows once it closes (the three latest at most).
+function presentEvent(view) {
+  if (view && !dom.dialog.open && !ui.busy && !ui.archive) {
+    playGameCue(view.sound ?? 'message', muted());
+    showDialog('dispatch', { presentation:view });
+  } else if (view) ui.eventQueue = [...(ui.eventQueue ?? []), view].slice(-3);
+}
+
 function setState(state) {
   if (!state?.player) return;
   if (state.revision != null && ui.state?.revision != null && state.revision < ui.state.revision) return;
@@ -200,18 +198,25 @@ function setState(state) {
   const paymentApplied=oldPlayer===state.player.id && list(state.payments).find(payment=>earlier.has(payment.id) &&
     payment.fulfillment?.status==='applied' && earlier.get(payment.id).fulfillment?.status!=='applied' && !payment.fulfillment.redeemedCredit);
   const appliedView=paymentApplied && paymentDispatch(paymentApplied,state.config??{});
+  // A checkout that closed before any BCH was sent is not news: nothing was paid, so nothing pops up.
   const paymentChange=oldPlayer===state.player.id && list(state.payments).find(payment=>
-    paymentStates.has(payment.id) && ['credited','rejected','expired','reorg'].includes(payment.state) && paymentStates.get(payment.id)!==payment.state);
+    paymentStates.has(payment.id) && ['credited','rejected','expired','reorg'].includes(payment.state) && paymentStates.get(payment.id)!==payment.state &&
+    !(['rejected','expired'].includes(payment.state) && !payment.txid && payment.direction!=='outgoing'));
   // Just sent from the wallet: the receipt says how long the confirmation usually takes.
   const paymentSent=oldPlayer===state.player.id && list(state.payments).find(payment=>payment.direction!=='outgoing' &&
     paymentStates.has(payment.id) && ['created','awaiting_signature'].includes(paymentStates.get(payment.id)) && ['submitted','seen_in_mempool','confirming','uncertain'].includes(payment.state));
+  let eventView=null;
   if (ui.state) {
     const seen = new Set(list(ui.state.notifications).map(entry => entry.id));
     const updates = list(state.notifications).filter(entry => !seen.has(entry.id));
     const political = presentPoliticalNews(ui.state, state, updates, muted());
     if (!political && latest && updates.length) {
       const cue = /complet|upgrade/i.test(latest.text) ? 'upgrade' : /reward|claim/i.test(latest.text) ? 'reward' : 'message';
-      if (!presentTerritoryNews(updates, muted())) playGameCue(cue, muted());
+      const territory = presentTerritoryNews(updates, muted());
+      // Anything else that happened while the player is here gets its own popup: picture and short text.
+      const views = territory || oldPlayer!==state.player.id ? [] : updates.map(entry => noticeDispatch(entry,state)).filter(Boolean);
+      if (views.length) eventView = views.length>1 ? {...views[0],detail:views[0].detail+' '+(views.length-1)+' more in your notifications.'} : views[0];
+      else if (!territory) playGameCue(cue, muted());
     }
   }
   ui.receivedAt = performance.now();
@@ -222,12 +227,17 @@ function setState(state) {
   } else if(paymentChange && paymentChange.state==='credited' && earlier.get(paymentChange.id)?.fulfillment?.early) {
     // Already applied and shown when it was seen; the confirmation is recorded in the notifications.
   } else if(paymentChange) {
-    playGameCue(paymentChange.state==='credited'&&!['review','credit'].includes(paymentChange.fulfillment?.status)?'reward':'message',muted());
-    if (!dom.dialog.open && !ui.busy && !ui.archive) showDialog('payment',{id:paymentChange.id});
+    const confirmed=paymentChange.state==='credited'&&!['review','credit'].includes(paymentChange.fulfillment?.status);
+    playGameCue(confirmed?'reward':'message',muted());
+    // A confirmed payment is shown like any game event; one that needs attention opens its receipt.
+    if (!dom.dialog.open && !ui.busy && !ui.archive) {
+      if (confirmed) showDialog('dispatch',{presentation:confirmedDispatch(paymentChange)});
+      else showDialog('payment',{id:paymentChange.id});
+    }
   } else if (paymentSent && !ui.busy && !ui.archive && !(ui.dialog?.mode === 'payment' && ui.dialog.id === paymentSent.id)) {
     playGameCue('message',muted());
     showDialog('payment',{id:paymentSent.id});
-  }
+  } else if (eventView) presentEvent(eventView);
   if (!ui.regionId || oldPlayer !== state.player.id || !regions().some(region => region.id === ui.regionId)) {
     ui.regionId = state.atlas?.homeRegion ?? regionOf(state.player);
   }
@@ -257,12 +267,14 @@ function renderHeader() {
   const chain = state.chain ?? {};
   const needsAttention = list(state.notifications).length > 0;
   const running = activeWork({ ui, own, cities: cities(), gameNow:gameNow() }).length;
+  const rewardsReady = claimableTasks(own).length;
   const resourceRow = resources.map(id => `<div class="resource r-${id}">${icon(id)}<div><small>${title(id)}</small><b data-tooltip="${html(number(own.resources?.[id]))}">${compact.format(own.resources?.[id] ?? 0)}</b></div></div>`).join('');
   morph(dom.masthead, `
     <button class="brand" type="button" data-page="map" aria-label="VAULTBORN home"><img class="icon" src="/logo.webp" width="38" height="48" alt=""><span class="brand-copy"><strong>VAULTBORN</strong><small>Build · Defend · Conquer</small></span></button>
     <div class="resource-bar" aria-label="City resources">${resourceRow}<div class="resource r-bch">${icon('bch')}<div><small>BCH</small><b data-tooltip="Wallet balance">${walletSats == null ? '—' : html(bch(walletSats))}</b></div></div></div>
     <button class="season-tag" type="button" data-page="rankings">${icon('crown')}<span><strong>Season ${html(state.season?.number ?? state.season?.id ?? 'I')}</strong><small ${end ? `data-until="${html(end)}"` : ''}>${end ? duration(end - gameNow()) : 'Campaign standings'}</small></span></button>
     <button class="network wallet-shortcut" data-modal="wallet" type="button" data-tooltip="${html(activeAddress??'Connect ' + NETWORK_LABEL + ' wallet')}" aria-label="${html(activeAddress?'Wallet '+walletLabel(state.wallet):'Connect wallet')}"><i class="status-dot ${wizardState().status==='ready'?'':'off'}"></i><span>${html(walletLabel(state.wallet))}</span>${icon('down')}</button>
+    <button class="round-icon next-shortcut" data-modal="next" type="button" aria-label="What next${rewardsReady ? ', ' + rewardsReady + ' rewards to claim' : ''}" data-tooltip="What next">${icon('compass')}${rewardsReady ? '<b class="bell-count">' + rewardsReady + '</b>' : ''}</button>
     <button class="round-icon codex-shortcut" data-modal="codex" type="button" aria-label="Game guide" data-tooltip="Game guide">${icon('journal')}</button>
     <button class="round-icon" data-modal="inbox" type="button" aria-label="Notifications${running ? ', ' + running + ' in progress' : ''}">${icon('bell')}${running ? '<b class="bell-count">' + running + '</b>' : needsAttention ? '<i></i>' : ''}</button>
     <button class="round-icon" data-modal="profile" type="button" aria-label="Profile and settings">${icon('profile')}</button>`);
@@ -282,7 +294,8 @@ function renderCityDock() {
   morph(dom['city-dock'], `
     <div class="profile-title">${crest(own)}<div><span class="kicker">My city</span><h2>${html(own.name ?? 'Found a city')}</h2><span class="level-chip">LEVEL ${number(level(own))}${showTime ? ' · SHIELDED' : ''}</span><span class="progress"><i style="width:${Math.min(95,40+level(own)*9)}%"></i></span></div><img class="profile-art" src="${art(own)}" alt=""></div>
     <div class="stats">${stat('Power',number(own.power),'war')}${stat('Troops',number(armyCount(own)),'troops')}${stat('Defense',number(towerDefense(own)),'shield')}${stat('Income / h',total > 0 ? '+' + number(total) : '—','income','gain')}</div>
-    <div class="city-actions">${actions.map(([id,text,glyph]) => `<button class="city-action" data-page="city" data-start-tab="${id}" type="button">${icon(glyph)}${text}${icon('chevron')}</button>`).join('')}</div>`);
+    <div class="city-actions">${actions.map(([id,text,glyph]) => `<button class="city-action" data-page="city" data-start-tab="${id}" type="button">${icon(glyph)}${text}${icon('chevron')}</button>`).join('')}</div>
+    ${whatNextPanel(whatNext({ own, state:ui.state, guide:ui.guide, walletLinked:Boolean(walletAddress(ui.state.wallet)) }), own)}`);
 }
 
 function channelEntries() {
@@ -293,12 +306,20 @@ function channelEntries() {
   const recent = list(state.messages).filter(item => (item.channel ?? 'world') === ui.channel);
   return (ui.channel === 'world' ? [...recent, ...list(state.activity)].sort((a,b) => b.at-a.at) : recent).slice(0,6);
 }
+// The chat starts folded away so the map stays clear for new players; it opens with one click and stays as it was left.
+let chatOpen = (() => { try { return localStorage.getItem('vaultborn-chat') === 'open'; } catch { return false; } })();
 function renderActivity() {
   const input = dom['activity-dock'].querySelector('input');
   if (input === document.activeElement) return;
   const entries = channelEntries();
+  dom['activity-dock'].classList.toggle('folded', !chatOpen);
+  if (!chatOpen) {
+    morph(dom['activity-dock'], `<button type="button" class="activity-toggle" data-chat-toggle="open" aria-expanded="false">${icon('message')}<span>Chat and world news</span>${icon('chevron')}</button>`);
+    return;
+  }
   const disabled = ui.channel === 'system' || (ui.channel === 'alliance' && !ui.state.alliance);
   morph(dom['activity-dock'], `
+    <button type="button" class="activity-hide" data-chat-toggle="close" aria-expanded="true" aria-label="Hide chat">${icon('x')}</button>
     <div class="activity-tabs" role="tablist">${['world','alliance','system'].map(channel => `<button type="button" role="tab" aria-selected="${channel === ui.channel}" class="${channel === ui.channel ? 'active' : ''}" data-channel="${channel}">${title(channel)}</button>`).join('')}</div>
     <div class="activity-entries" aria-live="polite">${entries.length ? entries.map(item => `<div class="message message-${ui.channel}">${icon(ui.channel === 'system' ? 'crown' : 'message')}<div><b>${html(item.senderName ?? item.authorName ?? item.fromName ?? item.name ?? item.author ?? (ui.channel === 'system' ? 'System' : 'World'))}</b> ${html(item.text ?? item.message ?? item.detail ?? '')} ${item.at ? `<small>${html(new Date(item.at).toLocaleTimeString([], {hour: '2-digit',minute:'2-digit'}))}</small>` : ''}</div></div>`).join('') : `<p class="message">${icon('message')}<span>${ui.channel === 'alliance' && !ui.state.alliance ? 'Join an alliance to open this channel.' : 'No dispatches yet.'}</span></p>`}</div>
     <form class="chat-form" data-form="chat">
@@ -628,7 +649,6 @@ attachIdentityControls({api,getPlayer:()=>playerCity().id,updated:(state)=>{setS
   showDialog('dispatch',{presentation:{art:'event-season',title:message.replace(/\.$/,''),
     detail:'Your kingdom and its campaign history remain with this account.',back:{mode:'identity'}}});
 },authenticated:()=>{
-  rememberGuide(null);
   location.assign('/play');
 },draw:()=>{
   if (dom.dialog.open && ui.dialog?.mode==='identity') {
@@ -709,7 +729,6 @@ function showGuide() {
   }
   if (onboarding?.status === 'active') {
     ui.guide = 'active';
-    rememberGuide(playerCity().id);
   } else {
     ui.guide = 'review';
     ui.guideReviewIndex = 0;
@@ -1024,19 +1043,16 @@ function act(payload) {
       ui.guideConfirmSkip = false;
       if (value.completed) {
         ui.guide = null;
-        rememberGuide(null);
         playGameCue('reward', muted());
         showDialog('dispatch', { presentation: { art: 'event-season', kicker: 'First campaign', title: 'First banner raised',
           detail: 'Your charter is recorded. The quartermaster has issued your first banner supplies.', resources: value.reward } });
       } else if (payload.action === 'pause') {
         ui.guide = null;
-        rememberGuide(null);
         notify('Guide paused. Resume it from My City or your profile.');
       } else if (payload.action === 'resume') {
         ui.guide = 'active';
-        rememberGuide(playerCity().id);
       } else if (['drill','practice'].includes(payload.action) && value.drill) {
-        showDialog('battle', { battle: value.drill.battle, trace: value.drill.trace });
+        showDialog('battle', { battle: value.drill.battle, trace: value.drill.trace, live:true });
       } else {
         playGameCue('select', muted());
       }
@@ -1053,7 +1069,8 @@ function act(payload) {
     if (newBattle) {
       const battle = typeof newBattle === 'string' ? list(ui.state.battles).find(item => item.id === newBattle) : newBattle;
       if (battle) {
-        showDialog('battle', { id:battle.id, battle });
+        // A battle that was just fought plays first, as it happens; the result and replay follow.
+        showDialog('battle', { id:battle.id, battle, live:true });
       }
     } else if (presentation) {
       playGameCue(presentation.sound,muted());
@@ -1166,6 +1183,9 @@ function mountBattleReplay() {
   const heading=result.querySelector('h3');
   const reducedMotion=Boolean(ui.state.player.settings?.reducedMotion||matchMedia('(prefers-reduced-motion: reduce)').matches);
   const names=battleCampNames(battle);
+  // A battle just fought plays by itself, without replay controls, until it ends.
+  let live=Boolean(ui.dialog?.live);
+  const spoils=live?raidSpoils(battle,playerCity().id):null;
   let timeline=battleTimeline(battle,ui.dialog?.trace ?? null,{reducedMotion});
   let motion=mountBattleMotion(scene,battle,timeline,{reducedMotion});
   let elapsed=0;
@@ -1198,6 +1218,19 @@ function mountBattleReplay() {
     updateButton('Replay battle','play');
     result.hidden=false;
     skip.hidden=true;
+    if (live) {
+      live=false;
+      play.hidden=false;
+      slider.hidden=false;
+      // Then what the attack won, in its own popup; Continue returns to this report.
+      if (spoils) setTimeout(()=>{
+        if (replayController!==controller) return;
+        playGameCue(spoils.sound,muted());
+        showDialog('dispatch',{presentation:{...spoils,back:{mode:'battle',id:battle.id,battle,revealed:true}}});
+        // Back from the popup must not play the battle again.
+        if (dialogTrail.at(-1)?.live) dialogTrail.pop();
+      },1200);
+    }
     if (!resolved) {
       resolved=true;
       setBattleAudio('ending');
@@ -1274,6 +1307,12 @@ function mountBattleReplay() {
   };
   replayController=controller;
   draw(0);
+  if (ui.dialog?.revealed) reveal();
+  else if (live) {
+    play.hidden=true;
+    slider.hidden=true;
+    toggle();
+  }
   if (!/^b\d{1,12}$/.test(battle.id)) return;
   const chain=result.querySelector('[data-battle-chain]');
   function showSettlement(proof) {
@@ -1345,7 +1384,6 @@ document.addEventListener('click', event => {
     // The wallet already approved the check: the same proof opens its kingdom, with the wallet still connected there.
     void ui.walletProof.openOther({ switchKingdom:true }).then(result => {
       adoptWizardSession(ui.state.player.id, result.result.player, ui.state.chain?.testWizardRelay);
-      rememberGuide(null);
       location.assign('/play');
     }).catch(error => { ui.walletProof = { error: error.message }; notify(error.message, true); refreshDialog(); });
   }
@@ -1354,7 +1392,6 @@ document.addEventListener('click', event => {
     ui.signingOut=true;
     void perform('/session/logout',{leaveForGood:data.confirmSignOut==='for-good'},async()=>{
       await closeWizard();
-      rememberGuide(null);
       location.replace('/');
     }).catch(()=>{ui.signingOut=false;if(el.isConnected)el.disabled=false;});
   }
@@ -1444,6 +1481,7 @@ document.addEventListener('vaultborn-archive-payment',event=>showDialog('payment
 document.addEventListener('vaultborn-archive-pay',event=>{ if (!ui.busy) void startPayment(event.detail).catch(() => {}); });
 window.addEventListener('popstate',()=>showArchive(archiveAtPath()));
 dom.dialog.addEventListener('close', () => {
+  if (ui.eventQueue?.length) setTimeout(() => { if (!dom.dialog.open && ui.eventQueue?.length) presentEvent(ui.eventQueue.shift()); }, 400);
   if (!dom.dialog.open) {
     const closed = ui.dialog?.mode;
     ui.dialog = null;
@@ -1539,7 +1577,7 @@ document.addEventListener('input',event=>{
 dom.dialog.addEventListener('click',event=>{
   if (event.target.closest('[data-continue-dispatch]')) {
     const back=ui.dialog?.presentation?.back;
-    if (back) showDialog(back.mode,{id:back.id});
+    if (back) { const {mode,...details}=back; showDialog(mode,details); }
     else dom.dialog.close();
   }
   const cancelRaid=event.target.closest('[data-cancel-raid]');
@@ -1620,6 +1658,24 @@ function resetGesture() {
   gesture=shape&&{...shape,from:mapPoint(...shape.center),camera:{scale:ui.scale,dx:ui.dx,dy:ui.dy},dragging:false};
   dom.world.classList.toggle('grabbed',Boolean(gesture?.distance));
 }
+dom['activity-dock'].addEventListener('click', event => {
+  const toggle = event.target.closest('[data-chat-toggle]');
+  if (!toggle) return;
+  chatOpen = toggle.dataset.chatToggle === 'open';
+  try { localStorage.setItem('vaultborn-chat', chatOpen ? 'open' : 'closed'); } catch { /* The choice lasts for this visit. */ }
+  renderActivity();
+  if (chatOpen) dom['activity-dock'].querySelector('input:not([disabled])')?.focus();
+  else dom['activity-dock'].querySelector('[data-chat-toggle]')?.focus();
+});
+// A page (My City, Vault, Politics…) lies over the map: a click on the map around it closes the page, like the Map button.
+const pageOverMap = () => ui.page !== 'map' && !ui.archive && !dom.campaign.hidden;
+dom.world.addEventListener('pointerdown', event => { if (pageOverMap()) event.stopImmediatePropagation(); }, true);
+dom.world.addEventListener('click', event => {
+  if (!pageOverMap()) return;
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  void changePage('map');
+}, true);
 dom.world.addEventListener('pointerdown', event => {
   if (event.button!==0 || (event.pointerType==='mouse'&&event.target.closest('button'))||mapPointers.size>=2) return;
   mapPointers.set(event.pointerId,{x:event.clientX,y:event.clientY,capture:event.target});
@@ -1710,7 +1766,8 @@ async function openCampaignSession() {
     return;
   }
   await refresh({ presentOffline: !archiveAtPath() });
-  if (playerCity().onboarding?.status === 'active' && readGuideMemory() === playerCity().id) {
+  // A guide still in progress opens again on every return, in any browser: the kingdom keeps its place in it.
+  if (playerCity().onboarding?.status === 'active') {
     ui.guide = 'active';
     refreshGuide();
   }

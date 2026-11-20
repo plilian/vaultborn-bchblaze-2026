@@ -144,9 +144,9 @@ export function completeMission(world, operation, now) {
     if (detected) {
       city.spies--
       city.spyRecovery.push(now + 45 * MINUTE)
-      notify(world, target.id, 'Your watchtower intercepted an operative from ' + city.name + '.', now, 'spy')
+      notify(world, target.id, 'Your watchtower intercepted an operative from ' + city.name + '.', now, 'spy', {title:'Enemy scout caught', threat:true})
     } else if (counterspy && !noLongerEligible && random() < .12) {
-      notify(world, target.id, 'A sentry raised an unverified watchtower alarm. No operative was identified.', now, 'spy')
+      notify(world, target.id, 'A sentry raised an unverified watchtower alarm. No operative was identified.', now, 'spy', {title:'Watchtower alarm', threat:true})
     }
     notify(world, city.id, detected ? 'A scout was lost. A replacement is being trained.' : 'The scout withdrew without reliable information.', now, 'spy')
     return
@@ -166,7 +166,7 @@ export function completeMission(world, operation, now) {
   if (operation.mission === 'sabotage') {
     target.sabotageUntil = now + balance.sabotageDuration
     target.sabotageCooldown = now + balance.sabotageCooldown
-    notify(world, target.id, 'Detected a disruption affecting resource production for one hour.', now, 'spy')
+    notify(world, target.id, 'Detected a disruption affecting resource production for one hour.', now, 'spy', {title:'Sabotage detected', threat:true})
   }
   city.intel[target.id] = intel
   city.intelArchive.unshift(intel)

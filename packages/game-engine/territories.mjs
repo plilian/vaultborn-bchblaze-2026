@@ -522,7 +522,7 @@ function contestAttack(world,attacker,defender,site,action,entry,now) {
     assign(world,site,attacker.id,now,'conquered');
     report.conquest = {id:site.id,name:site.name,previousOwner:defender.id,owner:attacker.id,version:site.version};
     notify(world,defender.id,'Territory lost: ' + site.name + '.',now,'territory',
-      {title:'Territory lost',territoryId:site.id});
+      {title:'Territory lost',territoryId:site.id,threat:true});
   } else {
     site.cooldownUntil = now + territoryRules.cooldown;
     site.history.push({kind:'defended',playerId:defender.id,attacker:attacker.id,at:now});
@@ -652,7 +652,7 @@ function upkeep(world,site,now) {
     site.defenses.garrison = emptyTroops();
     assign(world,site,null,now,inactivity >= territoryRules.inactivity ? 'inactivity-expired' : 'upkeep-expired');
     notify(world,actor.id,site.name + ' reverted to neutral control.',now,'territory',
-      {title:'Territory lost',territoryId:site.id});
+      {title:'Territory lost',territoryId:site.id,threat:true});
     return;
   }
   site.nextUpkeep = now + territoryRules.upkeepInterval;

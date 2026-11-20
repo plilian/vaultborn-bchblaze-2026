@@ -4,6 +4,12 @@ import { NETWORK_LABEL } from '../../config/network.mjs';
 
 const eligible = new Set(['created','awaiting_signature','rejected']);
 const planTtl = 5 * 60_000;
+// A signed payment keeps its coins for this long. A coin it holds that is still unspent after that never reached the
+// network (a transaction in the mempool already removes its coins from the wallet's unspent list), so it is free again.
+const signedHold = 10 * 60_000;
+// The same addresses the wallet balance reads, and enough coins for a wallet that holds many small ones.
+const MOST_KEYS = 48;
+const MOST_INPUTS = 20;
 const fingerprint = transaction => hex(encodeTransaction({
   ...transaction, inputs: transaction.inputs.map(input => ({ ...input, unlockingBytecode: new Uint8Array() })),
 }));
@@ -23,7 +29,7 @@ export function createWalletCheckout({ store, chain, ledger, clock, notify, fail
   }
 
   function candidates(body) {
-    if (!Array.isArray(body.keys) || !body.keys.length || body.keys.length > 12) fail(400, 'Choose a wallet address to fund this transaction.');
+    if (!Array.isArray(body.keys) || !body.keys.length || body.keys.length > MOST_KEYS) fail(400, 'Choose a wallet address to fund this transaction.');
     const keys = [];
     for (const key of body.keys) {
       if (!key || !['receive','change'].includes(key.path) || !Number.isSafeInteger(key.index) || key.index < 0 || key.index > 100_000) {
@@ -43,23 +49,40 @@ export function createWalletCheckout({ store, chain, ledger, clock, notify, fail
     const keys = candidates(body);
     const outputs = intent.outputs?.map(({script,satoshis}) => ({script,satoshis})) ?? [{ script:intent.script, satoshis:intent.satoshis }];
     let funds;
-    try { funds = await chain.walletCoins(keys); }
+    try { funds = await chain.walletCoins(keys, { unconfirmed: true }); }
     catch { fail(503, 'Wallet funds could not be indexed on ' + NETWORK_LABEL + '. Check the connection and retry.'); }
     return store.transaction(() => {
       const current = spendable(player, id);
-      const occupied = new Set(store.payments(player).filter(other => other.id !== id && other.walletPlan &&
-        (other.rawHex || other.walletPlan.expiresAt > clock())).flatMap(other => other.walletPlan.sources.map(coin => coin.txid + ':' + coin.vout)));
+      const now = clock();
+      const coinId = coin => coin.txid + ':' + coin.vout;
+      // Only a payment already signed in the wallet, and only for a while, holds coins. A checkout that was opened and
+      // left unsigned holds nothing; its review is withdrawn below when this one takes the same coins.
+      const others = store.payments(player).filter(other => other.id !== id && other.walletPlan);
+      const occupied = new Set(others.filter(other => other.rawHex && (other.submittedAt ?? 0) > now - signedHold)
+        .flatMap(other => other.walletPlan.sources.map(coinId)));
+      const free = funds.filter(coin => !occupied.has(coinId(coin)));
       const sources = [];
       let sum = 0;
       let feeSatoshis;
       const estimated = 75 + outputs.reduce((bytes, output) => bytes + 9 + output.script.length / 2, 0);
-      for (const coin of funds.filter(coin => !occupied.has(coin.txid + ':' + coin.vout)).slice(0, 8)) {
+      for (const coin of free.slice(0, MOST_INPUTS)) {
         sources.push(coin);
         sum += coin.satoshis;
         feeSatoshis = estimated + sources.length * 145;
         if (sum >= intent.satoshis + feeSatoshis) break;
       }
-      if (!sources.length || sum < intent.satoshis + feeSatoshis) fail(409, 'This wallet has insufficient confirmed ' + NETWORK_LABEL + ' BCH at the scanned addresses.');
+      if (!sources.length || sum < intent.satoshis + feeSatoshis) {
+        const needed = intent.satoshis + (feeSatoshis ?? estimated + 145);
+        const total = free.reduce((all, coin) => all + coin.satoshis, 0);
+        if (free.length > MOST_INPUTS && total >= needed) fail(409, 'This wallet holds its BCH in too many small amounts for one payment. Send it to yourself once in the wallet to combine it, then try again.');
+        if (occupied.size && funds.reduce((all, coin) => all + coin.satoshis, 0) >= needed) fail(409, 'Part of this wallet\'s BCH is in a payment you signed a moment ago. Try again in a few minutes.');
+        fail(409, 'This wallet does not have enough ' + NETWORK_LABEL + ' BCH for this payment: ' + total.toLocaleString('en-US') + ' sat available, ' + needed.toLocaleString('en-US') + ' sat needed including the network fee.');
+      }
+      const taken = new Set(sources.map(coinId));
+      for (const other of others) if (!other.rawHex && other.walletPlan.sources.some(coin => taken.has(coinId(coin)))) {
+        const { walletPlan, ...withdrawn } = other;
+        store.savePayment(withdrawn);
+      }
       const unsignedChange = sum - intent.satoshis - feeSatoshis;
       const change = keys.find(key => key.path === 'change') ?? sources[0];
       const paymentOutputs = [...outputs];
@@ -107,6 +130,11 @@ export function createWalletCheckout({ store, chain, ledger, clock, notify, fail
         if (!store.bindWallet(player, source.address, source.publicKey, clock())) fail(409, 'This wallet already belongs to another kingdom.');
       }
       const row = { ...chain.submit(intent, txid, clock()), rawHex:raw.toLowerCase(), walletSigned:true };
+      // A signed payment whose coins another payment has taken since can never confirm.
+      const spent = new Set(store.payments(player).filter(other => other.id !== id && other.rawHex && other.walletPlan &&
+        (other.submittedAt ?? 0) > clock() - signedHold)
+        .flatMap(other => other.walletPlan.sources.map(coin => coin.txid + ':' + coin.vout)));
+      if (plan.sources.some(coin => spent.has(coin.txid + ':' + coin.vout))) fail(409, 'These coins were used by another payment. Open the payment again.');
       store.savePayment(row);
       return row;
     });

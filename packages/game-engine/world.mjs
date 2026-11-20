@@ -203,8 +203,10 @@ export function createWorld(now = Date.now()) {
 export function addPlayer(world, input, now = world.now) {
   requireRule(human(input.id), 'bad_player', 'Invalid player identifier.', 400)
   if (has(world.cities, input.id)) return world.cities[input.id]
-  const playerName = cleanName(input.name, 'New Commander')
-  const cityName = cleanName(input.cityName ?? input.name, 'New Settlement')
+  // A kingdom that chose no name gets its own: a commander and a city name no other kingdom uses.
+  const named = kingdomNames(world, input.id)
+  const playerName = cleanName(input.name, named.owner)
+  const cityName = cleanName(input.cityName ?? input.name, named.name)
   const faction = has(factions, input.faction) ? input.faction : 'emerald'
   const {plot,opened} = allocateSettlementPlot(world)
   const district = seeded(world.seed + ':' + plot.x + ':' + plot.y)
@@ -253,6 +255,51 @@ export function openFromDayOne(city, world, now = world?.now ?? 0) {
   city.optIn = true
   city.shieldUntil = 0
   city.commanders ??= newCommanderBook()
+  return city
+}
+
+const cityStarts = ['Block','Cash','Chain','Coin','Hash','Ledger','Mint','Node','Satoshi','Token','Amber','Ash','Bright','Copper','Dawn',
+  'Elder','Ember','Frost','Gold','Hawk','High','Iron','Lion','Moon','North','Oak','Raven','River','Silver','Stone','Storm','Sun','Wolf']
+const cityEnds = ['brook','crest','dale','fall','ford','gate','guard','haven','hold','hollow','keep','mere','moor','reach','ridge',
+  'shire','spire','stead','vale','watch','wick']
+const givenNames = ['Aldric','Anya','Bastian','Brenna','Cassian','Cora','Darius','Elara','Edric','Freya','Gideon','Helena','Ivo','Isolde',
+  'Jorah','Kael','Lyra','Magnus','Mira','Nadia','Orin','Petra','Quinn','Roran','Sabine','Talia','Ulric','Vera','Wren','Yara','Zane','Rowan']
+const epithets = ['the Miner','the Validator','the Cashbearer','the Blockwright','the Bold','the Steadfast','the Wise','the Swift','the Brave',
+  'the Just','the Wary','the Bright','the Patient','the Keen','the Proud','the Free']
+export const placeholderNames = {owner: 'New Commander', name: 'New Settlement'}
+
+// A city and a commander name, picked from the kingdom's own id and the world's seed and checked against every
+// other kingdom, so no two kingdoms share one.
+export function kingdomNames(world, id) {
+  const taken = new Set(Object.values(world.cities).filter(city => city.id !== id).flatMap(city => [city.name, city.owner])
+    .filter(Boolean).map(name => name.toLowerCase()))
+  const random = seeded(String(world.seed) + ':names:' + id)
+  const gcd = (a, b) => b ? gcd(b, a % b) : a
+  const pick = (make, size) => {
+    const start = Math.floor(random() * size)
+    // A stride that shares no factor with the size visits every name once before any repeats.
+    const stride = [13, 17, 19, 23, 29].find(prime => gcd(prime, size) === 1)
+    for (let round = 0; ; round++) {
+      for (let step = 0; step < size; step++) {
+        const name = make((start + step * stride) % size) + (round ? ' ' + (round + 1) : '')
+        if (!taken.has(name.toLowerCase())) { taken.add(name.toLowerCase()); return name }
+      }
+    }
+  }
+  const name = pick(at => cityStarts[at % cityStarts.length] + cityEnds[Math.floor(at / cityStarts.length)], cityStarts.length * cityEnds.length)
+  const owner = pick(at => givenNames[at % givenNames.length] + ' ' + epithets[Math.floor(at / givenNames.length)], givenNames.length * epithets.length)
+  return {name, owner}
+}
+
+// Kingdoms created before names were picked are still called New Settlement. Only those are renamed, once; their
+// commander too if it still has the placeholder name. A name the player chose is never changed.
+export function replacePlaceholderNames(world, city) {
+  if (city.npc || city.name !== placeholderNames.name) return city
+  const named = kingdomNames(world, city.id)
+  city.name = named.name
+  const homeland = world.territories?.find(site => site.id === 'starter-' + city.id)
+  if (homeland?.name === placeholderNames.name + ' Homelands') homeland.name = named.name + ' Homelands'
+  if (city.owner === placeholderNames.owner) city.owner = named.owner
   return city
 }
 

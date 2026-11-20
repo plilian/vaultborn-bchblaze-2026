@@ -151,7 +151,7 @@ function impose(world,actor,input,now,budget) {
   book.sanctions.push(sanction);
   recordGovernmentEvent(world,'sanction',{actor:actor.id,target:target.id,id:sanction.id},now);
   record(world,input.kind,actor.id,target.id,{sanction:sanction.id,text:sanction.impact},now);
-  notify(world,target.id,actor.name+' imposed a '+input.kind+' on '+sanction.impact+'.',now,'diplomacy');
+  notify(world,target.id,actor.name+' imposed a '+input.kind+' on '+sanction.impact+'.',now,'diplomacy',{title:'Sanction imposed',threat:true});
   activity(world,'diplomacy',actor.name+' imposed a '+input.kind+' on controlled trade.',now);
   return sanction;
 }

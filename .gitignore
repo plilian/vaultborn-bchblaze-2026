@@ -22,6 +22,9 @@ brag-output/brag-plan.md
 # Secrets and working folders (added by Push to GitHub)
 *.pem
 
+# The three source pieces of the campaign music; the game serves them joined as packages/assets/frontier-saga.mp3.
+/music/
+
 # Older screenshots that no document uses (the browser tests write theirs to output/).
 /docs/screenshots/battle-report.png
 /docs/screenshots/city-390x844.png

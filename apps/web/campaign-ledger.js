@@ -55,7 +55,7 @@ export function achievementDialog(data) {
   const values=data.resources?supplyCards(data.resources,{sign:true}):'';
   const facts=data.facts?.length?`<dl class="kv dispatch-facts">${data.facts.map(([label,value])=>`<dt>${html(label)}</dt><dd>${html(value)}</dd>`).join('')}</dl>`:'';
   return eventHero(data.art,data.kicker??'Kingdom dispatch',data.title,data.detail)+facts+
-    values+`<div class="buttons">${data.payment?btn('Receipt','bch',{modal:'payment',id:data.payment}):''}<button type="button" class="btn primary" data-continue-dispatch>${icon('check')} Continue</button></div>`;
+    values+`<div class="buttons">${data.payment?btn('Receipt','bch',{modal:'payment',id:data.payment}):''}${data.open?btn(data.open[0],data.open[1],data.open[2]):''}<button type="button" class="btn primary" data-continue-dispatch>${icon('check')} Continue</button></div>`;
 }
 
 // A BCH purchase that took effect, shown like any other game event: a picture, what happened, and when.
@@ -95,6 +95,48 @@ export function paymentDispatch(payment,config) {
   }
 }
 
+// Something that happened while the player is in the game, shown as a popup with a picture and a short text. Only
+// events the player did not cause just now: their own orders already have their own popups.
+export function noticeDispatch(entry,state) {
+  const job=entry.job, own=state.player?.id;
+  const honor=entry.achievement?[['Achievement',title(entry.achievement)]]:[];
+  const at=[['When',formatDate(entry.at)]];
+  if (entry.title==='Construction complete'&&job) return {art:`${job.key}-${Math.min(3,job.level??1)}`,kicker:'Construction',title:'Construction complete',
+    detail:entry.text,facts:[...honor,...at],sound:'upgrade'};
+  if (entry.title==='Training complete'&&job) return {art:`unit-${job.key}`,kicker:'Barracks',title:'Training complete',detail:entry.text,facts:at,sound:'upgrade'};
+  if (entry.title==='Research complete'&&job) return {art:'library-2',kicker:'Research library',title:'Research complete',detail:entry.text,facts:at,sound:'upgrade'};
+  if (entry.title==='Scouting report arrived') return {art:'scout-3',kicker:'Scout Tower',title:'Scouting report arrived',detail:entry.text,
+    facts:[...honor,...at],open:entry.reportId?['Read report','spy',{modal:'report',id:entry.reportId}]:null,sound:'reward'};
+  if (entry.threat&&entry.kind==='spy') return {art:'scout-3',kicker:'Watchtower',title:entry.title,detail:entry.text,facts:at,sound:'message'};
+  if (entry.kind==='spy'&&!entry.title&&/scout|decoy/i.test(entry.text??'')&&!/active for four hours|shared a scouting report/i.test(entry.text))
+    return {art:'scout-2',kicker:'Scout Tower',title:/lost|withdrew/i.test(entry.text)?'Scout mission failed':'Scout Tower report',detail:entry.text,facts:at,sound:'message'};
+  if (entry.title==='Rental expired') return {art:entry.commander?`hero-${entry.commander}`:'workshop-2',kicker:'Commander hall',title:'Contract ended',detail:entry.text,facts:at,sound:'message'};
+  if (entry.title==='Mission called back') return {art:'scout-2',kicker:'Scout Tower',title:entry.title,detail:entry.text,facts:at,sound:'message'};
+  if (entry.kind==='diplomacy'&&/as aid\.$|cargo arrived/i.test(entry.text??'')) return {art:'event-protectorate',kicker:'Alliance dispatch',
+    title:/aid/i.test(entry.text)?'Aid received':'Trade cargo arrived',detail:entry.text,facts:at,sound:'reward'};
+  if (entry.kind==='battle'&&entry.battleId) {
+    const battle=list(state.battles).find(item=>item.id===entry.battleId);
+    if (!battle||battle.defender!==own||battle.attacker===own) return null;
+    const won=battle.winner==='defender';
+    const lost=Object.values(battle.losses?.defender??{}).reduce((total,count)=>total+count,0);
+    const taken=Object.fromEntries(Object.entries(battle.loot??{}).filter(([,qty])=>qty>0).map(([id,qty])=>[id,-qty]));
+    return {art:won?'event-victory':'event-defeat',kicker:'Your city was attacked',title:won?'Attack repelled':'Your city was raided',
+      detail:`${battle.attackerName} attacked ${battle.defenderName}. ${number(lost)} of your ${lost===1?'troop was':'troops were'} lost.`,
+      ...(!won&&Object.keys(taken).length&&{resources:taken}),facts:[...honor,...at],open:['Battle report','war',{modal:'battle',id:battle.id}],sound:won?'battle-victory':'battle-defeat'};
+  }
+  return null;
+}
+
+// A BCH payment that confirmed: a picture, what it was and the amount; the receipt is one click away.
+export function confirmedDispatch(payment) {
+  const outgoing=payment.direction==='outgoing';
+  const amount=number(payment.satoshis??payment.amount)+' sats';
+  const name=payment.title??title(payment.action??'payment');
+  return {art:outgoing||['war-chest','vault-deposit'].includes(payment.action)?'event-vault':payment.action==='attack-paid'?'battlefield':'event-season',
+    kicker:'BCH '+(outgoing?'sent to your wallet':'payment'),title:outgoing?'BCH sent to your wallet':'Payment confirmed',detail:name,
+    facts:[['Amount',amount],['Confirmed',formatDate(Date.now())]],payment:payment.id,sound:'reward'};
+}
+
 export function eventDispatch(item) {
   const cat={receipt:'bch',military:'war',battle:'war',army:'helmet',training:'helmet',city:'hammer',construction:'hammer',building:'hammer',research:'book',
     territory:'flag',political:'crown',achievement:'trophy',market:'market',daily:'gift',intel:'spy',spy:'spy',cooldown:'clock'};
@@ -103,24 +145,54 @@ export function eventDispatch(item) {
     item.job?btn('Open queue','clock',{page:'city','start-tab':({building:'build',troop:'army',research:'research'})[item.job.kind]??'build',dismiss:'true'}):
     item.commander?btn('Review commander','flag',{modal:'commander',id:item.commander}):'';
   const detail=item.detail??(item.title&&item.text!==item.title?item.text:null);
-  return `<article class="chronicle-entry">${icon(cat[item.kind]??'journal')}<div><strong>${html(item.title??item.text??title(item.kind))}</strong>
-    ${detail?`<p>${html(detail)}</p>`:''}<time>${html(formatDate(item.at))}${item.until?' · finishes '+html(formatDate(item.until)):''}</time></div>${link}</article>`;
+  // Resources a raid took from this kingdom, or brought home.
+  const moved=Object.entries(item.resources??{}).filter(([,qty])=>Number.isFinite(qty)&&qty!==0);
+  const spoils=moved.length?`<p>${moved.map(([id,qty])=>`<span class="tag quiet">${icon(id)}${html(title(id))} ${signed(qty)}</span>`).join(' ')}</p>`:'';
+  return `<article class="chronicle-entry${item.threat?' chronicle-threat':''}">${icon(cat[item.kind]??'journal')}<div><strong>${html(item.title??item.text??title(item.kind))}</strong>
+    ${detail?`<p>${html(detail)}</p>`:''}${spoils}<time>${html(formatDate(item.at))}${item.until?' · finishes '+html(formatDate(item.until)):''}</time></div>${link}</article>`;
 }
 
 export function offlineContents(report) {
   if (!report) return '<p>No offline report has been recorded for this kingdom yet.</p>';
   const troops=Object.entries(report.troopChanges??{}).filter(([,qty])=>qty!==0);
   const treasury=Object.entries(report.treasuryChanges??{}).filter(([,qty])=>Number.isFinite(qty)&&qty!==0);
-  return eventHero('event-season','Return to the frontier','Kingdom chronicle',`${formatDate(report.from)} — ${formatDate(report.to)}`)+
+  // What went against the kingdom comes first: attacks, raids, caught scouts, sabotage, lost land and War Chest losses.
+  const events=list(report.events);
+  const threats=events.filter(item=>item.threat);
+  const lost={};
+  for (const item of threats) for (const [id,qty] of Object.entries(item.resources??{})) if (qty<0) lost[id]=(lost[id]??0)+qty;
+  const troopsLost=threats.reduce((total,item)=>total+(item.troopsLost??0),0);
+  // BCH that left the War Chest while the kingdom was attacked.
+  const chestLost=threats.some(item=>item.kind==='battle')?treasury.filter(([id,qty])=>id==='atRiskSatoshis'&&qty<0):[];
+  const count=test=>threats.filter(test).length;
+  const tally=[
+    [count(item=>item.kind==='battle'&&/^(Raided by|Attack repelled)/.test(item.title??'')),'attack','attacks'],
+    [count(item=>item.kind==='battle'&&item.title==='Defeat'),'defeat','defeats'],
+    [count(item=>item.title==='Enemy scout caught'||item.title==='Watchtower alarm'),'scout caught','scouts caught'],
+    [count(item=>item.title==='Sabotage detected'),'sabotage','sabotage'],
+    [count(item=>item.kind==='territory'),'territory lost','territories lost'],
+  ].filter(([n])=>n).map(([n,one,many])=>`<span class="tag danger">${number(n)} ${n===1?one:many}</span>`);
+  const against=`<section class="chronicle-threats"><h3>${icon('shield')} Attacks, scouting and losses</h3>
+    ${threats.length||chestLost.length?`${tally.length?`<p>${tally.join(' ')}</p>`:''}
+    ${Object.keys(lost).length?`<p>Resources taken from your stores</p>${supplyCards(lost,{sign:true})}`:''}
+    ${troopsLost?`<p>${number(troopsLost)} ${troopsLost===1?'troop':'troops'} lost in battle.</p>`:''}
+    ${chestLost.length?`<p>${chestLost.map(([,qty])=>`<span class="tag danger">War Chest ${signed(qty,bch)} BCH</span>`).join(' ')}</p>`:''}
+    ${threats.map(eventDispatch).join('')}`:
+    '<p>No attacks, caught scouts, sabotage or losses were recorded against your kingdom while you were away.</p>'}
+    <p class="strategy-note">A scout your watchtower does not catch leaves no trace. A higher Scout Tower and counterintelligence catch more of them.</p></section>`;
+  return eventHero('event-season','Return to the frontier','Kingdom chronicle',`${formatDate(report.from)} — ${formatDate(report.to)}`)+against+
     `<h3>Net store changes</h3>${Object.keys(report.resourceChanges??{}).length?supplyCards(report.resourceChanges,{sign:true}):'<p>Your stores did not change.</p>'}
     ${troops.length?`<h3>Available army change</h3><p>${troops.map(([id,qty])=>`<span class="tag quiet">${html(title(id))} ${signed(qty)}</span>`).join(' ')}</p>`:''}
     ${treasury.length?`<h3>Vault and treasury changes</h3><p>${treasury.map(([id,qty])=>`<span class="tag quiet">${html(title(id.replace(/Satoshis$/,'').replace(/[A-Z]/g,letter=>' '+letter)))} ${signed(qty,bch)} BCH</span>`).join(' ')}</p>`:''}
-    <h3>Recorded dispatches</h3>${list(report.events).map(eventDispatch).join('')||'<p>No recorded events during this interval.</p>'}
+    <h3>${threats.length?'Other dispatches':'Recorded dispatches'}</h3>${events.filter(item=>!item.threat).map(eventDispatch).join('')||'<p>No other events during this interval.</p>'}
     ${report.olderEvents?`<p>${number(report.olderEvents)} earlier ${report.olderEvents===1?'event is':'events are'} not shown in this summary.</p>`:''}
     <div class="buttons"><button class="btn primary" type="button" data-dismiss-report="${html(report.id)}">${icon('check')} Continue to kingdom</button></div>`;
 }
 
 export function commandDispatch(payload,value,config) {
+  if (payload.type==='task-claim') return {art:'event-vault',kicker:'Campaign task',title:'Reward claimed',
+    detail:`${value.title}. ${Object.values(value.collected??{}).some(Boolean)?'Your stores were credited.':'Your stores were full, so nothing was added.'}`,
+    resources:value.collected,sound:'reward',back:{mode:'next'}};
   if (payload.type==='collect'&&value.collected) return {art:'event-vault',kicker:'Daily tribute',title:'Reward claimed',
     detail:`${Object.values(value.collected).some(Boolean)?'Your stores were credited.':'Your stores were full, so nothing was added.'} Next shipment: ${formatDate(value.availableAt)}.`,resources:value.collected,sound:'reward'};
   if (payload.type==='trade') return {art:'market-3',kicker:'Marketplace',title:'Trade completed',

@@ -140,7 +140,7 @@ try{
     window.frontierTracks=[];
     window.Audio=new Proxy(AudioElement,{construct(target,args){
       const track=Reflect.construct(target,args);
-      if(args[0]==='/art/frontier-score.mp3')window.frontierTracks.push(track);
+      if(args[0]==='/art/frontier-saga.mp3')window.frontierTracks.push(track);
       return track;
     }});
   });

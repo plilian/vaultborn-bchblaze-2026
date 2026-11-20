@@ -7,6 +7,7 @@ import { chromium } from 'playwright';
 import { createApp } from '../apps/game-server/index.mjs';
 import { createChain } from '../packages/chain-observer/index.mjs';
 import { battleTimeline } from '../apps/web/battle-motion.js';
+import { raidSpoils } from '../apps/web/battle-report.js';
 
 const output = resolve(process.env.DOMINION_BROWSER_OUTPUT ?? 'output/playwright/battle');
 await mkdir(output, { recursive: true });
@@ -74,8 +75,8 @@ async function open({ route = '?seat=p1', mobile = false, reducedMotion = 'no-pr
 
 const activeSong = (page, name) => page.waitForFunction(trackName => {
   const active = window.replayTracks.filter(track => !track.paused && track.volume > .01);
-  return active.length === 1 && active[0].src.endsWith('/' + trackName + '-score.mp3');
-}, name);
+  return active.length === 1 && active[0].src.endsWith('/' + trackName);
+}, { frontier:'frontier-saga.mp3', battle:'battle-score.mp3' }[name]);
 const seek = (page, scene, position, hit) => Promise.all([
   dialog(page).locator('#replay-seek').fill(String(Math.round(position * 20) / 20)),
   scene.locator('xpath=self::*[@data-replay-impact="' + hit + '"]').waitFor(),
@@ -103,10 +104,17 @@ try {
   const scene = dialog(attacker).locator('.replay-scene[data-replay-trace=verified]');
   await scene.waitFor();
   assert.equal(await dialog(attacker).locator('[data-battle-result]').isVisible(), false);
-  await activeSong(attacker, 'frontier');
-  await click(dialog(attacker), 'Play battle replay');
+  // The battle just fought plays by itself; the result, the reward popup of a won attack and the replay follow.
   await activeSong(attacker, 'battle');
   await attacker.waitForFunction(() => window.replaySounds > 0);
+  await click(dialog(attacker), 'Show result');
+  await dialog(attacker).getByRole('heading', { name: result.winner === 'attacker' ? 'VICTORY' : 'DEFEAT', exact: true }).waitFor();
+  if (raidSpoils(result, result.attacker)) {
+    await dialog(attacker).getByRole('heading', { name: 'Your rewards' }).waitFor();
+    await click(dialog(attacker), 'Continue');
+  }
+  await click(dialog(attacker), 'Replay battle');
+  await activeSong(attacker, 'battle');
   await click(dialog(attacker), 'Pause replay');
   const pausedAt = await dialog(attacker).locator('#replay-meter').getAttribute('style');
   await attacker.waitForFunction(() => window.replayTracks.every(track => track.paused));
@@ -132,8 +140,9 @@ try {
   await click(dialog(attacker), 'Close dialog');
   await activeSong(attacker, 'frontier');
 
-  await click(defender.getByRole('navigation', { name: 'Main navigation' }), 'War');
-  await click(defender.locator('#campaign'), 'Battle report');
+  // The defender is told at once, in a popup with the result, and opens the report from there.
+  await dialog(defender).getByRole('heading', { name: won ? 'Your city was raided' : 'Attack repelled', exact: true }).waitFor();
+  await click(dialog(defender), 'Battle report');
   await dialog(defender).locator('.replay-scene[data-replay-trace=verified]').waitFor();
   await click(dialog(defender), 'Show result');
   await dialog(defender).getByRole('heading', { name: won ? 'DEFEAT' : 'VICTORY', exact: true }).waitFor();

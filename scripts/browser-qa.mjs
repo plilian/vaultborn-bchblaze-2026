@@ -8,6 +8,7 @@ import { chromium } from 'playwright';
 import { createApp } from '../apps/game-server/index.mjs';
 import { createChain, signWalletChallenge, walletFromPrivateKey } from '../packages/chain-observer/index.mjs';
 import { hdTestWallet, pairingEntry } from '../tests/support/paired-wallet.mjs';
+import { raidSpoils } from '../apps/web/battle-report.js';
 
 const output = resolve(process.env.DOMINION_BROWSER_OUTPUT ?? 'output/playwright');
 await mkdir(output, { recursive:true });
@@ -101,6 +102,8 @@ const openNav = async (page,name) => {
 };
 // A tab inside a panel that is still animating is clicked as soon as it exists, and a click that landed on a tab bar being redrawn is repeated until the tab is the selected one.
 const openTab = async (page,name) => {
+  // Tabs belong to pages, never to dialogs: a game event popup still open is logged and closed first.
+  await closeRaised(page,0);
   const tab = page.getByRole('tab',{name,exact:true});
   for (let attempt = 0; attempt < 6; attempt += 1) {
     await tab.waitFor();
@@ -112,6 +115,7 @@ const openTab = async (page,name) => {
 };
 const fetchState = async page => page.evaluate(async () => (await fetch('/api/state')).json());
 async function progress(page,ms) {
+  const open = await dialog(page).evaluate(node=>node.open).catch(()=>false);
   now += ms;
   await page.evaluate(async () => {
     const response = await fetch('/api/command', {
@@ -119,6 +123,8 @@ async function progress(page,ms) {
     });
     if (!response.ok) throw new Error('Clock synchronization failed');
   });
+  // Work finished while time passed pops up as a game event; it is logged and closed.
+  if (!open) await closeRaised(page,900);
 }
 async function quoteState(page, amount, heading) {
   const box = dialog(page);
@@ -321,14 +327,26 @@ try {
   assert.equal((await fetchState(page)).battles.length,battlesBeforeReview);
   await clickButton(dialog(page),'Launch free raid');
   await clickButton(dialog(page),'Confirm attack');
-  await dialog(page).getByRole('button',{name:'Play battle replay'}).waitFor();
+  // The battle just fought plays by itself; the replay controls and the result come when it ends.
   await dialog(page).locator('.replay-scene[data-replay-trace=verified]').waitFor();
   assert.equal(await dialog(page).locator('[data-battle-result]').isVisible(),false);
-  await clickButton(dialog(page),'Play battle replay');
+  assert.equal(await dialog(page).getByRole('button',{name:/replay/i}).isVisible(),false);
   await dialog(page).locator('#replay-status').getByText(/Round/).waitFor();
   await dialog(page).locator('.battle-canvas').waitFor();
   await page.waitForFunction(()=>window.battleMusicAudit().includes('/art/battle-score.mp3'));
   assert.deepEqual(await page.evaluate(()=>window.battleMusicAudit()),['/art/battle-score.mp3']);
+  await clickButton(dialog(page),'Show result');
+  await dialog(page).getByRole('heading',{name:/^(VICTORY|DEFEAT)$/}).waitFor();
+  const foughtState=await fetchState(page);
+  const spoils=raidSpoils(foughtState.battles[0],foughtState.player.id);
+  if (spoils) {
+    // A won attack shows what it won in its own popup; Continue returns to the report.
+    await dialog(page).getByRole('heading',{name:'Your rewards'}).waitFor();
+    for (const [label,value] of spoils.facts) await dialog(page).getByText(value,{exact:true}).first().waitFor();
+    await shot(page,'battle-rewards.png');
+    await clickButton(dialog(page),'Continue');
+    await dialog(page).getByRole('heading',{name:/^(VICTORY|DEFEAT)$/}).waitFor();
+  }
   await dialog(page).locator('#replay-seek').fill('54');
   await dialog(page).locator('#replay-status').getByText('Engagement · Round 5',{exact:true}).waitFor();
   await shot(page,'battle-report.png');
@@ -342,8 +360,8 @@ try {
   assert.equal((await fetchState(page)).player.attacksLeft, front.player.attacksLeft-1);
   assert.equal((await fetchState(defender)).battles.length,1);
   await closeDialog(page);
-  await page.waitForFunction(()=>window.battleMusicAudit().includes('/art/frontier-score.mp3'));
-  assert.deepEqual(await page.evaluate(()=>window.battleMusicAudit()),['/art/frontier-score.mp3']);
+  await page.waitForFunction(()=>window.battleMusicAudit().includes('/art/frontier-saga.mp3'));
+  assert.deepEqual(await page.evaluate(()=>window.battleMusicAudit()),['/art/frontier-saga.mp3']);
   console.log('Protectorate/paid attack quote, free raid, replay and two-session combat synchronization passed');
 
   await openNav(page,'Alliance');
@@ -526,7 +544,7 @@ try {
   const audio = (await fetchState(page)).player.settings;
   assert.equal(audio.musicVolume,0);
   assert.equal(audio.sfxVolume,100);
-  const music = await page.request.get(origin + '/art/frontier-score.mp3');
+  const music = await page.request.get(origin + '/art/frontier-saga.mp3');
   assert.equal(music.headers()['content-type'],'audio/mpeg');
   assert.ok((await music.body()).length > 100_000);
   await closeDialog(page);

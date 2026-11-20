@@ -69,6 +69,26 @@ function rewards(battle,ownSide,won,ctx,receipt,names) {
       <span data-battle-chain>${receipt?.state==='credited'?'Funding confirmed · checking settlement proof':'Checking settlement proof'}</span></div></div>`:''}`;
 }
 
+// What an attack won, for the reward popup shown when a battle the player just fought ends: only what this battle
+// actually recorded for the attacker.
+export function raidSpoils(battle,player) {
+  if (!battle||battle.attacker!==player||battle.winner!=='attacker'||battle.kind==='tutorial-drill') return null;
+  const personal=battle.aftermath?.attacker??{},ledger=battle.treasury;
+  const loot=Object.fromEntries(Object.entries(battle.loot??{}).filter(([,amount])=>Number.isFinite(amount)&&amount>0));
+  const facts=[
+    personal.campaignPoints&&['Campaign points','+'+number(personal.campaignPoints)],
+    personal.mastery&&['Commander XP','+'+number(personal.mastery)],
+    personal.influence&&['Influence','+'+number(personal.influence)],
+    personal.achievement&&['Achievement',title(personal.achievement)],
+    battle.conquest&&['Conquered',battle.conquest.name],
+    battle.paid&&ledger?.matched&&ledger.stakeLane==='attacker-wins'&&ledger.stakePayouts?.attacker&&['BCH stake won',number(ledger.stakePayouts.attacker)+' sats'],
+  ].filter(Boolean);
+  if (!Object.keys(loot).length&&!facts.length) return null;
+  return {art:'event-victory',kicker:'Spoils of war',title:'Your rewards',
+    detail:'Your army returns from '+(battle.conquest?.name??battle.defenderName)+' with these spoils.',
+    ...(Object.keys(loot).length&&{resources:loot}),facts,sound:'reward'};
+}
+
 export function battleReport(ctx,id,modal) {
   const battle=ctx.ui.dialog.battle??list(ctx.ui.state.battles).find(item=>item.id===id);
   if(!battle) return modal('Battle report',empty('This report is unavailable to your city.'));
