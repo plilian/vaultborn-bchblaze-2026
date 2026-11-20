@@ -57,7 +57,7 @@ export function quoteRaffle(world, player, site, address, head, now, policy = ra
   const voter = eligibility(world, world.territoryRaffles ?? {}, site, player, address, now, policy);
   return { action: { type: 'territory-raffle', territory: site, round: bounds, wallet: voter.wallet },
     title: 'Rare territory raffle entry',
-    description: '' + NETWORK_LABEL + ' only. The winner receives 72 hours of extraction. Every accepted entrant recovers the 50% escrow after the draw. Development, burn and prize allocations are final.',
+    description: 'The winner holds this territory for 72 hours. Every entrant gets the escrow back after the draw.',
     satoshis: policy.fee };
 }
 

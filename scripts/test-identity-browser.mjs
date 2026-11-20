@@ -113,7 +113,7 @@ try {
     await page.waitForFunction(()=>JSON.parse(window.render_game_to_text()).mode==='map');
     for (const [selector,title] of [
       ['#masthead .wallet-shortcut','Chipnet wallet'],['#masthead .codex-shortcut','Game guide'],
-      ['#masthead [aria-label="Notifications"]','Dispatches'],['#masthead [aria-label="Profile and settings"]','Profile & settings'],
+      ['#masthead [aria-label^="Notifications"]','Notifications'],['#masthead [aria-label="Profile and settings"]','Profile & settings'],
     ]) {
       await page.locator(selector).click();
       const box=page.getByRole('dialog');

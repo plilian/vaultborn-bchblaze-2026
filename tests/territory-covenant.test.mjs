@@ -198,3 +198,32 @@ test('a raffle entry can only return to its entrant, with the unused reserve, an
   assert.equal(paidTo(app,back.txid,walletOf(keys[0]).script),intent.satoshis-600);
   assert.equal(readTransaction(back.rawHex).transaction.inputs[0].unlockingBytecode[0],0x00,'no signature opens the return lane');
 });
+
+test('a claim the game could not enter when its payment became final returns whole to the claimant, and its attestors are told why', async t => {
+  const {app,players,keys,network} = await apiFixture(t);
+  const {result} = await players[0]('payments',{type:'territory-claim',territory:'east-meadow'},201);
+  // Between checkout and confirmation the army left: the claim can no longer be entered.
+  app.store.transaction(() => { const {world}=app.store.read(); for (const unit of Object.keys(world.cities.p1.troops)) world.cities.p1.troops[unit]=0; app.store.write(world); });
+  await network.pay(result,keys[0]);
+  network.mine();
+  await app.ledger.reconcile();
+  const row=app.store.payment(result.id);
+  assert.equal(row.state,'credited');
+  assert.equal(row.fulfillment.status,'review');
+  assert.equal(app.store.read().world.territories.find(site => site.id==='east-meadow').claim,null,'no contest was opened');
+  assert.ok((app.store.read().world.notifications.p1 ?? []).some(entry => /Field at least 12 available troops.*your stake is returned to your wallet/.test(entry.text ?? entry.message ?? '')),
+    'the claimant is told at once why, and that the stake comes back');
+  for (let round=0; round<3; round+=1) { await app.ledger.reconcile(); await attest(app); network.mine(); }
+  await app.ledger.reconcile();
+  const back=app.store.payments().find(item => item.settles === row.id);
+  assert.equal(back?.lane,'return');
+  assert.equal(back.state,'credited');
+  const principal=stakeEscrow(row.escrow).principal;
+  assert.ok(paidTo(app,back.txid,walletOf(keys[0]).script) >= principal,'the whole stake and the unused reserve go back to the claimant');
+  assert.ok((app.store.read().world.notifications.p1 ?? []).some(entry => entry.title === 'Stake returned to its owner'),'the claimant is told');
+  // The evidence an attestor receives says the claim was never entered, and why.
+  const { signAttestorRequest } = await import('../packages/chain-observer/index.mjs');
+  const evidence=app.ledger.evidence(back.id,{publicKey:walletOf(judgeKey).publicKey,signature:signAttestorRequest(back.id,judgeKey)});
+  assert.equal(evidence.contest,null);
+  assert.match(evidence.notEntered.reason,/Field at least 12 available troops/);
+});

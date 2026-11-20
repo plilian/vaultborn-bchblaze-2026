@@ -69,7 +69,9 @@ export const terrains = {
 
 export const balance = {
   version: 1, combatVariance: .12, fortInfluence: .52, attackWindow: .2, attacksDaily: 3, cityTerritoryCap: 2, allianceTerritoryCap: 3, allianceAttacksDaily: 10, targetIncomingDaily: 3,
-  repeatAttack: 8 * HOUR, defeatShield: 4 * HOUR, scoutPoints: 5, scoutRegen: 40 * MINUTE,
+  // No shields in this season: a defeat gives no recovery shield, and nobody starts behind one. Raids are limited by
+  // the daily limits, the incoming limit per target and the 8-hour pause between the same two kingdoms instead.
+  repeatAttack: 8 * HOUR, defeatShield: 0, scoutPoints: 5, scoutRegen: 40 * MINUTE,
   scoutRepeat: 4 * MINUTE, scoutIncomingHourly: 4, intelLifetime: 3 * HOUR,
   counterspyDuration: 4 * HOUR, counterspyCooldown: 8 * HOUR, sabotageDuration: HOUR,
   sabotageCooldown: 8 * HOUR, decoyDuration: 3 * HOUR, chatThrottle: 3_000, hostilityCooldown: DAY,

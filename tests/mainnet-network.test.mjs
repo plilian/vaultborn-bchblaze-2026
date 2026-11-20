@@ -68,11 +68,12 @@ test('on Mainnet the server refuses to start until every condition holds and the
   assert.match(ready.browser, /"id":"mainnet","label":"Mainnet","prefix":"bitcoincash"/);
   assert.match(ready.browser, /"realValue":true/);
   assert.match(ready.browser, /"attestorOperation":"independent"/);
-  // Owner-operated attestors are a declared mode: it starts, and every description says they are not independent.
+  // Owner-operated attestors are a declared mode: it starts, says who runs them, and never calls them independent.
   const owner = run(start('{ attestors:three }'), { ...READY, MAINNET_ATTESTOR_OPERATION: 'owner', DOMINION_HTTPS: '', HOST: '127.0.0.1' }).json();
   assert.equal(owner.started, true);
-  assert.match(owner.browser, /"attestorAdjective":"owner-operated"/);
-  assert.match(owner.browser, /run by the game's operator, not by independent parties/);
+  assert.match(owner.browser, /"attestorAdjective":"VaultBorn"/);
+  assert.match(owner.browser, /run by the VaultBorn team/);
+  assert.doesNotMatch(owner.browser, /"attestorAdjective":"independent"/);
 });
 
 test('test keys, test tools and test data cannot reach Mainnet', () => {

@@ -1,5 +1,7 @@
 # Transactions, wallets, and economic accounting
 
+> **Historical audit (18 November 2026),** written before the remediation and the Mainnet launch. VaultBorn has since gone live on Bitcoin Cash Mainnet with real, confirmed transactions; see [MAINNET.md](../../MAINNET.md) and [MAINNET_TRANSACTIONS.md](../../MAINNET_TRANSACTIONS.md).
+
 Audit date: 18 November 2026. Audit and report only. No implementation or economic parameter was changed. Statuses distinguish a current check from historical evidence with narrower applicability. Live tests still in progress are not passes.
 
 ## Version and evidence applicability

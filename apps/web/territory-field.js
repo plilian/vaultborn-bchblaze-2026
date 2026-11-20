@@ -80,7 +80,9 @@ function claimOrders(ctx,site) {
   const claim = ['open','locked'].includes(site.claim?.status) ? site.claim : null;
   const rules = ctx.ui.state.territoryRules;
   const block = checkout(ctx,site.claimEligibility,site.id);
-  const military = site.owner || site.protected ? '' : block || pay(claim ? 'Enter contest · '+sats(rules.claimFee) : 'Open claim · '+sats(rules.claimFee),'flag',{type:'territory-claim',territory:site.id},'primary');
+  const entered = claim?.entries?.some(entry => entry.player === ctx.own.id);
+  const military = site.owner || site.protected ? '' : entered ? `<p>${tag('Your entry is in this contest','success')}</p>` :
+    block || pay(claim ? 'Enter contest · '+sats(rules.claimFee) : 'Open claim · '+sats(rules.claimFee),'flag',{type:'territory-claim',territory:site.id},'primary');
   return section('Public claim',`<p>${claim ? 'Contest ends in '+time(claim.endsAt,ctx.gameNow)+' · Army lock '+time(claim.lockAt,ctx.gameNow) : 'The first confirmed payment opens a public 60-minute contest.'}</p>
     ${claim ? lines(claim.entries.map(entry => `<strong>${html(name(ctx,entry.player))}</strong><span>${sats(entry.escrowSatoshis)} escrow ${explorer(entry.txid)}</span>`)) : ''}
     <p>Equal entry rules. Armies lock two minutes before close. An uncontested site goes to its sole eligible entrant.</p>${military}`);

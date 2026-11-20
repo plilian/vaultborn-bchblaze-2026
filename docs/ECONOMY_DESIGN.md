@@ -8,7 +8,7 @@ The game is free to play. Building, recruiting, research, trade, NPC expeditions
 
 Every player has exactly one BCH balance in the game, the War Chest. There is no Kingdom Treasury, no protected balance and no risk setting. All of it is at risk, in one way only: a paid raid with matched stakes (section 4).
 
-- It is a contract output of the player's own script. The game key can only send it to the wallet the player verified; a capture needs the independent attestors and an equal stake from the attacker in the same transaction.
+- It is a contract output of the player's own script. The game key can only send it to the wallet the player verified; a capture needs the attestors and an equal stake from the attacker in the same transaction.
 - It is funded by half of every service payment and by direct deposits (minimum 10,000 sat, whole thousands, not split).
 - **Withdrawal through the game:** the amount named, in whole thousands, is exactly what leaves the chest; the wallet receives it less the network fee shown beforehand (cap 2,000 sat). An output must be 144 blocks old. Money matched against a funded raid stays until that raid settles.
 - **Exit without the game:** the owner's wallet key moves an output, whole, into an exit script and takes it out 288 blocks later. A raid funded before the exit still settles from the exit script.
@@ -58,7 +58,7 @@ A paid raid is offered only when the defender has at least S of confirmed War Ch
 | Void (the battle could not be fought, or the cover was gone when the payment arrived) | The stake returns to the attacker. |
 | No settlement for 3 days | The attacker's key alone takes the stake back. |
 
-The unused part of the reserve returns to the attacker in every case. The outcome is signed by the independent attestors after each has replayed the recorded battle; the game key alone cannot open any outcome. The same two kingdoms can fight one paid raid per 24 hours, and allies cannot stake against each other.
+The unused part of the reserve returns to the attacker in every case. The outcome is signed by the attestors after each has replayed the recorded battle; the game key alone cannot open any outcome. The same two kingdoms can fight one paid raid per 24 hours, and allies cannot stake against each other.
 
 ## 5. Territory
 

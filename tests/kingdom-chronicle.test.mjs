@@ -100,7 +100,8 @@ test('returning after an idle interval reports each real completion once across 
   const departure=(await player.request('state')).body;
   assert.equal(departure.offlineReport,null);
   const session=player.cookie;
-  now+=awayThreshold+1;
+  // Away long enough to be greeted with a report, and until both orders are complete.
+  now=Math.max(now+awayThreshold,order.body.result.completesAt,training.body.result.completesAt??0)+1;
   assert.equal((await player.request('state?background=1')).body.offlineReport,null);
   await server.close();
   server=await start(()=>now,db);

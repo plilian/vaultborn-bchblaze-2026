@@ -1,8 +1,8 @@
 # Running VaultBorn on Bitcoin Cash Mainnet
 
-Status on 19 November 2026: **prepared, not activated.** No Mainnet transaction has been made, no real BCH has moved and nothing is deployed. The server refuses to start on Mainnet until the owner writes the authorisation into the configuration (step 7).
+Status on 20 November 2026: **live on Mainnet** at https://vaultborn.parhamlilian.com since the launch record in block 978,040 (19 November). The first real game payments, a territory claim and a War Chest deposit, confirmed in block 978,066. All of them, with an offline check, are listed in [MAINNET_TRANSACTIONS.md](MAINNET_TRANSACTIONS.md). The server refuses to start on Mainnet until the owner writes the authorisation into the configuration (step 7).
 
-Honest limit: the current contracts (`war-chest-v4`, `stake-escrow-v4`, `record-reserve-v2`) have been run in the BCH virtual machine, on a private Bitcoin Cash Node Regtest chain with standard relay rules, and in a full local lifecycle with the process configured for Mainnet. They have **not yet been run on a public network** (neither Chipnet nor Mainnet), and no real wallet has signed the new payment shapes. Do the Chipnet rehearsal in step 0 before real money.
+**Tested on Mainnet.** The game is live on Bitcoin Cash Mainnet and real transactions have been signed in a real wallet (Selene, through WizardConnect) and confirmed: the launch record (block 978,040), a territory claim into `stake-escrow-v3` and a War Chest deposit into `war-chest-v4` (block 978,066). See [MAINNET_TRANSACTIONS.md](MAINNET_TRANSACTIONS.md). Every contract path (raid captures, settlements, exits) is also covered in the BCH virtual machine and on a Bitcoin Cash Node Regtest chain. Anyone running their own copy should do the Chipnet rehearsal in step 0 first.
 
 ## The launcher (the short way)
 

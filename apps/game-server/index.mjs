@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { createWorld, addPlayer, advance, snapshot, command, quote } from '../../packages/game-engine/index.mjs';
 import { marketQuote, trainingQuote } from '../../packages/game-engine/economy.mjs';
 import { createChain, decodeAddress } from '../../packages/chain-observer/index.mjs';
+import { walletFromPublicKey } from '../../packages/chain-observer/primitives.mjs';
 import { openStore } from './store.mjs';
 import { createLedger } from './ledger.mjs';
 import { createPortal } from './portal.mjs';
@@ -31,7 +32,7 @@ import { awayThreshold, dismissKingdomChronicle, readKingdomChronicle } from './
 import { ADDRESS_PREFIX, ATTESTOR_ADJECTIVE, ATTESTOR_NOTE, ATTESTOR_OPERATION, NETWORK_ID, NETWORK_LABEL, NETWORK_PROFILE, REAL_VALUE, assertNetworkEnvironment, browserNetwork, networkEnv, networkEnvName } from '../../config/network.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
-const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.json': 'application/json', '.woff2': 'font/woff2', '.mp3': 'audio/mpeg', '.wav': 'audio/wav' };
+const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.json': 'application/json', '.woff2': 'font/woff2', '.mp3': 'audio/mpeg', '.wav': 'audio/wav', '.mp4': 'video/mp4', '.vtt': 'text/vtt; charset=utf-8' };
 const hash = (token) => createHash('sha256').update(token).digest('hex');
 const canonicalize = (value) => Array.isArray(value) ? value.map(canonicalize) : value && typeof value === 'object'
   ? Object.fromEntries(Object.keys(value).sort().map(key => [key, canonicalize(value[key])])) : value;
@@ -84,7 +85,7 @@ export function financialReadiness({ chain, kingdomCustody = 'covenant', vaultCu
   if (!chain.payoutsEnabled) blocking.push('No automation key: withdrawals, settlements and prize proposals cannot be signed.');
   if (kingdomCustody !== 'covenant' || vaultCustody !== 'covenant') blocking.push('Custody is set to "operator": player money would be held by the game key. Use covenant custody.');
   if (attestors === 1) lines.push('One attestor is configured: captures and prizes stop while it is offline, and it must be run by someone independent of the developer.');
-  if (attestors && ATTESTOR_OPERATION === 'owner') lines.push('The attestors are operated by the game owner. They are NOT independent: the operator holds the game key and the attestor keys and is trusted not to sign a false raid outcome or prize. Players are told so.');
+  if (attestors && ATTESTOR_OPERATION === 'owner') lines.push('The attestors are run by the game owner, so they are not independent. Players see this in the rules and the public ledger.');
   if (attestors === 2) lines.push('Two attestors are configured: both must sign every capture and prize (a majority of two is two). Three allow one to be offline.');
   if (attestors && !blocking.length) lines.push(`Paid services are open: ${chain.attestorThreshold} of ${attestors} attestor(s) sign captures and prizes; the season pool accepts one attestor from 30 days after a season closes.`);
   lines.push(...blocking);
@@ -195,6 +196,8 @@ export function createApp({ database = resolve(root, process.env.DOMINION_DB ?? 
   const identity = createIdentity({store,clock,fail});
   const listeners = new Set();
   const rate = new Map();
+  // The last whole-wallet balance of each player, kept for a few seconds so that repeated renders do not query the indexer.
+  const walletTotals = new Map();
   let currentRevision = store.read().revision;
   const notify = (revision = store.read().revision) => {
     currentRevision = revision;
@@ -621,6 +624,31 @@ export function createApp({ database = resolve(root, process.env.DOMINION_DB ?? 
       return json(res, 200, { wallet, verified:wallet.address===linked?.address, balance: balance.status === 'fulfilled' ? balance.value : null,
         tokens: tokens.status === 'fulfilled' ? tokens.value : null });
     }
+    if (req.method === 'POST' && url.pathname === '/api/wallet/balance') {
+      // The whole wallet: an HD wallet keeps change and later payments on other addresses than the first receiving one.
+      // The player's wallet shares the public keys of its first receiving and change addresses; only their balances are read.
+      const body = await readJson(req);
+      if (!Array.isArray(body.keys) || !body.keys.length || body.keys.length > 48) fail(400, 'Send between 1 and 48 wallet keys.');
+      const keys = [];
+      for (const key of body.keys) {
+        if (!key || !['receive','change'].includes(key.path) || !Number.isSafeInteger(key.index) || key.index < 0 || key.index > 100_000) fail(400, 'Invalid derivation path.');
+        let wallet;
+        try { wallet = walletFromPublicKey(key.publicKey); } catch { fail(400, 'Invalid wallet public key.'); }
+        if (!keys.some(item => item.script === wallet.script)) keys.push({ address: wallet.address, script: wallet.script, path: key.path, index: key.index });
+      }
+      if (!walletRead || !chain.walletBalances) fail(503, 'The ' + NETWORK_LABEL + ' balance service is offline.');
+      const id = keys.map(key => key.script).join(',');
+      const cached = walletTotals.get(player);
+      if (cached && cached.id === id && clock() - cached.at < 15_000) return json(res, 200, cached.result);
+      let amounts;
+      try { amounts = await chain.walletBalances(keys.map(key => key.script)); }
+      catch { fail(503, NETWORK_LABEL + ' wallet data is currently unavailable.'); }
+      const funded = keys.map((key, index) => ({ address: key.address, path: key.path, index: key.index, satoshis: amounts[index] })).filter(item => item.satoshis > 0);
+      const result = { totalSatoshis: funded.reduce((total, item) => total + item.satoshis, 0), checked: keys.length, funded };
+      walletTotals.set(player, { id, at: clock(), result });
+      if (walletTotals.size > 2_000) walletTotals.delete(walletTotals.keys().next().value);
+      return json(res, 200, result);
+    }
     if (req.method === 'GET' && url.pathname === '/api/events') {
       if (listeners.size >= 160) fail(503, 'Live connection capacity reached.');
       res.writeHead(200, { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache, no-transform', 'X-Accel-Buffering': 'no', Connection: 'keep-alive' });
@@ -735,8 +763,10 @@ export function createApp({ database = resolve(root, process.env.DOMINION_DB ?? 
       verify ? 'citadel.html' : archiveRoute ? (activePlayer ? 'index.html' : 'citadel.html') :
       playRoute || (entryRoute && demoEntry) ? 'index.html' : entryRoute ? 'landing.html' :
       asset ? pathname.slice(5) : pathname.slice(1);
-    const file = resolve(publicDir, inner);
+    let file = resolve(publicDir, inner);
     if (!file.startsWith(publicDir + sep) || !types[extname(file)] || !['GET', 'HEAD'].includes(req.method)) fail(404, 'File unavailable.');
+    // The trailer can also stay where it was made (brag-output/), so the 33 MB file is not copied around.
+    if (pathname === '/media/vaultborn-trailer.mp4' && !(await stat(file).catch(() => null))) file = resolve(root, 'brag-output', 'brag-narrated.mp4');
     const info = await stat(file).catch(() => null);
     if (!info?.isFile()) fail(404, 'File unavailable.');
     // Pages carry their own address in their link-preview tags; it is the address this request came in on.
@@ -745,9 +775,24 @@ export function createApp({ database = resolve(root, process.env.DOMINION_DB ?? 
       const text = await readFile(file, 'utf8');
       page = Buffer.from(text.includes('__SITE__') ? text.replaceAll('__SITE__', siteOrigin(req)) : text);
     }
+    // A video is fetched in parts (the browser asks for byte ranges to start playing and to seek), and only when played.
+    const media = pathname.startsWith('/media/');
+    const range = media && !page && /^bytes=(\d*)-(\d*)$/.exec(req.headers.range ?? '');
+    if (range) {
+      const start = range[1] === '' ? Math.max(0, info.size - Number(range[2])) : Number(range[1]);
+      const end = range[1] === '' || range[2] === '' ? info.size - 1 : Math.min(Number(range[2]), info.size - 1);
+      if (!(start <= end && end < info.size)) {
+        res.writeHead(416, { 'Content-Range': 'bytes */' + info.size });
+        return res.end();
+      }
+      res.writeHead(206, { 'Content-Type': types[extname(file)], 'Content-Length': end - start + 1, 'Content-Range': `bytes ${start}-${end}/${info.size}`,
+        'Accept-Ranges': 'bytes', 'Cache-Control': 'public, max-age=86400' });
+      if (req.method === 'HEAD') return res.end();
+      return pipeline(createReadStream(file, { start, end }), res);
+    }
     res.writeHead(200, { 'Content-Type': types[extname(file)], 'Content-Length': page ? page.length : info.size,
-      'Cache-Control': sessionRoute ? 'no-store' : asset ? 'public, max-age=3600' : 'no-cache',
-      ...(sessionRoute && { Vary: 'Cookie' }) });
+      'Cache-Control': sessionRoute ? 'no-store' : asset ? 'public, max-age=3600' : media ? 'public, max-age=86400' : 'no-cache',
+      ...(media && { 'Accept-Ranges': 'bytes' }), ...(sessionRoute && { Vary: 'Cookie' }) });
     if (req.method === 'HEAD') return res.end();
     if (page) return res.end(page);
     if (['.js', '.css'].includes(extname(file))) return res.end(await readFile(file));

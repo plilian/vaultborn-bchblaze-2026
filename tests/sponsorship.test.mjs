@@ -9,7 +9,7 @@ import { chipnetTreasuryConfig } from '../config/treasury.mjs';
 import { createChain, walletFromPrivateKey } from '../packages/chain-observer/index.mjs';
 import { fromHex, readTransaction, signSpend } from '../packages/chain-observer/primitives.mjs';
 import { gameEvent } from '../packages/chain-observer/vaultborn.mjs';
-import { advance } from '../packages/game-engine/index.mjs';
+import { advance, command } from '../packages/game-engine/index.mjs';
 
 // These tests cover outputs and balances created before covenant custody of kingdom funds. Those must stay verifiable and spendable.
 process.env.VAULTBORN_KINGDOM_CUSTODY = 'operator';
@@ -98,7 +98,7 @@ test('the previous 20/80 policy still conserves every historical amount', () => 
 
 test('a new sponsorship cannot be quoted without the developer address and an independent prize attestor', async t => {
   const { app } = await fixture(t);
-  assert.throws(() => app.ledger.create('p1',fund(sponsorshipPolicy.minimumSatoshis)), /closed until the developer address and at least one independent prize attestor/);
+  assert.throws(() => app.ledger.create('p1',fund(sponsorshipPolicy.minimumSatoshis)), /closed until the developer address and a prize attestor/);
 });
 test('empty and one-player seasons carry credits forward and claims keep a fixed base', async t => {
   const { app, chain, confirm, endSeason, seat, setTime } = await fixture(t);
@@ -107,17 +107,17 @@ test('empty and one-player seasons carry credits forward and claims keep a fixed
   const quote = legacy(app, chain, 'p1', 100_000);
   await confirm('p1',quote);
   assert.equal(app.ledger.explorer().buckets.development,20_000);
-  endSeason({p1:50,p2:45,p5:100}); // Seeded cities without a session and NPCs are not entrants.
+  endSeason({p1:50,p2:45,p6:100}); // Seeded cities without a session and NPCs are not entrants.
   assert.equal(app.ledger.explorer().prizes.status,'rollover');
   assert.equal(app.ledger.explorer().prizes.eligibleCount,0);
   assert.equal(app.ledger.balances('p1').claimableSatoshis,0);
   seat('p1',first);
-  endSeason({p1:70,p2:50,p5:100});
+  endSeason({p1:70,p2:50,p6:100});
   assert.equal(app.ledger.explorer().prizes.eligibleCount,1);
   assert.equal(app.ledger.balances('p1').claimableSatoshis,0);
 
   seat('p2',second);
-  endSeason({p1:80,p2:60,p5:100});
+  endSeason({p1:80,p2:60,p6:100});
   const next = legacy(app, chain, 'p1', 10_000);
   await confirm('p1',next);
   const current = app.ledger.explorer();
@@ -175,6 +175,8 @@ test('one thousand small funding outputs can still support an exact claim, with 
 
 test('a configured developer address receives the service share and never becomes a watched or game-held script', async t => {
   const { app, externalDestination, confirm, watchedScripts } = await fixture(t,{general:true});
+  // A rush is sold only for a construction in progress.
+  app.store.transaction(() => { const { world } = app.store.read(); command(world,'p1',{type:'upgrade',building:'hall'},world.now); app.store.write(world); });
   const rush = app.ledger.create('p1',{type:'rush',building:'hall'});
   const development = rush.outputs.find(output => output.role === 'development');
   assert.equal(development.satoshis,800);

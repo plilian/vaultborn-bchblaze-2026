@@ -15,6 +15,10 @@ __pycache__/
 .env.*
 !.env.example
 
+# The trailer: only brag-narrated.mp4 is served and published. brag.mp4 is an earlier 33 MB cut without narration.
+brag-output/brag.mp4
+brag-output/brag-plan.md
+
 # Secrets and working folders (added by Push to GitHub)
 *.pem
 

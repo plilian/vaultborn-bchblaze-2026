@@ -32,10 +32,17 @@ test('legacy settlement locations and the original atlas survive migration', () 
 test('opens the next region only on demand, with a reachable camp and staged ordinary sites', () => {
   const world = createWorld(now)
   const initial = ensureTerritories(world).filter(site=>!site.protected).map(site=>[site.id,...position(site)])
-  for (let number=0;number<frontierCapacity;number++) add(world,number)
-  assert.equal(world.atlas.regions.length,1)
+  // The core takes new kingdoms first where the retired NPC kingdoms stood, then on its clearings.
+  let core = 0
+  while ((world.atlas?.regions.length ?? 1) === 1) {
+    const city = add(world,core++)
+    if (city.region !== 'core') { delete world.cities[city.id]; break }
+  }
+  core -= 1
+  assert.ok(core >= frontierCapacity, 'the core holds at least as many new kingdoms as before')
+  assert.equal(world.atlas.regions.length,2)
   for (let residents=1;residents<=frontierCapacity;residents++) {
-    const city = add(world,frontierCapacity+residents-1)
+    const city = add(world,core+residents-1)
     assert.equal(city.region,'region-1')
     const before = ensureTerritories(world).filter(site=>site.region===city.region&&site.category==='unclaimed')
     assert.equal(before.length,residents<2 ? 0 : residents<7 ? 1 : residents<12 ? 2 : 3)
@@ -50,7 +57,7 @@ test('opens the next region only on demand, with a reachable camp and staged ord
   }
   assert.equal(world.atlas.regions.length,2)
   assert.deepEqual(ensureTerritories(world).filter(site=>!site.protected&&!site.region).map(site=>[site.id,...position(site)]),initial)
-  const next = add(world,2*frontierCapacity)
+  const next = add(world,core+frontierCapacity)
   assert.equal(next.region,'region-2')
 })
 

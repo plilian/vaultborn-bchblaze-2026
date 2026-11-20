@@ -1,0 +1,78 @@
+{
+  "network": "mainnet",
+  "game": "VaultBorn",
+  "site": "https://vaultborn.parhamlilian.com",
+  "checkedAtBlock": 978087,
+  "note": "Raw transactions, block headers and Merkle branches as served by public Fulcrum servers (bch.imaginary.cash, fulcrum.greyh.at). scripts/verify-mainnet-proof.mjs checks them offline.",
+  "transactions": [
+    {
+      "name": "launch",
+      "title": "Mainnet launch record",
+      "summary": "The game went live on Mainnet. The data output (VBLN, version 1.0) holds the SHA-256 hash of the launch manifest: the game key, the three attestor keys, the 2-of-3 threshold, the price book and the contract versions.",
+      "txid": "7e5d53bbf8586c6474982f1e6c1e11a26d5444e607c0221c85a7cf1ea74db7cc",
+      "blockHeight": 978040,
+      "blockHash": "00000000000000000182a3bfeb8fe520db851b09aee470327ea06cab9e6bb18c",
+      "blockHeader": "00a0bb28d37ebe8058a82d47b74402d5d346fb0757117bdaf95df70000000000000000000945283bc6b0e773f97fb563d6919b8c18062677eb39ccbb0628db0e903ed004d218ff6a0e5602186ee47887",
+      "merkleBranch": [
+        "81a2eae57f8c02b821cf31a76381506a986e2091cd78d78dae20246cd070375c",
+        "0d9bd96942662a8772a14643cb1e2018147b9268b803bf9d2aeda76d40ee1d0c",
+        "114be027e2b309c09fd5d87e6ba09c33b22d1c4bc4072b78e8163ba122a057fe",
+        "a4e1c34f9bb245440f88f15fb73781e2e7db5d6c6d734ee543f4c8e64dc9690e",
+        "3b00b641fb02408f798e90b41711c38fb75e268be5737b5fd853a86853622792",
+        "f417781e5a700e9f0be57c0d1678c3fdc4a250fead24c8f78405f1b62bbe8db9",
+        "2fc3694371dbbf22e8d0a555fead66dffc8f43891d23394b13a970f4c0e9d7fd",
+        "f039f67b9dd2d37310a84c854ee7fb594deef0db21b310e4ad998eef6bdcfe36",
+        "1f2bdf2bcb07ec2e37b7bb8136791e886fed5fafc96d1e553510433c72f914ca"
+      ],
+      "position": 232,
+      "rawHex": "0200000001728fa7464234875da28e98aa6f35289f2940c35f6a823363d4cec85f85dc5b5f01000000644154c9d98166cdf411bb408bb610a79eff551c8786a4aca825b00366e2d1beb428fde0d18cf35c9a66918d0a6838dbe087c29ae89acb4c96db70a890e266a5b13f612102e7435d589a44493df6d59d12be4c20abb7adc3977e1cf695370f4e0ae7c12535ffffffff0200000000000000002a6a0456424c4e020100201229172ec9f78e578fe785902abb00e04b714e09f5d4fc3d716eeead763cf5f967be0100000000001976a914e6c706602915c6c0cce49933de548f5f5adffe2a88ac00000000",
+      "explorer": "https://blockchair.com/bitcoin-cash/transaction/7e5d53bbf8586c6474982f1e6c1e11a26d5444e607c0221c85a7cf1ea74db7cc"
+    },
+    {
+      "name": "claim",
+      "title": "Territory claim: Silver Mine",
+      "summary": "A player claimed the Silver Mine territory: 6,600 satoshis (6,000 stake + 600 settlement reserve) locked in a stake-escrow-v3 contract, with a VaultBorn event record (VBRN).",
+      "txid": "29dc9fc2022f0acc2391eb50646f93fd7558058d6ae3499a996c5d07f1064483",
+      "blockHeight": 978066,
+      "blockHash": "000000000000000000397c6fe453794046b720e331b4453ecae214ac95743398",
+      "blockHeader": "00002e230712c743e001780451dc060b27b0d4cc2b0e91acf43e78000000000000000000eb64e715c25601858f68262d78805ac6dc3fd092c8201d82d6659c593b3357284951ff6ab85102186d946a5e",
+      "merkleBranch": [
+        "29ad75fcc365d3fef5b85cd62c49d36baab478298bc6d0eae01004b47f936fa7",
+        "c62701653f3813abd2d75bd51405ea71bd3170f07f668d2b6877e46ae4341930",
+        "9e95793bc4c8eb35c062de8d5950a23f1a6cca682fe2c00c2425224759d2908f",
+        "9dc3feddce8bc00cf180877ea6878a14db5071fa2dfe77bf2edbfeccae097e8a",
+        "460f4c8a5d0c6514789e637f861b819c376b4e1c114f7d60d6cc9ec9ba78af36",
+        "806e867066799080a6bda27b8b14a8ff3878f610ebd7f1c60823018c59733253",
+        "dc19503a1bb97d41b8715eec93ac3d4431f1ea7da287d6a370ccd1c4fc2b22de",
+        "e73b3ef1ecfa1464198aad3b7368d1269cc5550d96be079a510b3e70caf8308d",
+        "d0c68d42932d79ed80a108077f4d431489a55df9ea4aca60dfce4f5e837581f2"
+      ],
+      "position": 63,
+      "rawHex": "0200000001ccb74da71ecfa7851c22c007e644546da2111e6c1e2f9874646c58f8bb535d7e010000006441002e7404f9ad01172e91f243699d832783d009c32b34698c20dff916c5e5c6213da5c85f8d49fecad6caeae1efea17c0427446dc27eff1b74de75a5cc115129e612102e7435d589a44493df6d59d12be4c20abb7adc3977e1cf695370f4e0ae7c12535ffffffff03c81900000000000023aa2014e14402b2e8c93dbbbb4525c65db3f48c3287d5f8f10eed84cb2200bbc11e7d870000000000000000296a045642524e2201106fc8dd719a8684ed34ee8574f4ec0b25def6bbbfa115c185a660a03da421e77365a30100000000001976a914e6c706602915c6c0cce49933de548f5f5adffe2a88ac00000000",
+      "explorer": "https://blockchair.com/bitcoin-cash/transaction/29dc9fc2022f0acc2391eb50646f93fd7558058d6ae3499a996c5d07f1064483"
+    },
+    {
+      "name": "chest",
+      "title": "War Chest deposit",
+      "summary": "A player funded their War Chest: 10,000 satoshis locked in the war-chest-v4 contract of that player\u2019s own wallet key, with a VaultBorn event record (VBRN). All of it is at risk in PvP raids under matched stakes.",
+      "txid": "3364cea414af757ad4e34ba78c24aa61b34f6e2208893c716037ff88fdb9eb46",
+      "blockHeight": 978066,
+      "blockHash": "000000000000000000397c6fe453794046b720e331b4453ecae214ac95743398",
+      "blockHeader": "00002e230712c743e001780451dc060b27b0d4cc2b0e91acf43e78000000000000000000eb64e715c25601858f68262d78805ac6dc3fd092c8201d82d6659c593b3357284951ff6ab85102186d946a5e",
+      "merkleBranch": [
+        "337b656a3b80a74edd3be56a6a76e3f0baccf9b77b81295a59f03a5a4b018e82",
+        "3b22c3d95fb4b3eaa5e3830f32fe7c2f9f5762e5accd9ebcda8a02827f803928",
+        "0d0b91063a7e3143d5ff12467cbbd66893b9faaf1c118c6d7a76f9709534e3cd",
+        "d8c1cb081420bc77858e415e8c5af9e2cac5d0f79a5d555b7aded3daae88705e",
+        "79c59d82b29fcfb8b0ec0bbaa0445b4168f2f80537dae6b0ce3c75ac23d1b240",
+        "53b4cae4566418e5fd9b95943a120d6e714c91ad09edc0ca3238545b4e0f1b26",
+        "93cc0998229e3fe3876a0d75044bdc7f1b82c07dac10a44a62ba5fc449ecbd8a",
+        "e73b3ef1ecfa1464198aad3b7368d1269cc5550d96be079a510b3e70caf8308d",
+        "d0c68d42932d79ed80a108077f4d431489a55df9ea4aca60dfce4f5e837581f2"
+      ],
+      "position": 82,
+      "rawHex": "0200000001bd15d77421da2006cef8d3551f3350e6bfed02602183ba4d2c9e9ada0ae761e5000000006441b98662afbb672b9827fa7a1e6860b047d74dfc6005f72512eda0c9ba94a979994868d4d8c257a37383dc76a56884c678f1fe3114c8fe2a8d2ed04fd5729c81ca612103666a4da48cc6245d777efacd514b939f2ae761cdc81e9909fc9214604bfe3271ffffffff03102700000000000023aa20c932436248a0cfd9ba81c59729c0a605a3ba8d8912a66977bc9e373d5c836983870000000000000000296a045642524e22011fdc07a991cc8b0821edd36c51076c10366568fd2d2998ce414d0c6b6815cf859bf6870000000000001976a914e6c706602915c6c0cce49933de548f5f5adffe2a88ac00000000",
+      "explorer": "https://blockchair.com/bitcoin-cash/transaction/3364cea414af757ad4e34ba78c24aa61b34f6e2208893c716037ff88fdb9eb46"
+    }
+  ]
+}

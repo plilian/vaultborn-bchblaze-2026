@@ -752,6 +752,13 @@ img {
   border-color: #705994;
   color: #e8d9ff;
 }
+/* An order that is already paid: it opens its receipt, and says how far the confirmation is. */
+.btn.paid {
+  background: linear-gradient(#1d3b33, #122a24);
+  border-color: var(--mint);
+  border-style: dashed;
+  color: var(--mint);
+}
 .btn[aria-pressed="true"] {
   border-color: var(--mint);
   color: var(--mint);
@@ -1078,31 +1085,164 @@ img {
   color: var(--mint);
 }
 .loading {
-  position: absolute;
-  z-index: 8;
+  position: fixed;
+  z-index: 60;
   inset: 0;
   display: grid;
   place-content: center;
+  overflow: hidden;
   text-align: center;
-  background: linear-gradient(#10212677, #0b151bec),
-    url("/art/event-season.webp") center / cover;
+  background: #070d11;
+  opacity: 1;
+  transition: opacity .7s ease, visibility 0s;
+}
+/* Hidden fades out instead of vanishing. */
+.loading[hidden] {
+  display: grid;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .7s ease, visibility 0s .7s;
+}
+.loading-art {
+  position: absolute;
+  inset: -4%;
+  background: radial-gradient(ellipse at 50% 45%, #0b151b22 0%, #0b151bcc 55%, #05090cf5 100%),
+    linear-gradient(180deg, #0b151b55, #0b151bee), url("/art/battlefield.webp") center / cover;
+  animation: loading-drift 18s ease-in-out infinite alternate;
+}
+.loading-embers i {
+  position: absolute;
+  bottom: -12px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffd88a, #f0a23088 55%, transparent 70%);
+  filter: blur(.3px);
+  animation: loading-ember 7s linear infinite;
+}
+.loading-embers i:nth-child(1) { left: 8%; animation-delay: 0s; }
+.loading-embers i:nth-child(2) { left: 17%; animation-delay: 2.4s; animation-duration: 8s; }
+.loading-embers i:nth-child(3) { left: 26%; animation-delay: 1.1s; width: 4px; height: 4px; }
+.loading-embers i:nth-child(4) { left: 35%; animation-delay: 4.2s; animation-duration: 9s; }
+.loading-embers i:nth-child(5) { left: 44%; animation-delay: 3s; width: 5px; height: 5px; }
+.loading-embers i:nth-child(6) { left: 53%; animation-delay: .6s; animation-duration: 6.5s; }
+.loading-embers i:nth-child(7) { left: 62%; animation-delay: 5s; }
+.loading-embers i:nth-child(8) { left: 70%; animation-delay: 1.8s; width: 4px; height: 4px; animation-duration: 8.5s; }
+.loading-embers i:nth-child(9) { left: 78%; animation-delay: 3.6s; }
+.loading-embers i:nth-child(10) { left: 86%; animation-delay: .3s; animation-duration: 7.5s; }
+.loading-embers i:nth-child(11) { left: 92%; animation-delay: 2s; width: 5px; height: 5px; }
+.loading-embers i:nth-child(12) { left: 4%; animation-delay: 5.5s; animation-duration: 9.5s; }
+.loading-card {
+  position: relative;
+  width: min(420px, 86vw);
+  padding: 28px 26px 22px;
 }
 .loading-mark {
+  position: relative;
+  width: 132px;
+  height: 132px;
+  margin: 0 auto 6px;
+  display: grid;
+  place-items: center;
   color: var(--gold);
-  font-size:  38px;
 }
+.loading-mark::before,
+.loading-mark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid #e3b65c55;
+  box-shadow: 0 0 40px #e3b65c33, inset 0 0 26px #e3b65c22;
+  animation: loading-ring 2.6s ease-out infinite;
+}
+.loading-mark::after { animation-delay: 1.3s; }
 .loading-mark img {
+  position: relative;
   display: block;
-  margin: 0 auto 4px;
-  filter: drop-shadow(0 4px 10px #000a);
+  width: 84px;
+  height: auto;
+  filter: drop-shadow(0 0 18px #f3c46a66) drop-shadow(0 6px 12px #000c);
+  animation: loading-breathe 3.2s ease-in-out infinite;
 }
 .loading h1 {
-  margin: 5px;
-  font: 700 32px var(--display);
-  color: var(--gold);
+  margin: 8px 0 2px;
+  font: 700 clamp(30px, 5vw, 44px) var(--display);
+  letter-spacing: .16em;
+  background: linear-gradient(180deg, #fff1c9 0%, #e9be62 48%, #a8772c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 2px 10px #000a);
 }
 .loading p {
   color: var(--muted);
+}
+.loading-tagline {
+  margin: 0 0 18px;
+  font: 600 .78rem/1 var(--display);
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  color: #d9c79c !important;
+}
+.loading-bar {
+  position: relative;
+  height: 6px;
+  margin: 0 auto;
+  width: 78%;
+  overflow: hidden;
+  border-radius: 3px;
+  background: #ffffff14;
+  box-shadow: inset 0 0 0 1px #e3b65c33;
+}
+.loading-bar span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #a8772c, #f3d28a, #a8772c);
+  background-size: 200% 100%;
+  box-shadow: 0 0 12px #f3c46a88;
+  animation: loading-fill 6s cubic-bezier(.2,.7,.3,1) forwards, loading-shine 1.4s linear infinite;
+}
+.loading-status {
+  margin: 12px 0 0;
+  font-size: .9rem;
+}
+.loading-tips {
+  position: relative;
+  height: 2.6em;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+  color: #cfdcd6;
+  font-size: .88rem;
+}
+.loading-tips li {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  animation: loading-tip 24s infinite;
+}
+.loading-tips li::before { content: "Tip · "; color: var(--gold); font-weight: 600; }
+.loading-tips li:nth-child(2) { animation-delay: 4s; }
+.loading-tips li:nth-child(3) { animation-delay: 8s; }
+.loading-tips li:nth-child(4) { animation-delay: 12s; }
+.loading-tips li:nth-child(5) { animation-delay: 16s; }
+.loading-tips li:nth-child(6) { animation-delay: 20s; }
+@keyframes loading-drift { from { transform: scale(1.02) translate3d(-1%, 0, 0); } to { transform: scale(1.1) translate3d(1%, -1%, 0); } }
+@keyframes loading-ember { 0% { transform: translate3d(0, 0, 0); opacity: 0; } 10% { opacity: 1; } 100% { transform: translate3d(30px, -105vh, 0); opacity: 0; } }
+@keyframes loading-ring { 0% { transform: scale(.72); opacity: .9; } 100% { transform: scale(1.35); opacity: 0; } }
+@keyframes loading-breathe { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes loading-fill { 0% { width: 4%; } 40% { width: 55%; } 100% { width: 92%; } }
+@keyframes loading-shine { to { background-position: -200% 0; } }
+@keyframes loading-tip { 0%, 100% { opacity: 0; transform: translateY(6px); } 3%, 14% { opacity: 1; transform: none; } 17% { opacity: 0; transform: translateY(-6px); } }
+@media (prefers-reduced-motion: reduce) {
+  .loading-art, .loading-embers i, .loading-mark::before, .loading-mark::after, .loading-mark img, .loading-tips li { animation: none; }
+  .loading-embers { display: none; }
+  .loading-tips li:first-child { opacity: 1; }
+  .loading-bar span { animation: none; width: 60%; }
 }
 .campaign {
   position: absolute;
@@ -2264,3 +2404,55 @@ summary {
 
 /* Phones have little room: text grows less there. */
 @media (max-width: 700px) { :root { --ui-text: 1.06; } }
+
+/* The tutorial and the instructions, always one click away in the bottom-left corner. */
+.tutorial-launch {
+  position: absolute;
+  z-index: 5;
+  left: 18px;
+  bottom: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 18px 0 14px;
+  border: 1px solid #58a584;
+  border-radius: 999px;
+  background: linear-gradient(#245345, #13322c);
+  color: #d8ffee;
+  font: inherit;
+  font-size: calc(15px * var(--ui-text));
+  font-weight: 700;
+  letter-spacing: .02em;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .45);
+  cursor: pointer;
+}
+.tutorial-launch:hover,
+.tutorial-launch:focus-visible { border-color: var(--mint); color: #fff; }
+.tutorial-launch .icon { width: 22px; height: 22px; }
+.learn-choices { display: grid; gap: 10px; margin: 16px 0 8px; }
+.learn-choices .btn { justify-content: center; min-height: 48px; }
+@media (max-width: 1100px) {
+  /* The navigation spans the bottom on narrow screens: the button sits just above it, on the left. */
+  .tutorial-launch { left: 12px; bottom: calc(var(--dock) + 22px); min-height: 42px; padding: 0 14px 0 11px; }
+  /* The city sheet covers the lower screen there: while it is open the button steps aside. */
+  #app:has(#inspector:not([hidden])) .tutorial-launch { display: none; }
+}
+/* A checkout shows the price and status; addresses, outputs and the transaction ID are one click away. */
+.payment-details { margin-top: 8px; }
+.payment-details > summary { font-size: .92rem; }
+.payment-details[open] > summary { margin-bottom: 4px; }
+/* Notification centre: what is still running, with the time left, above the history. The bell shows how many. */
+.work-list { margin: 4px 0 14px; }
+.work-list h3 .count { display: inline-grid; min-width: 22px; height: 22px; place-items: center; margin-inline-start: 6px; padding: 0 6px;
+  border-radius: 11px; background: var(--gold); color: #1b1408; font-size: .8rem; vertical-align: middle; }
+.work-row { display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.work-row .work-art { width: 44px; height: 44px; border-radius: 10px; object-fit: cover; display: grid; place-items: center;
+  background: rgba(255,255,255,.05); border: 1px solid var(--line); }
+.work-row .work-art .icon { width: 22px; height: 22px; }
+.work-row strong { display: block; line-height: 1.3; }
+.work-row small { color: var(--muted); }
+.round-icon { position: relative; }
+.round-icon .bell-count { position: absolute; top: -4px; right: -4px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px;
+  background: var(--gold); color: #1b1408; font: 700 .7rem/18px system-ui, sans-serif; text-align: center; box-shadow: 0 0 0 2px #0b151b; }
+.dispatch-facts { margin: 10px 0 4px; }

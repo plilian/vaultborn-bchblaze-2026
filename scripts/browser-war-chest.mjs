@@ -5,7 +5,9 @@ import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { chromium } from 'playwright';
-import { covenantNode, wallets } from '../tests/support/covenant-node.mjs';
+import { covenantNode, p1Wallet, wallets } from '../tests/support/covenant-node.mjs';
+import { pairingEntry, seedPairing } from '../tests/support/paired-wallet.mjs';
+import { NETWORK_ID } from '../config/network.mjs';
 
 const output = resolve(process.env.DOMINION_BROWSER_OUTPUT ?? 'output/playwright');
 await mkdir(output, { recursive:true });
@@ -23,9 +25,11 @@ async function open(route) {
   const page = await browser.newPage({ viewport:{ width:1440, height:900 }, reducedMotion:'reduce' });
   await page.route('**/*', item => new URL(item.request().url()).hostname === '127.0.0.1' ? item.continue() : item.abort());
   await page.routeWebSocket('**/*', socket => { socket.close(); });
+  // p1 paired its wallet on this browser earlier: the page opens with it connected, as a returning player's does.
+  await seedPairing(page.context(), [pairingEntry('p1', NETWORK_ID, p1Wallet)]);
   page.on('pageerror', error => errors.push(error.stack ?? error.message));
-  // The fixture node has no wallet balance reader, so the wallet asset lookup answers 503 here. Every other server error fails the run.
-  page.on('response', response => { if (response.status() >= 500 && !response.url().includes('/api/wallet/assets')) errors.push(response.status() + ' ' + response.url()); });
+  // The fixture node has no wallet balance reader, so the wallet asset and balance lookups answer 503 here. Every other server error fails the run.
+  page.on('response', response => { if (response.status() >= 500 && !/\/api\/wallet\/(assets|balance)/.test(response.url())) errors.push(response.status() + ' ' + response.url()); });
   await page.goto(origin + route);
   await page.locator('#inspector h2').waitFor();
   return page;
@@ -101,13 +105,14 @@ try {
 
   await check('preparing the paid raid shows the escrow and the same figures in the payment dialog', async () => {
     await dialog(page).getByRole('button', { name:/^Prepare paid raid/ }).click();
-    await dialog(page).getByRole('heading', { name:'Payment outputs', exact:true }).waitFor();
+    await dialog(page).getByText('Payment details', { exact:true }).click();
+    await dialog(page).getByRole('heading', { name:'Outputs', exact:true }).waitFor();
     const body = await text(dialog(page));
     const total = 25_000 + terms.networkReserveSatoshis;
     assert.match(body, new RegExp(total.toLocaleString('en-US') + ' sat'));
-    assert.match(body, /Matched stakes: you lock 25000 satoshis and the defender's War Chest is held to the same 25000/);
-    assert.match(body, new RegExp(terms.win.receiveSatoshis + ' satoshis reach your wallet'));
-    assert.match(body, /If you lose, the defender receives your whole stake of 25000 satoshis/);
+    assert.match(body, /You stake 25000 sats and their War Chest matches it/);
+    assert.match(body, new RegExp('Win: ' + terms.win.receiveSatoshis + ' sats come to your wallet'));
+    assert.match(body, new RegExp('Lose: they get your stake and ' + terms.loss.receiveSatoshis + ' sats come back to you'));
     const { payments } = await state();
     const raid = payments.find(item => item.action === 'attack-paid');
     assert.deepEqual(raid.outputs.map(item => [item.role, item.satoshis]), [['escrow', total], ['event', 0]]);
@@ -122,14 +127,14 @@ try {
     const price = service.satoshis;
     assert.equal(price, 22_000);
     await page.goto(origin + '/play?seat=p1&payment=' + service.id);
-    await dialog(page).getByRole('heading', { name:'Payment outputs', exact:true }).waitFor();
+    await dialog(page).getByText('Payment details', { exact:true }).click();
+    await dialog(page).getByRole('heading', { name:'Outputs', exact:true }).waitFor();
     const body = await text(dialog(page));
     const n = value => value.toLocaleString('en-US');
     assert.match(body, new RegExp('Your War Chest · always at risk ' + n(price / 2) + ' sat'));
     assert.match(body, new RegExp('Season reward share ' + price / 5 + ' \\+ network reserve 300 ' + n(price / 5 + 300) + ' sat'));
     assert.match(body, new RegExp(n(price / 10) + ' sat'));
-    assert.match(body, new RegExp('Network reserve 300 sat'));
-    assert.match(body, new RegExp('Your wallet sends ' + n(price + 300) + ' sat plus the network fee'));
+    assert.match(body, new RegExp('Your wallet sends ' + n(price + 300) + ' sats \\(incl\\. 300 sat network reserve\\)'));
     assert.deepEqual(service.outputs.map(item => [item.role, item.satoshis]), [['warChest', price / 2], ['development', price / 5], ['prize', price / 5 + 300], ['burn', price / 10]]);
     await page.screenshot({ path:resolve(output, 'war-chest-service-payment.png') });
   });
@@ -148,8 +153,7 @@ try {
     const screen = await text(page.locator('#campaign'));
     assert.match(screen, /War Chest · always at risk/);
     assert.match(screen, /Open to a matched raid now/);
-    assert.match(screen, /There is one player treasury, the War Chest, and all of it is at risk in PvP/);
-    assert.match(screen, /takes exactly that amount from your War Chest/);
+    assert.match(screen, /Your War Chest is at risk in PvP raids\. Half of each payment goes into it/);
     assert.doesNotMatch(screen, /Kingdom treasury|Battle exposure|operator-managed|Waiting shares|Personal vault deposits have no PvP exposure/);
     assert.equal(await page.locator('#campaign').getByRole('button', { name:'Deposit BCH', exact:true }).count(), 0, 'no separate protected deposit is offered');
     assert.equal(await page.locator('#campaign').getByRole('button', { name:'Fund War Chest', exact:true }).count(), 1);
@@ -160,10 +164,9 @@ try {
     await page.goto(origin + '/council.html?seat=p1');
     await page.getByText('War Chest · always at risk').first().waitFor();
     const body = await text(page.locator('body'));
-    assert.match(body, /no safe balance and no risk setting/);
+    assert.match(body, /Your War Chest is at risk in PvP raids/);
     assert.match(body, /Open to a matched raid now/);
-    assert.match(body, /a winning attacker takes exactly that stake, and you receive the whole stake of an attacker who loses/);
-    assert.match(body, /50% to your War Chest, 20% to the season reward pool, 20% to Development and 10% burned/);
+    assert.match(body, /Part of every service payment and all sponsorship go into the season reward pool/);
     assert.doesNotMatch(body, /Commit treasury to battles|Committed to battle|Set commitment|at most 20%/);
     assert.equal(await page.getByLabel('Amount to take out of your War Chest (satoshis, in whole thousands)').count(), 1);
     assert.match(body, /Exactly this amount leaves your War Chest\. Your wallet receives it less the network fee/);

@@ -76,13 +76,25 @@ const app = createApp({ database: ':memory:', chain: createChain({ enabled: fals
 app.server.listen(0, '127.0.0.1');
 await once(app.server, 'listening');
 const origin = 'http://127.0.0.1:' + app.server.address().port;
+// A second game whose checkout is open (a stub chain that answers but has no coins): used to check what a pay button does.
+const stubKey = () => randomBytes(32).toString('hex');
+const paidChain = createChain({ treasuryPrivateKey: stubKey(), developmentAddress: walletFromPrivateKey(stubKey()).address,
+  prizeAttestors: [walletFromPrivateKey(stubKey()).publicKey], transport: {
+    withClient: work => work({ tip: 36008, block: async () => '01' + '00'.repeat(79), history: async () => [], listUnspent: async () => [] }) } });
+const noAssets = { enabled: false, list: () => [], authority: () => null, close: () => {} };
+const paidApp = createApp({ database: ':memory:', chain: paidChain, localDemo: false, testWizardRelay: relayUrl, territoryAssets: noAssets, politicalAssets: noAssets });
+paidApp.server.listen(0, '127.0.0.1');
+await once(paidApp.server, 'listening');
+const paidOrigin = 'http://127.0.0.1:' + paidApp.server.address().port;
 
 const edge = 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe';
 const browser = await chromium.launch({ executablePath: process.env.DOMINION_BROWSER_PATH ?? (existsSync(edge) ? edge : undefined) });
 const passed = [];
 const check = async (name, work) => { await work(); passed.push(name); console.log('ok   ' + name); };
 const pageErrors = [];
+const balanceRequests = [];
 const visitor = async () => { const context = await browser.newContext({ viewport: { width: 1280, height: 900 } }); const page = await context.newPage();
+  page.on('request', request => { if (request.url().endsWith('/api/wallet/balance')) balanceRequests.push(request.postDataJSON()); });
   page.on('pageerror', error => pageErrors.push(error.message)); return page; };
 const state = page => page.evaluate(async () => (await fetch('/api/state', { cache: 'no-store' })).json());
 let failure;
@@ -123,6 +135,17 @@ try {
     await page.getByText('Wallet connected and verified').first().waitFor({ timeout: 60_000 });
     await page.getByText('Test wallet A (SDK)').first().waitFor({ timeout: 60_000 });
     assert.equal(alice.seen.requests.length, 1);
+  });
+  await check('the balance shown is the whole wallet: the game asks for its receiving and change addresses, public keys only', async () => {
+    // Asked as soon as the connected wallet is known; this offline fixture has no indexer, so no amount is asserted here
+    // (the server side is covered by tests/wallet-balance.test.mjs).
+    for (let waited = 0; !balanceRequests.length && waited < 30_000; waited += 250) await new Promise(done => setTimeout(done, 250));
+    const sent = balanceRequests;
+    assert.ok(sent.length > 0, 'the whole-wallet balance was requested');
+    const keys = sent[0].keys;
+    assert.ok(keys.some(key => key.path === 'receive') && keys.some(key => key.path === 'change'));
+    assert.ok(keys.length <= 48 && keys.every(key => /^0[23][0-9a-f]{64}$/.test(key.publicKey)));
+    assert.ok(!JSON.stringify(sent).match(/xprv|tprv|private/i));
   });
   await check('the same wallet in another browser opens the same kingdom instead of a new one', async () => {
     const again = await visitor();
@@ -168,10 +191,48 @@ try {
     assert.equal((await state(game)).wallet, null);
     await game.context().close();
   });
+  await check('a pay button without a connected wallet opens the wallet dialog, and once the wallet connects the checkout follows by itself', async () => {
+    const dave = makeWallet('Test wallet D (SDK)');
+    const game = await visitor();
+    const box = game.locator('dialog#dialog');
+    await game.goto(paidOrigin + '/play');
+    await box.getByRole('heading', { name: 'Found a city', exact: true }).waitFor({ timeout: 60_000 });
+    await box.getByLabel('Commander name', { exact: true }).fill('Warden Dave');
+    await box.getByLabel('Settlement name', { exact: true }).fill('Davenport');
+    await box.getByRole('button', { name: 'Found city', exact: true }).click();
+    await box.getByRole('heading', { name: 'Welcome to VaultBorn', exact: true }).waitFor();
+    await box.getByRole('button', { name: 'Skip', exact: true }).click();
+    await box.getByRole('heading', { name: 'Connect your wallet', exact: true }).waitFor();
+    await box.getByRole('button', { name: 'Not now', exact: true }).click();
+    const fund = async () => {
+      await game.getByRole('navigation', { name: 'Main navigation' }).getByRole('button', { name: 'Vault', exact: true }).click();
+      await game.locator('#campaign').getByRole('button', { name: 'Fund War Chest', exact: true }).click();
+      await box.getByRole('checkbox').check();
+      await box.getByRole('button', { name: 'Create payment intent', exact: true }).click();
+    };
+    await fund();
+    await box.getByRole('heading', { name: 'Chipnet wallet', exact: true }).waitFor();
+    assert.match(await box.innerText(), /Connect your wallet first/);
+    assert.equal(((await state(game)).payments ?? []).length, 0, 'no checkout without a connected wallet');
+    await box.getByRole('button', { name: 'Selene Wallet', exact: true }).click();
+    dave.manager.connect(await box.getByRole('link', { name: 'Open in wallet' }).getAttribute('href'));
+    // Connected and verified in the wallet dialog: the War Chest checkout that asked for the wallet opens by itself.
+    await box.getByRole('heading', { name: 'War chest funding', exact: true }).waitFor({ timeout: 90_000 });
+    const after = await state(game);
+    assert.equal(after.wallet.address, dave.first.address);
+    assert.deepEqual(after.payments.map(item => item.action), ['war-chest']);
+    // Connected now: the same button goes straight to the checkout.
+    await box.getByRole('button', { name: 'Close dialog', exact: true }).click();
+    await fund();
+    await box.getByRole('heading', { name: 'War chest funding', exact: true }).waitFor();
+    assert.equal(await box.getByRole('button', { name: 'Approve with wallet', exact: true }).count(), 1);
+    assert.deepEqual(dave.seen.errors, []);
+    await game.context().close();
+  });
   await check('no page raised a script error', async () => { assert.deepEqual(pageErrors, []); });
 } catch (error) { failure = error; }
 await browser.close();
-app.close(); relay.close();
+app.close(); paidApp.close(); relay.close();
 const evidence = process.argv[2];
 if (evidence) writeFileSync(evidence, JSON.stringify({ suite: 'connect wallet (start page and game) with the WizardConnect wallet SDK', at: new Date().toISOString(),
   note: 'A relay inside the test and the wallet SDK applying Selene\'s signing rule. Not evidence of a phone wallet or of any payment.', passed, failed: failure ? String(failure.message).slice(0, 400) : null }, null, 2) + '\n');

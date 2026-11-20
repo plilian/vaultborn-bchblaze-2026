@@ -16,8 +16,7 @@ import {readTerritories,territoryProduction} from './territories.mjs';
 const T=500*DAY;
 const act=(world,player,type,body={},at=world.now)=>command(world,player,{type,...body},at);
 const list=(world,id)=>snapshot(world,id).player.stats.commands;
-// Recruiting and renting still exist for kingdoms that do not hold a commander. New kingdoms hold all of them from the
-// first day, so these tests take the others away again to exercise the rules.
+// A kingdom that holds only the baseline commander, as a new kingdom does.
 const onlyBaseline=city=>{city.commanders={legacy:false,roster:{},equipment:{},rentAfter:0};return city;};
 
 async function localApi(t,clock) {
@@ -38,14 +37,37 @@ async function localApi(t,clock) {
   }};
 }
 
+test('kingdoms handed every commander by the first day-one rules give back what they did not recruit, once, and are told', () => {
+  const world=createWorld(T);
+  const city=addPlayer(world,{id:'handed',name:'Handed Out'},T);
+  // As the first day-one rules left it: every commander permanent, one of them assigned; one really recruited later.
+  delete city.dayOneRoster;
+  for (const id of ['engineer','ranger','scholar']) city.commanders.roster[id]={level:1,xp:0,permanent:true};
+  city.commanders.roster.keeper={level:2,xp:30,permanent:true,recruitedAt:T};
+  city.hero='ranger';
+  advance(world,T+HOUR);
+  const roster=list(world,'handed').roster;
+  assert.deepEqual(['warden','keeper','engineer','ranger','scholar'].map(id=>roster[id].ownership),['permanent','permanent','locked','locked','locked']);
+  assert.equal(roster.ranger.xp,0);
+  assert.equal(list(world,'handed').effective,'warden');
+  const notices=world.notifications.handed.filter(entry=>entry.title==='Commanders for hire');
+  assert.equal(notices.length,1);
+  advance(world,T+2*HOUR);
+  assert.equal(world.notifications.handed.filter(entry=>entry.title==='Commanders for hire').length,1,'only once');
+  // Renting works at once.
+  act(world,'handed','commander-rent',{hero:'ranger',days:1});
+  assert.equal(list(world,'handed').roster.ranger.ownership,'rented');
+});
+
 test('legacy entitlements survive; new commanders rent with finite terms and keep earned mastery when recruited permanently',()=>{
   const world=createWorld(T);
   act(world,'p1','tutorial');
   assert.equal(Object.values(list(world,'p1').roster).every(row=>row.ownership==='permanent'),true);
   const city=addPlayer(world,{id:'recruit',name:'New Commander'},T);
-  assert.equal(Object.values(list(world,'recruit').roster).every(row=>row.ownership==='permanent'),true,'every commander from the first day');
-  act(world,'recruit','configure',{hero:'ranger'});
-  act(world,'recruit','configure',{hero:'warden'});
+  // A new kingdom leads with the Warden King and can hire any other commander from its first day.
+  assert.equal(list(world,'recruit').roster.warden.ownership,'permanent');
+  assert.ok(Object.entries(list(world,'recruit').roster).filter(([id])=>id!=='warden').every(([,row])=>row.ownership==='locked'&&row.recruitment.rentalEligible),'hire from the first day');
+  assert.throws(()=>act(world,'recruit','configure',{hero:'ranger'}),{code:'commander_unavailable'});
   onlyBaseline(city);
   act(world,'recruit','found',{cityName:'New Harbor',faction:'azure'});
   act(world,'recruit','tutorial',{action:'skip',step:'welcome'});
@@ -59,7 +81,7 @@ test('legacy entitlements survive; new commanders rent with finite terms and kee
   assert.equal(start-city.resources.wood,first.wood);
   assert.throws(()=>act(world,'recruit','commander-rent',{hero:'scholar',days:1}),{code:'commander_rental'});
   act(world,'recruit','configure',{hero:'ranger'});
-  act(world,'recruit','opt-in',{enabled:true},T+starterShield);
+  act(world,'recruit','opt-in',{enabled:true},T+30*60_000);
   assert.throws(()=>act(world,'recruit','commander-rent',{hero:'ranger',days:7}),{code:'commander_rental_limit'});
   const task=act(world,'recruit','scout',{target:'p2',mission:'deep'},T+DAY-5000);
   assert.equal(task.specialist,'ranger');

@@ -66,7 +66,7 @@ async function landing(page,label) {
   await shot(page,`how-to-play-${label}.png`);
   const brand=page.getByText('Powered by Bitcoin Cash',{exact:true});
   await brand.scrollIntoViewIfNeeded();
-  await heading(page,'Play Free. Build Your Kingdom. Discover Bitcoin Cash.').waitFor();
+  await heading(page,'Play free. Build your kingdom.').waitFor();
   for (const technology of ['Bitcoin Cash','CashTokens','Nostr']) await page.locator('.gate-technologies').getByText(technology,{exact:true}).waitFor();
   assert.equal(await page.getByText(/optional transactions/i).count(),0);
   assert.equal((await read(page,'session')).authenticated,false);

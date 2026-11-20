@@ -83,7 +83,12 @@ for attempt in $(seq 1 40); do
   if compose exec -T vaultborn node -e "fetch('http://127.0.0.1:4173/api/health').then(r=>r.json()).then(b=>process.exit(b.ok&&b.network==='mainnet'?0:1)).catch(()=>process.exit(1))" 2>/dev/null; then healthy=yes; break; fi
   sleep 5
 done
-if [ -z "$healthy" ]; then compose logs --tail 30 vaultborn || true; stop "the game did not start. The web server was not touched."; fi
+if [ -z "$healthy" ]; then
+  compose logs --tail 30 vaultborn || true
+  # Not left restarting over and over: the containers are stopped; the data folder stays as it is.
+  compose down >/dev/null 2>&1 || true
+  stop "the game did not start. The web server was not touched. The game's containers were stopped again."
+fi
 say "The game answers on Mainnet inside the server"
 
 http_site() { cat <<SITE
@@ -157,7 +162,19 @@ systemctl reload nginx
 
 say "Checking https://$DOMAIN from the server itself"
 if command -v curl >/dev/null 2>&1; then
-  answer=$(curl -fsS --max-time 15 --resolve "$DOMAIN:443:127.0.0.1" "https://$DOMAIN/api/health" 2>&1 || true)
-  [[ "$answer" == *'"network":"mainnet"'* ]] || stop "the site is installed, but https://$DOMAIN/api/health did not answer as expected."
+  # nginx starts its new workers a moment after a reload, so the check is repeated for up to a minute: through this
+  # machine's own address first, then through the public address of the name.
+  answer=""
+  for attempt in $(seq 1 12); do
+    answer=$(curl -fsS --max-time 10 --resolve "$DOMAIN:443:127.0.0.1" "https://$DOMAIN/api/health" 2>&1 || true)
+    [[ "$answer" == *'"network":"mainnet"'* ]] && break
+    answer=$(curl -fsS --max-time 10 "https://$DOMAIN/api/health" 2>&1 || true)
+    [[ "$answer" == *'"network":"mainnet"'* ]] && break
+    sleep 5
+  done
+  if [[ "$answer" != *'"network":"mainnet"'* ]]; then
+    printf 'The last answer was: %s\n' "$(printf '%s' "$answer" | tr -d '\r' | head -c 300)" >&2
+    stop "the site is installed, but https://$DOMAIN/api/health did not answer as expected."
+  fi
 fi
 say "INSTALLED: https://$DOMAIN (game on 127.0.0.1:$PORT, site file $SITE)"

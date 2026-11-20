@@ -11,6 +11,7 @@ import { createChain, walletFromPrivateKey } from '../packages/chain-observer/in
 import { readTransaction, signSpend } from '../packages/chain-observer/primitives.mjs';
 import { eventOutput } from '../packages/chain-observer/vaultborn.mjs';
 import { kingdom } from '../packages/game-engine/treasury.mjs';
+import { command } from '../packages/game-engine/index.mjs';
 
 // These tests cover outputs and balances created before covenant custody of kingdom funds. Those must stay verifiable and spendable.
 process.env.VAULTBORN_KINGDOM_CUSTODY = 'operator';
@@ -46,6 +47,11 @@ function offlineObserver() {
 
 const raid = { type: 'attack-paid', target: 'p2' };
 const rush = { type: 'rush', building: 'hall' };
+
+// A rush is sold only for a construction in progress: start one in the stored world first.
+function building(app, player = 'p1', at = NOW) {
+  app.store.transaction(() => { const { world } = app.store.read(); command(world, player, { type:'upgrade', building:'hall' }, at); app.store.write(world); });
+}
 
 async function close(app) {
   const stopped = once(app.server, 'close');
@@ -96,6 +102,7 @@ test('v2 services conserve satoshis, promote the low-price prize to dust, and co
   // The disclosed dust-floor mode stays available. The default prize carrier is covered in prize-carrier.test.mjs.
   const app = createApp({ database: ':memory:', clock: () => NOW, chain: offline.chain, allocationPolicy: GAMEPLAY_ALLOCATION, prizeDust: 'floor' });
   t.after(async () => { await close(app); assert.equal(offline.attemptedBroadcasts, 0); });
+  building(app);
   const quote = app.ledger.create('p1', rush);
   const event = app.store.payment(quote.id).event;
   assert.deepEqual(roles(quote.outputs), [['kingdom', 2454], ['development', 800], ['prize', 546], ['burn', 200]]);
@@ -129,6 +136,7 @@ test('a classic price and required outputs survive a policy switch and SQLite re
   app = open(LEGACY_ALLOCATION);
   app.store.addSession(digest('seat-p2'),'p2',NOW+86_400_000);
   const oldRaid = app.ledger.create('p1', raid);
+  building(app, 'p1', now);
   const oldRush = app.ledger.create('p1', rush);
   assert.equal(oldRaid.satoshis, 6000);
   assert.deepEqual(roles(oldRaid.outputs), [['battle', 3000], ['development', 1200], ['prize', 900], ['burn', 900]]);

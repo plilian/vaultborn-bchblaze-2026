@@ -1,7 +1,7 @@
 import {randomBytes} from 'node:crypto'
 import {DAY, HOUR, MINUTE, buildings, economy, resources, starterResources, production, startingCapacity, tech} from '../../config/economy.mjs'
 import {balance, counters, factions, formations, heroes, missions, tactics, terrains, units} from '../../config/balance.mjs'
-import {fieldDoctrine} from '../../config/progression.mjs'
+import {commanderRules, fieldDoctrine} from '../../config/progression.mjs'
 import {armyPower, clamp, seeded, troopTotal, unitIds} from './combat.mjs'
 import {diplomacyRelationship} from './diplomacy.mjs'
 import {governmentCommander,governmentMorale} from './government.mjs'
@@ -28,7 +28,7 @@ export function requireRule(condition, code, message, status) {
 
 export const config = {resources, buildings, units, heroes, tactics, formations, tech, missions, factions, terrains, counters, fees: economy.fees, rules: balance,
   economy: {levelMax: economy.levelMax, protectorateTribute: economy.protectorateTribute, protectorateTerm: economy.protectorateTerm,
-    protectorateResponseTime: economy.protectorateResponseTime, rebellionPrepTime: economy.rebellionPrepTime}}
+    protectorateResponseTime: economy.protectorateResponseTime, rebellionPrepTime: economy.rebellionPrepTime, rushOneConfirmationBelow: economy.rushOneConfirmationBelow}}
 
 export const getCity = (world, id) => {
   requireRule(human(id) && has(world.cities, id), 'city_missing', 'That city could not be found.', 404)
@@ -109,7 +109,7 @@ export function quoteUpgrade(city, building, now=ruleClock(city)) {
   const level = city.buildings[building]
   const profile = buildings[building]
   const cost = roundCost(profile.cost, economy.upgradeCurve ** (level - 1))
-  const duration = Math.round(profile.time * economy.buildTimeCurve ** (level - 1) *
+  const duration = Math.round(profile.time * (level > 1 ? economy.buildTimeScale ?? 1 : 1) * economy.buildTimeCurve ** (level - 1) *
     constructionTimeFactor(city,now))
   return {building, name: profile.name, level, nextLevel: Math.min(level + 1, economy.levelMax), cost, duration,
     eligible: level < economy.levelMax && (building === 'hall' || level < city.buildings.hall),
@@ -162,8 +162,11 @@ const citySeeds = [
   ['Dawnport','Golden Fleet','gold',.43,.59,'river',.61,true]
 ]
 
+const retiredSeeds = new Set(['p5','p7','p11','p13','p14','p15','p16'])
+export const retiredPlots = citySeeds.filter((seed, index) => retiredSeeds.has('p' + (index + 1))).map(seed => [seed[3], seed[4]])
+
 export function createWorld(now = Date.now()) {
-  const world = {version: 1, seed: 'dominion-frontier-v1', secret: randomBytes(32).toString('hex'), now, seq: 0, cities: {}, alliances: {},
+  const world = {version: 1, seed: 'dominion-frontier-v1', secret: randomBytes(32).toString('hex'), now, seq: 0, shieldsLifted: true, npcRoster: 5, cities: {}, alliances: {},
     notifications: {}, chat: [], activity: [], battles: [], marches: [], governance: [], treaties: [], missions: [],
     season: {number: 1, name: 'The Emerald Frontier', startedAt: now, endsAt: now + economy.seasonLength}, archive: [],
     nodes: [
@@ -177,6 +180,8 @@ export function createWorld(now = Date.now()) {
   for (const [index, seed] of citySeeds.entries()) {
     const [cityName,name,faction,x,y,terrain,troopScale,npc] = seed
     const id = 'p' + (index + 1)
+    // Seven of the twelve NPC kingdoms were retired (npc-roster.mjs); their places are the first plots for new players.
+    if (retiredSeeds.has(id)) continue
     const level = id === 'p9' ? 4 : ['p1','p2','p3','p5','p6','p15'].includes(id) ? 2 : 1
     const city = newCity({id,name,cityName,faction,x,y,terrain,troopScale,npc,level,shields:false}, now)
     if (id === 'p1') {
@@ -222,17 +227,32 @@ export function addPlayer(world, input, now = world.now) {
   return city
 }
 
-// A new kingdom has no starter shield, is in the season, and commands every commander from its first day. The guide
-// stays available and still pays its reward, but nothing waits for it (`tutorialOpen` marks a guide not yet finished).
-// Applied once per kingdom, also to kingdoms created under the earlier rules.
-export function openFromDayOne(city) {
-  if (city.npc || city.dayOne || !(city.pendingOnboarding || city.onboarding || city.commanders?.legacy === false)) return city
+// A new kingdom has no starter shield and is in the season from its first day. The Warden King leads its army; every
+// other commander is hired for 1, 3 or 7 days or recruited permanently, both with earned supplies, from the first day.
+// The guide stays available and still pays its reward, but nothing waits for it (`tutorialOpen` marks a guide not yet
+// finished). Applied once per kingdom, also to kingdoms created under the earlier rules.
+export function openFromDayOne(city, world, now = world?.now ?? 0) {
+  if (city.npc) return city
+  // The first version of these rules handed every commander to a new kingdom, which left nothing to hire. Those handed
+  // out are taken back once (a commander recruited with supplies records when, and is kept); the kingdom is told.
+  if (city.dayOne && city.dayOneRoster !== 2) {
+    let taken = 0
+    for (const [id, row] of Object.entries(city.commanders?.roster ?? {})) {
+      if (commanderRules.baseline.includes(id) || !row.permanent || row.recruitedAt) continue
+      delete row.permanent
+      taken++
+    }
+    city.dayOneRoster = 2
+    if (taken && world) notify(world, city.id, 'Commanders are hired or recruited again. The Warden King leads your army; hire any other commander for 1, 3 or 7 days, or recruit one permanently, in Commanders.', now, 'army', {title: 'Commanders for hire'})
+    return city
+  }
+  if (city.dayOne || !(city.pendingOnboarding || city.onboarding || city.commanders?.legacy === false)) return city
   city.dayOne = true
+  city.dayOneRoster = 2
   if (!city.tutorial) { city.tutorial = true; city.tutorialOpen = true }
   city.optIn = true
   city.shieldUntil = 0
-  const book = city.commanders ??= newCommanderBook()
-  for (const id of Object.keys(heroes)) book.roster[id] = {level: 1, xp: 0, ...book.roster[id], permanent: true}
+  city.commanders ??= newCommanderBook()
   return city
 }
 

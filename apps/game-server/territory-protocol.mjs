@@ -76,7 +76,7 @@ export function createTerritoryProtocol({ store, chain, clock, gameplay, war, fa
       const site = siteOf(world,entry.territory);
       site.history.push({kind:'raffle-entry',playerId:playerId,round:entry.round,txid:row.txid,at:now});
       site.blockchain.push({kind:'entry',id:row.id,txid:row.txid,at:now});
-      gameNotice(world,playerId,'Rare territory entry confirmed at ' + site.name + '.',now,'territory');
+      gameNotice(world,playerId,'Your raffle entry at ' + site.name + ' is in. The draw follows the entry window.',now,'territory',{title:'Raffle entry'});
       return entry;
     }
     const stake = receipt.allocations.find(item => item.role === 'battle' || item.role === 'escrow');
@@ -209,7 +209,12 @@ export function createTerritoryProtocol({ store, chain, clock, gameplay, war, fa
         site.history.push({kind:expired ? 'lease-expired' : change.winner ? 'lease-started' : 'raffle-refunded',
           playerId:holder ?? null,record:change.id,at:change.at});
         activity(world,'territory',detail+site.name+'.',now);
-        if (holder) gameNotice(world,holder,detail+site.name+'.',now,'territory');
+        if (holder) gameNotice(world,holder,(change.winner ? 'You won the raffle at ' : detail)+site.name+'.',now,'territory',
+          {title:change.winner ? 'Raffle won' : expired ? 'Lease ended' : 'Raffle',...(change.lease?.expiresAt && !expired && {until:change.lease.expiresAt})});
+        // Every other entrant hears the result too: not drawn, and their escrow is on its way back.
+        for (const player of new Set((change.entries ?? []).map(entry => entry.player)))
+          if (player !== holder) gameNotice(world,player,(change.winner ? 'Raffle at ' + site.name + ' drawn: not you this time.' : 'Raffle at ' + site.name + ' closed without a draw.') +
+            ' Your escrow returns to your wallet.',now,'territory',{title:'Raffle result'});
       }
       if (changes.length) store.write(world);
       return changes.length;

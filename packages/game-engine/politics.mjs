@@ -225,7 +225,7 @@ function resolveRebellion(world, pact, now) {
   } else {
     pact.rebellion.status = 'failed'
     pact.rebellion.retryAt = now + economy.rebellionImmunity
-    rebel.shieldUntil = Math.max(rebel.shieldUntil,now + balance.defeatShield)
+    if (balance.defeatShield > 0) rebel.shieldUntil = Math.max(rebel.shieldUntil,now + balance.defeatShield)
     notify(world,rebel.id,'The rebellion was repelled. New cells can organize after a 12-hour recovery period.',now,'rebellion')
   }
 }

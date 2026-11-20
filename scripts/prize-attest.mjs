@@ -68,7 +68,11 @@ async function reviewStake(item) {
   const pins = await loadPins();
   const outpoint = source.txid + ':' + source.vout;
   check(!pins['stake:' + outpoint] || pins['stake:' + outpoint] === plan.digest, 'this attestor already signed a different outcome for this stake');
-  if (contract.kind === 'territory-claim') {
+  if (contract.kind === 'territory-claim' && evidence?.notEntered && !evidence?.contest) {
+    // The game could not enter this claim when its payment became final: the whole stake returns to the claimant's own wallet.
+    check(item.lane === 'return', 'a claim that was never entered can only return to its claimant');
+    notes.push('the claim was never entered' + (evidence.notEntered.reason ? ': ' + evidence.notEntered.reason : '') + '; the stake returns to its claimant');
+  } else if (contract.kind === 'territory-claim') {
     // An open claim: the claimant keeps everything unless another claimant won the contest; then half goes to that winner's wallet.
     check(evidence?.contest, 'there is no contest record for this claim');
     const victor = evidence?.contest?.victor ?? null;

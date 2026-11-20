@@ -36,9 +36,11 @@
   <link rel="stylesheet" href="/campaign-polish.css">
   <link rel="stylesheet" href="/first-campaign.css">
   <link rel="stylesheet" href="/game-guide.css">
+  <link rel="stylesheet" href="/blaze-bar.css">
   <script type="module" src="/app.js"></script>
 </head>
 <body>
+  <aside id="blaze-banner" class="blaze-banner game-bar" aria-label="BCH BLAZE 2026 entry" hidden></aside>
   <div id="app">
     <header class="masthead" id="masthead"></header>
     <main class="theater" id="theater">
@@ -71,10 +73,29 @@
         <div class="citadel-main" id="citadel-main"></div>
         <p class="citadel-toast" id="citadel-toast" role="status" hidden></p>
       </section>
-      <div class="loading" id="loading"><div class="loading-mark"><img src="/logo.webp" width="63" height="80" alt=""></div><h1>VAULTBORN</h1><p>Opening the campaign map…</p></div>
     </main>
     <nav class="dock" id="dock" aria-label="Main navigation"></nav>
+    <button type="button" class="tutorial-launch" id="tutorial-launch" data-modal="learn" aria-label="Tutorial and instructions">Tutorial</button>
     <aside class="campaign-guide" id="campaign-guide" aria-labelledby="campaign-guide-title" hidden></aside>
+  </div>
+  <div class="loading" id="loading" role="status">
+    <div class="loading-art" aria-hidden="true"></div>
+    <div class="loading-embers" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="loading-card">
+      <div class="loading-mark"><img src="/logo.webp" width="84" height="107" alt=""></div>
+      <h1>VAULTBORN</h1>
+      <p class="loading-tagline">Build · Defend · Conquer</p>
+      <div class="loading-bar" aria-hidden="true"><span></span></div>
+      <p class="loading-status">Opening the campaign map…</p>
+      <ul class="loading-tips" aria-hidden="true">
+        <li>Rush halves the time left on a construction.</li>
+        <li>Your War Chest is at risk in raids. So is theirs.</li>
+        <li>Rare territories go to a raffle drawn from a block hash.</li>
+        <li>Commanders change how your army fights.</li>
+        <li>Collect the civic levy once a day.</li>
+        <li>Alliances sign treaties, send aid and rally together.</li>
+      </ul>
+    </div>
   </div>
   <dialog class="dialog frame" id="dialog" aria-labelledby="dialog-title"></dialog>
   <div class="toast" id="toast" role="status" hidden></div>

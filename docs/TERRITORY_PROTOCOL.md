@@ -24,7 +24,7 @@ The winner extracts the site’s resources for exactly 72 hours. The authoritati
 
 ## Escrow and evidence
 
-Territory stakes are not service charges and are not split: the whole stake sits in a `stake-escrow-v3` contract whose only possible payouts were fixed when it was funded, and whose contested outcomes are opened by the independent attestors. The server verifies the exact outputs, active-chain inclusion and unique transaction before it records anything.
+Territory stakes are not service charges and are not split: the whole stake sits in a `stake-escrow-v3` contract whose only possible payouts were fixed when it was funded, and whose contested outcomes are opened by the attestors. The server verifies the exact outputs, active-chain inclusion and unique transaction before it records anything.
 
 The public archive identifies accepted receipts, the treasury public key, independently replayable battles, escrow allocations and outcome transactions. New battles use the same full combat verifier as ordinary VAULTBORN fights. With the Chipnet option the independent verifier checks the exact split scripts and amounts, settlement input outpoints, lease expiry’s reserved input, block inclusion and archive commitments.
 

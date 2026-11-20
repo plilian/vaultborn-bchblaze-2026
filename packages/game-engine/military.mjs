@@ -39,7 +39,8 @@ export function battle(world, attacker, defender, now, {kind = 'raid', overrides
       subtract(defender, loot)
     }
     const loser = won ? defender : attacker
-    loser.shieldUntil = Math.max(loser.shieldUntil, now + balance.defeatShield)
+    const shielded = balance.defeatShield > 0
+    if (shielded) loser.shieldUntil = Math.max(loser.shieldUntil, now + balance.defeatShield)
     const victor = won ? attacker : defender
     const influence = victor.influence
     victor.influence = Math.min(100, victor.influence + 4)
@@ -55,8 +56,8 @@ export function battle(world, attacker, defender, now, {kind = 'raid', overrides
       for (const [name, at] of Object.entries(world.pairScored)) if (at <= now - 86_400_000) delete world.pairScored[name]
     }
     aftermath={attacker:{campaignPoints:scored?(won?15:2):0,influence:won?victor.influence-influence:0,
-      ...(won?{}:{shieldUntil:loser.shieldUntil})},defender:{campaignPoints:scored?(won?2:10):0,influence:won?0:victor.influence-influence,
-      ...(won?{shieldUntil:loser.shieldUntil}:{})}}
+      ...(won||!shielded?{}:{shieldUntil:loser.shieldUntil})},defender:{campaignPoints:scored?(won?2:10):0,influence:won?0:victor.influence-influence,
+      ...(won&&shielded?{shieldUntil:loser.shieldUntil}:{})}}
   }
   world.marches.unshift({id, attacker: attacker.id, defender: defender.id, alliance: attacker.alliance, at: now, endsAt: now + 54_000, kind})
   const entry = {id, kind, attacker: attacker.id, defender: defender.id, attackerName: attacker.name, defenderName: defender.name, at: now,

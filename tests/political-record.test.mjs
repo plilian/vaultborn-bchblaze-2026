@@ -33,7 +33,7 @@ test('a paid treaty charter is sold again: exact 50/20/20/10, its proof record p
   assert.deepEqual([stored.reserveSatoshis, stored.event.data.recordReserve, stored.event.data.allocation], [300 + RECORD_RESERVE_SATOSHIS, RECORD_RESERVE_SATOSHIS,
     { warChest:price / 2, prize:price / 5, development:price / 5, burn:price / 10 }]);
   assert.equal(quote.outputs.find(output => output.role === 'development').address, developer.address);
-  assert.match(quote.description, /only as the network fee of this operation's public proof record; if no record is published, your own wallet key takes it back/);
+  assert.match(quote.description, /pay only for this operation's public proof record; if no record is published, your own wallet key takes it back/);
   await app.ledger.submit('p1', quote.id, pay('p1', quote));
   const paid = app.store.payment(quote.id);
   assert.deepEqual([paid.state, paid.fulfillment.status], ['credited', 'applied'], JSON.stringify(paid.fulfillment));

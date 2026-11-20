@@ -49,3 +49,27 @@ test('the server gives the home page its banner data and the page has the banner
     assert.ok(page.indexOf('id="blaze-banner"') > 0 && page.indexOf('id="blaze-banner"') < page.indexOf('class="gate-header"'));
   } finally { await node.close(); }
 });
+
+test('the game page carries the bar above the game, and the trailer is served in byte ranges only when asked for', async () => {
+  const node = await covenantNode();
+  try {
+    const origin = 'http://127.0.0.1:' + node.app.server.address().port;
+    const game = await (await fetch(origin + '/play')).text();
+    assert.ok(game.indexOf('id="blaze-banner"') > 0 && game.indexOf('id="blaze-banner"') < game.indexOf('id="app"'), 'the bar comes before the game, not over it');
+    const home = await (await fetch(origin + '/')).text();
+    // The page itself names only the poster; the video file is requested by the player when it is played.
+    assert.ok(home.includes('/media/vaultborn-trailer.webp'));
+    assert.ok(!home.includes('vaultborn-trailer.mp4'));
+    assert.ok(!/<video/i.test(home));
+    const part = await fetch(origin + '/media/vaultborn-trailer.webp', { headers: { Range: 'bytes=0-9' } });
+    assert.equal(part.status, 206);
+    assert.equal(part.headers.get('content-length'), '10');
+    assert.match(part.headers.get('content-range'), /^bytes 0-9\/\d+$/);
+    assert.equal((await part.arrayBuffer()).byteLength, 10);
+    const whole = await fetch(origin + '/media/vaultborn-trailer.vtt');
+    assert.equal(whole.status, 200);
+    assert.equal(whole.headers.get('accept-ranges'), 'bytes');
+    assert.match(await whole.text(), /^WEBVTT/);
+    assert.equal((await fetch(origin + '/media/vaultborn-trailer.webp', { headers: { Range: 'bytes=999999999-' } })).status, 416);
+  } finally { await node.close(); }
+});

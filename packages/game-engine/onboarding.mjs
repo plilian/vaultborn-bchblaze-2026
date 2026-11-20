@@ -16,6 +16,8 @@ export function startOnboarding(city, now) {
   if (!city.pendingOnboarding) return;
   delete city.pendingOnboarding;
   city.onboarding = { status:'active', step:'welcome', startedAt:now, orders:{} };
+  // A kingdom that has just signed up is greeted once, with the choice of the tutorial, the instructions or neither.
+  city.welcome = 'pending';
 }
 
 export function recordOnboardingOrder(city, input) {

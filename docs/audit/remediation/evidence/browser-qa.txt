@@ -109,3 +109,19 @@ Offline report presents recorded training once and remains reviewable in dispatc
 Alliance, treaties, vault, rankings, wallet proof, audio preferences, mobile controls and onboarding passed
 Browser checkout creates intents only. No blockchain transfer is asserted by this suite.
 exit code 0
+
+== 20 November 2026, after the wallet gate (a pay button opens the wallet dialog unless the wallet is connected in this browser): one run
+World selection, zoom, scout dispatch and mission resolution passed
+Chipnet intent prepared: Rush City Hall (20,000 sat)
+Chipnet intent prepared: City Hall premium upgrade (22,000 sat)
+Standard construction completion, paid upgrade/rush checkout, recruitment and city tabs passed
+Chipnet intent prepared: Protectorate offer to Stonevale (24,000 sat)
+Protectorate/paid attack quote, free raid, replay and two-session combat synchronization passed
+Political atlas, policy change, two-seat treaties, cinematic dispatch, cargo delivery and council ballots passed
+Chipnet intent prepared: War chest funding (10,000 sat)
+Chipnet intent prepared: Treaty compensation escrow (2,650 sat)
+Chipnet intent prepared: Enter claim for East Meadow (6,600 sat)
+Coup mobilization, private allied intervention, sealed front replays and public three-front resolution passed
+Offline report presents recorded training once and remains reviewable in dispatches
+Alliance, treaties, vault, rankings, wallet proof, audio preferences, mobile controls and onboarding passed
+Browser checkout creates intents only. No blockchain transfer is asserted by this suite.

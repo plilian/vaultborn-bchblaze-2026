@@ -62,6 +62,10 @@ async function found(page,name) {
   await dialog.getByLabel('Commander name',{exact:true}).fill('Warden Arden');
   await dialog.getByLabel('Settlement name',{exact:true}).fill(name);
   await button(dialog,'Found city').click();
+  // A new kingdom is greeted once: this test takes the tutorial.
+  await button(dialog,'Start the tutorial').click();
+  await heading(dialog,'Connect your wallet').waitFor();
+  await button(dialog,'Not now').click();
   const guide = page.locator('#campaign-guide');
   await heading(guide,'Your banner rises').waitFor();
   const fresh = await state(page);

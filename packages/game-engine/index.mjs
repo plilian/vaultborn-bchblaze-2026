@@ -67,7 +67,7 @@ export function snapshot(world, actorId, now = world.now) {
     settings:Object.fromEntries(Object.entries(actor.settings || {}).filter(([name]) => ['muted','musicVolume','sfxVolume','reducedMotion','highContrast'].includes(name))),
     scoutPoints:actor.scoutPoints, spies:actor.spies, counterspyUntil:actor.counterspyUntil, counterspyCooldown:actor.counterspyCooldown,
     sabotageUntil:actor.sabotageUntil, reputation:actor.reputation, influence:actor.influence, score:actor.score, contribution:actor.contribution,
-    tutorial:actor.tutorial, guideOpen:actor.tutorialOpen ?? !actor.tutorial, onboarding:onboardingSnapshot(actor), collectAvailableAt:actor.lastCollect ? actor.lastCollect + DAY : 0, immunityUntil:actor.immunityUntil,
+    tutorial:actor.tutorial, guideOpen:actor.tutorialOpen ?? !actor.tutorial, onboarding:onboardingSnapshot(actor), welcome:actor.welcome === 'pending', collectAvailableAt:actor.lastCollect ? actor.lastCollect + DAY : 0, immunityUntil:actor.immunityUntil,
     dailyReward:dailyReward(actor,now), marketHistory:actor.marketHistory ?? [],
     founding:!!actor.founding, production:stats.economy.production,capacity:stats.economy.capacity,troopCapacity:stats.military.capacity,stats,
     attacksLeft:Math.max(0,balance.attacksDaily - world.marches.filter(march => (march.attacker===actor.id || march.contributors?.includes(actor.id)) && march.kind === 'raid' && march.at > now - DAY).length),
@@ -135,7 +135,6 @@ function updateProfile(world, city, input, now) {
 
 function enroll(world, city, input, now) {
   requireRule(typeof input.enabled === 'boolean','invalid_consent','Seasonal PvP needs an explicit consent choice.',400)
-  requireRule(!input.enabled || city.tutorial,'tutorial_required','Complete the tutorial before entering seasonal PvP.')
   if (!input.enabled) {
     requireRule(kingdom.balance(world,city.id,now).atRiskSatoshis === 0,'kingdom_committed',
       'Release your committed kingdom funds before leaving seasonal PvP.')
@@ -191,6 +190,8 @@ function applyCommand(world,actorId,input,now,options) {
     case 'collect': return collect(world,actor,now)
     case 'trade': return market(actor,input,now)
     case 'tutorial': return tutorialCommand(world,actor,input,now)
+    // The greeting of a new kingdom was shown: it is not shown again, in any browser.
+    case 'welcomed': { const first = actor.welcome === 'pending'; delete actor.welcome; return {welcomed:first} }
     case 'opt-in': return enroll(world,actor,input,now)
     case 'found':
     case 'settings': return updateProfile(world,actor,input,now)
@@ -236,7 +237,7 @@ export function quote(world, actorId, input, now = world.now) {
     requireRule(profile,'invalid_building','Select a valid building.',400)
     action = {type:input.type,building:input.building}
     title = input.type === 'rush' ? 'Rush ' + profile.name : profile.name + ' premium upgrade'
-    description = input.type === 'rush' ? 'Halves remaining build time, or stores a single-use rush for the next eligible upgrade if construction is idle when payment confirms.' : profile.premium
+    description = input.type === 'rush' ? 'Halves the remaining time of this construction.' : profile.premium + '.'
     satoshis = economy.fees[input.type]
   } else {
     const actor = getCity(clone,actorId)

@@ -1,7 +1,6 @@
-import { html as esc, number, title, formatDate } from './view.js';
+import { html as esc, number, title, formatDate, confirmationText } from './view.js';
 import { icon } from './icons.js';
 import { NETWORK, NETWORK_LABEL } from './network.js';
-import { ATTESTOR_ADJECTIVE } from './network.js';
 
 let page = location.pathname.startsWith('/verify/battle/') ? 'verify' : location.pathname === '/council.html' ? 'council' : 'ledger';
 const root = document.getElementById('citadel-main');
@@ -184,7 +183,12 @@ function treasury(state) {
       `<p class="citadel-meta">Verified destination <span class="citadel-mono">${esc(wallet.address)}</span></p>` +
       `<input type="hidden" name="address" value="${esc(wallet.address)}">` + submit('Review withdrawal')) :
       '<p class="citadel-meta">Link your wallet in the game before withdrawing.</p>';
-  if (unified) return stats([['War Chest · always at risk', sats(vault.warChestSatoshis)], ['Open to a matched raid now', sats(vault.capturableSatoshis ?? 0)],
+  // Sent to the War Chest and not confirmed yet: a deposit, or the War Chest share of a service payment.
+  const incoming = (state.payments ?? []).filter(item => item.direction !== 'outgoing' && ['submitted', 'seen_in_mempool', 'confirming', 'uncertain'].includes(item.state))
+    .map(item => [item, item.action === 'war-chest' ? item.satoshis : (item.outputs ?? []).filter(output => output.role === 'kingdom').reduce((total, output) => total + (output.satoshis ?? 0), 0)])
+    .filter(([, satoshis]) => satoshis > 0);
+  if (unified) return stats([['War Chest · always at risk', sats(vault.warChestSatoshis)],
+    ...incoming.map(([item, satoshis]) => ['On its way · ' + confirmationText(item), sats(satoshis)]), ['Open to a matched raid now', sats(vault.capturableSatoshis ?? 0)],
     ...(vault.reservedSatoshis ? [['Matched against raids being settled', sats(vault.reservedSatoshis)]] : []),
     ...(vault.pendingChestSatoshis ? [['Waiting to join (earlier payments)', sats(vault.pendingChestSatoshis)]] : []),
     ...(vault.earlierChestSatoshis ? [['Earlier War Chest revision', sats(vault.earlierChestSatoshis)]] : []),
@@ -192,7 +196,7 @@ function treasury(state) {
     ['Locked in your own stakes', sats(vault.lockedSatoshis ?? 0)],
     ...Object.entries(vault.serviceCredits ?? {}).map(([kind, count]) => ['Paid and owed to you: ' + ({ rush:'rush', premium:'premium improvement', protectorate:'protectorate proposal', 'espionage-paid':'paid intelligence mission', 'political-operation':'political operation' }[kind] ?? kind), count + ' · your next one is free (a game credit, not a BCH refund)']),
     ...(vault.depositedSatoshis ? [['Earlier vault deposit', sats(vault.depositedSatoshis)]] : []), ['Season claim available', sats(vault.claimableSatoshis)]]) +
-    (NETWORK.attestorNote ? '<p class="citadel-meta"><strong>' + esc(NETWORK.attestorNote) + '</strong></p>' : '') + '<p class="citadel-meta">Your War Chest receives 50% of every service payment you make, straight away, and any direct deposit. It is your one treasury: there is no safe balance and no risk setting, and all of it is at risk. Paid raids use matched stakes. An attacker chooses a stake; the raid is sold only if your War Chest covers the same amount; a winning attacker takes exactly that stake, and you receive the whole stake of an attacker who loses. The outcome is signed by the ' + ATTESTOR_ADJECTIVE + ' attestors after they replay the battle. What is matched against an open raid cannot be withdrawn until that raid is settled. You can also leave without the game: your wallet key moves the War Chest, whole, into its exit script and takes it out about two days later, after any raid that was already funded.</p>' + withdrawal;
+    '<p class="citadel-meta">Your War Chest is at risk in PvP raids. You can withdraw what is not in a raid, or leave with your wallet key alone (about 2 days).</p>' + withdrawal;
   // A server without the War Chest contracts sells no paid services and holds no player money.
   return stats([['War Chest', 'Not available on this server'], ['Season claim available', sats(vault.claimableSatoshis)]]);
 }
@@ -203,7 +207,7 @@ async function showCouncil() {
     api('/public/sponsors'), api('/council'), authenticated ? api('/state?background=1') : null,
   ]);
   const contribution = !state ? 'Eligible service payments and direct sponsorship fund the pool.' :
-    state.config?.economy ? 'Every service payment is split by your own transaction: 50% to your War Chest, 20% to the season reward pool, 20% to Development and 10% burned. Competitive stakes stay in escrow. Direct sponsorship also funds the pool.' :
+    state.config?.economy ? 'Part of every service payment and all sponsorship go into the season reward pool.' :
     state.config?.allocationPolicy === 'separate-stake-v2' ?
       'Service payments contribute 10% (at least 546 sats to keep the output spendable). Competitive stakes stay in escrow. Direct sponsorship also funds the pool.' :
       'Eligible gameplay charges contribute to the pool under this realm’s checkout policy.';
@@ -213,7 +217,7 @@ async function showCouncil() {
     block('Your kingdom', state ? treasury(state) : '<p>Enter your kingdom to manage its treasury, request sponsorship, or vote.</p>' + link('Enter VaultBorn','/','primary')) +
     block('Active sponsorships', records(sponsor.publicCampaigns, item => campaignRow(item,'public'), 'No funded campaigns are active.')) +
     (sponsor.completedTournaments.length ? block('Tournament archive', records(sponsor.completedTournaments, item => campaignRow(item,'archive'), '')) : '') +
-    block('Sponsor a season', `<p>Your ${NETWORK_LABEL} sponsorship sends ${number(rules?.developmentPercent ?? 30)}% to the Development address and ${number(rules?.prizePercent ?? 70)}% into the Seasonal Prize Fund covenant. Prizes leave the fund only with the ${ATTESTOR_ADJECTIVE} attestor signature; an unawarded part returns to your verified wallet after its refund date. Approved placements appear when funding confirms and the campaign begins.</p>` + (authenticated ?
+    block('Sponsor a season', `<p>${number(rules?.prizePercent ?? 70)}% of a sponsorship goes to the season prize pool and ${number(rules?.developmentPercent ?? 30)}% to Development. Any part not awarded returns to your wallet.</p>` + (authenticated ?
       records(sponsor.own, item => campaignRow(item,'own'), 'You have no sponsorship requests.') +
       '<details><summary>Request a sponsorship slot</summary>' + sponsorForm(sponsor) + '</details>' : '')) +
     block('Development council', `<p>Verified active members vote for three days. At least ${council.minimumMembers} voters and 25% participation are required. Approval needs ${council.passingPercent}% of yes and no votes. The operator reviews the exact transfer and fee after the vote.</p>` +
@@ -336,6 +340,8 @@ root.addEventListener('click', async event => {
   control.disabled = true;
   try {
     if (act === 'sponsor-pay') {
+      // Inside the game the payment goes through the game's own checkout, which first asks for a connected wallet.
+      if (embedded) { root.dispatchEvent(new CustomEvent('vaultborn-archive-pay',{detail:{ type: 'sponsor-fund', campaignId: value, consent: true },bubbles:true})); return; }
       const { result } = await api('/payments', { type: 'sponsor-fund', campaignId: value, consent: true });
       if(embedded) root.dispatchEvent(new CustomEvent('vaultborn-archive-payment',{detail:result,bubbles:true}));
       else location.assign('/?payment=' + encodeURIComponent(result.id));

@@ -1,5 +1,7 @@
 # VaultBorn BCH blockchain and smart-contract audit
 
+> **Historical audit (18 November 2026),** written before the remediation and the Mainnet launch. VaultBorn has since gone live on Bitcoin Cash Mainnet with real, confirmed transactions; see [MAINNET.md](../../MAINNET.md) and [MAINNET_TRANSACTIONS.md](../../MAINNET_TRANSACTIONS.md).
+
 Audit started 18 November 2026. **Audit and report only: no implementation changes.** The selected new live lifecycles are now confirmed.
 
 **Mainnet readiness: NO.** Mainnet is explicitly disabled. The current game's Kingdom, prize and most competitive funds are still governed by an operator signer and authoritative game state. Successfully compiling or spending a generic covenant does not integrate it into the application or remove that trust. Two High findings and several recovery/coverage gaps remain. No production keys/funds, deployment, Git push or submission were used.

@@ -99,7 +99,7 @@ Each player has one BCH treasury, the **War Chest**: a contract on the player's 
 <details open>
 <summary><b>Attestors</b></summary>
 
-Raid outcomes and prizes need the signatures of two of three **attestors**, who replay the recorded battle and audit the season before signing. The game key alone cannot move player or prize money. In this deployment the attestors are run by the game's owner, so **they are not independent**, and the game says so to its players. They can be replaced by attestors run by other people. See [docs/ATTESTOR_GUIDE.md](docs/ATTESTOR_GUIDE.md).
+Raid outcomes and prizes need the signatures of two of three **attestors**, who replay the recorded battle and audit the season before signing. The game key alone cannot move player or prize money. In this deployment the attestors are run by the VaultBorn team, not by independent parties, and the game's rules say so. They can be replaced by attestors run by other people. See [docs/ATTESTOR_GUIDE.md](docs/ATTESTOR_GUIDE.md).
 </details>
 
 <details>
@@ -109,9 +109,9 @@ Territory deeds and treaty charters can be issued as CashTokens collectibles. Te
 </details>
 
 <details>
-<summary><b>The public launch record</b></summary>
+<summary><b>Mainnet transactions (proof)</b></summary>
 
-The Mainnet launch of the game was recorded on chain in transaction [`7e5d53bb…a74db7cc`](https://blockchair.com/bitcoin-cash/transaction/7e5d53bbf8586c6474982f1e6c1e11a26d5444e607c0221c85a7cf1ea74db7cc) (block 978,040). Its data output carries the SHA-256 hash of the launch manifest: the game's public key, the three attestor keys, the 2-of-3 threshold, the price book and the contract versions. Anyone can compare it with the rules the game runs.
+The Mainnet launch of the game was recorded on chain in transaction [`7e5d53bb…a74db7cc`](https://blockchair.com/bitcoin-cash/transaction/7e5d53bbf8586c6474982f1e6c1e11a26d5444e607c0221c85a7cf1ea74db7cc) (block 978,040). Its data output carries the SHA-256 hash of the [launch manifest](docs/mainnet/launch-manifest.json): the game's public key, the three attestor keys, the 2-of-3 threshold, the price book and the contract versions. The first game payments followed in block 978,066: a territory claim ([`29dc9fc2…`](https://blockchair.com/bitcoin-cash/transaction/29dc9fc2022f0acc2391eb50646f93fd7558058d6ae3499a996c5d07f1064483), 6,600 sat into a stake escrow) and a War Chest deposit ([`3364cea4…`](https://blockchair.com/bitcoin-cash/transaction/3364cea414af757ad4e34ba78c24aa61b34f6e2208893c716037ff88fdb9eb46), 10,000 sat into a War Chest contract). The list, and how to check every one offline with `npm run verify:mainnet`, is in [docs/MAINNET_TRANSACTIONS.md](docs/MAINNET_TRANSACTIONS.md). Anyone can compare it with the rules the game runs.
 </details>
 
 ## BCH BLAZE 2026
@@ -120,7 +120,7 @@ VaultBorn is entered in the BCH BLAZE 2026 hackathon:
 
 | Track or bounty | What VaultBorn brings | Where |
 | --- | --- | --- |
-| **Mainnet Track** | Paid actions are wallet-signed Bitcoin Cash Mainnet transactions through WizardConnect; the home page carries the BLAZE banner. | [docs/MAINNET.md](docs/MAINNET.md), [config/blaze.json](config/blaze.json) |
+| **Mainnet Track** | Live on Mainnet at [vaultborn.parhamlilian.com](https://vaultborn.parhamlilian.com). Paid actions are wallet-signed Bitcoin Cash Mainnet transactions through WizardConnect; the home page carries the BLAZE banner. | [Mainnet transactions (proof)](docs/MAINNET_TRANSACTIONS.md), [docs/MAINNET.md](docs/MAINNET.md), [config/blaze.json](config/blaze.json) |
 | **Build with XO** | A treaty and protectorate compensation escrow as an XO template, with an engine test and a Chipnet runner. | [xo/](xo/README.md) |
 | **Decentralized Identity** | A kingdom bound to both a BCH key and a Nostr key, published to and discovered from Nostr relays, and verifiable by anyone. | [docs/DECENTRALIZED_IDENTITY.md](docs/DECENTRALIZED_IDENTITY.md) |
 
@@ -192,7 +192,7 @@ One server runs on one network, chosen by `VAULTBORN_NETWORK`: `chipnet` (defaul
 ## Tests and evidence
 
 ```sh
-npm test                  # 247 unit and integration tests: rules, ledger, contracts in the BCH virtual machine, identity, server set-up
+npm test                  # 265 unit and integration tests: rules, ledger, contracts in the BCH virtual machine, identity, server set-up
 npm run test:browser      # the game in a real browser: map, raids, politics, wallet proof, mobile layout
 npm run test:wallet:connect   # connecting a wallet with the official WizardConnect wallet SDK
 npm run test:xo           # the XO treaty escrow on a local chain
@@ -223,7 +223,7 @@ Recorded evidence lives in [docs/audit/](docs/audit) and in the `docs/*_RECEIPTS
 Stated plainly, as they are:
 
 - **Credit is not a refund.** A paid service that cannot be delivered when its payment confirms becomes a credit for the same service in the game. No BCH is sent back.
-- **The attestors are owner-operated** in this deployment and therefore not independent. Whoever controls the game key and all attestor keys could sign a false outcome.
+- **The attestors are run by the VaultBorn team** in this deployment, so raid and prize outcomes rest on the team's signatures until other people run attestors.
 - **No external audit.** The contracts have passed the Bitcoin Cash virtual machine, a private Regtest node and Chipnet runs; see [docs/MAINNET.md](docs/MAINNET.md) for what has run on a public network.
 - **Wallet support.** Pairing and the wallet proof were tested with the official WizardConnect wallet SDK and against Selene's published signing rules; behaviour with every wallet app is not guaranteed.
 

@@ -79,7 +79,7 @@ test('Play opens one protected city; cookie visits recover it and keep existing 
   assert.equal(demoEntry.headers.has('set-cookie'), false);
   const demo = await post('/api/session', { demo: 'p2' });
   assert.deepEqual((await demo.json()).result, { player: 'p2', created: false });
-  assert.equal(Object.keys(app.store.read().world.cities).length, 17);
+  assert.equal(Object.keys(app.store.read().world.cities).length, 10); // 4 seats, 5 NPC kingdoms and the new city
 });
 
 test('large atlas snapshots preserve identical data while negotiating gzip with clients', async t => {

@@ -1,28 +1,19 @@
 import { attachIdentityControls, enterIdentity, renderIdentity } from './decentralized-identity.js';
-import { BLAZE } from './blaze.js';
+import { mountBlazeBar, openTrailerDialog, trailerVideo } from './blaze-bar.js';
 import { NETWORK, NETWORK_LABEL } from './network.js';
 import { adoptWizardSession, cancelWizardApproval, closeWizard, connectWizard, proveWizard, wizardState } from './ritual-wallet.js';
 
-// The hackathon banner: only what the server was given is shown. Built with DOM calls, never with markup from values.
-{
-  const banner = document.getElementById('blaze-banner');
-  if (banner && BLAZE.enabled) {
-    const add = (tag, text, attributes = {}) => { const node = Object.assign(document.createElement(tag), { textContent: text }, attributes); banner.append(node); return node; };
-    const anchor = (text, href) => href && add('a', text, { href, target: '_blank', rel: 'noopener' });
-    add('strong', BLAZE.event + ' entry');
-    anchor('Presentation', BLAZE.presentation);
-    anchor('Source code', BLAZE.repository);
-    anchor('Repository before the hackathon', BLAZE.oldRepository);
-    anchor('Demo before the hackathon', BLAZE.earlierDemo);
-    if (BLAZE.emberAddress) {
-      const vote = add('span', 'Community Choice: send EMBER2026 to ');
-      vote.append(Object.assign(document.createElement('code'), { textContent: BLAZE.emberAddress }));
-      const copy = add('button', 'Copy', { type: 'button' });
-      copy.addEventListener('click', async () => { try { await navigator.clipboard.writeText(BLAZE.emberAddress); copy.textContent = 'Copied'; } catch { copy.textContent = 'Select the address to copy'; } });
-    }
-    banner.hidden = false;
-  }
+// The hackathon bar and the trailer. The trailer plays in place on this page; the video is fetched only then.
+function playTrailer() {
+  const figure = document.getElementById('trailer');
+  if (!figure) return openTrailerDialog();
+  const playing = figure.querySelector('video');
+  if (playing) void playing.play().catch(() => {});
+  else figure.replaceChildren(trailerVideo());
+  figure.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
 }
+mountBlazeBar(document.getElementById('blaze-banner'), { onTrailer: playTrailer });
+for (const button of document.querySelectorAll('[data-play-trailer]')) button.addEventListener('click', playTrailer);
 
 const dialog = document.getElementById('dialog');
 const identity = document.getElementById('gate-identity');

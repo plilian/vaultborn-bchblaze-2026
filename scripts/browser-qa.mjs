@@ -7,6 +7,7 @@ import { dirname, resolve } from 'node:path';
 import { chromium } from 'playwright';
 import { createApp } from '../apps/game-server/index.mjs';
 import { createChain, signWalletChallenge, walletFromPrivateKey } from '../packages/chain-observer/index.mjs';
+import { hdTestWallet, pairingEntry } from '../tests/support/paired-wallet.mjs';
 
 const output = resolve(process.env.DOMINION_BROWSER_OUTPUT ?? 'output/playwright');
 await mkdir(output, { recursive:true });
@@ -21,13 +22,15 @@ let now = Date.now();
 // The final financial configuration: one developer address and an independent attestor. Both keys exist only in this run.
 const developer = walletFromPrivateKey(randomBytes(32).toString('hex'));
 const attestor = walletFromPrivateKey(randomBytes(32).toString('hex'));
-const seatWallet = walletFromPrivateKey(randomBytes(32).toString('hex'));
+// The seat's wallet is an HD wallet, so the browser can hold a WizardConnect pairing for it (its relay never answers).
+const seatWallet = hdTestWallet();
+const testRelay = 'ws://127.0.0.1:64262';
 const chain = createChain({ treasuryPrivateKey:randomBytes(32).toString('hex'), developmentAddress:developer.address, prizeAttestors:[attestor.publicKey], transport:{
   withClient: work => work({tip:36008, block:async () => '01'+'00'.repeat(79), history:async () => [], listUnspent:async()=>[]}),
 } });
 const assets={enabled:false,list:()=>[],authority:()=>null,close:()=>{}};
 const { server, close, store } = createApp({ database:':memory:', localDemo:true, chain, clock:() => now,
-  territoryAssets:assets,politicalAssets:assets,testWizardRelay:'ws://127.0.0.1:64262' });
+  territoryAssets:assets,politicalAssets:assets,testWizardRelay:testRelay });
 server.listen(0, '127.0.0.1');
 await once(server, 'listening');
 const origin = 'http://127.0.0.1:' + server.address().port;
@@ -121,10 +124,11 @@ async function quoteState(page, amount, heading) {
   const box = dialog(page);
   await box.getByRole('heading',{name:heading,exact:true}).waitFor();
   assert.match(await box.innerText(), new RegExp(amount + ' sat'));
-  await box.getByRole('heading',{name:'Payment outputs',exact:true}).waitFor();
+  // The outputs are one click away, in the payment details.
+  await box.getByText('Payment details',{exact:true}).click();
+  await box.getByRole('heading',{name:'Outputs',exact:true}).waitFor();
   await box.getByRole('heading',{name:'WizardConnect',exact:true}).waitFor();
   assert.equal(await box.getByLabel('Broadcast transaction ID').count(),0);
-  assert.match(await box.innerText(), /Shown by your wallet before signing/);
   assert.match(await box.innerText(), /Awaiting wallet payment/i);
   console.log('Chipnet intent prepared:',heading,'(' + amount + ' sat)');
 }
@@ -132,7 +136,7 @@ try {
   const page = await open({width:1440,height:900},'?seat=p1');
   const front = await fetchState(page);
   assert.equal(front.player.name,'Riverhold');
-  assert.equal(front.cities.length,16);
+  assert.equal(front.cities.length,9); // 4 seats and 5 NPC kingdoms
   assert.equal(await page.locator('#inspector h2').innerText(),'Ironhaven');
   await shot(page,'world-1440x900.png');
   await page.setViewportSize({width:1920,height:1080});
@@ -184,22 +188,39 @@ try {
   assert.equal(unverified.status(),403);
   assert.match((await unverified.json()).error,/Connect your wallet first/);
   store.bindWallet('p1',seatWallet.address,seatWallet.publicKey,now);
+  // Linked to the kingdom, but not connected in this browser: a pay button opens the wallet dialog, never a checkout.
+  await clickButton(dialog(page),'Rush upgrade · 0.00020000 BCH');
+  await dialog(page).getByRole('heading',{name:'Chipnet wallet',exact:true}).waitFor();
+  assert.match(await dialog(page).innerText(),/Connect your wallet first/);
+  assert.equal(((await fetchState(page)).payments ?? []).length,0,'no checkout is prepared without a connected wallet');
+  await clickButton(dialog(page),'Other WizardConnect wallet');
+  await dialog(page).getByRole('img',{name:'WizardConnect pairing QR code'}).waitFor();
+  assert.match(await dialog(page).getByRole('link',{name:'Open in wallet'}).getAttribute('href'),/^wiz:\/\//);
+  await shot(page,'wallet-required.png');
+  await clickButton(dialog(page),'Cancel pairing');
+  await closeDialog(page);
+  // The player pairs the wallet (here: the pairing as the browser keeps it). Connected, the same buttons go straight to checkout.
+  const pairing = pairingEntry('p1',testRelay,seatWallet);
+  await page.evaluate(([key,value]) => localStorage.setItem(key,value),[pairing.key,pairing.value]);
+  await page.reload();
+  await page.locator('#inspector h2').waitFor();
+  await openNav(page,'My City');
+  await page.getByRole('button',{name:/City Hall Level/}).click();
   await clickButton(dialog(page),'Rush upgrade · 0.00020000 BCH');
   await quoteState(page,'20,000','Rush City Hall');
   // The payer's own transaction makes four exact outputs; the one network reserve is shown on top of the price.
   assert.match((await dialog(page).innerText()).replace(/\s+/g,' '),/Your War Chest · always at risk 10,000 sat Development 4,000 sat Season reward share 4000 \+ network reserve 300 4,300 sat Burn 2,000 sat/);
-  assert.match((await dialog(page).innerText()).replace(/\s+/g,' '),/Your wallet sends 20,300 sat plus the network fee/);
+  assert.match((await dialog(page).innerText()).replace(/\s+/g,' '),/Your wallet sends 20,300 sats \(incl\. 300 sat network reserve\)/);
   await closeDialog(page);
   await page.getByRole('button',{name:/City Hall Level/}).click();
   await clickButton(dialog(page),'Upgrade with BCH · 0.00022000 BCH');
   await quoteState(page,'22,000','City Hall premium upgrade');
-  await clickButton(dialog(page),'Other WizardConnect wallet');
-  await dialog(page).getByRole('img',{name:'WizardConnect pairing QR code'}).waitFor();
-  assert.match(await dialog(page).getByRole('link',{name:'Open in wallet'}).getAttribute('href'),/^wiz:\/\//);
-  await clickButton(dialog(page),'Cancel pairing');
+  await dialog(page).getByRole('button',{name:'Approve with wallet',exact:true}).waitFor();
   await shot(page,'payment-intent.png');
   await closeDialog(page);
-  await progress(page,131_000);
+  // Construction takes real time from level 2 on: wait until this one is done.
+  const building = (await fetchState(page)).player.queue.find(job => job.kind === 'building');
+  await progress(page,building.completesAt - now + 1_000);
   assert.equal((await fetchState(page)).player.buildings.hall,front.player.buildings.hall+1);
 
   await openTab(page,'Army');
@@ -430,24 +451,6 @@ try {
   for (const tab of ['Alliances','Archive','Cities']) await openTab(page,tab);
   await shot(page,'season-rankings.png');
 
-  // This seat already has a verified wallet (paid services need one). The wallet dialog verifies a different receiving address.
-  await page.locator('button.wallet-shortcut').click();
-  await dialog(page).getByText('Other way: verify an address with a signed message',{exact:true}).click();
-  const fixtureSecret = randomBytes(32).toString('hex');
-  const localWallet = walletFromPrivateKey(fixtureSecret);
-  await dialog(page).getByLabel('Chipnet CashAddr',{exact:true}).fill(localWallet.address);
-  await clickButton(dialog(page),'Create ownership challenge');
-  const challenge = await dialog(page).locator('.wallet-challenge').textContent();
-  const walletProof = signWalletChallenge(fixtureSecret,challenge);
-  await dialog(page).getByLabel('Compressed public key (legacy proof only)',{exact:true}).fill(walletProof.publicKey);
-  await dialog(page).getByLabel('Ownership signature',{exact:true}).fill(walletProof.signature);
-  await clickButton(dialog(page),'Verify ownership');
-  await dialog(page).getByText('Wallet verified',{exact:true}).waitFor();
-  assert.equal((await fetchState(page)).wallet.address,localWallet.address);
-  await dialog(page).getByRole('button',{name:'Refresh balance'}).waitFor();
-  await shot(page,'wallet-linked.png');
-  await closeDialog(page);
-
   const otherKey = randomBytes(32).toString('hex');
   const otherWallet = walletFromPrivateKey(otherKey);
   const otherChallenge = await defender.request.post(origin + '/api/wallet/challenge',{data:{address:otherWallet.address}});
@@ -495,6 +498,27 @@ try {
   await clickButton(dialog(page),'Open claim · 6,600 sats');
   await quoteState(page,'6,600','Enter claim for East Meadow');
   await closeDialog(page);
+
+  // A wallet that cannot pair: the player disconnects the paired one and verifies another receiving address with a signed message.
+  await page.locator('button.wallet-shortcut').click();
+  await clickButton(dialog(page),'Disconnect wallet');
+  await dialog(page).getByRole('button',{name:'Other WizardConnect wallet',exact:true}).waitFor();
+  await dialog(page).getByText('Other way: verify an address with a signed message',{exact:true}).click();
+  const fixtureSecret = randomBytes(32).toString('hex');
+  const localWallet = walletFromPrivateKey(fixtureSecret);
+  await dialog(page).getByLabel('Chipnet CashAddr',{exact:true}).fill(localWallet.address);
+  await clickButton(dialog(page),'Create ownership challenge');
+  const challenge = await dialog(page).locator('.wallet-challenge').textContent();
+  const walletProof = signWalletChallenge(fixtureSecret,challenge);
+  await dialog(page).getByLabel('Compressed public key (legacy proof only)',{exact:true}).fill(walletProof.publicKey);
+  await dialog(page).getByLabel('Ownership signature',{exact:true}).fill(walletProof.signature);
+  await clickButton(dialog(page),'Verify ownership');
+  await dialog(page).getByText('Wallet verified',{exact:true}).waitFor();
+  assert.equal((await fetchState(page)).wallet.address,localWallet.address);
+  await dialog(page).getByRole('button',{name:'Refresh balance'}).waitFor();
+  await shot(page,'wallet-linked.png');
+  await closeDialog(page);
+
   await clickButton(page,'Profile and settings');
   await dialog(page).getByRole('slider',{name:'Music volume'}).press('Home');
   await dialog(page).getByRole('slider',{name:'Effects volume'}).press('End');
@@ -546,6 +570,13 @@ try {
   await founding.getByRole('button',{name:/^Faction /}).click();
   await founding.locator('[data-select-option="violet"]').click();
   await clickAndWait(newcomer,founding,'Found city');
+  // Greeted once: the tutorial, the instructions, or Skip; the greeting is not offered again.
+  await founding.getByRole('heading',{name:'Welcome to VaultBorn'}).waitFor();
+  assert.equal((await fetchState(newcomer)).player.welcome,false);
+  await clickButton(founding,'Start the tutorial');
+  // Without a wallet the kingdom is asked to connect one; the tutorial follows either way.
+  await founding.getByRole('heading',{name:'Connect your wallet'}).waitFor();
+  await clickButton(founding,'Not now');
   await founding.waitFor({ state:'hidden' });
   assert.equal((await fetchState(newcomer)).player.name,'Cedarwatch');
   const guide = newcomer.locator('#campaign-guide');

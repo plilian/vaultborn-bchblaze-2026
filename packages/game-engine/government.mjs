@@ -231,8 +231,8 @@ function isAlly(world,actor,rival,now) {
 }
 
 function assertEnrolled(city,now) {
-  requireRule(!city.npc && city.tutorial && city.optIn && city.shieldUntil <= now,'political_enrollment',
-    'Complete the tutorial, leave starter protection, and enroll in seasonal politics.');
+  requireRule(!city.npc,'political_enrollment','NPC kingdoms do not take part in seasonal politics.');
+  requireRule(city.optIn,'political_enrollment','You left seasonal PvP. Join it again to take part.');
 }
 
 function findConflict(world,id,now) {

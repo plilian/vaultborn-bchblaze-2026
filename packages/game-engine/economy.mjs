@@ -11,6 +11,7 @@ import {nextDiplomacyEvents} from './diplomacy.mjs'
 import {nextPoliticalTradeEvents,politicalTradeCommand} from './political-trade.mjs'
 import {activeCommander, awardCommanderMastery, commanderEffects, commanderOwnership, ruleClock} from './progression.mjs'
 import {nextNpcEvent} from './npc.mjs'
+import {retireNpcs} from './npc-roster.mjs'
 
 export function deployedTroops(world,city) {
   return {claim:Object.values(city.territoryLocked??{}).reduce((total,roster)=>total+troopTotal(roster),0),
@@ -149,6 +150,7 @@ function nextEvent(world, now) {
 
 export function advance(world, now = Date.now()) {
   requireRule(Number.isSafeInteger(now) && now >= world.now, 'bad_clock','Game time cannot move backwards.',400)
+  retireNpcs(world,world.now)
   ensureTerritories(world,world.now)
   ensureGovernment(world,world.now)
   world.accrualCutoff = now - economy.offlineCap
@@ -163,8 +165,12 @@ export function advance(world, now = Date.now()) {
   world.now = now
   world.marches = world.marches.filter(march => march.at > now - DAY)
   world.missions = world.missions.filter(mission => mission.startedAt > now - 7 * DAY || mission.status === 'pending')
+  // Shields given under the earlier rules (starter and recovery shields) are lifted once: this season has none.
+  const liftShields = !world.shieldsLifted && !balance.defeatShield
+  if (liftShields) world.shieldsLifted = true
   for (const city of Object.values(world.cities)) {
-    openFromDayOne(city)
+    if (liftShields && city.shieldUntil > now) city.shieldUntil = now
+    openFromDayOne(city, world, now)
     city.conveniences = lastDay(city.conveniences,now)
     city.aid = lastDay(city.aid,now)
     for (const [target,intel] of Object.entries(city.intel)) if (intel.expiresAt <= now - DAY) delete city.intel[target]
@@ -182,6 +188,8 @@ export function upgrade(world, city, input, now) {
   const job = {id:'j' + (++world.seq),kind:'building', key:preview.building, level:preview.nextLevel, startedAt:now,commander:activeCommander(city,now),
     completesAt:now + Math.ceil(preview.duration * (rush > 0 ? 1 - economy.rushFraction : 1)), cost:preview.cost, ...(rush > 0 && {rushed:true})}
   city.queue.push(job)
+  // The history of the notification centre records what was started, not only what finished.
+  notify(world,city.id,buildings[job.key].name + ' upgrade to level ' + job.level + ' started.',now,'construction',{title:'Construction started',until:job.completesAt})
   return job
 }
 
@@ -217,6 +225,7 @@ export function train(world, city, input, now) {
   const job = {id:'j' + (++world.seq),kind:'troop',key:input.unit,count:input.count,startedAt:preview.startsAt,
     completesAt:preview.completesAt,cost:preview.cost}
   city.queue.push(job)
+  notify(world,city.id,'Training ' + job.count + ' ' + units[job.key].name + '.',now,'training',{title:'Training started',until:job.completesAt})
   return job
 }
 
@@ -239,6 +248,7 @@ export function research(world, city, input, now) {
   subtract(city,cost)
   const job = {id:'j' + (++world.seq),kind:'research',key:input.tech,level:preview.next,startedAt:now,completesAt:now+preview.duration,cost,commander:activeCommander(city,now)}
   city.queue.push(job)
+  notify(world,city.id,tech[job.key].name + ' tier ' + job.level + ' research started.',now,'research',{title:'Research started',until:job.completesAt})
   return job
 }
 
@@ -301,19 +311,18 @@ export function convenience(world, city, input, now) {
     requireRule(!city.perks[input.building],'premium_owned','Your city already owns this premium improvement.')
     city.perks[input.building] = {name:profile.premium,at:now}
   } else {
+    // A rush speeds up a construction in progress, once. It is not sold for a building that is not being built.
     const key = input.building
     const job = city.queue.find(item => item.kind === 'building' && item.key === key)
-    if (job) { job.completesAt = now + Math.ceil((job.completesAt - now) * (1 - economy.rushFraction)); job.rushed = true }
-    else {
-      requireRule(quoteUpgrade(city,key).eligible,'building_locked','Select a building that can be upgraded.')
-      city.rushCredits ||= {}
-      requireRule(!city.rushCredits[key],'rush_bank_full','A rush credit is already reserved for this building.')
-      city.rushCredits[key] = 1
-    }
+    requireRule(job,'rush_no_construction','Start the upgrade first: a rush speeds up a construction in progress.')
+    requireRule(!job.rushed,'rush_used','This construction has already been rushed.')
+    job.completesAt = now + Math.ceil((job.completesAt - now) * (1 - economy.rushFraction))
+    job.rushed = true
   }
   city.conveniences.push({type:input.type,building:input.building,at:now})
-  const message = input.type === 'premium' ? profile.premium + ' is now available.' :
-    'Rush applied to ' + profile.name + '. A credit is saved if construction finished before payment confirmed.'
-  notify(world,city.id,message,now,'receipt')
+  const job = city.queue.find(item => item.kind === 'building' && item.key === input.building)
+  const message = input.type === 'premium' ? profile.premium + ' is now yours.' : profile.name + ' rushed: it finishes sooner.'
+  notify(world,city.id,message,now,'receipt',{title:input.type === 'premium' ? 'Premium upgrade' : 'Construction rushed',building:input.building,
+    ...(job && {completesAt:job.completesAt})})
   return {building:input.building,perks:city.perks,rushCredits:city.rushCredits,queue:city.queue}
 }

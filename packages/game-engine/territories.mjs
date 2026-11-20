@@ -40,7 +40,7 @@ const newLand = [
 const campOccupation = 48 * HOUR;
 const frontierCamps = [
   {id:'ashfall-camp',name:'Ashfall Camp',x:.33,y:.34,type:'forest',resource:'wood',terrain:'forest',warden:'p12'},
-  {id:'blackridge-camp',name:'Blackridge Camp',x:.80,y:.43,type:'quarry',resource:'stone',terrain:'hills',warden:'p11'},
+  {id:'blackridge-camp',name:'Blackridge Camp',x:.80,y:.43,type:'quarry',resource:'stone',terrain:'hills',warden:'p6'},
   {id:'old-ferry-camp',name:'Old Ferry Camp',x:.30,y:.69,type:'farm',resource:'food',terrain:'river',warden:'p8'},
 ];
 
@@ -70,6 +70,27 @@ function syncNode(world, site) {
   if (site.owner) node.owner = site.owner;
   else delete node.owner;
   node.changedAt = site.lastChanged;
+}
+
+// Kingdoms that leave the map: their homelands go, a camp they guarded passes to the warden that inherits it, and
+// anything else they held becomes open land.
+export function releaseTerritories(world, gone, heirs = {}, now = world.now) {
+  if (!Array.isArray(world.territories)) return;
+  world.territories = world.territories.filter(site => !(site.category === 'starter' && gone.has(site.owner)));
+  for (const site of world.territories) {
+    if (gone.has(site.frontierWarden)) site.frontierWarden = heirs[site.frontierWarden] ?? null;
+    if (site.claim?.entries) site.claim.entries = site.claim.entries.filter(entry => !gone.has(entry.player));
+    if (!gone.has(site.owner) && !gone.has(site.controller)) continue;
+    const heir = site.frontierCamp && world.cities[site.frontierWarden]?.npc && !gone.has(site.frontierWarden) ? site.frontierWarden : null;
+    site.owner = heir;
+    site.controller = heir;
+    site.status = heir ? 'controlled' : site.category === 'rare' ? 'raffle' : 'open';
+    if (!heir) site.nextUpkeep = null;
+    site.version = (site.version ?? 0) + 1;
+    site.lastChanged = now;
+    (site.history ??= []).push({kind:heir ? 'garrison-arrived' : 'abandoned', playerId:heir, at:now});
+    syncNode(world, site);
+  }
 }
 
 export function ensureTerritories(world, now = world.now) {
@@ -136,9 +157,11 @@ function connected(world, city, site) {
   return points.some(origin => Math.hypot(origin.x - site.x,origin.y - site.y) <= territoryRules.supplyRange);
 }
 
+// Every kingdom is in the season from its first day: no tutorial to finish and no beginner protection to wait out.
+// Only a kingdom that left seasonal PvP on purpose stays out of territorial contests until it joins again.
 function territorialEnrollment(city, now) {
-  requireRule(!city.npc && city.tutorial && city.optIn && city.shieldUntil <= now,
-    'territory_enrollment', 'Complete the tutorial, enroll in seasonal PvP, and wait for beginner protection to expire.');
+  requireRule(!city.npc, 'territory_enrollment', 'NPC kingdoms do not take part in territorial contests.');
+  requireRule(city.optIn, 'territory_enrollment', 'You left seasonal PvP. Join it again to take part.');
 }
 
 function activeContest(world, player, exceptId) {
@@ -489,7 +512,7 @@ function contestAttack(world,attacker,defender,site,action,entry,now) {
   const attackerWon = report.winner === 'attacker';
   const winner = attackerWon ? attacker : defender;
   const defeated = attackerWon ? defender : attacker;
-  defeated.shieldUntil = Math.max(defeated.shieldUntil,now+balance.defeatShield);
+  if (balance.defeatShield > 0) defeated.shieldUntil = Math.max(defeated.shieldUntil,now+balance.defeatShield);
   if (attackerWon) {
     movement(defender,site.defenses.garrison,1);
     site.defenses.garrison = troopQuota(attacker.troops,Math.min(12,troopTotal(attacker.troops)));

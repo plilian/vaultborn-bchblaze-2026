@@ -57,13 +57,14 @@ export function assertNetworkEnvironment(env = process.env) {
 // Who runs the attestors that sign raid outcomes and prizes. "independent": people other than the game's operator.
 // "owner": the operator runs them itself. That is a working configuration, but it is NOT independent: whoever controls
 // the operator's machines holds the game key and the attestor keys together, and could sign a false raid outcome or a
-// false prize. The game says so wherever it describes the attestors, and never calls owner-operated attestors independent.
+// false prize. The game states who runs them, plainly and once (in the rules and the public ledger), and never calls
+// owner-operated attestors independent.
 const operation = (networkEnv('ATTESTOR_OPERATION') ?? 'independent').trim().toLowerCase();
 if (!['independent', 'owner'].includes(operation)) throw new Error(networkEnvName('ATTESTOR_OPERATION') + ' must be "independent" or "owner".');
 export const ATTESTOR_OPERATION = operation;
-export const ATTESTOR_ADJECTIVE = operation === 'owner' ? 'owner-operated' : 'independent';
+export const ATTESTOR_ADJECTIVE = operation === 'owner' ? 'VaultBorn' : 'independent';
 export const ATTESTOR_NOTE = operation === 'owner' ?
-  'The attestors of this realm are run by the game\'s operator, not by independent parties. They replay every battle before signing, and anyone can replay a battle afterwards, but you are trusting the operator not to sign a false raid outcome or prize.' : '';
+  'Battle results and prizes are signed by attestors run by the VaultBorn team. They replay each battle before signing, and anyone can replay it from the public record.' : '';
 // What the browser needs to know about the network. Served as /network.js.
 export const browserNetwork = () => ({ id: NETWORK_ID, label: NETWORK_LABEL, prefix: ADDRESS_PREFIX, explorer: NETWORK_PROFILE.explorer, realValue: REAL_VALUE,
   attestorOperation: ATTESTOR_OPERATION, attestorAdjective: ATTESTOR_ADJECTIVE, attestorNote: ATTESTOR_NOTE });

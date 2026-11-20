@@ -45,7 +45,12 @@ domain=""; while [ $# -gt 0 ]; do [ "$1" = "-d" ] && domain="$2"; shift; done
 mkdir -p "$FAKE_LE/live/$domain"; echo cert > "$FAKE_LE/live/$domain/fullchain.pem"; echo key > "$FAKE_LE/live/$domain/privkey.pem"`);
   command('systemctl', 'exit 0');
   command('ss', busyPorts.map(port => `echo "LISTEN 0 511 127.0.0.1:${port} 0.0.0.0:*"`).join('\n'));
-  command('curl', `[ -e "$FAKE_FLAGS/site-silent" ] && exit 22; echo '{"ok":true,"network":"mainnet"}'`);
+  // "site-slow": the first two checks fail, as right after an nginx reload; "site-silent": every check fails.
+  command('curl', `[ -e "$FAKE_FLAGS/site-silent" ] && { echo "curl: (60) SSL: no alternative certificate subject name matches" >&2; exit 60; }
+if [ -e "$FAKE_FLAGS/site-slow" ]; then n=$(cat "$FAKE_FLAGS/site-slow"); echo $((n+1)) > "$FAKE_FLAGS/site-slow"; [ "\${n:-0}" -ge 2 ] || exit 7; fi
+echo '{"ok":true,"network":"mainnet"}'`);
+  // The installer waits between checks; here it does not.
+  command('sleep', 'exit 0');
   const run = (domain, mode = 'install') => {
     const result = spawnSync('bash', [join(paths.app, 'infrastructure', 'mainnet', 'install-behind-nginx.sh'), mode], { encoding: 'utf8',
       env: { ...env, DOMAIN: domain } });

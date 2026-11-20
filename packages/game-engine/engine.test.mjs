@@ -1,20 +1,21 @@
 import {test} from 'node:test'
 import assert from 'node:assert/strict'
-import {DAY,HOUR,MINUTE,economy,resources} from '../../config/economy.mjs'
+import {DAY,HOUR,MINUTE,buildings,economy,resources} from '../../config/economy.mjs'
 import {balance} from '../../config/balance.mjs'
 import {addPlayer,advance,attackEligibility,command,createWorld,quote,snapshot} from './index.mjs'
 import {digest,simulateBattle,unitIds} from './combat.mjs'
-import {stockCapacity} from './world.mjs'
+import {quoteUpgrade,stockCapacity} from './world.mjs'
 
 const T = DAY
 const seed = () => Object.assign(createWorld(T),{secret:'test-seed-v1'})
 const call = (world, actor, type, data = {}, paid = false) => command(world,actor,{type,...data},world.now,{paid})
 const error = code => ({code})
 
-test('seeded demo exposes 16 cities, two independent alliances and a fair rival', () => {
+test('seeded demo exposes 9 cities (4 seats and 5 NPC kingdoms), two independent alliances and a fair rival', () => {
   const world = seed()
   const view = snapshot(world,'p1')
-  assert.equal(view.cities.length,16)
+  assert.equal(view.cities.length,9)
+  assert.equal(view.cities.filter(city => city.npc).length,5)
   assert.equal(view.alliances.length,2)
   assert.equal(view.player.name,'Riverhold')
   const enemy = view.cities.find(city => city.id === 'p2')
@@ -96,10 +97,29 @@ test('payment quotes are pure, require external verification and respect conveni
   assert.ok(world.cities.p1.perks.hall)
   assert.throws(() => call(world,'p1','rush',{building:'hall'},true),error('paid_daily_cap'))
   advance(world,T+DAY)
-  call(world,'p1','rush',{building:'hall'},true)
+  // A rush is only sold for a construction in progress, and only once per construction.
+  assert.throws(() => quote(world,'p1',{type:'rush',building:'hall'}),error('rush_no_construction'))
+  assert.throws(() => call(world,'p1','rush',{building:'hall'},true),error('rush_no_construction'))
   const next = call(world,'p1','upgrade',{building:'hall'})
-  assert.equal(next.completesAt - next.startedAt,62_098)
-  assert.equal(world.cities.p1.rushCredits.hall,0)
+  const at = world.now
+  const remaining = next.completesAt - at
+  call(world,'p1','rush',{building:'hall'},true)
+  const job = world.cities.p1.queue.find(item => item.kind === 'building' && item.key === 'hall')
+  assert.equal(job.completesAt,at + Math.ceil(remaining / 2))
+  assert.equal(job.rushed,true)
+  advance(world,T+2*DAY - 1)
+  if (world.cities.p1.queue.some(item => item.kind === 'building' && item.key === 'hall'))
+    assert.throws(() => call(world,'p1','rush',{building:'hall'},true),error('rush_used'))
+  assert.equal(world.cities.p1.rushCredits?.hall ?? 0,0)
+})
+
+test('build times grow after the first upgrade of each building', () => {
+  const world = seed()
+  const city = world.cities.p1
+  const first = quoteUpgrade({...city,buildings:{...city.buildings,farm:1}},'farm',T)
+  const third = quoteUpgrade({...city,buildings:{...city.buildings,hall:5,farm:3}},'farm',T)
+  assert.ok(first.duration <= buildings.farm.time)
+  assert.ok(third.duration >= buildings.farm.time * economy.buildTimeScale * .72)
 })
 
 test('combat is reproducible, integer, capped and funded with ordinary resources only', () => {

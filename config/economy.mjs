@@ -10,7 +10,9 @@ export const resourceValues = Object.freeze({wood: 1, stone: 1.2, iron: 1.55, fo
 export const production = {wood: 118, stone: 92, iron: 72, food: 140, crystal: 10}
 export const startingCapacity = {wood: 2800, stone: 2400, iron: 1900, food: 3000, crystal: 370}
 export const offlineCap = 12 * HOUR
-export const starterShield = 30 * MINUTE
+// No shields this season: a new kingdom can be raided, and can raid, from its first day (weaker kingdoms stay protected
+// by the power window). Kept as a setting for a later season.
+export const starterShield = 0
 export const demoTempo = 1
 export const seasonLength = 7 * DAY
 export const levelMax = 9
@@ -20,7 +22,12 @@ const book = priceBook(PRICING)
 export const fees = {attack: book.raid.minimumStake, protectorate: book.services.protectorate, premium: book.services.premium, rush: book.services.rush}
 export const economy = {
   version: 1, production, startingCapacity, starterResources, offlineCap, starterShield, demoTempo, seasonLength, levelMax, fees,
-  farmRate: .15, vaultCapacityRate: .25, upgradeCurve: 1.56, buildTimeCurve: 1.43, maintenance: .22,
+  // Construction takes real time. The first upgrade of each building stays quick (City Hall: 90 seconds); from level 2 on,
+  // build times are multiplied by buildTimeScale (City Hall 2→3: about 17 minutes, 8→9: about 2.4 hours).
+  farmRate: .15, vaultCapacityRate: .25, upgradeCurve: 1.56, buildTimeCurve: 1.43, buildTimeScale: 8, maintenance: .22,
+  // A rush for a construction with less than this time left is applied after 1 confirmation (about 10 minutes);
+  // otherwise after the usual 2. Waiting two blocks for a short build would leave little to rush.
+  rushOneConfirmationBelow: 60 * 60_000,
   lootFraction: .075, lootCapacityPerTroop: 3, marketRate: .7, aidDaily: 500, rushFraction: .5,
   paidConvenienceDaily: 1, protectorateTribute: .08, protectorateSlots: 2, protectorateMinPower: 1.6,
   protectorateResponseTime: 2 * HOUR, protectorateTerm: 48 * HOUR, protectorateCooldown: DAY,

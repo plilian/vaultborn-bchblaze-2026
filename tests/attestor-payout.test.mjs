@@ -87,7 +87,7 @@ test('with the server shut down, the game key and one attestor pay the winner fr
   const sent = await complete({ bundle, config, chain, proposal:signed.proposal, gamePrivateKey:operatorKey, now:now() });
   mine();
   assert.ok(await chain.confirmations(sent.txid) >= 1);
-  assert.equal(node.paidTo(walletFromPrivateKey({ p1:key(601), p2:key(602), p3:key(603) }[proposal.playerId]).script, sent.txid), proposal.satoshis, 'the winner received exactly the prize');
+  assert.equal(node.paidTo(wallets[proposal.playerId].script, sent.txid), proposal.satoshis, 'the winner received exactly the prize');
   // 5. The same rank cannot be claimed twice, even with fresh signatures.
   assert.ok((await paidRanks(audit.result, funds, chain)).has(1));
   mine(8);

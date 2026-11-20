@@ -34,7 +34,8 @@ test('saved territory migration retains incumbents and issues exactly one protec
   assert.equal(siteBy(world,'watch').controller,'p10');
   assert.ok(world.territories.filter(site=>site.category==='strategic').every(site=>world.cities[site.owner].npc));
   assert.throws(() => quoteTerritory(world,'p1',{type:'territory-claim',territory:'watch'},T),{code:'territory_not_open'});
-  addPlayer(world,{id:'new-holding',name:'New Holding',cityName:'New Holding'},T);
+  // A kingdom on the far corner clearing: East Meadow is beyond its supply range.
+  Object.assign(addPlayer(world,{id:'new-holding',name:'New Holding',cityName:'New Holding'},T),{x:.91,y:.13});
   const view = readTerritories(world,'new-holding',T);
   assert.deepEqual(new Set(view.territories.map(site => site.category)),new Set(['starter','unclaimed','resource','strategic','rare']));
   assert.equal(view.territories.filter(site => site.owner==='new-holding' && site.category==='starter').length,1);
@@ -138,7 +139,8 @@ test('controlled territories support promotion, reinforcement, recorded conquest
   assert.equal(executed.battle.conquest.previousOwner,'p2');
   assert.equal(world.marches[0].kind,'raid');
   assert.equal(simulateBattle(executed.battle.input,executed.battle.seed).hash,executed.battle.hash);
-  assert.equal(world.cities.p2.shieldUntil,T+4*HOUR);
+  // No shields this season: the defeated owner gets no recovery shield; the territory's own recovery rule still applies.
+  assert.ok(!(world.cities.p2.shieldUntil>T));
   assert.throws(() => quoteTerritory(world,'p3',{type:'territory-attack',territory:target.id},T),{code:'territory_recovery'});
 });
 

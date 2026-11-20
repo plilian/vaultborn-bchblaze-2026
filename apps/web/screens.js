@@ -1,5 +1,5 @@
 import { icon } from './icons.js';
-import { art, bch, btn, command, costs, crest, duration, empty, formatDate, html, labelOf, list, number, pay, resources, tag, tabbar, title, values } from './view.js';
+import { art, bch, btn, command, confirmationText, costs, crest, duration, empty, formatDate, html, labelOf, list, number, paidButton, pay, paymentsInFlight, resources, tag, tabbar, title, values } from './view.js';
 import { gameSelect as dropdown } from './game-select.js';
 import { walletAddress, walletLabel, wizardState } from './ritual-wallet.js';
 import { territoryAtlas, territoryAssets, territoryDetail } from './territory-field.js';
@@ -11,7 +11,6 @@ import { battleReport } from './battle-report.js';
 
 import { politicalFormAnswer, renderPoliticalDialog, renderPolitics } from './political-assembly.js';
 import { NETWORK, NETWORK_LABEL } from './network.js';
-import { ATTESTOR_ADJECTIVE } from './network.js';
 
 const cityTabs = [['build','Construction'],['army','Army'],['heroes','Commanders'],['defense','Defense'],['research','Research'],['market','Marketplace'],['inventory','Inventory']];
 const warTabs = [['operations','Operations'],['expeditions','Expeditions'],['intelligence','Intelligence'],['politics','Protectorates'],['territory','Territories']];
@@ -72,7 +71,7 @@ function buildView(ctx) {
       <div class="city-overview-info">
         <span class="kicker">Level ${number(ctx.level(own))} stronghold</span>
         <h2>${html(own.name)}</h2>
-        <p>${own.shieldUntil > ctx.gameNow ? 'Starter or recovery shield active' : 'City stores replenish while you are away'}</p>
+        <p>City stores replenish while you are away</p>
         <div class="buttons">
           ${btn('Daily supplies','gift',{modal:'daily'},'primary')}
           ${guideButton(own)}
@@ -125,7 +124,8 @@ function heroesView(ctx) {
         ${roster?.roster[id] ? `<p>${html(title(roster.roster[id].ownership))} · Mastery ${number(roster.roster[id].level)} · ${number(roster.roster[id].xp)} XP</p>${roster.roster[id].nextXp?
           `<progress class="commander-xp" max="${roster.roster[id].nextXp}" value="${roster.roster[id].xp}" aria-label="Mastery progress for ${html(def.name)}"></progress>`:''}`:''}
         <div class="buttons">${['permanent','rented'].includes(roster?.roster[id]?.ownership) ?
-          command(own.hero===id?'Assigned':'Assign','flag',{type:'configure',hero:id},'primary',own.hero===id) : ''}
+          command(own.hero===id?'Assigned':'Assign','flag',{type:'configure',hero:id},'primary',own.hero===id) :
+          ['locked','expired'].includes(roster?.roster[id]?.ownership) ? btn('Hire or recruit','clock',{modal:'commander',id},'primary') : ''}
         ${btn('Review commander','flag',{modal:'commander',id})}</div>
       </div>
     </article>`).join('')}</div>`;
@@ -143,7 +143,7 @@ function commanderDialog(ctx,id) {
   const installed=profile.equipment;
   const wait=profile.cooldownUntil>ctx.gameNow;
   const busyFitting=item=>Object.entries(catalog.roster).find(([hero,row])=>hero!==id&&row.equipment===item)?.[1].name;
-  const contractRows=Object.entries(decoded.rentals).map(([days,cost])=>`<div class="strategy-order"><div><strong>${html(days)}-day contract</strong>${costs(cost)}</div>${command('Rent for '+days+' days','clock',
+  const contractRows=Object.entries(decoded.rentals).map(([days,cost])=>`<div class="strategy-order"><div><strong>${html(days)}-day contract</strong>${costs(cost)}</div>${command('Rent for '+days+(Number(days)===1?' day':' days'),'clock',
     {type:'commander-rent',hero:id,days:Number(days)},'primary',!decoded.rentalEligible || !hasCost(ctx.own,cost) ||
       Math.max(ctx.gameNow,profile.expiresAt??0)+Number(days)*86_400_000>ctx.gameNow+7*86_400_000)}</div>`).join('');
   return modal(desc.name,`<div class="commander-heading">${image('/art/hero-'+id+'.webp','commander-portrait',desc.name)}<div>
@@ -173,7 +173,7 @@ function defenseView(ctx) {
     ${well('Watchtower',`<p>${own.counterspyUntil > ctx.gameNow ? 'Counterintelligence active for ' + duration(own.counterspyUntil - ctx.gameNow) : 'Establish a four-hour counterintelligence watch.'}</p>
       ${costs({wood:26,stone:24,food:48,crystal:6})}<div class="buttons">${command(cooldown ? 'Counterspy recovering' : 'Activate counterspy','spy',{type:'counterspy'},'intel',cooldown)}${btn('Deploy decoys','flag',{modal:'decoy'},'intel')}</div>`)}
     </div>
-    ${values('Protection', [['City shield',own.shieldUntil > ctx.gameNow ? duration(own.shieldUntil-ctx.gameNow) : 'Inactive'],['Diplomatic immunity',own.immunityUntil > ctx.gameNow ? duration(own.immunityUntil-ctx.gameNow) : 'Inactive'],['Defense',number(ctx.towerDefense(own))]])}`;
+    ${values('Protection', [['Diplomatic immunity',own.immunityUntil > ctx.gameNow ? duration(own.immunityUntil-ctx.gameNow) : 'Inactive'],['Defense',number(ctx.towerDefense(own))]])}`;
 }
 function researchView(ctx) {
   const own = ctx.own;
@@ -212,7 +212,7 @@ function inventoryView(ctx) {
   ];
   return `<div class="split">${well('Resource stores',costs(ctx.own.resources))}${well('City entitlements',Object.keys(ctx.own.perks ?? {}).length ?
     Object.entries(ctx.own.perks).map(([id]) => row(labelOf(ctx.ui.state.config.buildings[id],id),'' + NETWORK_LABEL + '-verified city entitlement')).join('') : empty('No premium entitlements recorded.'))}</div>
-    ${well('Construction rush passes',Object.keys(ctx.own.rushCredits ?? {}).length ? Object.entries(ctx.own.rushCredits).map(([id,qty]) => row(labelOf(ctx.ui.state.config.buildings[id],id),number(qty) + ' available')).join('') : empty('No rush passes available.'))}
+    ${Object.values(ctx.own.rushCredits ?? {}).some(qty => qty > 0) ? well('Saved rush passes',Object.entries(ctx.own.rushCredits).filter(([,qty]) => qty > 0).map(([id,qty]) => row(labelOf(ctx.ui.state.config.buildings[id],id),number(qty) + ' left, used by the next upgrade')).join('')) : ''}
     ${well('Achievements',`<p>${achievements.filter(([, ,unlocked])=>unlocked).length} of ${achievements.length} honors earned.</p><div class="honor-wall">${achievements.map(([name,description,earned,glyph])=>
       `<article class="honor ${earned?'earned':''}"><span class="honor-seal">${icon(glyph)}</span><div><strong>${html(name)}</strong><p>${html(description)}</p><small>${earned?'Earned':'Available'}</small></div></article>`).join('')}</div>`)}
     ${territoryAssets(ctx.ui.state.territories,ctx)}${well('On-chain assets',walletAssets(ctx))}`;
@@ -360,6 +360,14 @@ function paymentRows(ctx) {
   }).join('') : empty('No ' + NETWORK_LABEL + ' payments recorded.');
 }
 const creditNames = { rush:'rush', premium:'premium improvement', protectorate:'protectorate proposal', 'espionage-paid':'paid intelligence mission', 'political-operation':'political operation' };
+// A paid raid on this city whose payment is on its way: the dialog shows it instead of offering another.
+const paidRaid = target => paymentsInFlight().find(item => item.payload?.type === 'attack-paid' && item.payload.target === target) ?? null;
+// Sent to the War Chest and not yet confirmed: a deposit, or the War Chest share of a service payment.
+function incomingChest() {
+  return paymentsInFlight().map(item => ({ ...item, satoshis: item.action === 'war-chest' ? item.satoshis :
+    list(item.outputs).filter(output => output.role === 'kingdom').reduce((total, output) => total + (output.satoshis ?? 0), 0) }))
+    .filter(item => item.satoshis > 0 && item.state !== 'confirmed');
+}
 function vaultPage(ctx) {
   const data = ctx.ui.state.vault ?? ctx.ui.vault ?? {};
   const status = !chainOpen(ctx) ? empty(data.quarantined ? 'Settlement is paused for chain reconciliation.' : '' + NETWORK_LABEL + ' services require a configured treasury and observer.') : '';
@@ -367,12 +375,13 @@ function vaultPage(ctx) {
      `<div class="page-body">${eventArt('vault')}${status}
        <div class="split">
          ${values('Your wallet',[['Connected wallet',bch(walletBalance(ctx) ?? data.walletSatoshis)],...(data.depositedSatoshis?[['Earlier vault deposit · withdraw it below',bch(data.depositedSatoshis)]]:[]),...Object.entries(data.serviceCredits ?? {}).map(([kind,count])=>['Paid and owed to you · ' + (creditNames[kind] ?? kind),count + ' · your next one is free (a game credit, not a BCH refund)'])])}
-         ${data.warChestSatoshis != null ? values('War Chest · always at risk',[['In your War Chest',bch(data.warChestSatoshis)],['Open to a matched raid now',bch(data.capturableSatoshis)],
+         ${data.warChestSatoshis != null ? values('War Chest · always at risk',[['In your War Chest',bch(data.warChestSatoshis)],
+           ...incomingChest().map(item=>['On its way · '+confirmationText(item),bch(item.satoshis)]),['Open to a matched raid now',bch(data.capturableSatoshis)],
            ...(data.reservedSatoshis?[['Matched against raids being settled',bch(data.reservedSatoshis)]]:[]),...(data.pendingChestSatoshis?[['Waiting to join (earlier payments)',bch(data.pendingChestSatoshis)]]:[]),
            ...(data.earlierChestSatoshis?[['Earlier War Chest revision · withdraw to move it',bch(data.earlierChestSatoshis)]]:[]),
            ...(data.exitingChestSatoshis?[['Leaving (exit started)',bch(data.exitingChestSatoshis)]]:[]),['Claimable prize BCH',bch(data.claimableSatoshis)]]) : values('War Chest',[['Status','Not available on this server'],['Claimable prize BCH',bch(data.claimableSatoshis)]])}
        </div>
-       ${well('Manage funds',`${NETWORK.attestorNote ? '<p><strong>' + html(NETWORK.attestorNote) + '</strong></p>' : ''}<p>${data.warChestSatoshis != null ? 'There is one player treasury, the War Chest, and all of it is at risk in PvP. Half of every service payment goes straight into it, and you can deposit directly (from ' + number(data.minimumDepositSatoshis ?? 10000) + ' sats, in steps of ' + number(data.depositStepSatoshis ?? 1000) + '; a deposit is not split). Paid raids use matched stakes: an attacker who stakes an amount against you and wins takes exactly that amount from your War Chest, and if you win you receive the attacker’s whole stake. A raid is only sold for an amount your War Chest covers, and each satoshi is matched against one raid at a time. You can withdraw what is not matched against an open raid to your verified wallet (a War Chest output can be withdrawn through the game once it is about a day old), or leave on your own with your wallet key in two steps over about two days. Sponsor funding is a separate pool.' : 'Paid services and the War Chest are not available on this server. Free play is unaffected.'}</p><div class="buttons">
+       ${well('Manage funds',`<p>${data.warChestSatoshis != null ? 'Your War Chest is at risk in PvP raids. Half of each payment goes into it, or deposit from ' + number(data.minimumDepositSatoshis ?? 10000) + ' sats. Withdraw what is not in a raid at any time.' : 'Paid services are not available on this server.'}</p><div class="buttons">
          ${ctx.ui.state.config?.personalVault === 'closed' ? '' : btn('Deposit BCH','bch',{modal:'deposit'},'primary',!chainOpen(ctx))}
          ${btn('Fund War Chest','bch',{modal:'chest'},'',!chainOpen(ctx))}
          ${data.depositedSatoshis > 0 ? btn('Withdraw earlier vault deposit','arrow',{modal:'withdraw'},'',!data.payoutsEnabled || !chainOpen(ctx)) : ''}
@@ -427,6 +436,46 @@ export function renderPage(ctx) {
   return `<div class="codex-context"><button type="button" class="btn page-back" data-page-back>\u2190 Back</button>${topic?guideLink(topic,'Learn these rules'):''}</div>`+season+(pages[ctx.ui.page]?.(ctx)??'');
 }
 
+// Everything of the player's that is still running, with the time left: the notification centre lists it on top and the
+// bell counts it. Built only from the state the game already sent.
+const SENT_STATES = new Set(['submitted','seen_in_mempool','confirming','uncertain','confirmed']);
+export function activeWork(ctx) {
+  const config = ctx.ui.state.config ?? {};
+  const own = ctx.own;
+  const items = [];
+  for (const job of list(own.queue)) {
+    if (job.kind === 'building') items.push({ art:'/art/' + job.key + '-' + Math.min(job.level ?? 1,3) + '.webp', glyph:'hammer',
+      title:'Upgrading ' + labelOf(config.buildings?.[job.key],job.key) + ' to level ' + number(job.level) + (job.rushed ? ' · rushed' : ''), until:job.completesAt });
+    else if (job.kind === 'troop') items.push({ art:'/art/unit-' + job.key + '.webp', glyph:'helmet',
+      title:'Training ' + number(job.count) + ' ' + labelOf(config.units?.[job.key],job.key), until:job.completesAt });
+    else if (job.kind === 'research') items.push({ glyph:'book', title:'Researching ' + labelOf(config.tech?.[job.key],job.key) + ' ' + number(job.level), until:job.completesAt });
+  }
+  for (const mission of list(ctx.ui.state.missions).filter(item => item.status === 'pending'))
+    items.push({ glyph:'spy', title:labelOf(config.missions?.[mission.mission],mission.mission) + ' · ' + cityName(ctx,mission.target), until:mission.completesAt });
+  for (const march of list(ctx.ui.state.marches).filter(item => item.attacker === own.id && item.endsAt > ctx.gameNow))
+    items.push({ glyph:'war', title:'Army on the march', until:march.endsAt });
+  for (const payment of list(ctx.ui.state.payments).filter(item => item.direction !== 'outgoing' && item.txid && SENT_STATES.has(item.state)))
+    items.push({ glyph:'bch', title:(payment.title ?? title(payment.action)) + ' · ' + confirmationText(payment), modal:{ modal:'payment', id:payment.id } });
+  for (const site of list(ctx.ui.state.territories)) {
+    const round = site.raffle?.round;
+    if (round?.status === 'open' && round.entries?.some(entry => entry.player === own.id))
+      items.push({ glyph:'crystal', title:'Raffle at ' + site.name + ' · draw at block ' + number(round.drawHeight), modal:{ modal:'node', id:site.id } });
+    if (['open','locked'].includes(site.claim?.status) && site.claim.entries?.some(entry => entry.player === own.id))
+      items.push({ glyph:'flag', title:'Claim contest at ' + site.name, until:site.claim.endsAt, modal:{ modal:'node', id:site.id } });
+  }
+  return items;
+}
+function workRow(item, ctx) {
+  const left = item.until ? timer(item.until, ctx.gameNow) : '';
+  const picture = item.art ? `<img class="work-art" src="${html(item.art)}" alt="" loading="lazy" decoding="async">` : `<span class="work-art">${icon(item.glyph)}</span>`;
+  return `<article class="work-row">${picture}<div><strong>${html(item.title)}</strong>${left ? '<small>' + left + ' left</small>' : ''}</div>${item.modal ? btn('Open','arrow',item.modal) : ''}</article>`;
+}
+
+// A dialog the player cannot close: no Back, no close button (Escape is refused in app.js). Used for founding a city.
+function lockedModal(titleText, content) {
+  return `<h2 id="dialog-title">${html(titleText)}</h2>${content}`;
+}
+
 function modal(titleText, content) {
   return `<button type="button" class="dialog-back" data-dialog-back aria-label="Back">\u2190 Back</button><button type="button" class="dialog-close" aria-label="Close dialog" data-dismiss>${icon('x')}</button><h2 id="dialog-title">${html(titleText)}</h2>${content}`;
 }
@@ -438,7 +487,12 @@ function buildingDialog(ctx,id) {
   const current = jobs.find(job => job.key === id && job.kind === 'building');
   const busy = jobs.some(job => job.kind === 'building');
   const canPay = chainOpen(ctx) && ctx.own.paidConvenienceLeft > 0;
-  const canRush = current || upgrade.eligible;
+  // A rush is for the construction in progress, once. Before the upgrade starts, or after it is rushed, it is not offered.
+  const canRush = Boolean(current && !current.rushed);
+  // Applied after 1 confirmation when less than an hour is left, otherwise after 2 (see economy.rushOneConfirmationBelow).
+  const quick = current && current.completesAt - ctx.gameNow < (ctx.ui.state.config.economy?.rushOneConfirmationBelow ?? 3_600_000);
+  const rushNote = current?.rushed ? 'Already rushed.' : current ? 'Rush halves the time left. Applied after ' + (quick ? '1 confirmation (~10 min).' : '2 confirmations (~20 min).') : 'Start the upgrade to rush it.';
+  const owned = Boolean(ctx.own.perks?.[id]);
   return modal(def.name,`
     <div class="upgrade-preview">${image('/art/' + id + '-' + Math.min(upgrade.level,3) + '.webp','building-image')}${upgrade.effects?.next ? icon('arrow')+image('/art/' + id + '-' + Math.min(upgrade.nextLevel,3) + '.webp','building-image') : ''}</div>
     <p>Level ${upgrade.level}${upgrade.effects?.next?' → Level '+upgrade.nextLevel:''}. ${html(def.description)}</p>
@@ -448,10 +502,10 @@ function buildingDialog(ctx,id) {
     ${!upgrade.eligible ? '<p class="quiet-text">'+html(upgrade.reason)+'</p>' : busy ? '<p class="quiet-text">A construction project is already active.</p>' : ''}
     <div class="buttons">${command('Start standard upgrade','hammer',{type:'upgrade',building:id},'primary',!upgrade.eligible || busy || !hasCost(ctx.own,upgrade.cost))}</div>
     ${ctx.ui.dialog.guided ? '' : `<div class="well"><h3>${NETWORK_LABEL} convenience</h3>
-      <p>Rush halves active construction time or banks one single-use pass for an eligible upgrade. ${def.premium ? html(def.premium) + '.' : ''}</p>
-      ${!chainOpen(ctx) ? '<p>' + NETWORK_LABEL + ' payment service is unavailable.</p>' : ctx.own.paidConvenienceLeft === 0 ? '<p>Daily convenience allowance used.</p>' : ''}
-      <div class="buttons">${pay('Rush upgrade · ' + ctx.feeLabel('rush'),'clock',{type:'rush',building:id},'protect',!canPay || !canRush)}
-      ${def.premium ? pay('Upgrade with BCH · ' + ctx.feeLabel('premium'),'bch',{type:'premium',building:id},'primary',!canPay || Boolean(ctx.own.perks?.[id])) : ''}</div>
+      <p>${rushNote}${def.premium ? ' Premium: ' + html(def.premium) + (owned ? ' (owned).' : '.') : ''}</p>
+      ${!chainOpen(ctx) ? '<p>' + NETWORK_LABEL + ' payments are unavailable.</p>' : ctx.own.paidConvenienceLeft === 0 ? '<p>Used today: one rush or premium per day.</p>' : ''}
+      <div class="buttons">${pay(current?.rushed ? 'Rushed' : 'Rush upgrade · ' + ctx.feeLabel('rush'),'clock',{type:'rush',building:id},'protect',!canPay || !canRush)}
+      ${def.premium ? pay(owned ? 'Premium owned' : 'Upgrade with BCH · ' + ctx.feeLabel('premium'),'bch',{type:'premium',building:id},'primary',!canPay || owned) : ''}</div>
     </div>`}`);
 }
 function trainingDialog(ctx,id) {
@@ -492,7 +546,7 @@ function attackDialog(ctx,id) {
     ${form('attack',hidden('target',city.id)+'<div class="raid-orders">'+formationFields(ctx)+'</div>'+
       '<div class="raid-dossier" aria-live="polite" data-attack-preview>Reading the scouting ledger…</div><div class="raid-review" data-raid-review hidden></div>',
     submit('Launch free raid','war','attack raid-launch',allowed ? '' : 'disabled') +
-    (city.npc?'':submit('Prepare paid raid · ' + (config.raid?.matched ? 'stake from ' : '') + ctx.feeLabel('attack-paid'),'bch','protect',`name="paid" value="1" ${allowed && chainOpen(ctx) ? '' : 'disabled'}`)))}
+    (city.npc?'':paidRaid(city.id) ? paidButton(paidRaid(city.id)) : submit('Prepare paid raid · ' + (config.raid?.matched ? 'stake from ' : '') + ctx.feeLabel('attack-paid'),'bch','protect',`name="paid" value="1" ${allowed && chainOpen(ctx) ? '' : 'disabled'}`)))}
     ${city.npc?`<div class="buttons">${btn('Plan expedition','war',{modal:'expedition',id:city.id},'primary')}</div>`:''}
     ${!city.npc && config.raid?.matched?`<p class="strategy-note">Optional paid raid with matched stakes: you choose a stake from ${number(config.raid.minimumStake)} sats, and it is offered only against a defender whose War Chest holds the same amount. A free raid uses the same combat rules.</p>`:''}
     ${!city.npc && payment?.settlement?`<p class="strategy-note">Optional paid raid: ${number(payment.battle)} sats at stake, plus a ${number(payment.settlement)} sats settlement reserve. A free raid uses the same combat rules.</p>`:''}
@@ -634,8 +688,8 @@ function paymentDialog(ctx,id) {
   let appliedDetail=result?.message;
   if (result && intent.action==='rush') {
     const job=result.queue?.find(order=>order.kind==='building'&&order.key===result.building);
-    appliedDetail = result.rushCredits?.[result.building] ? 'One rush credit is stored for the next eligible upgrade.' :
-      job ? `The rushed construction now finishes at ${ctx.formatDate(job.completesAt)}.` : undefined;
+    appliedDetail = job ? `The rushed construction now finishes at ${ctx.formatDate(job.completesAt)}.` :
+      result.rushCredits?.[result.building] ? 'One rush credit is stored for the next upgrade.' : undefined;
   }
   if (result && intent.action==='premium' && result.perks?.[result.building]) appliedDetail=`Unlocked: ${result.perks[result.building].name}.`;
   if (result?.events) appliedDetail='The battle was recorded. Open its report for the actual result, losses, and rewards.';
@@ -645,42 +699,52 @@ function paymentDialog(ctx,id) {
     claim:'The reward payment is confirmed.'
   }[intent.action];
   const verifiedReceipt=intent.receipt && ['confirmed','credited'].includes(state);
+  // Sent, not yet final: say what happens next and how long it usually takes.
+  const sentWaiting=!isOutgoing && ['submitted','seen_in_mempool','confirming','uncertain'].includes(state);
+  const needed=intent.appliesAfter??intent.minConfirmations??2;
+  const arrives=intent.action==='war-chest' ? 'It joins your War Chest' : intent.action==='sponsor-fund' ? 'It joins the season rewards' : intent.action==='vault-deposit' ? 'It reaches your vault' : 'Your order is applied';
+  const sentStatus=sentWaiting ? eventHero('event-vault','Payment sent · '+confirmationText(intent),
+    'Your wallet sent '+number(booked)+' sats',
+    fulfillment?.status==='applied' ? (appliedDetail ?? 'Applied.') :
+    arrives+' after '+needed+' confirmation'+(needed===1?'':'s')+', usually about '+(needed*10)+' minutes. You get a notification.') : '';
   const paymentStatus=verifiedReceipt ? eventHero('event-vault','Verified ' + NETWORK_LABEL + ' receipt',
     fulfillment?.status==='review' ? 'Payment verified · order needs review' : fulfillment?.status==='credit' ? 'Payment verified · the service is owed to you' : fulfillment?.redeemedCredit ? 'Paid earlier · delivered now' : fulfillment?.status==='applied' ? 'Payment verified · order recorded' : 'Payment confirmed',
     `${number(booked)} sats${actualFee!=null?` · ${number(actualFee)} sat network fee`:''}. ${appliedDetail??fundingDetail??''}`.trim()) : '';
   return modal(intent.title ?? title(intent.action),
-    `${paymentStatus}<p>${tag(intent.attestation && !intent.attestation.complete && state === 'created' ? 'Awaiting prize attestors · ' + intent.attestation.signed.length + ' of ' + intent.attestation.attestors.length + ' signed' : statusLabel[state] ?? title(state),cssStatus(state))} ${tag(ctx.ui.state.chain?.simulated?'Local simulation':'' + NETWORK_LABEL + '')}</p>
-    <p>${html(intent.description)}</p>
-    ${NETWORK.realValue && submittable ? '<p><strong>This is real Bitcoin Cash on Mainnet.</strong> A confirmed payment cannot be reversed. Check the amount and every output in your wallet before you approve.</p>' : ''}
-    ${creditNames[intent.action] && submittable ? '<p>If this service can no longer be delivered when your payment confirms, you get one credit for the same kind of service inside the game. A credit is not a BCH refund: no BCH is sent back.</p>' : ''}
+    `${paymentStatus}${sentStatus}<p>${tag(intent.attestation && !intent.attestation.complete && state === 'created' ? 'Awaiting prize attestors · ' + intent.attestation.signed.length + ' of ' + intent.attestation.attestors.length + ' signed' : statusLabel[state] ?? title(state),cssStatus(state))} ${tag(ctx.ui.state.chain?.simulated?'Local simulation':'' + NETWORK_LABEL + '')}</p>
+    ${intent.description ? '<p>' + html(intent.description) + '</p>' : ''}
+    ${NETWORK.realValue && submittable ? '<p class="quiet-text">Real BCH: a sent payment cannot be reversed.</p>' : ''}
     <dl class="kv">
-      <dt>${reserveAdded ? 'Price' : 'Exact amount'}</dt><dd><strong>${html(bch(intent.satoshis ?? intent.amount))} BCH</strong> · ${number(intent.satoshis ?? intent.amount)} sat</dd>
-      ${reserveAdded ? '<dt>Network reserve</dt><dd>' + number(reserveAdded) + ' sat · ' + (intent.outputs?.some(output => output.cf) ? 'pays the two keyless moves that put your reward share into the season pool and your War Chest share into your War Chest; what they do not need stays there' :
-        intent.outputs?.some(output => output.rr) ? 'pays the keyless move of your reward share into the season pool (what it does not need stays in the pool) and the network fee of this operation’s public proof record' :
-        'pays the keyless move of your reward share into the season pool; what it does not need stays in the pool') + '</dd><dt>Your wallet sends</dt><dd><strong>' + number(outputTotal) + ' sat</strong> plus the network fee</dd>' : ''}
-      <dt>Network fee</dt><dd>${actualFee != null ? number(actualFee) + ' sat' : 'Shown by your wallet before signing'}</dd>
-      ${!intent.outputs || isOutgoing ? '<dt>Destination</dt><dd class="transaction-id">' + html(address ?? '—') + '</dd>' : ''}
-      ${intent.expiresAt && submittable ? '<dt>Intent expires</dt><dd>' + timer(intent.expiresAt,ctx.gameNow) + '</dd>' : ''}
-      ${visibleTxid ? '<dt>Transaction ID</dt><dd class="transaction-id">' + html(visibleTxid) + '</dd><dt>Confirmations</dt><dd>' + number(confirmation) + '</dd>' : ''}
-      ${intent.receipt?.vout != null ? '<dt>Output index</dt><dd>' + number(intent.receipt.vout) + '</dd>' : ''}
+      <dt>${reserveAdded ? 'Price' : 'Amount'}</dt><dd><strong>${number(intent.satoshis ?? intent.amount)} sats</strong> · ${html(bch(intent.satoshis ?? intent.amount))} BCH</dd>
+      ${reserveAdded ? '<dt>Your wallet sends</dt><dd><strong>' + number(outputTotal) + ' sats</strong> (incl. ' + number(reserveAdded) + ' sat network reserve)</dd>' : ''}
+      ${actualFee != null ? '<dt>Network fee</dt><dd>' + number(actualFee) + ' sats</dd>' : ''}
+      ${intent.expiresAt && submittable ? '<dt>Expires</dt><dd>' + timer(intent.expiresAt,ctx.gameNow) + '</dd>' : ''}
+      ${visibleTxid ? '<dt>Confirmations</dt><dd>' + number(confirmation) + '</dd>' : ''}
     </dl>
-    ${outputs?.length ? well('Payment outputs', outputs.map(output => row(
-      sponsorOutputs.length && sponsorLabels[output.role] ? sponsorLabels[output.role] : output.label ?? title(output.role), number(output.satoshis) + ' sat' +
-      (output.vout == null ? '' : ' · output ' + output.vout))).join('')) : ''}
-    ${sponsorOutputs.length ? `<details><summary>Sponsorship destinations</summary><dl class="kv">${sponsorOutputs.map(output =>
-      `<dt>${html(sponsorLabels[output.role])}</dt><dd class="transaction-id">${html(output.address)}</dd>`).join('')}</dl></details>` : ''}
+    <details class="payment-details"><summary>Payment details</summary>
+      <dl class="kv">
+        ${!intent.outputs || isOutgoing ? '<dt>Destination</dt><dd class="transaction-id">' + html(address ?? '—') + '</dd>' : ''}
+        ${visibleTxid ? '<dt>Transaction ID</dt><dd class="transaction-id">' + html(visibleTxid) + '</dd>' : ''}
+        ${intent.receipt?.vout != null ? '<dt>Output index</dt><dd>' + number(intent.receipt.vout) + '</dd>' : ''}
+      </dl>
+      ${outputs?.length ? well('Outputs', outputs.map(output => row(
+        sponsorOutputs.length && sponsorLabels[output.role] ? sponsorLabels[output.role] : output.label ?? title(output.role), number(output.satoshis) + ' sat' +
+        (output.vout == null ? '' : ' · output ' + output.vout))).join('')) : ''}
+      ${sponsorOutputs.length ? `<dl class="kv">${sponsorOutputs.map(output =>
+        `<dt>${html(sponsorLabels[output.role])}</dt><dd class="transaction-id">${html(output.address)}</dd>`).join('')}</dl>` : ''}
+    </details>
     ${visibleTxid&&!ctx.ui.state.chain?.simulated ? receiptLink(intent,visibleTxid) : ''}
-    ${fulfillment?.status === 'credit' ? well('This service is owed to you',
-      `<p>${html(fulfillment.reason)}</p><p>This is a credit inside the game, not a BCH refund: no BCH is sent back. Your War Chest share of this payment is in your War Chest as always, and the service itself is kept for you: your next ${html(creditNames[intent.action] ?? 'action of this kind')} is delivered at once, without a checkout and without a new payment.</p>`) :
+    ${fulfillment?.status === 'credit' ? well('Owed to you',
+      `<p>${html(fulfillment.reason)}</p><p>Your next ${html(creditNames[intent.action] ?? 'action of this kind')} is free.</p>`) :
       fulfillment?.redeemedCredit ? '<p>' + tag('Delivered from a service you had already paid for','success') + '</p>' :
       recovery?.pool === 'kingdom' ? well('Returned to your War Chest',
       `<p>${number(recovery.satoshis)} sats are in your War Chest.</p><p>${html(fulfillment.reason)}</p>` + gameLink('Open War Chest','/council.html','vault')) :
       fulfillment?.status === 'review' ? '<p class="form-error">Payment verified. Fulfillment needs review. ' + html(fulfillment.reason) + '</p>' :
-      fulfillment?.status === 'applied' ? '<p>' + tag('Game action applied','success') + '</p>' : ''}
+      fulfillment?.status === 'applied' ? '<p>' + tag('Done','success') + '</p>' : ''}
     ${fulfillment?.result?.events ? '<div class="buttons">' + btn('Open battle report','war',{modal:'battle',id:fulfillment.result.id},'primary') + '</div>' : ''}
     ${typeof intent.lastError === 'string' ? '<p class="form-error">' + html(intent.lastError) + '</p>' : ''}
     ${submittable ? !ctx.ui.state.chain?.enabled ? '<p>' + NETWORK_LABEL + ' checkout is currently offline. You can keep this receipt for reference.</p>' :
-      '<p>Approve the exact outputs and network fee in your ' + NETWORK_LABEL + ' wallet. Confirmation appears here automatically.</p>' +
+      '<p>Approve it in your wallet. This window updates by itself.</p>' +
       (ctx.ui.state.chain?.walletConnect?walletTray(intent):'<p>Wallet pairing is disabled on this server.</p>') : ''}
     ${!submittable ? '<div class="buttons">' + btn('Transaction journal','journal',{modal:'journal'}) + '</div>' : ''}`);
 }
@@ -705,8 +769,8 @@ function treasuryDialog(ctx, mode) {
     input('Amount in satoshis','satoshis', chest ? String(data.minimumDepositSatoshis ?? 10000) : deposit || sponsor ? '5000' : '', 'number', amountLimits);
   const details = deposit || sponsor ? check : hidden('address', verifiedWallet) +
     `<p class="paid-to">Paid to your connected wallet <span class="transaction-id">${html(verifiedWallet)}</span></p>`;
-  const help = chest ? 'Your wallet pays straight into your War Chest covenant, with no service split. The whole War Chest is at risk under matched stakes: a raid is sold against you only for an amount your War Chest covers, a winning attacker takes exactly that stake, and you receive the whole stake of an attacker who loses. A capture needs the ' + ATTESTOR_ADJECTIVE + ' attestors and can only leave together with the attacker’s own equal stake. Everything else can only return to this chest or to your verified wallet; with your wallet key alone you can start an exit at any time and take the money out about two days later.' : deposit ? 'Deposits become available for withdrawal after confirmation.' : sponsor ?
-    `${number(sponsorRules.developmentPercent)}% goes to the Development address and ${number(sponsorRules.prizePercent)}% goes into the Seasonal Prize Fund covenant, which pays prizes only with the ${ATTESTOR_ADJECTIVE} attestor signature and returns any unawarded part to your wallet after its refund date. Choose ${sponsorRules.minimumSatoshis / 1e8}–${sponsorRules.maximumSatoshis / 1e8} BCH (${number(sponsorRules.minimumSatoshis)}–${number(sponsorRules.maximumSatoshis)} sats) in multiples of ${number(sponsorRules.satoshiStep)} sats. Review both outputs and the separate network fee before signing.` :
+  const help = chest ? 'All of it is at risk in PvP raids. Lose a raid and the attacker takes their stake; win and you take theirs. You can always take it out with your wallet (about 2 days).' : deposit ? 'Deposits become available for withdrawal after confirmation.' : sponsor ?
+    `${number(sponsorRules.prizePercent)}% goes to the season prize pool, ${number(sponsorRules.developmentPercent)}% to Development. ${number(sponsorRules.minimumSatoshis)}–${number(sponsorRules.maximumSatoshis)} sats, in steps of ${number(sponsorRules.satoshiStep)}.` :
     claim ? 'The award goes to the wallet you connected. The prize pool covers the network fee.' :
     'The game key co-signs; the vault contract only lets this deposit return to the wallet you verified when you made it.';
   return modal(heading,
@@ -731,6 +795,7 @@ function payoutReview(ctx) {
 function walletBalance(ctx) {
   const current = ctx.ui.walletAssets;
   if (current?.wallet?.address !== walletAddress(ctx.ui.state.wallet)) return null;
+  if (typeof current?.whole?.totalSatoshis === 'number') return current.whole.totalSatoshis;
   return typeof current?.balance === 'number' ? current.balance : current?.balance?.confirmedSatoshis;
 }
 function walletAssets(ctx) {
@@ -746,6 +811,9 @@ function walletAssets(ctx) {
     ${ui.walletError ? '<p class="form-error">' + html(ui.walletError) + '</p>' : ''}
     <p>Wallet BCH · ${walletBalance(ctx) == null ? 'Balance unavailable' : bch(walletBalance(ctx)) + ' BCH'}
     ${current?.observedAt ? ' · Checked '+html(formatDate(current.observedAt)) : ''}</p>
+    ${current?.whole ? `<p class="quiet-text">Whole wallet: ${number(current.whole.checked)} addresses checked${current.whole.funded.length ? ', funds on ' + current.whole.funded.length : ''}.</p>
+      ${current.whole.funded.length ? `<details><summary>Where your BCH is</summary>${current.whole.funded.map(item => row(bch(item.satoshis) + ' BCH · ' + (item.path === 'change' ? 'change' : 'receiving') + ' address ' + number(item.index), item.address)).join('')}</details>` : ''}` :
+      current ? '<p class="quiet-text">This is the receiving address only. Connect your wallet to see the whole wallet.</p>' : ''}
     ${current ? `<details><summary>CashTokens for this address</summary>${tokens == null ? empty('CashTokens index lookup unavailable.') : !tokens.length ? empty('No confirmed CashTokens found for this address.') : tokens.map(token =>
         `<div class="row"><div>${tag(token.capability == null ? 'Fungible token' : 'NFT', 'success')}
           <dl class="kv"><dt>Category</dt><dd class="transaction-id">${html(token.category)}</dd>
@@ -841,6 +909,20 @@ function tutorialDialog(ctx) {
       ${btn('Open My City','city',{page:'city',dismiss:'true'})}
     </div>`);
 }
+// The tutorial and the instructions, offered once to a kingdom that has just signed up and always from the corner button.
+function learnDialog(ctx, first) {
+  const progress = ctx.own.onboarding;
+  const tutorialLabel = progress?.status === 'paused' ? 'Resume the tutorial' : progress?.status === 'active' && progress.step !== 'welcome' ? 'Continue the tutorial' : 'Start the tutorial';
+  return modal(first ? 'Welcome to VaultBorn' : 'Tutorial and instructions',
+    eventHero('event-season', first ? 'Your kingdom is ready' : 'Learn the game', first ? 'Where would you like to begin?' : 'Need a hand?',
+      'The tutorial walks you through your first steps, one at a time: your homeland, building, troops, your commander and your first battle. The instructions explain every rule of the game, to read at your own pace.') +
+    `<div class="learn-choices">
+      ${btn(tutorialLabel,'quest',{learn:'tutorial'},'primary')}
+      ${btn('Read the instructions','book',{learn:'instructions'})}
+      ${btn(first ? 'Skip' : 'Close','close',{learn:'close'})}
+    </div>
+    <p class="quiet-text">${first ? 'You can open both at any time with the Tutorial button in the bottom-left corner.' : 'This button stays in the bottom-left corner.'}</p>`);
+}
 function nodeDialog(ctx,id) {
   const site = list(ctx.ui.state.territories).find(item => item.id === id);
   return site ? modal(site.name,territoryDetail(ctx,site)) : modal('Territory',empty('This territory is unavailable.'));
@@ -891,20 +973,30 @@ export function renderDialog(ctx) {
     case 'sign-out': return modal('Sign out',`<p>Your kingdom stays here. To return, use ${ctx.ui.state.signIn?.bch&&ctx.ui.state.signIn?.nostr?'your BCH wallet or Nostr key':ctx.ui.state.signIn?.bch?'your verified BCH wallet':'your linked Nostr key'}.</p>${btn('Confirm sign out','check',{'confirm-sign-out':'yes'},'primary')}<p class="form-error" role="alert"></p>`);
     case 'identity': return modal('Decentralized identity',renderIdentity(ctx));
     case 'tutorial': return tutorialDialog(ctx);
-    case 'found': return modal('Found a city',eventHero('event-season','Your founding charter','Claim your banner')+
+    case 'welcome':
+    case 'learn': return learnDialog(ctx, ctx.ui.dialog.mode === 'welcome');
+    // A new kingdom must be named before the game opens: this dialog cannot be closed.
+    case 'found': return lockedModal('Found a city',eventHero('event-season','Your founding charter','Claim your banner')+
       '<p class="founding-hint">Choose a name and a banner for your city. You’ll begin with a protected Starter Territory and a garrison.</p>'+form('found',
-      input('Commander name','name',ctx.own.owner,'text','maxlength="30" minlength="2"') +
-      input('Settlement name','cityName',ctx.own.name,'text','maxlength="30" minlength="2"') +
+      // Empty until the player writes a name: the placeholder names are not taken for an answer.
+      input('Commander name','name',ctx.own.owner === 'New Commander' ? '' : ctx.own.owner,'text','maxlength="30" minlength="2" placeholder="Your name as commander"') +
+      input('Settlement name','cityName',ctx.own.name === 'New Settlement' ? '' : ctx.own.name,'text','maxlength="30" minlength="2" placeholder="Name your city"') +
       dropdown('Faction','faction',configs(ctx.ui.state.config.factions),ctx.own.faction), submit('Found city','city','primary')) +
       '<div class="buttons">'+btn('Sign in to an existing kingdom','journal',{modal:'identity',id:'auth'})+'</div>');
     case 'wallet': return walletDialog(ctx)+guideLink('blockchain','Learn about your wallet');
+    // Shown once, right after the welcome, to a kingdom that has no wallet yet.
+    case 'wallet-prompt': return modal('Connect your wallet',eventHero('event-vault','Keep your kingdom','Connect your BCH wallet',
+      'Your kingdom is tied to your wallet. Without one, your progress lives only in this browser and can be lost. Every payment in the game is also approved in your wallet.')+
+      `<div class="learn-choices">${btn('Connect wallet','bch',{modal:'wallet'},'primary')}${btn('Not now','close',{'wallet-later':'true'})}</div>`);
     case 'enroll': return modal('Seasonal PvP',`<p>${ctx.own.optIn ? 'Leaving seasonal PvP suspends normal attacks, espionage and protectorate proposals while your city continues producing resources.' :
-      'Joining seasonal PvP allows eligible cities to scout and attack your city under the published matchmaking, shield and cooldown rules. Loot uses earned resources.'}</p>${command(ctx.own.optIn ? 'Confirm leaving' : 'Opt in to season','war',{type:'opt-in',enabled:!ctx.own.optIn},'primary')}`);
+      'Joining seasonal PvP allows eligible cities to scout and attack your city under the published matchmaking and cooldown rules. Loot uses earned resources.'}</p>${command(ctx.own.optIn ? 'Confirm leaving' : 'Opt in to season','war',{type:'opt-in',enabled:!ctx.own.optIn},'primary')}`);
     case 'inbox': {
       const notifications = list(ctx.ui.state.notifications);
-      return modal('Dispatches',eventHero('scout-3','Kingdom chronicle','Messages from the frontier')+
+      const work = activeWork(ctx);
+      return modal('Notifications',
+        `<section class="work-list" aria-label="In progress"><h3>In progress <span class="count">${number(work.length)}</span></h3>${work.length ? work.map(item => workRow(item,ctx)).join('') : empty('Nothing is running right now.')}</section>`+
         (ctx.ui.state.offlineReport?'<div class="buttons">'+btn('While you were away','journal',{modal:'offline-report'},'primary')+'</div>':'')+
-        (notifications.length ? notifications.map(eventDispatch).join('') : empty('No private dispatches.')));
+        `<h3>History</h3>`+(notifications.length ? notifications.map(eventDispatch).join('') : empty('No notifications yet.')));
     }
     case 'treaty':
     case 'aid':

@@ -142,3 +142,20 @@ test('legacy cities keep their existing tutorial state, and explicit skip unlock
   assert.deepEqual(skipped.reward,firstBanner);
   assert.throws(() => lesson(fresh,'skip'),{code:'tutorial_complete'});
 });
+
+test('a kingdom that has just signed up is greeted once; older kingdoms are not', () => {
+  const world = createWorld(now);
+  const city = addPlayer(world,{id:player});
+  assert.equal(snapshot(world,player).player.welcome,false,'not before the city is founded');
+  act(world,'found',{cityName:'Greeting Hold',faction:'azure'});
+  assert.equal(snapshot(world,player).player.welcome,true);
+  // The greeting is forgotten as soon as it is shown, whatever the player then chooses.
+  assert.deepEqual(act(world,'welcomed'),{welcomed:true});
+  assert.equal(snapshot(world,player).player.welcome,false);
+  assert.deepEqual(act(world,'welcomed'),{welcomed:false},'a second call changes nothing');
+  // The tutorial itself stays available.
+  assert.equal(chapter(world).status,'active');
+  // A kingdom from before this greeting existed has no greeting.
+  delete city.welcome;
+  assert.equal(snapshot(world,player).player.welcome,false);
+});

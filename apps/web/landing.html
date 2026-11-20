@@ -27,6 +27,7 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="preload" href="/fonts/cinzel-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/landing.css">
+  <link rel="stylesheet" href="/blaze-bar.css">
   <script type="module" src="/landing.js"></script>
 </head>
 <body id="gates">
@@ -56,6 +57,7 @@
         <p class="gate-intro">Raise a citadel, command your armies, and claim your place on a frontier shaped by other players.</p>
         <div class="gate-actions">
           <a class="gate-button" href="/play">Play now <span aria-hidden="true">→</span></a>
+          <button class="gate-button gate-trailer-button" type="button" data-play-trailer>Watch the trailer <span aria-hidden="true">▶</span></button>
           <button class="gate-button gate-wallet-button" type="button" data-connect-wallet hidden>Connect wallet <span aria-hidden="true">→</span></button>
           <span class="gate-entry-note">Start with a free territory, or connect your BCH wallet to enter with it.</span>
         </div>
@@ -65,50 +67,35 @@
 
     <section class="frontier" id="frontier" aria-labelledby="frontier-title">
       <header class="frontier-heading" id="how-to-play" data-reveal>
-        <div class="section-emblem" aria-hidden="true"><img src="/logo.webp" width="30" height="38" alt=""></div>
         <h2 id="frontier-title">How to Play</h2>
-        <p>Build a lasting kingdom on a shared frontier. Develop your city, command its armies, and earn your place in the season standings.</p>
+        <p>One castle. A frontier of rivals. Your kingdom, your rules.</p>
       </header>
-
-      <article class="frontier-story" data-reveal>
-        <figure class="story-art story-atlas">
-          <img class="story-land" src="/art/terrain.webp" loading="lazy" decoding="async" width="1586" height="992" alt="">
-          <img class="story-castle" src="/art/castle-emerald.webp" loading="lazy" decoding="async" width="500" height="488" alt="">
+      <div class="showcase">
+        <figure class="trailer" id="trailer" data-reveal>
+          <!-- Only a small poster is loaded with the page. The video is requested when it is played. -->
+          <button class="trailer-poster" type="button" data-play-trailer aria-label="Play the VaultBorn trailer">
+            <img src="/media/vaultborn-trailer.webp" width="1280" height="720" alt="" loading="lazy" decoding="async">
+            <span class="trailer-play" aria-hidden="true"></span>
+            <span class="trailer-label">Watch the trailer</span>
+          </button>
         </figure>
-        <div class="story-copy">
-          <h3>Raise a kingdom</h3>
-          <p>Start with a free protected castle. Produce wood, stone, iron, food, and crystal, then spend those resources on buildings, research, and a stronger garrison.</p>
-        </div>
-      </article>
-
-      <article class="frontier-story story-reverse" data-reveal>
-        <figure class="story-art story-army">
-          <img src="/art/event-victory.webp" loading="lazy" decoding="async" width="470" height="470" alt="">
-        </figure>
-        <div class="story-copy">
-          <h3>Earn your victories</h3>
-          <p>Train troops and assign a commander. Scout NPC garrisons and take expeditions using earned supplies, or join seasonal PvP to challenge eligible rivals.</p>
-        </div>
-      </article>
-
-      <article class="frontier-story" data-reveal>
-        <figure class="story-art story-treaty">
-          <img src="/art/event-protectorate.webp" loading="lazy" decoding="async" width="470" height="470" alt="">
-        </figure>
-        <div class="story-copy">
-          <h3>Choose your allies</h3>
-          <p>Scout and hold territory for production. Join an alliance, exchange supplies, and negotiate treaties. Earn Season Points through development and strategy, then follow individual and alliance rankings.</p>
-        </div>
-      </article>
+        <ul class="features" data-reveal>
+          <li><img src="/art/hall-3.webp" width="96" height="96" alt="" loading="lazy" decoding="async"><div><h3>Raise a kingdom</h3><p>Ten buildings, research and a growing city.</p></div></li>
+          <li><img src="/art/unit-cavalry.webp" width="96" height="96" alt="" loading="lazy" decoding="async"><div><h3>Command armies</h3><p>Six troop types, eight commanders, real tactics.</p></div></li>
+          <li><img src="/art/event-victory.webp" width="96" height="96" alt="" loading="lazy" decoding="async"><div><h3>Earn your victories</h3><p>Stake BCH on a raid. Your rival matches it. Winner takes both.</p></div></li>
+          <li><img src="/art/castle-emerald.webp" width="96" height="96" alt="" loading="lazy" decoding="async"><div><h3>Claim the frontier</h3><p>Territory contests and rare-site raffles.</p></div></li>
+          <li><img src="/art/event-protectorate.webp" width="96" height="96" alt="" loading="lazy" decoding="async"><div><h3>Choose your allies</h3><p>Alliances, treaties, coups and civil wars.</p></div></li>
+          <li><img src="/art/event-season.webp" width="96" height="96" alt="" loading="lazy" decoding="async"><div><h3>Win the season</h3><p>Climb the rankings for the BCH prize pool.</p></div></li>
+        </ul>
+      </div>
     </section>
 
     <section class="gate-finale" aria-labelledby="finale-title">
       <img src="/art/event-vault.webp" alt="" width="470" height="470" loading="lazy" decoding="async">
       <div data-reveal>
         <p class="gate-eyebrow">Powered by Bitcoin Cash</p>
-        <h2 id="finale-title">Play Free. Build Your Kingdom. Discover Bitcoin Cash.</h2>
-        <p>Build, recruit, explore, and fight NPCs with resources you earn in the game. Bitcoin Cash powers selected upgrades, competitive contests, and treasury actions. Eligible winners can claim BCH prizes in funded seasons.</p>
-        <dl class="gate-technologies"><div><dt>Bitcoin Cash</dt><dd>Payments and treasury contracts</dd></div><div><dt>CashTokens</dt><dd>Transferable proof collectibles</dd></div><div><dt>Nostr</dt><dd>Verifiable identity and sign-in</dd></div></dl>
+        <h2 id="finale-title">Play free. Build your kingdom.</h2>
+        <dl class="gate-technologies"><div><dt>Bitcoin Cash</dt><dd>Payments and contracts</dd></div><div><dt>CashTokens</dt><dd>Proof collectibles</dd></div><div><dt>Nostr</dt><dd>Identity and sign-in</dd></div></dl>
         <a class="gate-button" href="/play">Enter the kingdom <span aria-hidden="true">→</span></a>
       </div>
     </section>

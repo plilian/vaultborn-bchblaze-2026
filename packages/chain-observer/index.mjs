@@ -973,6 +973,14 @@ export function createChain({
     });
   }
 
+  // The balance of several of the player's own addresses (receiving and change), in one indexer session, unconfirmed included.
+  async function walletBalances(scripts) {
+    return observer.withClient(async (client) => {
+      if (!client.listUnspent) throw new Error('Wallet balance lookup requires a ' + NETWORK_LABEL + ' Electrum indexer.');
+      return Promise.all(scripts.map(async script => (await client.listUnspent(script)).reduce((total, coin) => total + Number(coin.satoshis), 0)));
+    });
+  }
+
   async function walletCoins(keys) {
     return observer.withClient(async client => {
       if (!client.listUnspent) throw new Error('The wallet checkout needs a ' + NETWORK_LABEL + ' UTXO indexer.');
@@ -1028,7 +1036,7 @@ export function createChain({
   return {
     enabled, payoutsEnabled, minConfirmations, createIntent, createPoliticalEscrowIntent, signPoliticalSettlement, signPoliticalMisfundRefund, politicalSpend,
     preparePayout, signPayout, signCarrierSweep, seasonPool, poolSweep, feedSweep, attestorRequest, height, chestContract: terms => kingdomVault(terms), chestFeed, chestOf, captureCost, captureFloor, chestFeedBytes: feedBytes, attestorThreshold: quorum, carrierRefund: carriers => buildCarrierRefund(carriers), createChestIntent, signPoliticalRecord, recordReserve: RECORD_RESERVE, createStakeIntent, createRaidIntent, raidQuote, chestGrid: CHEST_GRID, matchedOutputs: MATCHED_INPUTS - 1, signStakeSettlement, prepareKingdomPayout, signKingdomPayout, prepareCapture, createSponsorIntent, preparePrizeAward, attestPrizeAward, prizeRefund, createVaultIntent, prepareVaultPayout, signVaultPayout, findSpend, submit, observe,
-    publicIntent, verifyPublishedTransaction, blockAt, listCashTokens, mintBadgeWithLocalKey, broadcast, sendWithLocalKey, sendOutputsWithLocalKey, localWalletBalance, walletCoins,
+    publicIntent, verifyPublishedTransaction, blockAt, listCashTokens, mintBadgeWithLocalKey, broadcast, sendWithLocalKey, sendOutputsWithLocalKey, localWalletBalance, walletBalances, walletCoins,
     supportsVaultborn: true, treasuryPublicKey: publicKey ?? null, developmentAddress: development?.address ?? null,
     sponsorshipMinimumSatoshis, prizeAttestors: attestors, sponsorDevelopmentAddress: sponsorDevelopment?.address ?? null,
   };

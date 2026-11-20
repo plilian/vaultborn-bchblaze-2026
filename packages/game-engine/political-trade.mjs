@@ -128,8 +128,8 @@ function reroute(world,actor,input,now) {
 
 function impose(world,actor,input,now,budget) {
   const target=getCity(world,input.target);
-  requireRule(measures.has(input.kind) && !target.npc && actor.id!==target.id && actor.optIn && target.optIn &&
-    actor.shieldUntil<=now && target.shieldUntil<=now,'sanction_target','Choose an eligible kingdom and economic measure outside beginner protection.',400);
+  requireRule(measures.has(input.kind) && !target.npc && actor.id!==target.id && actor.optIn && target.optIn,
+    'sanction_target','Choose an eligible kingdom and economic measure.',400);
   requireRule(input.resource==null || isResource(input.resource),'trade_resource','Choose a valid resource restriction.',400);
   const hours=input.hours ?? 6;
   requireRule(Number.isSafeInteger(hours) && hours>=1 && hours<=rules.maxHours,'sanction_duration','Set a duration from 1 to 24 hours.',400);

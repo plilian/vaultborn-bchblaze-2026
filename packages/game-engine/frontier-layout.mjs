@@ -1,8 +1,11 @@
 const layoutVersion = 1
 export const coreRegion = Object.freeze({ id: 'core', name: 'Emerald Frontier', x: 0, y: 0 })
 
-// These clearings keep a margin around the authored castles and landmarks.
+// These clearings keep a margin around the authored castles and landmarks. The first seven are where the retired NPC
+// kingdoms stood (npc-roster.mjs): new players found their castles there first.
+export const retiredNpcPlots = [[.27,.60], [.72,.72], [.75,.55], [.23,.77], [.63,.85], [.77,.20], [.43,.59]]
 const coreClearings = [
+  ...retiredNpcPlots,
   [.91,.13], [.13,.26], [.91,.26], [.13,.39], [.91,.39], [.13,.52], [.91,.52], [.13,.65],
   [.91,.65], [.91,.78], [.13,.91], [.26,.91], [.39,.91], [.52,.91], [.78,.91], [.91,.91],
 ]

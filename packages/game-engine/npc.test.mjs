@@ -46,6 +46,8 @@ test('one protected player can scout and fight a named NPC with conserved resour
   assert.throws(()=>doOrder(world,'expedition',{target:target.id}),{code:'expedition_recovery'});
   advance(world,world.now+expeditionRules.playerCooldown);
   assert.throws(()=>doOrder(world,'expedition',{target:target.id}),{code:'expedition_rematch'});
+  // Reinforced after the first fight, so that another of the five NPC kingdoms is within reach.
+  actor.troops.infantry += 60;
   const allowed = snapshot(world,id).cities.find(city=>city.npc && city.expedition.ok);
   assert.ok(allowed);
   doOrder(world,'expedition',{target:allowed.id});
@@ -99,7 +101,7 @@ test('a solo envoy spends earned supplies and either records a real ceasefire or
   assert.equal(actor.resources.wood,stock.wood-12);
   assert.equal(actor.resources.food,stock.food-16);
   assert.throws(()=>doOrder(world,'expedition',{target:'p8'}),{code:'friendly'});
-  assert.throws(()=>doOrder(world,'npc-envoy',{target:'p11'}),{code:'envoy_cooldown'});
+  assert.throws(()=>doOrder(world,'npc-envoy',{target:'p10'}),{code:'envoy_cooldown'});
   assert.throws(()=>doOrder(world,'npc-envoy',{target:'p2'}),{code:'envoy_target'});
   assert.equal(world.bchTreasury,undefined);
 
@@ -123,6 +125,8 @@ test('NPC pulses remain dormant with zero activity, and active courts pay for ca
 
   let active = makeWorld();
   openSoloKingdom(active);
+  // Five NPC kingdoms are spread out; two neighbours are set side by side so that a border skirmish can be observed.
+  Object.assign(active.cities.p10,{x:.33,y:.36});
   const target = active.cities.p8;
   const army = troopTotal(target.troops);
   // Segmented progress is how the real server exercises the scheduler.

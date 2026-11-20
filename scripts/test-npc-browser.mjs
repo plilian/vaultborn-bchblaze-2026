@@ -56,12 +56,16 @@ async function newKingdom(name,mobile=false) {
   await dialog(page).getByLabel('Commander name',{exact:true}).fill('Warden Arden');
   await dialog(page).getByLabel('Settlement name',{exact:true}).fill(name);
   await button(dialog(page),'Found city').click();
+  // A new kingdom is greeted once: the tutorial, the instructions, or skip. This test takes the tutorial and skips it.
+  await button(dialog(page),'Start the tutorial').click();
+  await heading(dialog(page),'Connect your wallet').waitFor();
+  await button(dialog(page),'Not now').click();
   const guide = page.locator('#campaign-guide');
   await button(guide,'Skip').click();
   await button(guide,'Skip tutorial').click();
   await heading(dialog(page),'First banner raised').waitFor();
   await button(dialog(page),'Continue').click();
-  assert.equal((await state(page)).player.optIn,false);
+  assert.equal((await state(page)).player.optIn,true);   // in the season from day one
   return page;
 }
 
@@ -112,9 +116,9 @@ try {
   await shot(mobile,'camp-conquered-mobile.png');
 
   await close(desktop);
-  const freehold = npcList.locator('.row').filter({hasText:'Duskmarket'});
+  const freehold = npcList.locator('.row').filter({hasText:'Frostwatch'});
   await button(freehold,'Visit court').click();
-  await heading(dialog(desktop),'Court of Duskmarket').waitFor();
+  await heading(dialog(desktop),'Court of Frostwatch').waitFor();
   await button(dialog(desktop),'Send envoy').click();
   await heading(dialog(desktop),'Ceasefire signed').waitFor();
   await shot(desktop,'npc-ceasefire.png');

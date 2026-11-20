@@ -71,7 +71,35 @@ export function btn(label, glyph, data, type = '', disabled = false) {
 export function command(label, glyph, payload, type = '', disabled = false) {
   return btn(label, glyph, { command: JSON.stringify(payload) }, type, disabled);
 }
+// Payments of this kingdom that were sent and are not settled yet. A paid button for the same order shows that it is
+// paid and how far its confirmation is, instead of offering the payment again.
+const IN_FLIGHT = new Set(['submitted', 'seen_in_mempool', 'confirming', 'confirmed', 'uncertain', 'reorg']);
+// Deposits can be repeated; their buttons stay. Everything else is one order per payment.
+const REPEATABLE = new Set(['war-chest', 'vault-deposit', 'sponsor-fund']);
+let inFlight = [];
+export function setPaymentsInFlight(payments) {
+  inFlight = (payments ?? []).filter(item => IN_FLIGHT.has(item.state) && item.direction !== 'outgoing' && item.payload && typeof item.payload === 'object');
+}
+export const paymentsInFlight = () => inFlight;
+export function paidFor(payload) {
+  if (!payload?.type || REPEATABLE.has(payload.type)) return null;
+  return inFlight.find(item => item.payload.type === payload.type &&
+    Object.entries(payload).every(([key, value]) => key === 'type' || value == null || typeof value === 'object' || item.payload[key] === value)) ?? null;
+}
+/** How a sent payment stands, in words: "1 of 2 confirmations · about 10 more minutes". */
+export function confirmationText(payment) {
+  const needed = payment.appliesAfter ?? payment.minConfirmations ?? 2;
+  const got = Math.min(needed, payment.receipt?.confirmations ?? payment.confirmations ?? 0);
+  if (payment.state === 'confirmed' || got >= needed) return 'Confirmed · being applied';
+  const left = needed - got;
+  return got + ' of ' + needed + ' confirmations · about ' + (left * 10) + ' more minutes';
+}
+export function paidButton(payment) {
+  return btn('Paid · ' + confirmationText(payment), 'bch', { modal: 'payment', id: payment.id }, 'paid');
+}
 export function pay(label, glyph, payload, type = '', disabled = false) {
+  const paid = paidFor(payload);
+  if (paid) return paidButton(paid);
   return btn(label, glyph, { pay: JSON.stringify(payload) }, type, disabled);
 }
 export function costs(values) {

@@ -100,7 +100,6 @@ export function awardCommanderMastery(city,id,activity,now) {
 }
 
 export function commanderCommand(world,city,input,now) {
-  requireRule(city.tutorial,'tutorial_required','Complete the tutorial before changing your commander roster.');
   const progress=book(city);
   if (input.type==='commander-forge') {
     const profile=has(commanderEquipment,input.equipment)?commanderEquipment[input.equipment]:null;
@@ -124,6 +123,7 @@ export function commanderCommand(world,city,input,now) {
     cost=options.cost;
     subtract(city,cost);
     state.permanent=true;
+    state.recruitedAt=now;
     notify(world,city.id,heroes[id].name+' joined your permanent roster.',now,'army',{title:'Commander recruited',commander:id,status:'completed'});
   } else if (input.type==='commander-rent') {
     const days=input.days;

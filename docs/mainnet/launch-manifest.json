@@ -1,0 +1,23 @@
+{
+  "game": "VaultBorn",
+  "network": "mainnet",
+  "developerAddress": "bitcoincash:qpq4lhslz9kpkka6mxt0lg67lzama0k3pvkgxm6777",
+  "gamePublicKey": "032221720577fdc2238af7acac6a6ed311ece59565290036da4dd29a695933a556",
+  "attestors": [
+    "021e13ddba8f3bb9d6bed28c3dbc69c967a2374d020315cb014c63058b69d7411e",
+    "02d2bb3ea5026c1ce25cc5c3e6e0f5cbdffe5e59a9c92bf3587c4ac47fb020d750",
+    "025f9a40a2bd7594c4c028c18612804dc17fcba84f08c3cab121d16d90d9508fd8"
+  ],
+  "attestorThreshold": 2,
+  "attestorOperation": "owner",
+  "priceBook": "prices-v2",
+  "contracts": [
+    "war-chest-v4",
+    "stake-escrow-v4",
+    "stake-escrow-v3",
+    "record-reserve-v2",
+    "prize-fund-v1",
+    "season pool and prize feeders",
+    "political-escrow v2"
+  ]
+}

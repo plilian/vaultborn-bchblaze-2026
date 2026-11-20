@@ -12,13 +12,16 @@ import { mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { NETWORK_ID } from '../../config/network.mjs';
+import { hdTestWallet } from './paired-wallet.mjs';
 
 export const initialTime = Date.UTC(2026, 10, 18);
 export const key = number => number.toString(16).padStart(64, '0');
 export const hash = value => createHash('sha256').update(value).digest('hex');
 export const operatorKey = key(600);
 export const operator = walletFromPrivateKey(operatorKey);
-export const keys = { p1:key(601), p2:key(602), p3:key(603) };
+// p1's key is the first receiving key of an HD test wallet, so a browser check can open the game with that wallet paired.
+export const p1Wallet = hdTestWallet(Buffer.from(key(601), 'hex'));
+export const keys = { p1:p1Wallet.privateKey, p2:key(602), p3:key(603) };
 export const wallets = Object.fromEntries(Object.entries(keys).map(([id, secret]) => [id, walletFromPrivateKey(secret)]));
 export const stranger = walletFromPrivateKey(key(699));
 export const developer = walletFromPrivateKey(key(698));

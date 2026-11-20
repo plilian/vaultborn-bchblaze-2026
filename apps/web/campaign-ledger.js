@@ -53,20 +53,58 @@ export function trainingOrderView(quote){
 export function achievementDialog(data) {
   if (!data) return '';
   const values=data.resources?supplyCards(data.resources,{sign:true}):'';
-  return eventHero(data.art,data.kicker??'Kingdom dispatch',data.title,data.detail)+
-    values+`<div class="buttons"><button type="button" class="btn primary" data-continue-dispatch>${icon('check')} Continue</button></div>`;
+  const facts=data.facts?.length?`<dl class="kv dispatch-facts">${data.facts.map(([label,value])=>`<dt>${html(label)}</dt><dd>${html(value)}</dd>`).join('')}</dl>`:'';
+  return eventHero(data.art,data.kicker??'Kingdom dispatch',data.title,data.detail)+facts+
+    values+`<div class="buttons">${data.payment?btn('Receipt','bch',{modal:'payment',id:data.payment}):''}<button type="button" class="btn primary" data-continue-dispatch>${icon('check')} Continue</button></div>`;
+}
+
+// A BCH purchase that took effect, shown like any other game event: a picture, what happened, and when.
+export function paymentDispatch(payment,config) {
+  const result=payment.fulfillment?.result;
+  const building=payment.payload?.building??result?.building;
+  const place=building&&(config.buildings?.[building]?.name??title(building));
+  const amount=number(payment.satoshis??payment.amount)+' sats';
+  const paidAt=['Paid',amount+' · '+formatDate(payment.submittedAt??payment.createdAt??Date.now())];
+  const base={payment:payment.id,sound:'reward'};
+  switch (payment.action) {
+    case 'rush': {
+      const job=list(result?.queue).find(item=>item.kind==='building'&&item.key===building);
+      return {...base,art:`${building}-${Math.min(3,job?.level??2)}`,kicker:'Construction',title:place+' rushed',
+        detail:job?'The builders doubled their pace.':'Rush applied.',facts:[...(job?[['Now finishes',formatDate(job.completesAt)],['Level',String(job.level)]]:[]),paidAt],sound:'build'};
+    }
+    case 'premium':
+      return {...base,art:`${building}-3`,kicker:place,title:'Premium upgrade unlocked',detail:result?.perks?.[building]?.name??config.buildings?.[building]?.premium??'',facts:[paidAt]};
+    case 'war-chest':
+      return {...base,art:'event-vault',kicker:'War Chest',title:'War Chest funded',detail:'At risk in PvP raids.',facts:[['Added',amount],['Confirmed',formatDate(Date.now())]]};
+    case 'territory-raffle':
+      return {...base,art:'event-season',kicker:'Rare territory',title:'Raffle entry confirmed',detail:'You are in the draw. The result arrives in your notifications.',
+        facts:[...(result?.entry?.included?[['In block',number(result.entry.included)]]:[]),paidAt]};
+    case 'territory-claim':
+      return {...base,art:'terrain',kicker:'Frontier',title:'Claim entry confirmed',detail:'Your army stands in the contest.',facts:[paidAt]};
+    case 'territory-attack':
+      return {...base,art:'battlefield',kicker:'Frontier',title:'Attack launched',detail:'Open the territory for the battle.',facts:[paidAt]};
+    case 'espionage-paid':
+      return {...base,art:'scout-3',kicker:'Scout Tower',title:'Scouts dispatched',detail:result?.completesAt?'Report expected '+formatDate(result.completesAt)+'.':'',facts:[paidAt]};
+    case 'protectorate':
+      return {...base,art:'event-protectorate',kicker:'Diplomacy',title:'Protectorate offer sent',detail:'The other kingdom decides.',facts:[paidAt]};
+    case 'sponsor-fund':
+      return {...base,art:'event-season',kicker:'Season',title:'Season sponsored',detail:'Thank you. Your sponsorship is in the prize pool.',facts:[paidAt]};
+    case 'political-operation':
+      return {...base,art:'event-rebellion',kicker:'Politics',title:'Operation under way',detail:result?.message??'',facts:[paidAt]};
+    default: return null;
+  }
 }
 
 export function eventDispatch(item) {
-  const cat={military:'war',battle:'war',army:'helmet',training:'helmet',city:'hammer',construction:'hammer',building:'hammer',research:'book',
+  const cat={receipt:'bch',military:'war',battle:'war',army:'helmet',training:'helmet',city:'hammer',construction:'hammer',building:'hammer',research:'book',
     territory:'flag',political:'crown',achievement:'trophy',market:'market',daily:'gift',intel:'spy',spy:'spy',cooldown:'clock'};
-  const link=item.battleId?btn('Battle report','war',{modal:'battle',id:item.battleId}):
+  const link=item.payment?btn('Receipt','bch',{modal:'payment',id:item.payment}):item.battleId?btn('Battle report','war',{modal:'battle',id:item.battleId}):
     item.territoryId?btn('Inspect territory','pin',{modal:'node',id:item.territoryId}):
     item.job?btn('Open queue','clock',{page:'city','start-tab':({building:'build',troop:'army',research:'research'})[item.job.kind]??'build',dismiss:'true'}):
     item.commander?btn('Review commander','flag',{modal:'commander',id:item.commander}):'';
   const detail=item.detail??(item.title&&item.text!==item.title?item.text:null);
   return `<article class="chronicle-entry">${icon(cat[item.kind]??'journal')}<div><strong>${html(item.title??item.text??title(item.kind))}</strong>
-    ${detail?`<p>${html(detail)}</p>`:''}<time>${html(formatDate(item.at))}</time></div>${link}</article>`;
+    ${detail?`<p>${html(detail)}</p>`:''}<time>${html(formatDate(item.at))}${item.until?' · finishes '+html(formatDate(item.until)):''}</time></div>${link}</article>`;
 }
 
 export function offlineContents(report) {

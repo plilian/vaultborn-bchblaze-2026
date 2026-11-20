@@ -166,7 +166,7 @@ try{
   await page.getByRole('tab',{name:'Territories',exact:true}).click();
   await click(page.locator('.territory-row').filter({hasText:'East Meadow'}),'Inspect');
   await dialog.getByRole('heading',{name:'East Meadow',exact:true}).waitFor();
-  const linkButton=dialog.getByRole('button',{name:'Link Chipnet wallet',exact:true});
+  const linkButton=dialog.getByRole('button',{name:'Connect wallet',exact:true});
   assert.equal(await linkButton.count(),1,await dialog.innerText());
   await linkButton.click();
   await dialog.getByRole('button',{name:'Return to territory'}).waitFor();

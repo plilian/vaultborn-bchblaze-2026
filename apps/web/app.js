@@ -1,9 +1,9 @@
 import { icon } from './icons.js';
 import { activateGameAudio, configureGameAudio, playGameCue, setBattleAudio } from './game-audio.js';
-import { art, bch, btn, command, compact, crest, duration, faction, factionIcons, formatDate, html, list, nav, number, resources, stat, tag, title } from './view.js';
-import { renderPage, renderDialog, formAnswer } from './screens.js';
+import { art, bch, btn, command, compact, crest, duration, faction, factionIcons, formatDate, html, list, nav, number, resources, setPaymentsInFlight, stat, tag, title } from './view.js';
+import { activeWork, renderPage, renderDialog, formAnswer } from './screens.js';
 import { battleCampNames, battleTimeline, mountBattleMotion } from './battle-motion.js';
-import { approveWizard, cancelWizardApproval, closeWizard, connectWizard, proveWizard, walletAddress, walletLabel, wizardState } from './ritual-wallet.js';
+import { approveWizard, cancelWizardApproval, closeWizard, connectWizard, proveWizard, walletAddress, walletKeys, walletLabel, wizardState } from './ritual-wallet.js';
 import { openCitadel, setCitadelPayments } from './citadel.js';
 import { presentTerritoryNews } from './territory-outcomes.js';
 import { territoryMarker } from './territory-field.js';
@@ -12,14 +12,18 @@ import { politicalOutcomePage, presentPoliticalNews } from './political-outcomes
 import { attachIdentityControls, enterIdentity } from './decentralized-identity.js';
 import { raidDossier } from './strategy-stats.js';
 import { constrainCamera, moveCamera } from './world-camera.js';
-import { commandDispatch, marketQuoteView, trainingOrderView } from './campaign-ledger.js';
+import { commandDispatch, marketQuoteView, paymentDispatch, trainingOrderView } from './campaign-ledger.js';
 import { guideSteps, guideStepTargets, renderGuide } from './first-campaign.js';
 import { filterCodex } from './game-guide.js';
 import './game-tooltips.js';
 import { NETWORK, NETWORK_LABEL } from './network.js';
+import { mountBlazeBar } from './blaze-bar.js';
+import { morph } from './morph.js';
 
 const select = id => document.getElementById(id);
 const dom = Object.fromEntries(['masthead', 'theater', 'world', 'world-stage', 'territories', 'world-cities', 'city-dock', 'activity-dock', 'inspector', 'atlas-controls', 'campaign', 'loading', 'dock', 'dialog', 'toast'].map(id => [id, select(id)]));
+// The hackathon bar sits above the game, which is made shorter by its height (see blaze-bar.css).
+mountBlazeBar(document.getElementById('blaze-banner'), { compact: true });
 const citadel=select('campaign-citadel');
 const guide=select('campaign-guide');
 const regionNavigation = select('region-navigation');
@@ -161,6 +165,7 @@ async function verifyWallet({ again = false } = {}) {
     playGameCue('reward', muted());
     notify('Wallet connected and verified.');
     void inspectWalletAssets();
+    continuePendingPayment();
   } catch (error) {
     ui.walletProof = { error: error.message };
     notify(error.message, true);
@@ -183,8 +188,16 @@ function setState(state) {
   const oldPlayer=ui.state?.player?.id;
   const latest = state.notifications?.[0];
   const paymentStates=new Map(list(ui.state?.payments).map(payment=>[payment.id,payment.state]));
+  const earlier=new Map(list(ui.state?.payments).map(payment=>[payment.id,payment]));
+  // A purchase that just took effect is presented as a game event (picture, details, time); its receipt is one click away.
+  const paymentApplied=oldPlayer===state.player.id && list(state.payments).find(payment=>earlier.has(payment.id) &&
+    payment.fulfillment?.status==='applied' && earlier.get(payment.id).fulfillment?.status!=='applied' && !payment.fulfillment.redeemedCredit);
+  const appliedView=paymentApplied && paymentDispatch(paymentApplied,state.config??{});
   const paymentChange=oldPlayer===state.player.id && list(state.payments).find(payment=>
     paymentStates.has(payment.id) && ['credited','rejected','expired','reorg'].includes(payment.state) && paymentStates.get(payment.id)!==payment.state);
+  // Just sent from the wallet: the receipt says how long the confirmation usually takes.
+  const paymentSent=oldPlayer===state.player.id && list(state.payments).find(payment=>payment.direction!=='outgoing' &&
+    paymentStates.has(payment.id) && ['created','awaiting_signature'].includes(paymentStates.get(payment.id)) && ['submitted','seen_in_mempool','confirming','uncertain'].includes(payment.state));
   if (ui.state) {
     const seen = new Set(list(ui.state.notifications).map(entry => entry.id));
     const updates = list(state.notifications).filter(entry => !seen.has(entry.id));
@@ -196,9 +209,17 @@ function setState(state) {
   }
   ui.receivedAt = performance.now();
   ui.state = state;
-  if(paymentChange) {
+  if(appliedView && !ui.busy && !ui.archive) {
+    playGameCue(appliedView.sound,muted());
+    showDialog('dispatch',{presentation:appliedView});
+  } else if(paymentChange && paymentChange.state==='credited' && earlier.get(paymentChange.id)?.fulfillment?.early) {
+    // Already applied and shown when it was seen; the confirmation is recorded in the notifications.
+  } else if(paymentChange) {
     playGameCue(paymentChange.state==='credited'&&!['review','credit'].includes(paymentChange.fulfillment?.status)?'reward':'message',muted());
     if (!dom.dialog.open && !ui.busy && !ui.archive) showDialog('payment',{id:paymentChange.id});
+  } else if (paymentSent && !ui.busy && !ui.archive && !(ui.dialog?.mode === 'payment' && ui.dialog.id === paymentSent.id)) {
+    playGameCue('message',muted());
+    showDialog('payment',{id:paymentSent.id});
   }
   if (!ui.regionId || oldPlayer !== state.player.id || !regions().some(region => region.id === ui.regionId)) {
     ui.regionId = state.atlas?.homeRegion ?? regionOf(state.player);
@@ -210,6 +231,7 @@ function setState(state) {
     void closeWizard().then(()=>resumeWizard());
   }
   setCitadelPayments(list(state.payments));
+  setPaymentsInFlight(list(state.payments));
   if (!target() || regionOf(target()) !== currentRegion().id) {
     const own = playerCity();
     const here = visibleCities();
@@ -222,24 +244,27 @@ function renderHeader() {
   const own = playerCity();
   const state = ui.state;
   const activeAddress=walletAddress(state.wallet);
-  const observedBalance = ui.walletAssets?.wallet?.address === activeAddress ? ui.walletAssets?.balance : null;
+  const observedBalance = ui.walletAssets?.wallet?.address === activeAddress ? ui.walletAssets?.whole?.totalSatoshis ?? ui.walletAssets?.balance : null;
   const walletSats = (typeof observedBalance === 'number' ? observedBalance : observedBalance?.confirmedSatoshis) ?? state.vault?.walletSatoshis;
   const end = state.season?.endsAt ?? state.season?.endAt;
   const chain = state.chain ?? {};
   const needsAttention = list(state.notifications).length > 0;
+  const running = activeWork({ ui, own, cities: cities(), gameNow:gameNow() }).length;
   const resourceRow = resources.map(id => `<div class="resource r-${id}">${icon(id)}<div><small>${title(id)}</small><b data-tooltip="${html(number(own.resources?.[id]))}">${compact.format(own.resources?.[id] ?? 0)}</b></div></div>`).join('');
-  dom.masthead.innerHTML = `
+  morph(dom.masthead, `
     <button class="brand" type="button" data-page="map" aria-label="VAULTBORN home"><img class="icon" src="/logo.webp" width="38" height="48" alt=""><span class="brand-copy"><strong>VAULTBORN</strong><small>Build · Defend · Conquer</small></span></button>
     <div class="resource-bar" aria-label="City resources">${resourceRow}<div class="resource r-bch">${icon('bch')}<div><small>BCH</small><b data-tooltip="Wallet balance">${walletSats == null ? '—' : html(bch(walletSats))}</b></div></div></div>
     <button class="season-tag" type="button" data-page="rankings">${icon('crown')}<span><strong>Season ${html(state.season?.number ?? state.season?.id ?? 'I')}</strong><small ${end ? `data-until="${html(end)}"` : ''}>${end ? duration(end - gameNow()) : 'Campaign standings'}</small></span></button>
     <button class="network wallet-shortcut" data-modal="wallet" type="button" data-tooltip="${html(activeAddress??'Connect ' + NETWORK_LABEL + ' wallet')}" aria-label="${html(activeAddress?'Wallet '+walletLabel(state.wallet):'Connect wallet')}"><i class="status-dot ${wizardState().status==='ready'?'':'off'}"></i><span>${html(walletLabel(state.wallet))}</span>${icon('down')}</button>
     <button class="round-icon codex-shortcut" data-modal="codex" type="button" aria-label="Game guide" data-tooltip="Game guide">${icon('journal')}</button>
-    <button class="round-icon" data-modal="inbox" type="button" aria-label="Notifications">${icon('bell')}${needsAttention ? '<i></i>' : ''}</button>
-    <button class="round-icon" data-modal="profile" type="button" aria-label="Profile and settings">${icon('profile')}</button>`;
+    <button class="round-icon" data-modal="inbox" type="button" aria-label="Notifications${running ? ', ' + running + ' in progress' : ''}">${icon('bell')}${running ? '<b class="bell-count">' + running + '</b>' : needsAttention ? '<i></i>' : ''}</button>
+    <button class="round-icon" data-modal="profile" type="button" aria-label="Profile and settings">${icon('profile')}</button>`);
 }
 
 function renderNav() {
-  dom.dock.innerHTML = nav.map(([id,label,glyph]) => `<button type="button" data-page="${id}" class="dock-item ${ui.page === id ? 'active' : ''}" ${ui.page === id ? 'aria-current="page"' : ''}>${icon(glyph)}<span>${label}</span></button>`).join('');
+  const corner = select('tutorial-launch');
+  if (corner && !corner.dataset.drawn) { corner.innerHTML = icon('quest') + '<span>Tutorial</span>'; corner.dataset.drawn = 'true'; }
+  morph(dom.dock, nav.map(([id,label,glyph]) => `<button type="button" data-page="${id}" class="dock-item ${ui.page === id ? 'active' : ''}" ${ui.page === id ? 'aria-current="page"' : ''}>${icon(glyph)}<span>${label}</span></button>`).join(''));
 }
 
 function renderCityDock() {
@@ -247,10 +272,10 @@ function renderCityDock() {
   const total = Object.values(own.production ?? own.income ?? {}).reduce((sum, item) => sum + Number(item || 0), 0);
   const showTime = own.shieldUntil > gameNow();
   const actions = [['build','Build','hammer'],['army','Army','helmet'],['defense','Defense','shield'],['research','Research','upgrade']];
-  dom['city-dock'].innerHTML = `
+  morph(dom['city-dock'], `
     <div class="profile-title">${crest(own)}<div><span class="kicker">My city</span><h2>${html(own.name ?? 'Found a city')}</h2><span class="level-chip">LEVEL ${number(level(own))}${showTime ? ' · SHIELDED' : ''}</span><span class="progress"><i style="width:${Math.min(95,40+level(own)*9)}%"></i></span></div><img class="profile-art" src="${art(own)}" alt=""></div>
     <div class="stats">${stat('Power',number(own.power),'war')}${stat('Troops',number(armyCount(own)),'troops')}${stat('Defense',number(towerDefense(own)),'shield')}${stat('Income / h',total > 0 ? '+' + number(total) : '—','income','gain')}</div>
-    <div class="city-actions">${actions.map(([id,text,glyph]) => `<button class="city-action" data-page="city" data-start-tab="${id}" type="button">${icon(glyph)}${text}${icon('chevron')}</button>`).join('')}</div>`;
+    <div class="city-actions">${actions.map(([id,text,glyph]) => `<button class="city-action" data-page="city" data-start-tab="${id}" type="button">${icon(glyph)}${text}${icon('chevron')}</button>`).join('')}</div>`);
 }
 
 function channelEntries() {
@@ -266,14 +291,14 @@ function renderActivity() {
   if (input === document.activeElement) return;
   const entries = channelEntries();
   const disabled = ui.channel === 'system' || (ui.channel === 'alliance' && !ui.state.alliance);
-  dom['activity-dock'].innerHTML = `
+  morph(dom['activity-dock'], `
     <div class="activity-tabs" role="tablist">${['world','alliance','system'].map(channel => `<button type="button" role="tab" aria-selected="${channel === ui.channel}" class="${channel === ui.channel ? 'active' : ''}" data-channel="${channel}">${title(channel)}</button>`).join('')}</div>
     <div class="activity-entries" aria-live="polite">${entries.length ? entries.map(item => `<div class="message message-${ui.channel}">${icon(ui.channel === 'system' ? 'crown' : 'message')}<div><b>${html(item.senderName ?? item.authorName ?? item.fromName ?? item.name ?? item.author ?? (ui.channel === 'system' ? 'System' : 'World'))}</b> ${html(item.text ?? item.message ?? item.detail ?? '')} ${item.at ? `<small>${html(new Date(item.at).toLocaleTimeString([], {hour: '2-digit',minute:'2-digit'}))}</small>` : ''}</div></div>`).join('') : `<p class="message">${icon('message')}<span>${ui.channel === 'alliance' && !ui.state.alliance ? 'Join an alliance to open this channel.' : 'No dispatches yet.'}</span></p>`}</div>
     <form class="chat-form" data-form="chat">
       <input type="hidden" name="channel" value="${ui.channel}">
       <input aria-label="Chat message" name="text" maxlength="240" required autocomplete="off" placeholder="${disabled ? 'Channel is read-only' : 'Send a dispatch…'}"${disabled ? ' disabled' : ''}>
       <button aria-label="Send dispatch" type="submit"${disabled ? ' disabled' : ''}>${icon('send')}</button>
-    </form>`;
+    </form>`);
 }
 
 function renderMap() {
@@ -426,7 +451,7 @@ function renderMapControls() {
   const controls = [
     ['out','Zoom out','minus'],['in','Zoom in','plus'],['reset','Reset view','target'],['labels','Toggle all city labels','layers'],['political','Toggle political overlay','flag'],
   ];
-  dom['atlas-controls'].innerHTML = `<output aria-label="Current map zoom">${Math.round(ui.scale*100)}%</output>` + controls.map(([id,text,glyph]) => `<button type="button" data-map="${id}" aria-label="${text}" data-tooltip="${text}" ${['labels','political'].includes(id) ? 'aria-pressed="' + (id === 'labels' ? ui.labels : Boolean(ui.politicalOverlay)) + '"' : ''}>${icon(glyph)}</button>`).join('');
+  morph(dom['atlas-controls'], `<output aria-label="Current map zoom">${Math.round(ui.scale*100)}%</output>` + controls.map(([id,text,glyph]) => `<button type="button" data-map="${id}" aria-label="${text}" data-tooltip="${text}" ${['labels','political'].includes(id) ? 'aria-pressed="' + (id === 'labels' ? ui.labels : Boolean(ui.politicalOverlay)) + '"' : ''}>${icon(glyph)}</button>`).join(''));
 }
 function renderInspector() {
   const city = target();
@@ -440,7 +465,7 @@ function renderInspector() {
   const garrison = owned ? armyCount(own) : city.intel?.troops ? armyCount({ troops:city.intel.troops }) : city.intel?.army;
   const political = city.protectorateEligibility ?? { ok: false, reason: 'Protectorate terms are unavailable.' };
   const reasons = !owned && !eligible.ok ? eligible.reason : '';
-  dom.inspector.innerHTML = `
+  morph(dom.inspector, `
     <div class="inspector-art"><img src="${art(city)}" alt=""><span class="tag ${hostile ? 'danger' : 'success'}">${html(city.terrainName ?? 'Settlement')}</span></div>
     <button class="inspector-close" type="button" data-close-target aria-label="Close inspector">${icon('x')}</button>
     <div class="inspector-head faction ${faction(city)}">${crest(city)}<div><h2>${html(city.name)}</h2><span class="kicker">Lv. ${number(level(city))} · ${html(subtitle)}${city.npc ? ' · NPC' : ''}</span></div></div>
@@ -457,7 +482,7 @@ function renderInspector() {
           btn('Visit court','flag',{modal:'npc-court',id:city.id}) : ''}
       </div>
       ${owned ? '' : `<div class="eligibility">${eligible.ok ? tag('Attack eligible','success') : html(reasons ?? 'Attack unavailable')}${political.ok ? ' ' + tag('Protectorate eligible','success') : ''}</div>`}
-    </div>`;
+    </div>`);
 }
 
 function pageContext() {
@@ -480,7 +505,7 @@ function renderCampaign(force = false) {
   if (!force && dom.campaign.contains(editing())) return;
   const marketForm=dom.campaign.querySelector('form[data-form=trade]');
   if (marketForm) ui.marketFields=Object.fromEntries(new FormData(marketForm));
-  dom.campaign.innerHTML = renderPage(pageContext());
+  morph(dom.campaign, renderPage(pageContext()));
   if (ui.page==='city'&&ui.tabs.city==='market') void updateMarketQuote();
   if (ui.page === 'politics') syncPoliticalFields(dom.campaign);
   for (const element of dom.campaign.querySelectorAll('[data-sponsor-impression]')) {
@@ -565,7 +590,12 @@ function refreshDialog() {
   const dialog = dom.dialog;
   if (dialog.open && ui.dialog.mode === 'identity' && dialog.querySelector('.identity-panel')) return;
   if (dialog.open && (dialog.contains(editing()) || dialog.querySelector('.order-error'))) return;
-  dialog.innerHTML = renderDialog(pageContext());
+  // The player has just closed this dialog and its close is still being handled: an update arriving now must not reopen it.
+  // (A dialog being opened is always emptied first by showDialog.)
+  if (!dialog.open && dialog.childNodes.length) return;
+  // An open dialog is updated in place; a newly opened one is drawn whole.
+  if (dialog.open && dialog.childNodes.length) morph(dialog, renderDialog(pageContext()));
+  else dialog.innerHTML = renderDialog(pageContext());
   if (ui.dialog.mode === 'political') syncPoliticalFields(dialog);
   if (!dialog.open) dialog.showModal();
   if (ui.dialog.mode === 'attack') void refreshRaidDossier();
@@ -640,6 +670,28 @@ function refreshGuide({ focus = false } = {}) {
   if (focus) select('campaign-guide-title')?.focus({ preventScroll: true });
 }
 
+// A kingdom that has just signed up is greeted once: the server forgets the greeting as soon as it is shown, so it never
+// returns, in this browser or another one.
+function greetNewKingdom() {
+  if (!playerCity()?.welcome || ui.welcomed || ui.archive) return;
+  ui.welcomed = true;
+  // After the welcome, a kingdom without a wallet is asked to connect one.
+  ui.walletPromptDue = !ui.state?.wallet?.address;
+  showDialog('welcome');
+  void api('/command', { type: 'welcomed', requestId: crypto.randomUUID() }).catch(() => { ui.welcomed = false; });
+}
+function learnChoice(choice) {
+  // Straight after the welcome: first the wallet prompt, then what the player chose.
+  if (ui.walletPromptDue && ui.dialog?.mode === 'welcome') {
+    ui.walletPromptDue = false;
+    ui.afterWalletPrompt = choice;
+    showDialog('wallet-prompt');
+    return;
+  }
+  if (choice === 'tutorial') showGuide();
+  else if (choice === 'instructions') { dom.dialog.close(); openModal('codex', ''); }
+  else dom.dialog.close();
+}
 function showGuide() {
   const { onboarding } = playerCity();
   dom.dialog.close();
@@ -764,9 +816,14 @@ async function inspectWalletAssets() {
   if (ui.dialog?.mode === 'wallet') refreshDialog();
   renderCampaign(true);
   try {
-    const assets=await api('/wallet/assets?address='+encodeURIComponent(address));
+    // An HD wallet keeps change and later payments on other addresses: with the wallet connected, the whole wallet is read
+    // (from the public keys of its first receiving and change addresses), next to the tokens of the linked address.
+    const keys=await walletKeys({receive:20,change:20}).catch(()=>[]);
+    const [assets,whole]=await Promise.allSettled([api('/wallet/assets?address='+encodeURIComponent(address)),
+      keys.length?api('/wallet/balance',{keys}):Promise.resolve(null)]);
+    if(assets.status==='rejected'&&!whole.value) throw assets.reason;
     if(ui.walletLoadingAddress===address&&walletAddress(ui.state?.wallet)===address)
-      ui.walletAssets={...assets,observedAt:Date.now()};
+      ui.walletAssets={...(assets.value??{wallet:{address},balance:null,tokens:null}),...(whole.value&&{whole:whole.value}),observedAt:Date.now()};
   } catch (error) {
     if(ui.walletLoadingAddress===address&&walletAddress(ui.state?.wallet)===address) ui.walletError=error.message;
   } finally {
@@ -885,7 +942,7 @@ async function refresh({presentOffline=false}={}) {
       return;
     }
     if (!ui.state) {
-      dom.loading.innerHTML = `<div class="loading-mark"><img src="/logo.webp" width="63" height="80" alt=""></div><h1>VAULTBORN</h1><p>${html(error.message)}</p>${btn('Retry','arrow',{ retry: 'true' },'primary')}`;
+      dom.loading.innerHTML = `<div class="loading-art" aria-hidden="true"></div><div class="loading-card"><div class="loading-mark"><img src="/logo.webp" width="84" height="107" alt=""></div><h1>VAULTBORN</h1><p class="loading-status">${html(error.message)}</p><div class="buttons">${btn('Retry','arrow',{ retry: 'true' },'primary')}</div></div>`;
     }
   } finally {
     refreshPending = false;
@@ -952,10 +1009,8 @@ function act(payload) {
       const point = localPosition(own);
       const position = [ui.dx + (point.x - .5) * stageWidth * ui.scale, ui.dy + (point.y - .5) * stageHeight * ui.scale];
       setZoom(ui.scale, position, [0, -Math.min(height * .13, 72)]);
-      ui.guide = 'active';
-      rememberGuide(own.id);
       playGameCue('claim', muted());
-      refreshGuide({ focus: true });
+      greetNewKingdom();
       return;
     }
     if (payload.type === 'tutorial' && payload.action) {
@@ -1026,11 +1081,43 @@ function act(payload) {
     }
   });
 }
-function startPayment(payload) {
+// Connected means: this browser is paired with the wallet right now (a phone wallet that is asleep still counts) and the
+// kingdom is linked to that same wallet. A kingdom linked earlier on another device is not connected here.
+const walletLive = () => {
+  const session = wizardState();
+  return ['ready','signing','broadcasting'].includes(session.status) && Boolean(session.address) && session.address === ui.state?.wallet?.address;
+};
+// A saved pairing is restored a moment after the page opens; a payment pressed in that moment waits for it.
+async function walletSettled() {
+  for (let waited = 0; ['opening','restoring','closing'].includes(wizardState().status) && waited < 4000; waited += 200) {
+    await new Promise(done => setTimeout(done, 200));
+  }
+}
+async function startPayment(payload) {
+  // Every payment is made from the player's own wallet: without a connected one, the wallet dialog opens instead, and the
+  // payment continues by itself once the wallet is connected. A connected wallet goes straight to the checkout.
+  if (ui.state?.chain?.enabled) {
+    await walletSettled();
+    // The wallet may have been linked in another tab a moment ago, so the kingdom is read once more first.
+    if (!ui.state?.wallet?.address || (ui.state?.chain?.walletConnect && !walletLive())) await refresh().catch(() => {});
+    if (!ui.state?.wallet?.address || (ui.state?.chain?.walletConnect && !walletLive())) {
+      ui.pendingPayment = payload;
+      requireWallet({ code:'wallet-required', message:'Connect your wallet first. Every payment is approved in your own wallet.' });
+      return;
+    }
+  }
+  ui.pendingPayment = null;
   return perform('/payments', payload, result => {
     const intent = result.intent ?? result.result?.intent ?? result.result ?? result;
     showDialog('payment', { id: intent.id, intent });
   });
+}
+// The wallet asked for by a payment is now connected and linked: the payment goes on to its checkout.
+function continuePendingPayment() {
+  if (!ui.pendingPayment || ui.dialog?.mode !== 'wallet' || ui.busy || !walletLive()) return;
+  const payload = ui.pendingPayment;
+  ui.pendingPayment = null;
+  void startPayment(payload).catch(() => {});
 }
 
 function openModal(mode, id, returnTerritory, returnWalletMode) {
@@ -1229,6 +1316,8 @@ document.addEventListener('click', event => {
   if ('walletCancel' in data) cancelWizardApproval();
   if ('archiveBack' in data) leaveArchive();
   if ('showGuide' in data) showGuide();
+  if (data.learn) learnChoice(data.learn);
+  if (data.walletLater) dom.dialog.close();
   if (data.walletReturn) openModal('node',data.walletReturn);
   if (data.walletReturnMode==='claim') openModal('claim');
   if ('codexBack' in data && ui.dialog?.mode==='codex' && ui.dialog.back) {
@@ -1320,24 +1409,51 @@ document.addEventListener('click', event => {
 });
 document.addEventListener('vaultborn-wallet-status', () => {
   if (wizardState().status === 'ready') void verifyWallet();
+  continuePendingPayment();
   if (wizardState().status === 'closed') { provedFor = null; ui.walletProof = null; }
   if (ui.dialog?.mode === 'wallet' || ui.dialog?.mode === 'payment') refreshDialog();
   if(ui.state) renderHeader();
   if(['ready','closed'].includes(wizardState().status)&&walletAddress(ui.state?.wallet)!==ui.walletAssets?.wallet?.address)
     void inspectWalletAssets();
+  // Connected after the first look: read the whole wallet now.
+  else if(wizardState().status==='ready'&&ui.walletAssets&&!ui.walletAssets.whole&&!ui.walletAssets.wholeTried){
+    ui.walletAssets.wholeTried=true;
+    void inspectWalletAssets();
+  }
 });
 dom.dialog.addEventListener('input',event=>{
   if(event.target.hasAttribute('data-codex-search')) filterCodex(event.target.closest('[data-codex]'),{term:event.target.value});
 });
 document.addEventListener('vaultborn-archive-payment',event=>showDialog('payment',{id:event.detail.id,intent:event.detail}));
+document.addEventListener('vaultborn-archive-pay',event=>{ if (!ui.busy) void startPayment(event.detail).catch(() => {}); });
 window.addEventListener('popstate',()=>showArchive(archiveAtPath()));
 dom.dialog.addEventListener('close', () => {
   if (!dom.dialog.open) {
+    const closed = ui.dialog?.mode;
     ui.dialog = null;
     dialogTrail.length = 0;
     closeBattleReplay();
+    // A wallet dialog closed without connecting: the payment that asked for it is dropped.
+    if (closed === 'wallet') ui.pendingPayment = null;
+    // A kingdom still without a name goes back to founding (after a sign-in dialog was closed, for example).
+    if (ui.state?.player?.founding && !ui.archive) { showDialog('found'); return; }
+    // The welcome was closed some other way: the wallet prompt still follows it.
+    if (closed === 'welcome' && ui.walletPromptDue) {
+      ui.walletPromptDue = false;
+      ui.afterWalletPrompt = 'close';
+      showDialog('wallet-prompt');
+      return;
+    }
+    // The wallet prompt (and the wallet dialog opened from it) are done: continue with what the player chose in the welcome.
+    if (ui.afterWalletPrompt && ['wallet-prompt','wallet'].includes(closed)) {
+      const choice = ui.afterWalletPrompt;
+      ui.afterWalletPrompt = null;
+      if (choice !== 'close') learnChoice(choice);
+    }
   }
 });
+// Escape cannot close the founding dialog: the kingdom needs a name first.
+dom.dialog.addEventListener('cancel', event => { if (ui.dialog?.mode === 'found') event.preventDefault(); });
 
 dom.world.addEventListener('contextmenu', event => {
   const marker = event.target.closest('.world-city');
@@ -1574,7 +1690,7 @@ async function openCampaignSession() {
       setState(result.state);
     }
   } catch (error) {
-    dom.loading.innerHTML = `<div class="loading-mark"><img src="/logo.webp" width="63" height="80" alt=""></div><h1>VAULTBORN</h1><p>${html(error.message)}</p><a class="btn" href="/">Return to the entrance</a>`;
+    dom.loading.innerHTML = `<div class="loading-art" aria-hidden="true"></div><div class="loading-card"><div class="loading-mark"><img src="/logo.webp" width="84" height="107" alt=""></div><h1>VAULTBORN</h1><p class="loading-status">${html(error.message)}</p><div class="buttons"><a class="btn" href="/">Return to the entrance</a></div></div>`;
     return;
   }
   await refresh({ presentOffline: !archiveAtPath() });
@@ -1582,6 +1698,7 @@ async function openCampaignSession() {
     ui.guide = 'active';
     refreshGuide();
   }
+  if (!playerCity().founding && !dom.dialog.open) greetNewKingdom();
   select('app').classList.add('campaign-arrived');
   if (archiveAtPath()) showArchive(archiveAtPath());
   void resumeWizard();

@@ -71,9 +71,26 @@ test('a game that does not start leaves the web server untouched', { skip }, () 
   writeFileSync(join(server.paths.bin, 'sleep'), '#!/usr/bin/env bash\nexit 0\n'); chmodSync(join(server.paths.bin, 'sleep'), 0o755);
   const result = server.run(DOMAIN);
   assert.equal(result.code, 1);
-  assert.match(result.err, /the game did not start\. The web server was not touched/);
+  assert.match(result.err, /the game did not start\. The web server was not touched\. The game's containers were stopped again/);
   assert.deepEqual(server.enabled(), server.others.slice().sort());
   assert.ok(!server.calls().some(call => call.startsWith('systemctl') || call.startsWith('certbot')));
+  // Not left restarting over and over.
+  assert.ok(server.calls().some(call => /^docker compose .* down$/.test(call)));
+});
+
+test('the check of the site is repeated while nginx starts its new workers, and a silent site is reported with its last answer', { skip }, () => {
+  const slow = makeServer();
+  slow.flag('site-slow');
+  const ok = slow.run(DOMAIN);
+  assert.equal(ok.code, 0, ok.err);
+  assert.ok(ok.out.includes('INSTALLED: https://' + DOMAIN));
+  const silent = makeServer();
+  silent.flag('site-silent');
+  const failed = silent.run(DOMAIN);
+  assert.equal(failed.code, 1);
+  assert.match(failed.err, /The last answer was: curl: \(60\) SSL: no alternative certificate subject name matches/);
+  assert.ok(failed.err.includes('STOPPED: the site is installed, but https://' + DOMAIN + '/api/health did not answer as expected.'));
+  assert.equal(silent.calls().filter(call => call.startsWith('curl ')).length, 24);
 });
 
 test('no certificate: the site is taken out of nginx again and the other sites are as before', { skip }, () => {

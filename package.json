@@ -45,6 +45,7 @@
     "verify:territory": "node scripts/verify-territory.mjs",
     "test:load": "node scripts/load-test.mjs",
     "simulate": "node packages/economy-simulator/index.mjs",
+    "verify:mainnet": "node scripts/verify-mainnet-proof.mjs",
     "simulate:kingdom": "node scripts/simulate-kingdom.mjs",
     "simulate:politics": "node scripts/simulate-politics.mjs",
     "simulate:audit": "node packages/economy-simulator/audit.mjs",

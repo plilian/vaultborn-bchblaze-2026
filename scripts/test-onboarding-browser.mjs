@@ -60,6 +60,12 @@ async function found(page, name) {
   await dialog.getByLabel('Settlement name', { exact: true }).fill(name);
   await shot(page, `${name.toLowerCase()}-founding.png`);
   await button(dialog, 'Found city').click();
+  // A new kingdom is greeted once, with the tutorial, the instructions or Skip.
+  await heading(dialog, 'Welcome to VaultBorn').waitFor();
+  await button(dialog, 'Start the tutorial').click();
+  // A kingdom without a wallet is asked to connect one; the tutorial follows either way.
+  await heading(dialog, 'Connect your wallet').waitFor();
+  await button(dialog, 'Not now').click();
   await heading(page.locator('#campaign-guide'), 'Your banner rises').waitFor();
   return dialog;
 }
@@ -79,8 +85,9 @@ try {
   const guide = desktop.locator('#campaign-guide');
   const start = await read(desktop, 'state');
   assert.equal(start.player.name, 'Hawkridge');
-  assert.equal(start.player.tutorial, false);
-  assert.equal(start.player.optIn, false);
+  // Day-one rules: the kingdom is open and in the season from its first day; the guide is optional.
+  assert.equal(start.player.tutorial, true);
+  assert.equal(start.player.optIn, true);
   const home = start.territories.find(site => site.category === 'starter' && site.owner === start.player.id);
   assert.equal(home.name, 'Hawkridge Homelands');
   assert.equal(home.protected, true);
@@ -191,7 +198,7 @@ try {
   await guide.getByText('Season standings viewed', { exact: true }).waitFor();
   await shot(desktop, 'guide-season-standings.png');
   const afterEducation = await read(desktop, 'state');
-  assert.equal(afterEducation.player.optIn, false);
+  assert.equal(afterEducation.player.optIn, true, 'in the season from the first day');
   assert.deepEqual(afterEducation.player.resources, afterDrill.player.resources);
   assert.deepEqual(afterEducation.player.troops, afterDrill.player.troops);
   assert.deepEqual(afterEducation.payments, afterDrill.payments);

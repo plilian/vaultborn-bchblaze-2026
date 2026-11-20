@@ -3,11 +3,12 @@ import { gameEvent, protocolHash } from '../../packages/chain-observer/vaultborn
 import { registerNewBattles } from './battle-records.mjs';
 import { liveFees } from './kingdom.mjs';
 import { territoryPayments } from './territory-protocol.mjs';
-import { seasonLength } from '../../config/economy.mjs';
+import { economy, seasonLength } from '../../config/economy.mjs';
 import { GAMEPLAY_ALLOCATION, LEGACY_ALLOCATION, LEGACY_PRICING, PRICING, PRIZE_CARRIER, PRIZE_DUST_MODES, PRIZE_FEED_RESERVE, CHEST_FEED_RESERVE, CHEST_FEED_WAIT_BLOCKS, CHEST_EXIT_BLOCKS, SERVICE_ALLOCATION, SPONSOR_ALLOCATION, bchPolicy, paymentPrice, priceBook, prizeNeedsCarrier, validStake,
   sponsorshipAllocation, sponsorshipPolicy } from '../../config/payments.mjs';
 import { LEGACY_SPONSOR_ALLOCATION } from '../../config/payments.mjs';
 import { walletFromPublicKey } from '../../packages/chain-observer/primitives.mjs';
+import { notify as tellPlayer } from '../../packages/game-engine/world.mjs';
 import { PRIZE_CARRIER_V2, SWEEP_RESERVE } from '../../packages/chain-observer/prize-carrier.mjs';
 import { summarizeSponsorship } from './sponsorship.mjs';
 import { NETWORK_LABEL } from '../../config/network.mjs';
@@ -20,6 +21,10 @@ const payableActions = new Set(['rush', 'premium', 'attack-paid', 'protectorate'
 // applied when the payment is final, the player keeps the service as a credit and receives it on the next request of
 // the same kind, at no cost. (Stakes are different: a raid that cannot be fought is void and its escrow returns the money.)
 const serviceActions = new Set(['rush', 'premium', 'protectorate', 'espionage-paid', 'political-operation']);
+// A rush is applied after 1 confirmation when its construction has little time left (see economy.rushOneConfirmationBelow),
+// otherwise after the usual 2. The number is fixed at checkout and shown to the player. Its War Chest share is booked when
+// the payment is final, like every other. A premium upgrade waits for the usual confirmations.
+const earlyServices = new Set(['rush']);
 const creditOf = (rows, type) => rows.find(item => item.action === type && item.state === 'credited' && item.fulfillment?.status === 'credit');
 const politicalPayments = new Set(['political-operation','political-escrow']);
 const openStates = new Set(['created', 'awaiting_signature', 'submitted', 'seen_in_mempool', 'confirming', 'confirmed', 'uncertain']);
@@ -235,7 +240,7 @@ export function createLedger({ store, chain, clock, quote, command, advance, not
       (isFinancial(row) && scope.some(pool => poolsOf(row).has(pool)))));
   }
   const toPublic = (row) => ({ ...chain.publicIntent(row), title: row.title, description: row.description, ...(row.preview && { preview: row.preview }),
-    fulfillment: row.fulfillment, pool: row.pool, direction: row.direction ?? 'incoming',
+    fulfillment: row.fulfillment, pool: row.pool, direction: row.direction ?? 'incoming', ...(row.appliesAfter && { appliesAfter: row.appliesAfter }),
     ...(row.politicalStatus && {politicalStatus:row.politicalStatus,politicalSettlement:row.politicalSettlement}) });
 
   function seasonPrize(world, records) {
@@ -339,7 +344,7 @@ export function createLedger({ store, chain, clock, quote, command, advance, not
       !world.cities[target].optIn ? 'This opponent has not joined seasonal PvP.' :
       attacker.address === defender.address ? 'Both kingdoms use the same wallet.' :
       world.cities[player].alliance && world.cities[player].alliance === world.cities[target].alliance ? 'Allies cannot stake BCH against each other.' :
-      !chain.prizeAttestors?.length ? 'Paid raids are closed until an ' + ATTESTOR_ADJECTIVE + ' attestor is configured.' :
+      !chain.prizeAttestors?.length ? 'Paid raids are closed for now.' :
       !validStake(chosen, pricingVersion) ? `Choose a stake from ${raid.minimumStake} to ${raid.maximumStake} satoshis in steps of ${raid.step}.` :
       fought ? 'These two kingdoms already fought a paid raid in the last 24 hours.' :
       open ? 'A paid raid between these two kingdoms is still being prepared or settled.' :
@@ -443,7 +448,7 @@ export function createLedger({ store, chain, clock, quote, command, advance, not
           if (!covenantKingdom) fail(409, 'War chests are available with covenant custody only.');
           chestOwner = store.walletKey(player);
           if (!chestOwner) fail(403, 'Connect your wallet first. A War Chest can only pay back to that wallet.');
-          if (!chain.prizeAttestors?.length) fail(503, 'War chests are closed until at least one ' + ATTESTOR_ADJECTIVE + ' attestor is configured. A capture needs its signature.');
+          if (!chain.prizeAttestors?.length) fail(503, 'War Chests are closed for now.');
           if (!world.cities[player]?.optIn) fail(409, 'Join seasonal PvP before putting funds at risk.');
           if (matchedRaids) {
             // One deposit is one War Chest output. It must cover the smallest stake on its own, and it sits on the 1,000-satoshi grid of stakes.
@@ -461,19 +466,17 @@ export function createLedger({ store, chain, clock, quote, command, advance, not
             fail(409, 'This sponsorship was quoted under the previous prices. Propose it again to fund it under the current 30/70 terms.');
           }
           if (!chain.createSponsorIntent || !chain.sponsorDevelopmentAddress || !chain.prizeAttestors?.length) {
-            fail(503, 'Sponsorship is closed until the developer address and at least one ' + ATTESTOR_ADJECTIVE + ' prize attestor are configured.');
+            fail(503, 'Sponsorship is closed until the developer address and a prize attestor are configured.');
           }
           sponsorWallet = store.walletKey(player);
           if (!sponsorWallet) fail(403, 'Connect your wallet first. An unawarded prize contribution can only return to that wallet.');
         }
         payment = { satoshis, title: funding === 'personal' ? 'Vault deposit' : type === 'war-chest' ? 'War chest funding' : 'Sponsor funding',
           description: type === 'war-chest' ? (matchedRaids ?
-            (ATTESTOR_NOTE ? ATTESTOR_NOTE + ' ' : '') + `Puts these funds at risk in PvP, all of them and at once. An attacker who stakes an amount S against you and wins takes exactly S from this War Chest; if you win, you receive the attacker's whole stake. A capture needs the game key and the ${ATTESTOR_ADJECTIVE} attestors, who replay the recorded battle first, and the contract only lets it leave together with the attacker's own equal stake. Your wallet key alone can start an exit at any time; the money can then leave after ${CHEST_EXIT_BLOCKS} blocks, and a raid that was already funded can still be settled from it until then. No part of the price is split: the whole deposit is yours.` :
-            `Puts these funds at risk in PvP. After a lost battle at most ${bchPolicy.capturePercent}% of a chest output can be captured per spend, only once it is ${captureAge} blocks old, and only with the signature of every ${ATTESTOR_ADJECTIVE} attestor, who replays the recorded battle first. The rest can only return to this chest or to your verified wallet. After the recovery date your wallet key alone can spend it.`) :
-            funding === 'personal' ? (vaultOwner ?
-            'Locked to your vault covenant. The operator can only pay it back to your verified wallet. After the recovery date your wallet key alone can spend it. PvP exposure is zero.' :
-            'Recoverable through the operator-signed ' + NETWORK_LABEL + ' withdrawal route. PvP exposure is zero.') :
-            'Sponsorship. The signed payment sends 30% to the Development address and 70% into the Seasonal Prize Fund covenant. Prizes leave that fund only with the ' + ATTESTOR_ADJECTIVE + ' attestor co-signature after the season closes. Any part not awarded by the refund date can only return to your verified wallet. Your wallet quotes the network fee separately.',
+            'All of it is at risk in PvP. Lose a raid and the attacker takes their stake; win and you take theirs. You can always take it out with your wallet (about 2 days).' :
+            `At risk in PvP: a lost battle can cost up to ${bchPolicy.capturePercent}% of a War Chest output. The rest stays yours.`) :
+            funding === 'personal' ? (vaultOwner ? 'Locked to your vault. Only your wallet can get it back. Not at risk in PvP.' : 'Not at risk in PvP.') :
+            '30% to Development, 70% to the season prize pool. Any part not awarded returns to your wallet.',
           action: { type, ...(campaign && { campaignId: campaign.id }) } };
       } else if (politicalPayments.has(type)) {
         if (!politics || !payoutsEnabled || !chain.supportsVaultborn) fail(503,'Political checkout requires the ' + NETWORK_LABEL + ' settlement operator.');
@@ -487,7 +490,7 @@ export function createLedger({ store, chain, clock, quote, command, advance, not
           const action = { type, mission: body.mission, target: body.target };
           command(structuredClone(world), player, { ...action, type: 'scout' }, now);
           payment = { action, title: 'Paid intelligence dispatch',
-            description: 'Launches an eligible intelligence mission under the normal scout limits. Its kingdom share stays in your treasury.' };
+            description: 'Sends one intelligence mission.' };
         } else {
           payment = quote(world, player, { ...body, type }, now);
         }
@@ -495,9 +498,7 @@ export function createLedger({ store, chain, clock, quote, command, advance, not
           const price = type === 'attack-paid' ? 'attack' : type === 'espionage-paid' ? 'espionage' : type;
           payment.satoshis = liveFees[price];
           if (matchedRaids && type === 'attack-paid') payment.action = { ...payment.action, stake: body.stake ?? book.raid.minimumStake };
-          if (type === 'attack-paid') payment.description = allocationPolicy===GAMEPLAY_ALLOCATION ?
-            'A verified defender can win half the stake. An eligible attacker can capture up to 20% of explicitly committed enemy funds, capped at the stake.' :
-            'Dispatches one eligible raid. An eligible, verified defender with a committed treasury can capture the escrow or lose up to 20% of its committed funds.';
+          if (type === 'attack-paid') payment.description = 'One raid with a BCH stake.';
         }
       }
       const sameSubject = item => (!territoryPayments.has(type) || item.payload?.territory === payment.action.territory) &&
@@ -553,11 +554,9 @@ export function createLedger({ store, chain, clock, quote, command, advance, not
         }
         payment.satoshis = raidPreview.totalPaymentSatoshis;
         const { stakeSatoshis: stake, win, loss } = raidPreview;
-        payment.description = `Matched stakes: you lock ${stake} satoshis and the defender's War Chest is held to the same ${stake}. On top you fund a network reserve of ${raidPreview.networkReserveSatoshis} satoshis; the contract returns what the settlement does not use. ` +
-          `If you win, one transaction pays you your stake, the defender's ${stake} satoshis and the unused reserve: ${win.receiveSatoshis} satoshis reach your wallet (network fee ${win.feeSatoshis}). ` +
-          `If you lose, the defender receives your whole stake of ${stake} satoshis and ${loss.receiveSatoshis} satoshis of the reserve return to you (network fee ${loss.feeSatoshis}). ` +
-          `The outcome is signed by the ${ATTESTOR_ADJECTIVE} attestors after they replay the battle. A higher stake does not change the battle. ` +
-          `If the defender's War Chest no longer covers your stake when your payment confirms, the raid has no BCH outcome: your stake and reserve return, less the ${raidPreview.void.feeSatoshis}-satoshi settlement fee.`;
+        payment.description = `You stake ${stake} sats and their War Chest matches it. Win: ${win.receiveSatoshis} sats come to your wallet. ` +
+          `Lose: they get your stake and ${loss.receiveSatoshis} sats come back to you. ` +
+          `If their War Chest no longer covers your stake when your payment confirms, the raid has no BCH outcome: your stake and reserve return, less a ${raidPreview.void.feeSatoshis}-sat fee.`;
       } else if (type === 'attack-paid' && payerKey && war) {
         // The earlier rules, kept for the earlier price book only.
         raidPreview = raidTerms(world, player, payment.action.target, payment.satoshis, now);
@@ -566,9 +565,8 @@ export function createLedger({ store, chain, clock, quote, command, advance, not
           throw Object.assign(new Error('This opponent has no capturable War Chest BCH, so a paid raid cannot win any. Choose a free raid.'),
             { status: 409, preview: raidPreview });
         }
-        payment.description = `You lock a ${stake}-satoshi stake plus a ${bchPolicy.settlementReserve}-satoshi network reserve. ` +
-          `If you win, your stake returns and a capture of ${raidPreview.captureSatoshis} satoshis is taken from the opponent's War Chest (${bchPolicy.capturePercent}% of its capturable ${chest} satoshis, capped at your stake). The capture pays its own network fee of about ${raidPreview.captureFeeSatoshis} satoshis, so about ${maxWin} satoshis reach your wallet once the ${ATTESTOR_ADJECTIVE} attestors have replayed the battle. ` +
-          (contest ? `If you lose, ${raidPreview.maxLossSatoshis} satoshis of your stake go to the defender and the rest returns to you.` : 'If you lose, your stake still returns: this opponent cannot win it.');
+        payment.description = `You stake ${stake} sats. Win: about ${maxWin} sats come to your wallet. ` +
+          (contest ? `Lose: ${raidPreview.maxLossSatoshis} sats of your stake go to the defender.` : 'Lose: your stake comes back.');
       }
       const recordReserve = type === 'political-operation' && book.reserves.record && chain.recordReserve ? book.reserves.record : 0;
       if (chain.developmentAddress && (type === 'political-operation' && !recordReserve ||
@@ -601,21 +599,28 @@ export function createLedger({ store, chain, clock, quote, command, advance, not
         final = Boolean(payerKey && war && !territoryPayments.has(type) && type !== 'attack-paid');
         if (final) {
           if (!chain.developmentAddress || !chain.prizeAttestors?.length || !chain.feedSweep || !chain.chestFeed) {
-            fail(503, 'Paid services are closed until the developer address and at least one ' + ATTESTOR_ADJECTIVE + ' attestor are configured. Free play is not affected.');
+            fail(503, 'Paid services are closed for now. Free play is not affected.');
           }
           intentPolicy = SERVICE_ALLOCATION;
           carried = false;
           // Under the current price book every War Chest share is a whole stake unit and goes straight into the War Chest: no feeder, no reserve, no later move.
           const floor = matchedRaids ? 0 : chain.captureFloor(chain.chestOf(chestTerms(payerKey.publicKey)));
           directChest = payment.satoshis / 2 >= floor;
-          payment.description = (payment.description ? payment.description + ' ' : '') + (directChest ?
-            `Your payment is split by your own transaction: 50% straight into your War Chest (always at risk in paid PvP), 20% into the season reward pool, 20% to Development and 10% burned. A ${PRIZE_FEED_RESERVE}-satoshi network reserve is added on top of the price; it pays the keyless move of the reward share into the pool, and what it does not need stays in the pool.` +
-            (recordReserve ? ` A further ${recordReserve} satoshis are locked in an output that the game can spend only as the network fee of this operation's public proof record; if no record is published, your own wallet key takes it back after 2,016 blocks.` : '') :
-            `Your payment is split by your own transaction: 50% into your War Chest (always at risk in paid PvP), 20% into the season reward pool, 20% to Development and 10% burned. A ${PRIZE_FEED_RESERVE + CHEST_FEED_RESERVE}-satoshi network reserve is added on top of the price: ${PRIZE_FEED_RESERVE} pays the keyless move of the reward share into the pool, and ${CHEST_FEED_RESERVE} pays the keyless move that joins your War Chest share with your other waiting shares into one War Chest output large enough to be captured and withdrawn. What the moves do not need stays in the pool and in your War Chest. Until that move your share cannot be withdrawn, and it can be captured only together with an output already in your War Chest.`);
+          // The split itself is listed with the outputs, in the details of the checkout.
+          payment.description = (payment.description ? payment.description + ' ' : '') + 'Half goes into your War Chest.' +
+            (recordReserve ? ` ${recordReserve} sats pay only for this operation's public proof record; if no record is published, your own wallet key takes it back.` : '');
         }
         try { allocation = type === 'attack-paid' && matchedRaids ? { battle: raidPreview.stakeSatoshis, settlement: raidPreview.networkReserveSatoshis } :
           war?.split(payment.satoshis,type,final ? SERVICE_ALLOCATION : allocationPolicy,{carrier:carried,pricing:pricingVersion}); }
         catch (error) { fail(error.status ?? 400, error.message); }
+      }
+      // How many confirmations a rush waits for: 1 when its construction has less than an hour left, otherwise the usual.
+      let appliesAfter;
+      if (type === 'rush') {
+        const job = world.cities[player]?.queue?.find(item => item.kind === 'building' && item.key === payment.action.building);
+        appliesAfter = job && job.completesAt - now < economy.rushOneConfirmationBelow ? 1 : chain.minConfirmations ?? 2;
+        payment.description = (payment.description ? payment.description + ' ' : '') + 'Applied after ' + appliesAfter + ' confirmation' +
+          (appliesAfter === 1 ? '' : 's') + ', about ' + appliesAfter * 10 + ' minutes.';
       }
       const nonce=type==='political-operation' ? randomBytes(24).toString('hex') : undefined;
       const event = chain.supportsVaultborn ? { seasonId, actionHash: protocolHash({ player, action: payment.action, ...(nonce && {nonce}) }),
@@ -637,7 +642,7 @@ export function createLedger({ store, chain, clock, quote, command, advance, not
       const raffle = type === 'territory-raffle';
       // A contested stake is settled by the independent outcome panel. Without an attestor the game key would decide alone, so it is not sold.
       if (staked && (rival || type === 'territory-claim') && !chain.prizeAttestors?.length) {
-        fail(503, 'Paid raids and territory contests are closed until an ' + ATTESTOR_ADJECTIVE + ' attestor is configured: their outcome must be signed by one. Free play is not affected.');
+        fail(503, 'Paid raids and territory contests are closed for now. Free play is not affected.');
       }
       const intent = { ...(staked && type === 'attack-paid' && matchedRaids ? chain.createRaidIntent({ playerId: player, payload: payment.action, stake: raidPreview.stakeSatoshis,
         ownerKey: payerKey.publicKey, opponent: rival, defenderKey: store.walletKey(defender).publicKey, event, refundAt: seconds + book.raid.refundDays * 86_400, now }) :
@@ -656,12 +661,55 @@ export function createLedger({ store, chain, clock, quote, command, advance, not
           chestFeed: { reserve: CHEST_FEED_RESERVE, wait: CHEST_FEED_WAIT_BLOCKS },
           prizeFeed: { seasonId, closesAt, reserve: PRIZE_FEED_RESERVE }, ...(recordReserve && { recordReserve }) }) })),
         ...(final && { reserveSatoshis: PRIZE_FEED_RESERVE + (directChest ? 0 : CHEST_FEED_RESERVE) + recordReserve }), ...(raidPreview && { preview: raidPreview }), title: payment.title, description: payment.description,
-        pool: funding, seasonId, ...(nonce && {politicalNonce:nonce}) };
+        pool: funding, seasonId, ...(nonce && {politicalNonce:nonce}), ...(appliesAfter && { appliesAfter }) };
       store.savePayment(intent);
       return intent;
     });
     notify();
     return toPublic(row);
+  }
+
+  // A player hears about their own payment in the notification centre: once when the network has it, and once when it
+  // is final. Inside the observation's database transaction, so a notice and its state change are saved together.
+  const SEEN = new Set(['seen_in_mempool', 'confirming', 'confirmed']);
+  function paymentNotice(before, row) {
+    // A stake settlement (returned, split or won) is told to the player who paid the stake, once, when it is final.
+    if (row.settles && row.payload?.payer && row.txid && row.state === 'credited' && before.state !== 'credited' && !row.doneNoticed) {
+      const { world } = store.read();
+      if (!world.cities?.[row.payload.payer]) return;
+      tellPlayer(world, row.payload.payer, row.title + '.', clock(), 'receipt', { title: row.title, payment: row.id });
+      row.doneNoticed = true;
+      store.write(world);
+      return;
+    }
+    if (row.direction === 'outgoing' || !row.txid || !row.playerId) return;
+    const sent = SEEN.has(row.state) && !SEEN.has(before.state) && before.state !== 'credited' && !row.sentNoticed;
+    const done = row.state === 'credited' && before.state !== 'credited' && !row.doneNoticed;
+    if (!sent && !done) return;
+    const { world } = store.read();
+    if (!world.cities?.[row.playerId]) return;
+    const now = clock();
+    const needed = row.appliesAfter ?? chain.minConfirmations ?? 2;
+    const name = row.title ?? String(row.action).replaceAll('-', ' ');
+    const amount = Number(row.satoshis ?? 0).toLocaleString('en-US') + ' sats';
+    if (sent) {
+      const wait = ' after ' + needed + ' confirmation' + (needed === 1 ? '' : 's') + ', usually about ' + needed * 10 + ' minutes.';
+      tellPlayer(world, row.playerId, row.action === 'war-chest' ? 'War Chest deposit of ' + amount + ' sent. It joins your War Chest' + wait :
+        row.fulfillment?.early ? name + ': ' + amount + ' sent. Applied.' :
+        row.action === 'territory-raffle' ? 'Raffle entry of ' + amount + ' sent. It counts' + wait :
+        name + ': ' + amount + ' sent. It is applied' + wait, now, 'receipt', { title: row.action === 'territory-raffle' ? 'Raffle entry sent' : 'Payment sent', payment: row.id });
+      row.sentNoticed = true;
+    }
+    if (done) {
+      // What happens to the money when the action could not be applied: a service is kept as a credit, a stake comes back.
+      const reason = row.fulfillment?.reason ?? '';
+      const outcome = row.fulfillment?.status === 'credit' ? ' ' + reason + (/free/.test(reason) ? '' : ' You keep it as a credit: your next one is free.') :
+        row.fulfillment?.status === 'review' ? ' ' + reason + (row.escrow ? ' It could not be applied, so your stake is returned to your wallet.' : '') : '';
+      tellPlayer(world, row.playerId, (row.action === 'war-chest' ? 'War Chest funded: +' + amount + '. All of it is at risk in PvP.' : 'Payment confirmed: ' + name + ' (' + amount + ').') + outcome,
+        now, 'receipt', { title: row.action === 'war-chest' ? 'War Chest funded' : 'Payment confirmed', payment: row.id });
+      row.doneNoticed = true;
+    }
+    store.write(world);
   }
 
   function applyObservation(old, observed, options = {}) {
@@ -689,7 +737,36 @@ export function createLedger({ store, chain, clock, quote, command, advance, not
         if (territory.announceAttack(world,row,clock())) store.write(world);
         row.attackAnnounced = true;
       }
+      if (earlyServices.has(row.action) && row.appliesAfter && !row.fulfillment && !row.late && row.receipt && row.state === 'confirming' &&
+          (row.receipt.confirmations ?? 0) >= row.appliesAfter) {
+        const now = clock();
+        const { world } = store.read();
+        try {
+          advance(world, now);
+          const outcome = command(world, row.playerId, row.payload, now, { paid:true });
+          store.write(world);
+          row.fulfillment = { status:'applied', result:outcome ?? null, early:true };
+        } catch (error) {
+          // Left to the final settlement, which owes the service as a credit if it still cannot be applied then.
+          if (!(error.status || error.statusCode || error.code)) throw error;
+        }
+      }
       if (row.state === 'confirmed') {
+        if (row.fulfillment?.early) {
+          // Applied when it was seen; now that the payment is final, its War Chest share is booked.
+          const { early, ...fulfillment } = row.fulfillment;
+          if (row.receipt?.allocations && war) {
+            try {
+              const { world } = store.read();
+              war.apply(world, row, fulfillment.result, clock(), id => store.wallet(id)?.address);
+              store.write(world);
+            } catch (fault) {
+              if (!options.finalizeUnexpected) throw fault;
+              fulfillment.bookingFault = 'The War Chest share of this payment must be reviewed by the operator.';
+            }
+          }
+          row.fulfillment = fulfillment;
+        }
         if (row.action === 'sponsor-fund' && [SPONSOR_ALLOCATION, LEGACY_SPONSOR_ALLOCATION].includes(row.event?.data?.allocationPolicy)) {
           const outputs = row.receipt?.allocations;
           const matches = outputs?.length === current.outputs.length && current.outputs.every(expected =>
@@ -811,6 +888,7 @@ export function createLedger({ store, chain, clock, quote, command, advance, not
         }
         row.state = 'credited';
       }
+      paymentNotice(current, row);
       if (JSON.stringify(row) !== JSON.stringify(current)) store.savePayment(row);
       return row;
     });
@@ -1002,12 +1080,16 @@ export function createLedger({ store, chain, clock, quote, command, advance, not
     const records = store.portalRows('battle');
     const started = origin ? records.filter(({ record }) => record.initiation?.txid === origin.txid) : [];
     const contest = origin && territoryPayments.has(origin.action) ? territory?.settlementOf(world, origin.id) : null;
+    // A claim the game could not enter: the payment is final, yet no contest entry exists for it.
+    const notEntered = Boolean(origin && origin.action === 'territory-claim' && origin.state === 'credited' && origin.fulfillment &&
+      !contest && !world.territoryPayments?.[origin.id]);
     const linked = (contest?.record.battles ?? []).map(item => store.portal('battle', item.id ?? item)).filter(Boolean);
     const named = row.payload?.battle ? [store.portal('battle', row.payload.battle)].filter(Boolean) : [];
     const battles = [...new Map([...started, ...named, ...linked].map(item => [item.record.battle.id, { record: item.record, recordHash: item.recordHash }])).values()];
     const accounting = origin ? (world.bchTreasury?.records ?? []).find(entry => entry.payment === origin.id && ['battle', 'payment'].includes(entry.kind)) ?? null : null;
     return { proposal: id, payment: origin && { id: origin.id, txid: origin.txid, action: origin.action, playerId: origin.playerId, target: origin.payload?.target ?? null }, battles,
       contest: contest ? { record: contest.record, victor: contest.victor } : null,
+      ...(notEntered && { notEntered: { reason: origin.fulfillment.reason ?? null } }),
       accounting: accounting && { winner: accounting.winner, effect: accounting.effect, stakeLane: accounting.stakeLane ?? null, contest: accounting.contest ?? null, capturedSatoshis: accounting.capturedSatoshis ?? 0 } };
   }
 
@@ -1120,8 +1202,9 @@ export function createLedger({ store, chain, clock, quote, command, advance, not
         const contest = territoryPayments.has(row.action) ? territory?.settlementOf(world, row.id) : null;
         if (row.escrow.kind === 'territory-claim') {
           // The contest record decides: a claimant who lost to another claimant forfeits half to that winner's wallet.
-          if (!contest) continue;
-          payee = contest.victor && contest.victor !== row.playerId ? store.wallet(contest.victor)?.address : null;
+          // A final payment whose claim the game could not enter (no contest entry exists for it) returns whole to the claimant.
+          if (!contest && (!row.fulfillment || world.territoryPayments?.[row.id])) continue;
+          payee = contest?.victor && contest.victor !== row.playerId ? store.wallet(contest.victor)?.address : null;
           lane = payee ? 'forfeit' : 'return';
         } else if (row.escrow.version === 4) {
           // Matched raid. The accounting recorded who won and whether the defender's exposure was there; the lane follows it.
@@ -1547,7 +1630,8 @@ export function createLedger({ store, chain, clock, quote, command, advance, not
     // Who can move each kind of money today. Published so that nobody has to take custody claims on trust.
     const PANEL = (chain.prizeAttestors?.length === 1 ? 'the game key and the attestor together' : chain.attestorThreshold + ' of ' + (chain.prizeAttestors?.length ?? 0) + ' attestors, without the game key');
     const custody = {
-      attestors: ATTESTOR_OPERATION === 'owner' ? 'OWNER-OPERATED, NOT INDEPENDENT. ' + ATTESTOR_NOTE + ' In effect the operator could, by signing a false outcome, take from a War Chest (by matching the amount with its own money in the same transaction), misdirect a raid stake between its two players, or misdirect a prize.' :
+      // Stated plainly, once: who runs the attestors. Owner-run attestors are never described as independent.
+      attestors: ATTESTOR_OPERATION === 'owner' ? 'Run by the VaultBorn team (not by independent parties). ' + ATTESTOR_NOTE :
         'run by parties independent of the game operator, as declared by the operator',
       development: chain.developmentAddress ? 'developer address ' + chain.developmentAddress + ' (never held by the game)' : 'operator key (no developer address configured)',
       sponsorshipPrizes: chain.prizeAttestors?.length ? 'prize-fund-v1 covenant: automation key plus ' + chain.attestorThreshold + ' of ' + chain.prizeAttestors.length + ' ' + ATTESTOR_ADJECTIVE + ' attestor(s) after season close; keyless refund to the sponsor' : 'closed (no prize attestor configured)',
