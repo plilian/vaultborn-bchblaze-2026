@@ -158,14 +158,15 @@ attachIdentityControls({
   walletDialog.querySelector('.gate-dialog-close').addEventListener('click', close);
   // Leaving the dialog ends the pairing, unless the player is on the way into the game with it.
   walletDialog.addEventListener('close', () => { if (!entering) void closeWizard(); panel.replaceChildren(); });
-  for (const button of document.querySelectorAll('[data-connect-wallet]')) {
-    button.addEventListener('click', () => { if (walletDialog.open) return; failure = ''; proved = false; walletDialog.showModal(); draw(); document.getElementById('wallet-title').focus(); });
-  }
+  const openWallet = () => { if (walletDialog.open) return; failure = ''; proved = false; walletDialog.showModal(); draw(); document.getElementById('wallet-title').focus(); };
+  for (const button of document.querySelectorAll('[data-connect-wallet]')) button.addEventListener('click', openWallet);
+  // Sign in offers the same WizardConnect connection first: the sign-in dialog gives way to the wallet dialog.
+  for (const button of document.querySelectorAll('[data-sign-in-wizard]')) button.addEventListener('click', () => { closeSignIn(); openWallet(); });
   // The buttons appear only where wallets can pair with this server.
   fetch('/api/session', { credentials: 'same-origin', cache: 'no-store' }).then(response => response.json()).then(session => {
     if (!session.walletConnect) return;
     relay = session.testWizardRelay;
-    for (const button of document.querySelectorAll('[data-connect-wallet]')) button.hidden = false;
+    for (const button of document.querySelectorAll('[data-connect-wallet], [data-sign-in-wallet]')) button.hidden = false;
   }).catch(() => { /* Without an answer the page keeps its other ways in. */ });
 }
 
