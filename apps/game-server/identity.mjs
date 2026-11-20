@@ -152,7 +152,14 @@ export function createIdentity({ store, clock, fail }) {
     const {address}=proofPlan({publicKey:row.publicKey,...row.payload}).wallet;
     const owner=store.walletOwner(address) ?? null;
     if (session) {
-      if (owner && owner!==session.player) fail(409,'This wallet already belongs to another kingdom. Sign out, then enter that kingdom with this wallet from the start page.');
+      if (owner && owner!==session.player) {
+        // The wallet's own kingdom opens: at once from a city not founded yet (it holds nothing), otherwise when the player
+        // has confirmed in the game that they leave this kingdom for it. The wallet proof is the sign-in to that kingdom.
+        const {world}=store.read();
+        if (world.cities?.[session.player]?.founding || data.switchKingdom===true) { newSession(owner); return {player:owner,created:false,linked:false,switched:true}; }
+        const name=world.cities?.[owner]?.founding ? null : world.cities?.[owner]?.name;
+        throw Object.assign(new Error('This wallet already belongs to '+(name ? 'the kingdom '+name : 'another kingdom')+'.'),{status:409,code:'wallet-other-kingdom'});
+      }
       linkWallet(session.player,address,row.publicKey);
       return {player:session.player,created:false,linked:true};
     }

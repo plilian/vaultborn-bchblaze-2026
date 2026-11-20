@@ -492,12 +492,13 @@ export function createApp({ database = resolve(root, process.env.DOMINION_DB ?? 
       return gameStateJson(req, res, { result, state: stateFor(result.player,{visit:true}) });
     }
     if (req.method==='POST' && url.pathname==='/api/session/logout') {
-      await readJson(req);
+      const data=await readJson(req);
       store.transaction(()=>{
         const current=currentSession(req);
         if (!current) return;
         const credentials=identity.signIn(current.player);
-        if (!credentials.bch && !credentials.nostr) fail(409,'Set up a BCH or Nostr sign-in method before leaving your kingdom.');
+        // A kingdom without a wallet or Nostr sign-in cannot be opened again once left: only when the player says so.
+        if (!credentials.bch && !credentials.nostr && data?.leaveForGood!==true) fail(409,'Set up a BCH or Nostr sign-in method before leaving your kingdom.');
         store.revokeSession(current.token);
       });
       setCookie(req,res,sessionCookieName,'',0);

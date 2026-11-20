@@ -3,7 +3,7 @@ import { activateGameAudio, configureGameAudio, playGameCue, setBattleAudio } fr
 import { art, bch, btn, command, compact, crest, duration, faction, factionIcons, formatDate, html, list, nav, number, resources, setPaymentsInFlight, stat, tag, title } from './view.js';
 import { activeWork, renderPage, renderDialog, formAnswer } from './screens.js';
 import { battleCampNames, battleTimeline, mountBattleMotion } from './battle-motion.js';
-import { approveWizard, cancelWizardApproval, closeWizard, connectWizard, proveWizard, walletAddress, walletKeys, walletLabel, wizardState } from './ritual-wallet.js';
+import { adoptWizardSession, approveWizard, cancelWizardApproval, closeWizard, connectWizard, proveWizard, walletAddress, walletKeys, walletLabel, wizardState } from './ritual-wallet.js';
 import { openCitadel, setCitadelPayments } from './citadel.js';
 import { presentTerritoryNews } from './territory-outcomes.js';
 import { territoryMarker } from './territory-field.js';
@@ -159,6 +159,13 @@ async function verifyWallet({ again = false } = {}) {
   if (ui.dialog?.mode === 'wallet') refreshDialog();
   try {
     const result = await proveWizard(api);
+    // Signing in from a city not founded yet: the wallet already has a kingdom, and that kingdom opens with the wallet still connected.
+    const opened = result.result?.player;
+    if (opened && opened !== ui.state.player.id) {
+      adoptWizardSession(ui.state.player.id, opened, ui.state.chain?.testWizardRelay);
+      location.assign('/play');
+      return;
+    }
     if (result.state) setState(result.state);
     ui.walletProof = null;
     ui.walletAssets = null;
@@ -167,7 +174,7 @@ async function verifyWallet({ again = false } = {}) {
     void inspectWalletAssets();
     continuePendingPayment();
   } catch (error) {
-    ui.walletProof = { error: error.message };
+    ui.walletProof = { error: error.message, ...(error.code === 'wallet-other-kingdom' && error.again && { openOther: error.again }) };
     notify(error.message, true);
   }
   renderAll();
@@ -1333,10 +1340,19 @@ document.addEventListener('click', event => {
     dom.dialog.querySelector('form :is(input, select, textarea, button):not(:disabled):not([type="hidden"]), :scope > .buttons button')?.focus();
     void refresh();
   }
+  if (data.walletOpenOther && ui.walletProof?.openOther && !ui.busy) {
+    el.disabled=true;
+    // The wallet already approved the check: the same proof opens its kingdom, with the wallet still connected there.
+    void ui.walletProof.openOther({ switchKingdom:true }).then(result => {
+      adoptWizardSession(ui.state.player.id, result.result.player, ui.state.chain?.testWizardRelay);
+      rememberGuide(null);
+      location.assign('/play');
+    }).catch(error => { ui.walletProof = { error: error.message }; notify(error.message, true); refreshDialog(); });
+  }
   if ('confirmSignOut' in data && !ui.busy) {
     el.disabled=true;
     ui.signingOut=true;
-    void perform('/session/logout',{},async()=>{
+    void perform('/session/logout',{leaveForGood:data.confirmSignOut==='for-good'},async()=>{
       await closeWizard();
       rememberGuide(null);
       location.replace('/');

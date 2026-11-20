@@ -218,7 +218,9 @@ export async function proveWizard(api, { timeoutMs = 120_000 } = {}) {
       throw new Error(response.error || 'The wallet did not approve the check.');
     }
     controller.signal.throwIfAborted();
-    return await api('/identity/wizard/verify', { nonce:plan.nonce, signedTransaction:response.signedTransaction });
+    const verify = extra => api('/identity/wizard/verify', { nonce:plan.nonce, signedTransaction:response.signedTransaction, ...extra });
+    try { return await verify(); }
+    catch (error) { if (error && typeof error === 'object') error.again = verify; throw error; }
   } catch (error) {
     // An aborted wait carries its reason as a plain text.
     throw typeof error === 'string' ? new Error(error) : error;

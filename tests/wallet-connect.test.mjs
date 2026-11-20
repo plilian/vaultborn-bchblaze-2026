@@ -87,7 +87,7 @@ test('from the start page a wallet creates a kingdom, and later opens the same k
   assert.notEqual(other.body.result.player, entered.body.result.player);
 });
 
-test('inside the game connecting the wallet links it at once; a wallet of another kingdom is refused with the way out', async t => {
+test('inside the game connecting the wallet links it at once; a city not founded yet opens the wallet\'s kingdom; a founded one opens it only when the player chooses to', async t => {
   const { browser } = await serve(t);
   const player = browser();
   const session = await player('session', { entry: 'new' });
@@ -102,12 +102,25 @@ test('inside the game connecting the wallet links it at once; a wallet of anothe
   assert.equal(linked.body.state.wallet.address, walletFromPrivateKey(key(31)).address);
   // Connecting the same wallet again changes nothing and is not an error.
   assert.equal((await connect(player, key(31))).status, 200);
-  // A second kingdom cannot take that wallet.
+  // "Sign in to an existing kingdom" from a city not founded yet: the wallet's own kingdom opens.
+  const visitor = browser();
+  await visitor('session', { entry: 'new' });
+  const opened = await connect(visitor, key(31));
+  assert.equal(opened.status, 200, opened.body.error);
+  assert.deepEqual([opened.body.result.player, opened.body.result.switched], [session.body.result.player, true]);
+  // A founded kingdom cannot take that wallet.
   const rival = browser();
   await rival('session', { entry: 'new' });
+  await rival('command', { type: 'found', name: 'Rival Lord', cityName: 'Rivalry', faction: 'emerald' });
   const taken = await connect(rival, key(31));
   assert.equal(taken.status, 409);
-  assert.match(taken.body.error, /already belongs to another kingdom\. Sign out, then enter that kingdom with this wallet/);
+  assert.deepEqual([taken.body.code, taken.body.error], ['wallet-other-kingdom', 'This wallet already belongs to another kingdom.']);
+  // When the player chooses to, the same wallet proof opens the wallet's kingdom instead.
+  const prepared = await rival('identity/wizard/prepare', { publicKey: walletFromPrivateKey(key(31)).publicKey });
+  const proof = { nonce: prepared.body.result.nonce, signedTransaction: walletSigns(prepared.body.result, key(31)) };
+  assert.equal((await rival('identity/wizard/verify', proof)).status, 409);
+  const switched = await rival('identity/wizard/verify', { ...proof, switchKingdom: true });
+  assert.deepEqual([switched.status, switched.body.result.player], [200, session.body.result.player]);
 });
 
 test('a proof that is not this wallet\'s, not this browser\'s, altered, used or expired is refused', async t => {

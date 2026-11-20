@@ -847,7 +847,9 @@ function walletDialog(ctx) {
   const proof = ctx.ui.walletProof;
   const connected = Boolean(session.address && ['ready','signing','broadcasting'].includes(session.status));
   // Three things a player can see here: connected and verified; connected and being verified; or what went wrong and one button to try again.
-  const status = !active ? '' : verified ? '<p>' + tag(connected ? 'Wallet connected and verified' : 'Wallet verified','success') + (connected || !ctx.ui.state.chain?.walletConnect ? '' : ' Connect it again to pay or sign.') + '</p>' :
+  // The wallet belongs to another kingdom: one button opens it (this kingdom is left; without a wallet it cannot be opened again).
+  const otherKingdom = proof?.openOther ? `<p>${tag('Another kingdom','quiet')} ${html(proof.error)}</p><p>${ctx.ui.state.signIn?.bch||ctx.ui.state.signIn?.nostr?'You can come back to this kingdom later with its own sign-in.':'This kingdom has no wallet, so you cannot come back to it after you switch.'}</p><div class="buttons">${btn('Open that kingdom','arrow',{'wallet-open-other':'true'},'primary')}</div>` : '';
+  const status = otherKingdom ? otherKingdom : !active ? '' : verified ? '<p>' + tag(connected ? 'Wallet connected and verified' : 'Wallet verified','success') + (connected || !ctx.ui.state.chain?.walletConnect ? '' : ' Connect it again to pay or sign.') + '</p>' :
     proof?.asking || session.proving ? '<p role="status">' + tag('Verifying','quiet') + ' Approve the request in your wallet. It proves the wallet is yours; it sends nothing and spends nothing.</p>' :
     connected ? `<p>${tag('Not verified yet','quiet')} ${html(proof?.error ?? 'The wallet has not approved the check yet.')}</p><div class="buttons">${btn('Verify wallet now','check',{'wallet-prove':'true'},'primary')}</div>` :
     '<p>' + tag('Wallet not connected right now','quiet') + '</p>';
@@ -855,6 +857,7 @@ function walletDialog(ctx) {
     `${ctx.ui.dialog.notice?'<p class="form-error" role="alert">'+html(ctx.ui.dialog.notice)+'</p>':''}
     ${returnTerritory?'<div class="buttons">'+btn('Return to territory','arrow',{'wallet-return':returnTerritory},verified?'primary':'')+'</div>':''}
     ${returnWalletMode==='claim'?'<div class="buttons">'+btn('Return to reward claim','arrow',{'wallet-return-mode':returnWalletMode},verified?'primary':'')+'</div>':''}
+    ${ctx.own.founding&&ctx.ui.state.chain?.walletConnect?'<p>Already have a kingdom? Connect its wallet and it opens.</p>':''}
     <p>${ctx.ui.state.chain?.walletConnect?'Connect your ' + NETWORK_LABEL + ' wallet. It is verified in the same step: your wallet asks you to approve a check that sends nothing and spends nothing. After that you can pay, raid and withdraw.':
       'Wallet pairing is disabled on this server. You can still prove a ' + NETWORK_LABEL + ' receiving address with a signed message below.'}${ctx.ui.state.chain?.walletConnect&&!ctx.ui.state.chain?.enabled?' ' + NETWORK_LABEL + ' checkout is currently offline.':''}</p>
     ${ctx.ui.state.chain?.walletConnect?walletTray():''}
@@ -876,7 +879,7 @@ function profileDialog(ctx) {
       ${btn(own.optIn ? 'Leave the season' : 'Join the season','war',{modal:'enroll'},own.optIn?'':'primary')}
       ${btn(walletLabel(ui.state.wallet),'bch',{modal:'wallet'})}
       ${btn(ui.state.identity?.walletMatches && ui.state.identity?.status==='active' ? 'Verified BCH + Nostr identity' : 'Decentralized identity','journal',{modal:'identity'})}
-      ${ui.state.signIn?.bch||ui.state.signIn?.nostr ? btn('Sign out','arrow',{modal:'sign-out'}) : ''}
+      ${btn('Sign out','arrow',{modal:'sign-out'})}
     </div>
     ${values('Kingdom muster',[['Matchmaking power',number(own.power)],['Available troops',number(own.stats?.military?.available)],
       ['Deployed troops',number(own.stats?.military?.deployed)],['Holdings',number(ui.state.territories?.filter(site=>site.controller===own.id).length)],
@@ -970,7 +973,10 @@ export function renderDialog(ctx) {
     case 'payout-review': return payoutReview(ctx);
     case 'profile': return profileDialog(ctx);
     case 'codex': return modal('Game guide',renderCodex(ctx.ui.state,id)+(ctx.ui.dialog.back?btn('Back to previous screen','arrow',{'codex-back':'yes'}):''));
-    case 'sign-out': return modal('Sign out',`<p>Your kingdom stays here. To return, use ${ctx.ui.state.signIn?.bch&&ctx.ui.state.signIn?.nostr?'your BCH wallet or Nostr key':ctx.ui.state.signIn?.bch?'your verified BCH wallet':'your linked Nostr key'}.</p>${btn('Confirm sign out','check',{'confirm-sign-out':'yes'},'primary')}<p class="form-error" role="alert"></p>`);
+    case 'sign-out': return ctx.ui.state.signIn?.bch||ctx.ui.state.signIn?.nostr ?
+      modal('Sign out',`<p>Your kingdom stays here. To return, use ${ctx.ui.state.signIn?.bch&&ctx.ui.state.signIn?.nostr?'your BCH wallet or Nostr key':ctx.ui.state.signIn?.bch?'your verified BCH wallet':'your linked Nostr key'}.</p>${btn('Confirm sign out','check',{'confirm-sign-out':'yes'},'primary')}<p class="form-error" role="alert"></p>`) :
+      // A new kingdom without a wallet: signing out leaves it for good. Connecting a wallet keeps it.
+      modal('Sign out',`<p>This kingdom has no wallet yet. If you sign out now, you cannot come back to it.</p><p>To keep it, connect a wallet first. To use a kingdom you already have, sign out and connect that kingdom's wallet on the start page.</p><div class="buttons">${btn('Connect wallet','bch',{modal:'wallet'},'primary')}${btn('Sign out and leave this kingdom','arrow',{'confirm-sign-out':'for-good'})}</div><p class="form-error" role="alert"></p>`);
     case 'identity': return modal('Decentralized identity',renderIdentity(ctx));
     case 'tutorial': return tutorialDialog(ctx);
     case 'welcome':
@@ -982,7 +988,7 @@ export function renderDialog(ctx) {
       input('Commander name','name',ctx.own.owner === 'New Commander' ? '' : ctx.own.owner,'text','maxlength="30" minlength="2" placeholder="Your name as commander"') +
       input('Settlement name','cityName',ctx.own.name === 'New Settlement' ? '' : ctx.own.name,'text','maxlength="30" minlength="2" placeholder="Name your city"') +
       dropdown('Faction','faction',configs(ctx.ui.state.config.factions),ctx.own.faction), submit('Found city','city','primary')) +
-      '<div class="buttons">'+btn('Sign in to an existing kingdom','journal',{modal:'identity',id:'auth'})+'</div>');
+      '<div class="buttons">'+btn('Sign in to an existing kingdom','bch',{modal:'wallet'})+'</div>');
     case 'wallet': return walletDialog(ctx)+guideLink('blockchain','Learn about your wallet');
     // Shown once, right after the welcome, to a kingdom that has no wallet yet.
     case 'wallet-prompt': return modal('Connect your wallet',eventHero('event-vault','Keep your kingdom','Connect your BCH wallet',
