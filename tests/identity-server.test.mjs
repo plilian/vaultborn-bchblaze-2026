@@ -202,8 +202,11 @@ test('one-key BCH and Nostr recovery are browser-bound, survive a restart, and r
   const nostr=(await clean('identity/nostr/challenge',{publicKey})).result;
   const signed={nonce:nostr.nonce,event:signNostrEvent(nostr.template,signer)};
   await stranger('identity/nostr/verify',signed,409);
-  const switching=(await rival('identity/nostr/challenge',{publicKey})).result;
-  await rival('identity/nostr/verify',{nonce:switching.nonce,event:signNostrEvent(switching.template,signer)},409);
+  // Signing in from a browser that holds another kingdom opens the signed-in kingdom.
+  const switcher=client();
+  await switcher('session',{demo:'p4'});
+  const switching=(await switcher('identity/nostr/challenge',{publicKey})).result;
+  assert.equal((await switcher('identity/nostr/verify',{nonce:switching.nonce,event:signNostrEvent(switching.template,signer)})).result.player,id);
   assert.equal((await rival('state')).player.id,'p2');
   const restored=await clean('identity/nostr/verify',signed);
   assert.equal(restored.result.player,id);

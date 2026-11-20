@@ -243,7 +243,8 @@ export async function approveWizard(intent, api, { receive = 20, change = 20, ti
 // Connecting is the verification. The wallet signs a proof transaction that is never sent and could not be confirmed:
 // its only input is a coin that does not exist, and its output returns the same amount to the wallet's own address.
 // The game checks the signature and then knows the wallet is the player's. Nothing is paid, nothing is broadcast.
-export async function proveWizard(api, { timeoutMs = 120_000 } = {}) {
+// From a sign-in (the start page), a wallet that already has a kingdom opens that kingdom.
+export async function proveWizard(api, { timeoutMs = 120_000, signIn = false } = {}) {
   if (phase.status !== 'ready' || !manager || !phase.publicKey) throw new Error('Connect your wallet first.');
   if (pending) throw new Error('A wallet approval is already in progress.');
   const controller = new AbortController();
@@ -261,7 +262,7 @@ export async function proveWizard(api, { timeoutMs = 120_000 } = {}) {
     }
     controller.signal.throwIfAborted();
     const verify = extra => api('/identity/wizard/verify', { nonce:plan.nonce, signedTransaction:response.signedTransaction, ...extra });
-    try { return await verify(); }
+    try { return await verify(signIn ? { switchKingdom:true } : undefined); }
     catch (error) { if (error && typeof error === 'object') error.again = verify; throw error; }
   } catch (error) {
     // An aborted wait carries its reason as a plain text.

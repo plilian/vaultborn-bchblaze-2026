@@ -114,7 +114,7 @@ export function createIdentity({ store, clock, fail }) {
       if (type==='nostr-link') checkPrivateLink(player,publicKey);
       else if (!player || nostrSignInOwner(publicKey)!==player) fail(400,'This Nostr key could not recover a kingdom.');
     }
-    if (type!=='nostr-link' && session && player!==session.player) fail(409,'Sign out of your current kingdom before switching accounts.');
+    // Signing in is how a player reaches their own kingdom: from a browser that holds another kingdom, it opens theirs.
     if (!store.consumeIdentityChallenge(payload.nonce)) fail(409,'This challenge was already used.');
     if (type==='nostr-link') {
       store.savePortal('identity-key',publicKey,{player});

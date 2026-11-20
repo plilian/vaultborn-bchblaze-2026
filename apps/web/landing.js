@@ -107,7 +107,7 @@ attachIdentityControls({
     if (proved || entering) return;
     proved = true; failure = ''; draw();
     try {
-      const { result } = await proveWizard(walletApi);
+      const { result } = await proveWizard(walletApi, { signIn:true });
       entering = true; draw();
       // The pairing goes with the player into the game, so the wallet is still connected there.
       adoptWizardSession(ENTRANCE, result.player, relay);
